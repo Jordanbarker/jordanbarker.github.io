@@ -4,6 +4,7 @@ body {
   padding: 0;
   background-color: #F5F5F5;
   color: #333;
+  padding-top: 60px;
 }
 
 .container {
@@ -14,7 +15,11 @@ body {
 header {
   background-color: #333;
   color: #fff;
-  padding: 10px 0;
+  padding: 5px 0;
+  position: fixed; 
+  width: 100%; 
+  top: 0; 
+  z-index: 100; 
 }
 
 header h1, nav {
@@ -42,6 +47,10 @@ nav ul li a {
 
 nav ul li a:hover {
   background-color: #777;
+}
+
+nav ul li i {
+  font-size: 1.2em; /* increase icon size */
 }
 
 main {
