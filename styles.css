@@ -5,6 +5,7 @@ body {
   background-color: #F5F5F5;
   color: #333;
   padding-top: 60px;
+  line-height: 1.6em;
 }
 
 .container {
@@ -23,6 +24,10 @@ body {
   flex-direction: row;
   align-items: center;
   margin-bottom: 30px;
+}
+
+.timeline-event img {
+  width: 55px;
 }
 
 .timeline-content {
@@ -68,7 +73,7 @@ nav ul li a:hover {
 }
 
 nav ul li i {
-  font-size: 1.1em; /* increase icon size */
+  font-size: 1.5em; /* increase icon size */
 }
 
 main {
