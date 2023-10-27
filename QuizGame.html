@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz Game</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      width: 75%;
+      margin: 0 auto;
+      background-color: #F5F5F5;
+      color: #333;
+      padding-top: 100px;
+      line-height: 2em;
+    }
+    .question {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .option {
+      padding: 10px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .option.active:hover {
+      background-color: #f0f0f0;
+    }
+    .correct {
+      background-color: #a4d6a2;
+    }
+    .wrong {
+      background-color: #f0a4a4;
+    }
+    .progress {
+      height: 30px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="progress">
+      <div class="progress-bar" id="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <button id="retryButton" class="btn btn-primary mt-3" style="display:none;">Try Again</button>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "What is 2 + 2?",
+        options: ["2", "3", "4", "5"],
+        correct: 2
+      },
+      {
+        question: "What is the capital of France?",
+        options: ["Berlin", "Madrid", "Paris", "Rome"],
+        correct: 2
+      },
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function resetGame() {
+      currentQuestion = 0;
+      score = 0;
+      displayQuestion();
+      document.getElementById("retryButton").style.display = "none";  // Hide retry button
+    }
+
+    function displayQuestion() {
+      const progressBar = document.getElementById("progress-bar");
+      progressBar.style.width = `${(currentQuestion / questions.length) * 100}%`;
+
+      if (currentQuestion < questions.length) {
+        document.getElementById("question").textContent = questions[currentQuestion].question;
+        const optionsContainer = document.getElementById("options");
+        optionsContainer.innerHTML = "";
+        questions[currentQuestion].options.forEach((option, index) => {
+          const optionElement = document.createElement("div");
+          optionElement.className = "option";
+          optionElement.textContent = option;
+          optionElement.classList.add("active");
+          optionElement.addEventListener("click", () => checkAnswer(index));
+          optionsContainer.appendChild(optionElement);
+        });
+      } else {
+        document.getElementById("question").textContent = `Game Over! Your score: ${score}/${questions.length}`;
+        document.getElementById("options").innerHTML = "";
+        const retryButton = document.getElementById("retryButton");
+        retryButton.style.display = "block";  // Show retry button
+        retryButton.addEventListener("click", resetGame);
+      }
+    }
+
+    function checkAnswer(selectedIndex) {
+      const options = document.querySelectorAll(".option");
+      options.forEach(option => option.classList.remove("active"));
+      if (selectedIndex === questions[currentQuestion].correct) {
+        score++;
+        options[selectedIndex].classList.add("correct");
+      } else {
+        options[questions[currentQuestion].correct].classList.add("correct")
+        options[selectedIndex].classList.add("wrong");
+      }
+      setTimeout(() => {
+          currentQuestion++;
+          displayQuestion();
+      }, 700);
+    }
+
+    displayQuestion();
+  </script>
+</body>
+</html>

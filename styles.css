@@ -7,62 +7,45 @@ body {
   padding-top: 60px;
   line-height: 1.6em;
 }
+main {
+  width: 100%;
+}
 
 .container {
-  width: 80%;
+  width: 75%;
   margin: 0 auto;
 }
-
-.timeline {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-}
-
-.timeline-event {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.timeline-event img {
-  width: 55px;
-}
-
-.timeline-content {
-  margin-left: 20px;
-}
-
 
 header {
   background-color: #333;
   color: #fff;
-  padding: 5px 0;
+  padding: 4px 0;
   position: fixed; 
   width: 100%; 
   top: 0; 
-  z-index: 100; 
 }
 
-header h1, nav {
-  text-align: left;
+.rightli {
+  font-size: 2.0em;
+  float:right;
+  position: relative;
+  bottom: 5px;
 }
 
 nav ul {
-  list-style-type: none;
   padding: 0;
 }
 
 nav ul li {
+  align-items: center; /* Align icons vertically in the center */
+  margin: 10px 5px;
   display: inline;
-  margin: 10 5px;
 }
 
 nav ul li a {
   color: #fff;
   text-decoration: none;
-  padding: 10px 25px;
+  padding: 10px 20px;
   background-color: #555;
   border-radius: 5px;
   transition: background-color 0.3s ease;
@@ -74,18 +57,10 @@ nav ul li a:hover {
 
 nav ul li i {
   font-size: 1.5em; /* increase icon size */
+  top: 3px;
+  position: relative;
 }
 
-main {
-  padding: 0px;
-}
-
-footer {
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 10px 0;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+.fab.fa-linkedin {
+  font-size: 2.5em; /* Size of LinkedIn icon */
 }
