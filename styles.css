@@ -35,23 +35,28 @@ header {
 nav ul {
   padding: 0;
   list-style: none;
+  line-height: 10px;
 }
 .name {
   font-size: 1.3em;
   font-weight: bolder;
   margin: 0px 10px;
+  vertical-align: middle;
+  display: inline-block;
 }
 
 nav ul li {
   align-items: center; /* Align icons vertically in the center */
   margin: 0px 0px;
   display: inline-block;
+  vertical-align: middle;
 }
 nav ul li a {
   color: #fff;
   text-decoration: none;
   transition: background-color 0.3s ease;
   padding: 0px 10px;
+  vertical-align: middle;
 }
 
 nav ul li a:hover {
