@@ -34,14 +34,34 @@ header {
 
 nav ul {
   padding: 0;
+  list-style: none;
+}
+.name {
+  font-size: 1.3em;
+  font-weight: bolder;
+  margin: 0px 10px;
 }
 
 nav ul li {
   align-items: center; /* Align icons vertically in the center */
-  margin: 10px 5px;
-  display: inline;
+  margin: 0px 0px;
+  display: inline-block;
+}
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  padding: 0px 10px;
 }
 
+nav ul li a:hover {
+  color: #ffffff;
+  border-radius: 5px;
+  padding: 12px 10px;
+  background-color: #555;
+}
+
+/*
 nav ul li a {
   color: #fff;
   text-decoration: none;
@@ -56,11 +76,12 @@ nav ul li a:hover {
 }
 
 nav ul li i {
-  font-size: 1.5em; /* increase icon size */
+  font-size: 1.5em;
   top: 3px;
   position: relative;
 }
 
 .fab.fa-linkedin {
-  font-size: 2.5em; /* Size of LinkedIn icon */
+  font-size: 2.5em;
 }
+*/
