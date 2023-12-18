@@ -7,7 +7,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh; /* Full viewport height */
+        height: 110vh; /* Full viewport height */
         margin: 0; /* Remove default margin */
         flex-direction: column; /* Stack elements vertically */
     }
@@ -40,7 +40,7 @@
 
         d3.csv("../data/sentiment_analysis_results.csv").then(function(data) {
             // console.log(data);
-            var margin = { top: 10, right: 30, bottom: 30, left: 30 },
+            var margin = { top: 20, right: 30, bottom: 20, left: 30 },
                 width = 500 - margin.left - margin.right,
                 height = 630 - margin.top - margin.bottom;
             var legendSpace = 50;
@@ -149,5 +149,8 @@
         });
     });
   </script>
+  <p>Huge thank you to Hugging Face for the model and dataset!</p>
+  <p><a href="https://github.com/Jordanbarker">Model: distilbert-base-uncased-finetuned-sst-2-english</a></p>
+  <p><a href="https://huggingface.co/datasets/wikimedia/wikipedia/tree/main">Dataset: wikipedia_20231101.en</a></p>
 </body>
 </html>
