@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Wikipedia Article Sentiment</title>
     <h1>Wikipedia Article Sentiment</h1>
     <style>
     body {
@@ -33,7 +34,7 @@
     <script src="https://d3js.org/d3.v6.min.js"></script>
 </head>
 <body>
-    <div id="my_dataviz"></div>
+    <div id="sentiment_div"></div>
     <script> 
     document.addEventListener('DOMContentLoaded', function() {
 
@@ -44,26 +45,25 @@
             .range(RdBu);
 
         d3.csv("../data/sentiment_analysis_results.csv").then(function(data) {
-            // console.log(data);
-            var margin = { top: 20, right: 30, bottom: 20, left: 30 },
+            var margin = { top: 20, right: 20, bottom: 20, left: 20 }
                 width = 500 - margin.left - margin.right,
-                height = 630 - margin.top - margin.bottom;
-            var legendSpace = 50;
-            var squareLength = 5;
-            var numCols = width / squareLength; // Number of rectangles in a row
-            var rowHeight = squareLength + 1; // Height of each row, including some spacing
-            var numRows = Math.floor((height - legendSpace) / squareLength);  // Adjust the height as needed
-            var totalRows = Math.ceil(data.length / numCols);
-            var svgHeight = numRows * rowHeight + legendSpace;
-            var svgWidth = totalRows * squareLength;
-            console.log(numRows, totalRows, numCols);
+                height = 650 - margin.top - margin.bottom,
+                squareLength = 5,
+                legendBarLength = 25,
+                legendSpace = margin.top + legendBarLength*3,
+                numCols = 100,
+                rowHeight = squareLength + 1, // Height of each row, including some spacing
+                numRows = Math.ceil(data.length / numCols);
 
-            var svg = d3.select("#my_dataviz")
+            // Log variables for troubleshooting
+            // console.log(data);
+            // console.log("data.length:", data.length, " legendSpace:", legendSpace)
+            // console.log("numRows:",numRows, " totalRows:",totalRows, " numCols:", numCols);
+
+            var svg = d3.select("#sentiment_div")
                 .append("svg")
-                    .attr("width", svgWidth)
-                    .attr("height", svgHeight)
-                .append("g")
-                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                    .attr("width", width)
+                    .attr("height", height);
             
             // Append the color legend
             svg.selectAll()
@@ -72,8 +72,8 @@
                 .append("rect")
                     .attr('x', (d, i) => (i / RdBu.length * width))
                     .attr('y', (d, i) => margin.top + squareLength)
-                    .attr("width", squareLength*5) 
-                    .attr("height", squareLength*5)
+                    .attr("width", squareLength * 5) 
+                    .attr("height", squareLength * 5)
                     .style("fill", (d) => d )
                     .text((d,i) => (i));
             
@@ -96,7 +96,7 @@
                 .text("Negative Sentiment");
 
             // Add tooltip for mouse interaction
-            var tooltip = d3.select("#my_dataviz")
+            var tooltip = d3.select("#sentiment_div")
                 .append("div")
                 .style("opacity", 0)
                 .attr("class", "tooltip")
@@ -129,7 +129,7 @@
                     .style("top", (event.y) + "px");
             }
 
-            //Add squares to the SVG
+            // Add squares to the SVG
             svg.selectAll()
                 .data(data)
                 .enter()
@@ -137,8 +137,6 @@
                     .attr("class", "data")
                     .attr('x', (d, i) => Math.floor(i / numRows) * squareLength)
                     .attr('y', (d, i) => (i % numRows) * squareLength + legendSpace)
-                    // .attr('x', (d, i) => (i % numCols) * squareLength)
-                    // .attr('y', (d, i) => Math.floor(i / numCols) * rowHeight + legendSpace)
                     .attr("width", squareLength) 
                     .attr("height", squareLength)
                     .style("fill", function(d) { return colorScale(d.Sentiment); })
@@ -153,9 +151,12 @@
                 });
         });
     });
+
   </script>
+  <p>TODO: Add link to Jupyter Notebook</p>
+  <br>
   <p>Huge thank you to Hugging Face for the model and dataset!</p>
-  <p><a href="https://github.com/Jordanbarker">Model: distilbert-base-uncased-finetuned-sst-2-english</a></p>
-  <p><a href="https://huggingface.co/datasets/wikimedia/wikipedia/tree/main">Dataset: wikipedia_20231101.en</a></p>
+  <p>Model: <a href="https://github.com/Jordanbarker">distilbert-base-uncased-finetuned-sst-2-english</a></p>
+  <p>Dataset: <a href="https://huggingface.co/datasets/wikimedia/wikipedia/tree/main">wikipedia_20231101.en</a></p>
 </body>
 </html>
