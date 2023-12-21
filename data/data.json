@@ -1,0 +1,36 @@
+[
+    {
+        "title": "Example 1",
+        "article": [
+            {
+                "score": 0.6,
+                "text": "example text"
+            },
+            {
+                "score": 0.2,
+                "text": "example text 2"
+            },
+            {
+                "score": 0.8,
+                "text": "example text 3"
+            }
+        ]
+    },
+    {
+        "title": "Example 2",
+        "article": [
+            {
+                "score": 0.4,
+                "text": "example text 4"
+            },
+            {
+                "score": 0.26,
+                "text": "example text 5"
+            },
+            {
+                "score": 0.78,
+                "text": "example text 6"
+            }
+        ]
+    }
+]
