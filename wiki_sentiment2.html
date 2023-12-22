@@ -68,17 +68,18 @@
                 //               //
                 ///////////////////
                 var margin = { top: 20, right: 20, bottom: 20, left: 50 }
-                    width = 600 - margin.left - margin.right,
-                    height = 650 - margin.top - margin.bottom,
-                    titleBoxHeight = 50,
-                    titleBoxWidth = 200,
-                    articleBoxHeight = 50,
-                    articleBoxWidth = 200,
-                    rightStart = titleBoxWidth + margin.left,
+                    height = 700 - margin.top - margin.bottom,
+                    titleBoxHeight = 30,
+                    articleBoxHeight = 100,
                     squareLength = 100;
 
                 var title_svg_width = document.getElementById('titles').clientWidth,
                     article_svg_width = document.getElementById('articles').clientWidth;
+
+                let lastClicked = null,
+                    selectedColor = "#e5e5e5",
+                    unselectedColor = "#F4F4F4"; // Variable to store the last clicked element
+
                 // console.log(svgWidth, width)
 
 
@@ -95,32 +96,72 @@
 
                 // On click action to display article text
                 var displayArticles = function(event, d) {
-                    // console.log(d.article);
-
-                    // Clear the previous articles
-                    // d3.select('#articles').html('');
+                    // If there's a last clicked element, reset its color
+                    if (lastClicked) {
+                        d3.select(lastClicked).style("fill", unselectedColor);
+                    }
+                    d3.select(this).style("fill", selectedColor);
+                    lastClicked = this;
 
                     const article_cell = article_svg.selectAll("g")
                         .data(d.article)
                         .join("g")
-                        .attr("transform", (d, i) => `translate(${0},${i*titleBoxHeight})`);
+                        .attr("transform", (d, i) => `translate(${0},${i*articleBoxHeight})`);
 
                     // Display articles associated with the clicked title
-                    const article_rect = article_cell.append("rect")
-                        .attr("class", "data")
+                    const article_background_rect = article_cell.append("rect")
                         .attr('x', (d, i) => 0)
                         .attr('y', (d, i) => 0)
                         .attr("width", article_svg_width-margin.right) 
                         .attr("height", articleBoxHeight)
-                        .style("fill", function(d) { return '#67001f';}) //colorScale(d.Sentiment); })
+                        .style("fill", selectedColor) //colorScale(d.Sentiment); })
+                        .attr('stroke', '#fff') // adds a white border around the rectangles
+                        .attr('stroke-width', 1); // sets the width of the border
+
+                    // Display sentiment color
+                    const article_color_rect = article_cell.append("rect")
+                        .attr('x', (d, i) => 0)
+                        .attr('y', (d, i) => 0)
+                        .attr("width", 10)
+                        .attr("height", articleBoxHeight)
+                        .style("fill", function(d) { return colorScale(d.score); })
                         .attr('stroke', '#fff') // adds a white border around the rectangles
                         .attr('stroke-width', 1); // sets the width of the border
 
                     const article_text = article_cell.append("text")
                         .text(function(d) { return d.text; })
-                        .attr("x", 10)
+                        .attr("x", 12)
                         .attr("y", titleBoxHeight/2)
-                        .style('fill', 'orange')
+                        .style('fill', '#000')
+                        .attr("dominant-baseline", "middle")
+                        .call(wrap, article_svg_width - margin.right - 20);
+
+                }
+
+                function wrap(text, width) {
+                    text.each(function() {
+                        var text = d3.select(this),
+                            words = text.text().split(/\s+/).reverse(),
+                            word,
+                            line = [],
+                            lineNumber = 0,
+                            lineHeight = 1.1, // ems
+                            x = text.attr("x"),
+                            y = text.attr("y"),
+                            dy = 0, // we will set the dy based on the number of lines
+                            tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
+
+                        while (word = words.pop()) {
+                            line.push(word);
+                            tspan.text(line.join(" "));
+                            if (tspan.node().getComputedTextLength() > width) {
+                                line.pop();
+                                tspan.text(line.join(" "));
+                                line = [word];
+                                tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                            }
+                        }
+                    });
                 }
 
                 const title_cell = title_svg.selectAll("g")
@@ -128,99 +169,42 @@
                     .join("g")
                     .attr("transform", (d, i) => `translate(${margin.left},${i*titleBoxHeight})`);
 
-                const rect = title_cell.append("rect")
+                const title_background_rect = title_cell.append("rect")
                         .attr('x', (d, i) => 0)
                         .attr('y', (d, i) => 0)
                         .attr("width", title_svg_width-margin.left) 
                         .attr("height", titleBoxHeight)
-                        .style("fill", function(d) { return '#67001f';}) //colorScale(d.Sentiment); })
+                        .style("fill", function(d) { return unselectedColor;}) //colorScale(d.Sentiment); })
+                        .attr('stroke', '#fff') // adds a white border around the rectangles
+                        .attr('stroke-width', 1) // sets the width of the border
+                        .on('click', displayArticles);
+
+                const title_color_rect = title_cell.append("rect")
+                        .attr('x', (d, i) => 0)
+                        .attr('y', (d, i) => 0)
+                        .attr("width", titleBoxHeight/2) 
+                        .attr("height", titleBoxHeight)
+                        .style("fill", function(d) { return colorScale(d.sentiment); })
+                        // .style("fill", function(d) { return '#67001f';}) //colorScale(d.Sentiment); })
                         .attr('stroke', '#fff') // adds a white border around the rectangles
                         .attr('stroke-width', 1) // sets the width of the border
                         .on('click', displayArticles);
                 
-                const text = title_cell.append("text")
+                const title_text = title_cell.append("text")
                     .text(function(d) { return d.title; })
-                    .attr("x", 10)
+                    .attr("x", titleBoxHeight)
                     .attr("y", titleBoxHeight/2)
-                    .style('fill', 'orange')
+                    .attr("dominant-baseline", "middle")
+                    .style('fill', '#000');
+
+                title_svg.select("g").select("rect").dispatch('click');
+
+
                 });
-            });
 
-        //         var margin = { top: 20, right: 20, bottom: 20, left: 20 }
-        //             width = 500 - margin.left - margin.right,
-        //             height = 650 - margin.top - margin.bottom,
-        //             squareLength = 5,
-        //             legendBarLength = 25,
-        //             legendSpace = margin.top + legendBarLength*3,
-        //             numCols = 100,
-        //             rowHeight = squareLength + 1, // Height of each row, including some spacing
-        //             numRows = Math.ceil(data.length / numCols);
                 
-        //         var svg = d3.select("#titles")
-        //             .append("svg")
-        //                 .attr("width", width)
-        //                 .attr("height", height);
-            
-        //         // Add tooltip for mouse interaction
-        //         var tooltip = d3.select("#sentiment_div")
-        //             .append("div")
-        //             .style("opacity", 0)
-        //             .attr("class", "tooltip")
-        //             .style("background-color", "white")
-        //             .style("border", "solid")
-        //             .style("border-width", "2px")
-        //             .style("border-radius", "5px")
-        //             .style("padding", "5px")
 
-        //         // Mouse event functions
-        //         var mouseover = function(event, d) {
-        //             tooltip.style("opacity", 1);
-        //         }
-        //         var mouseleave = function(event, d) {
-        //             tooltip.style("opacity", 0);
-        //         }
-        //         var mousemove = function(event, d) {
-        //             var xPosition = event.pageX; // X coordinate of the mouse pointer
-        //             var yPosition = event.pageY; // Y coordinate of the mouse pointer
-        //             tooltip
-        //                 .html(d.Title + "<br>Sentiment " + d.Sentiment )
-        //                 .style("left", (xPosition) + "px")
-        //                 .style("top", (yPosition) + "px");
-        //         }
-        //         var click = function(event, d) {
-        //             tooltip
-        //                 .html(d.Title + "<br>Sentiment " + d.Sentiment )
-        //                 .style("left", (event.x) + "px")
-        //                 .style("top", (event.y) + "px");
-        //         }
-
-        //         // Add squares to the SVG
-        //         svg.selectAll()
-        //             .data(data)
-        //             .enter()
-        //             .append("rect")
-        //                 .attr("class", "data")
-        //                 .attr('x', (d, i) => Math.floor(i / numRows) * squareLength)
-        //                 .attr('y', (d, i) => (i % numRows) * squareLength + legendSpace)
-        //                 .attr("width", squareLength) 
-        //                 .attr("height", squareLength)
-        //                 .style("fill", function(d) { return colorScale(d.Sentiment); })
-        //                 .attr('stroke', '#fff') // adds a white border around the rectangles
-        //                 .attr('stroke-width', 1) // sets the width of the border
-        //             .on("mouseover", mouseover)
-        //             .on("mousemove", mousemove)
-        //             .on("mouseleave", mouseleave)
-        //             .on('click', function(event, d) {
-        //                 // Open the URL in a new tab when the rectangle is clicked
-        //                 window.open(d.URL, '_blank');
-        //             });
-        // })
-        // .catch(error => console.error('Error:', error));
-
-
-        // d3.csv("../data/sentiment_analysis_results.csv").then(function(data) {
-        // });
-
+            });
   </script>
 </body>
 </html>
