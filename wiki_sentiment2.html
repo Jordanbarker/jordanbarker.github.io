@@ -8,9 +8,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 110vh; /* Full viewport height */
+        height: 100vh; /* Full viewport height */
         margin: 0; /* Remove default margin */
-        flex-direction: column; /* Stack elements vertically */
+        flex-direction: row; /* Stack elements vertically */
     }
     h1 {
         text-align: center;
@@ -29,13 +29,23 @@
         text-align: center;
         pointer-events: none;
         transition: opacity 0.3s;
-      }
+    }
+     /* .d3-container { */
+       /* flex: 2; Each div takes equal space */
+       /* max-width: 50%; Maximum width for each div */
+    /* }  */
+    #titles {
+        flex: 1; /* Takes up 1/3 of the space */
+    }
+    #articles {
+        flex: 2; /* Takes up 2/3 of the space */
+    }
       </style>
     <script src="https://d3js.org/d3.v6.min.js"></script>
 </head>
 <body>
-    <div id="titles"></div>
-    <div id="articles"></div>
+    <div id="titles" class="d3-container"></div>
+    <div id="articles" class="d3-container"></div>
 
     <script> 
     document.addEventListener('DOMContentLoaded', function() {
@@ -48,40 +58,91 @@
 
         d3.json('../data/data.json').then(function(data) {
                 console.log(data);
+                ///////////////////
+                //   _________   //
+                //  |__|------|  //
+                //  |__|------|  //
+                //  |__|------|  //
+                //  |__|------|  //
+                //  |__|______|  //
+                //               //
+                ///////////////////
+                var margin = { top: 20, right: 20, bottom: 20, left: 50 }
+                    width = 600 - margin.left - margin.right,
+                    height = 650 - margin.top - margin.bottom,
+                    titleBoxHeight = 50,
+                    titleBoxWidth = 200,
+                    articleBoxHeight = 50,
+                    articleBoxWidth = 200,
+                    rightStart = titleBoxWidth + margin.left,
+                    squareLength = 100;
 
+                var title_svg_width = document.getElementById('titles').clientWidth,
+                    article_svg_width = document.getElementById('articles').clientWidth;
+                // console.log(svgWidth, width)
+
+
+                var title_svg = d3.select("#titles")
+                    .append("svg")
+                        .attr("width", title_svg_width)
+                        .attr("height", height);
+
+                var article_svg = d3.select("#articles")
+                    .append("svg")
+                        .attr("width", article_svg_width)
+                        .attr("height", height);
+            
+
+                // On click action to display article text
                 var displayArticles = function(event, d) {
-                    console.log(d.article);
-                    squareLength = 100
+                    // console.log(d.article);
 
-                    // displayArticles(d.article);
                     // Clear the previous articles
-                    d3.select('#articles').html('');
+                    // d3.select('#articles').html('');
+
+                    const article_cell = article_svg.selectAll("g")
+                        .data(d.article)
+                        .join("g")
+                        .attr("transform", (d, i) => `translate(${0},${i*titleBoxHeight})`);
 
                     // Display articles associated with the clicked title
-                    d3.select('#articles')
-                        .selectAll('p')
-                        .data(d.article)
-                        .enter()
-                        .append("rect")
-                            .attr("class", "data")
-                            .attr('x', (d, i) => 0)
-                            .attr('y', (d, i) => i * 10)
-                            .attr("width", squareLength) 
-                            .attr("height", squareLength)
-                            // .style("fill", function(d) { return colorScale(d.Sentiment); })
-                            .attr('stroke', '#fff') // adds a white border around the rectangles
-                            .attr('stroke-width', 1) // sets the width of the border
-                        .append('p')
-                        .text(function(a) { return a.text; });
-               }
+                    const article_rect = article_cell.append("rect")
+                        .attr("class", "data")
+                        .attr('x', (d, i) => 0)
+                        .attr('y', (d, i) => 0)
+                        .attr("width", article_svg_width-margin.right) 
+                        .attr("height", articleBoxHeight)
+                        .style("fill", function(d) { return '#67001f';}) //colorScale(d.Sentiment); })
+                        .attr('stroke', '#fff') // adds a white border around the rectangles
+                        .attr('stroke-width', 1); // sets the width of the border
 
-                d3.select('#titles')
-                    .selectAll('h2')
+                    const article_text = article_cell.append("text")
+                        .text(function(d) { return d.text; })
+                        .attr("x", 10)
+                        .attr("y", titleBoxHeight/2)
+                        .style('fill', 'orange')
+                }
+
+                const title_cell = title_svg.selectAll("g")
                     .data(data)
-                    .enter()
-                    .append('h2')
+                    .join("g")
+                    .attr("transform", (d, i) => `translate(${margin.left},${i*titleBoxHeight})`);
+
+                const rect = title_cell.append("rect")
+                        .attr('x', (d, i) => 0)
+                        .attr('y', (d, i) => 0)
+                        .attr("width", title_svg_width-margin.left) 
+                        .attr("height", titleBoxHeight)
+                        .style("fill", function(d) { return '#67001f';}) //colorScale(d.Sentiment); })
+                        .attr('stroke', '#fff') // adds a white border around the rectangles
+                        .attr('stroke-width', 1) // sets the width of the border
+                        .on('click', displayArticles);
+                
+                const text = title_cell.append("text")
                     .text(function(d) { return d.title; })
-                    .on('click', displayArticles)
+                    .attr("x", 10)
+                    .attr("y", titleBoxHeight/2)
+                    .style('fill', 'orange')
                 });
             });
 

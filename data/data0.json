@@ -1,0 +1,78 @@
+[
+    {
+        "title": "Example 1",
+        "article": [
+            {
+                "score": 0.6,
+                "text": "example text 1"
+            },
+            {
+                "score": 0.2,
+                "text": "example text 1-2"
+            },
+            {
+                "score": 0.8,
+                "text": "example text 1-3"
+            }
+        ]
+    },
+    {
+        "title": "Example 2",
+        "article": [
+            {
+                "score": 0.4,
+                "text": "example text 2-4"
+            },
+            {
+                "score": 0.26,
+                "text": "example text 2-5"
+            },
+            {
+                "score": 0.78,
+                "text": "example text 2-6"
+            }
+        ]
+    },
+    {
+        "title": "Example 3",
+        "article": [
+            {
+                "score": 0.4,
+                "text": "example text 3-4"
+            },
+            {
+                "score": 0.26,
+                "text": "example text 3-5"
+            },
+            {
+                "score": 0.78,
+                "text": "example text 3-6"
+            }
+        ]
+    },
+    {
+        "title": "Example 4",
+        "article": [
+        {
+            "score": 0.4,
+            "text": "example text 4-4"
+        },
+        {
+            "score": 0.4,
+            "text": "example text 4-4"
+        },
+        {
+            "score": 0.4,
+            "text": "example text 4-4"
+        },
+        {
+            "score": 0.26,
+            "text": "example text 4-5"
+        },
+        {
+            "score": 0.78,
+            "text": "example text 4-6"
+        }
+    ]
+}
+]
