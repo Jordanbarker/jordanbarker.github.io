@@ -77,6 +77,7 @@
                     article_svg_width = document.getElementById('articles').clientWidth;
 
                 let lastClicked = null,
+                    lastHovered = null,
                     selectedColor = "#e5e5e5",
                     unselectedColor = "#F4F4F4"; // Variable to store the last clicked element
 
@@ -92,7 +93,15 @@
                     .append("svg")
                         .attr("width", article_svg_width)
                         .attr("height", height);
-            
+                
+                var mouseover = function(event, d) {
+                    d3.select(this).style("fill", selectedColor);
+                }
+                var mouseleave = function(event, d) {
+                    if (this != lastClicked) {
+                        d3.select(this).style("fill", unselectedColor);
+                    }
+                }
 
                 // On click action to display article text
                 var displayArticles = function(event, d) {
@@ -177,6 +186,8 @@
                         .style("fill", function(d) { return unselectedColor;}) //colorScale(d.Sentiment); })
                         .attr('stroke', '#fff') // adds a white border around the rectangles
                         .attr('stroke-width', 1) // sets the width of the border
+                        .on("mouseover", mouseover)
+                        .on("mouseleave", mouseleave)
                         .on('click', displayArticles);
 
                 const title_color_rect = title_cell.append("rect")
@@ -198,12 +209,7 @@
                     .style('fill', '#000');
 
                 title_svg.select("g").select("rect").dispatch('click');
-
-
                 });
-
-                
-
             });
   </script>
 </body>
