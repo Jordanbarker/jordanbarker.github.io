@@ -66,8 +66,7 @@
                 //  |__|______|  //
                 //               //
                 ///////////////////
-                var margin = { top: 20, right: 50, bottom: 20, left: 50 }
-                     //10000 - margin.top - margin.bottom,
+                var margin = 50
                     titleBoxHeight = 30,
                     articleBoxHeight = 100,
                     squareLength = 100
@@ -130,7 +129,7 @@
                     article_cell.append("rect")
                         .attr('x', (d, i) => 0)
                         .attr('y', (d, i) => 0)
-                        .attr("width", article_svg_width-margin.right) 
+                        .attr("width", article_svg_width-margin) 
                         .attr("height", articleBoxHeight)
                         .style("fill", selectedColor) //colorScale(d.Sentiment); })
                         .attr('stroke', '#fff') // adds a white border around the rectangles
@@ -152,7 +151,7 @@
                         .attr("y", titleBoxHeight/2)
                         .style('fill', '#000')
                         .attr("dominant-baseline", "middle")
-                        .call(wrap, article_svg_width - margin.right - 20);
+                        .call(wrap, article_svg_width - margin - 20);
 
                 }
 
@@ -185,7 +184,7 @@
                 const title_cell = title_svg.selectAll("g")
                     .data(data)
                     .join("g")
-                    .attr("transform", (d, i) => `translate(${margin.left},${i*titleBoxHeight})`)
+                    .attr("transform", (d, i) => `translate(${margin},${i*titleBoxHeight})`)
                     .on("mouseover", mouseover)
                     .on("mouseleave", mouseleave)
                     .on('click', displayArticles);
@@ -194,7 +193,7 @@
                 title_cell.append("rect")
                         .attr('x', (d, i) => 0)
                         .attr('y', (d, i) => 0)
-                        .attr("width", title_svg_width-margin.left) 
+                        .attr("width", title_svg_width-margin) 
                         .attr("height", titleBoxHeight)
                         .style("fill", function(d) { return unselectedColor;}) //colorScale(d.Sentiment); })
                         .attr('stroke', '#fff') // adds a white border around the rectangles
