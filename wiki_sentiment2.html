@@ -8,8 +8,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh; /* Full viewport height */
-        margin: 0; /* Remove default margin */
+        margin-top: 100px;
         flex-direction: row; /* Stack elements vertically */
     }
     h1 {
@@ -68,10 +67,11 @@
                 //               //
                 ///////////////////
                 var margin = { top: 20, right: 50, bottom: 20, left: 50 }
-                    height = 700 - margin.top - margin.bottom,
+                     //10000 - margin.top - margin.bottom,
                     titleBoxHeight = 30,
                     articleBoxHeight = 100,
-                    squareLength = 100;
+                    squareLength = 100
+                    height = data.length * titleBoxHeight;
 
                 var title_svg_width = document.getElementById('titles').clientWidth,
                     article_svg_width = document.getElementById('articles').clientWidth;
@@ -105,6 +105,7 @@
 
                 // On click action to display article text
                 var displayArticles = function(event, d) {
+
                     // If there's a last clicked element, reset its color
                     if (lastClicked) {
                         d3.select(lastClicked).select("rect").style("fill", unselectedColor);
@@ -112,6 +113,14 @@
                     d3.select(this).select("rect").style("fill", selectedColor);
                     lastClicked = this;
 
+                    // Update svg heights if the article is long
+                    newHeight = d.article.length*articleBoxHeight
+                    if (height < newHeight){
+                        article_svg.attr("height", newHeight)
+                        title_svg.attr("height", newHeight)
+                    }
+
+                    // Create a g element to hold article information
                     const article_cell = article_svg.selectAll("g")
                         .data(d.article)
                         .join("g")
