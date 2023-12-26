@@ -95,11 +95,11 @@
                         .attr("height", height);
                 
                 var mouseover = function(event, d) {
-                    d3.select(this).style("fill", selectedColor);
+                    d3.select(this).select("rect").style("fill", selectedColor);
                 }
                 var mouseleave = function(event, d) {
                     if (this != lastClicked) {
-                        d3.select(this).style("fill", unselectedColor);
+                        d3.select(this).select("rect").style("fill", unselectedColor);
                     }
                 }
 
@@ -107,9 +107,9 @@
                 var displayArticles = function(event, d) {
                     // If there's a last clicked element, reset its color
                     if (lastClicked) {
-                        d3.select(lastClicked).style("fill", unselectedColor);
+                        d3.select(lastClicked).select("rect").style("fill", unselectedColor);
                     }
-                    d3.select(this).style("fill", selectedColor);
+                    d3.select(this).select("rect").style("fill", selectedColor);
                     lastClicked = this;
 
                     const article_cell = article_svg.selectAll("g")
@@ -118,7 +118,7 @@
                         .attr("transform", (d, i) => `translate(${0},${i*articleBoxHeight})`);
 
                     // Display articles associated with the clicked title
-                    const article_background_rect = article_cell.append("rect")
+                    article_cell.append("rect")
                         .attr('x', (d, i) => 0)
                         .attr('y', (d, i) => 0)
                         .attr("width", article_svg_width-margin.right) 
@@ -128,7 +128,7 @@
                         .attr('stroke-width', 1); // sets the width of the border
 
                     // Display sentiment color
-                    const article_color_rect = article_cell.append("rect")
+                    article_cell.append("rect")
                         .attr('x', (d, i) => 0)
                         .attr('y', (d, i) => 0)
                         .attr("width", 10)
@@ -137,7 +137,7 @@
                         .attr('stroke', '#fff') // adds a white border around the rectangles
                         .attr('stroke-width', 1); // sets the width of the border
 
-                    const article_text = article_cell.append("text")
+                   article_cell.append("text")
                         .text(function(d) { return d.text; })
                         .attr("x", 12)
                         .attr("y", titleBoxHeight/2)
@@ -176,21 +176,23 @@
                 const title_cell = title_svg.selectAll("g")
                     .data(data)
                     .join("g")
-                    .attr("transform", (d, i) => `translate(${margin.left},${i*titleBoxHeight})`);
+                    .attr("transform", (d, i) => `translate(${margin.left},${i*titleBoxHeight})`)
+                    .on("mouseover", mouseover)
+                    .on("mouseleave", mouseleave)
+                    .on('click', displayArticles);
 
-                const title_background_rect = title_cell.append("rect")
+                // Add background rectangle
+                title_cell.append("rect")
                         .attr('x', (d, i) => 0)
                         .attr('y', (d, i) => 0)
                         .attr("width", title_svg_width-margin.left) 
                         .attr("height", titleBoxHeight)
                         .style("fill", function(d) { return unselectedColor;}) //colorScale(d.Sentiment); })
                         .attr('stroke', '#fff') // adds a white border around the rectangles
-                        .attr('stroke-width', 1) // sets the width of the border
-                        .on("mouseover", mouseover)
-                        .on("mouseleave", mouseleave)
-                        .on('click', displayArticles);
-
-                const title_color_rect = title_cell.append("rect")
+                        .attr('stroke-width', 1); // sets the width of the border
+                
+                // Add sentiment color rectangle 
+                title_cell.append("rect")
                         .attr('x', (d, i) => 0)
                         .attr('y', (d, i) => 0)
                         .attr("width", titleBoxHeight/2) 
@@ -198,17 +200,18 @@
                         .style("fill", function(d) { return colorScale(d.sentiment); })
                         // .style("fill", function(d) { return '#67001f';}) //colorScale(d.Sentiment); })
                         .attr('stroke', '#fff') // adds a white border around the rectangles
-                        .attr('stroke-width', 1) // sets the width of the border
-                        .on('click', displayArticles);
+                        .attr('stroke-width', 1); // sets the width of the border
                 
-                const title_text = title_cell.append("text")
+                // Add title text
+                title_cell.append("text")
                     .text(function(d) { return d.title; })
                     .attr("x", titleBoxHeight)
                     .attr("y", titleBoxHeight/2)
                     .attr("dominant-baseline", "middle")
-                    .style('fill', '#000');
+                    .style('fill', '#000')
+                    .style("pointer-events", "none");
 
-                title_svg.select("g").select("rect").dispatch('click');
+                title_svg.select("g").dispatch('click');
                 });
             });
   </script>
