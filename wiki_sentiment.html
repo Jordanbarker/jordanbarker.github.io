@@ -137,11 +137,12 @@
                     .attr("class", "data")
                     .attr('x', (d, i) => Math.floor(i / numRows) * squareLength)
                     .attr('y', (d, i) => (i % numRows) * squareLength + legendSpace)
-                    .attr("width", squareLength) 
+                    .attr("width", squareLength)
                     .attr("height", squareLength)
-                    .style("fill", function(d) { return colorScale(d.Sentiment); })
                     .attr('stroke', '#fff') // adds a white border around the rectangles
                     .attr('stroke-width', 1) // sets the width of the border
+                    .style("fill", function(d) { return colorScale(d.Sentiment); })
+
                 .on("mouseover", mouseover)
                 .on("mousemove", mousemove)
                 .on("mouseleave", mouseleave)
