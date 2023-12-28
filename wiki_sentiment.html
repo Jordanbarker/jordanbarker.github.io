@@ -3,38 +3,85 @@
 <head>
     <title>Wikipedia Article Sentiment</title>
     <h1>Wikipedia Article Sentiment</h1>
+    <button id="detailButton" class="detail">Detail</button>
+    <button id="summaryButton" class="summary">Summary</button>    
+    <div id="legend" class="d3-container"></div>
     <style>
+    /* head {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    } */
     body {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 110vh; /* Full viewport height */
-        margin: 0; /* Remove default margin */
-        flex-direction: column; /* Stack elements vertically */
+        margin-top: 250px;
+        flex-direction: row; /* Stack elements vertically */
     }
     h1 {
         text-align: center;
         position: absolute;
-        top: 50px; /* Adjust this value to control space above the heading */
+        top: 40px; /* Adjust this value to control space above the heading */
         width: 100%;
         margin: 0; /* Remove default margin */
     }
-    p {
+    button {  
         text-align: center;
-        width: 100%;
-        margin: 3px;
+        position: absolute;
+        top: 100px; /* Adjust this value to control space above the heading */
+        padding: .5em 2em;
+        transition: 0.25s;
+    }
+    button:hover {
+        background-color: #666666; /* Green background on hover */
+        color: white; /* White text on hover */
+    }
+    button.selected {
+        background-color: #666666; /* Green background for selected button */
+        color: white; /* White text for selected button */
+    }
+    button.detail {
+        margin: 0px 102px 0px 0px;
+    }
+    button.summary {
+        margin: 0px 0px 0px 101px;
     }
     .tooltip {
         position: absolute;
         text-align: center;
         pointer-events: none;
         transition: opacity 0.3s;
-      }
+    }
+    #legend {
+        /* text-align: center; */
+        text-align: center;
+        position: absolute;
+        top: 140px; /* Adjust this value to control space above the heading */
+        width: 100%;
+        margin: 0; /* Remove default margin */
+    }
+    #titles {
+        width: 30%;
+    }
+    #articles {
+        width: 70%;
+    }
+    #summary {
+        text-align: center;
+        position: absolute;
+        top: 240px; /* If you change this update the tooltip!*/
+        width: 100%;
+        margin: 0; /* Remove default margin */
+    }
       </style>
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <div id="summary"></div>
 </head>
 <body>
-    <div id="sentiment_div"></div>
+    
+    <div id="titles"></div>
+    <div id="articles"></div>
     <script> 
     document.addEventListener('DOMContentLoaded', function() {
 
@@ -44,120 +91,359 @@
             .domain([0, 1])
             .range(RdBu);
 
-        d3.csv("../data/sentiment_analysis_results.csv").then(function(data) {
-            var margin = { top: 20, right: 20, bottom: 20, left: 20 }
-                width = 500 - margin.left - margin.right,
-                height = 650 - margin.top - margin.bottom,
-                squareLength = 5,
-                legendBarLength = 25,
-                legendSpace = margin.top + legendBarLength*3,
-                numCols = 100,
-                rowHeight = squareLength + 1, // Height of each row, including some spacing
-                numRows = Math.ceil(data.length / numCols);
+        var screenWidth = window.innerWidth,
+            screenHeight = window.innerHeight;
 
-            // Log variables for troubleshooting
-            // console.log(data);
-            // console.log("data.length:", data.length, " legendSpace:", legendSpace)
-            // console.log("numRows:",numRows, " totalRows:",totalRows, " numCols:", numCols);
-
-            var svg = d3.select("#sentiment_div")
+        var legend_svg = d3.select("#legend")
                 .append("svg")
-                    .attr("width", width)
-                    .attr("height", height);
-            
-            // Append the color legend
-            svg.selectAll()
-                .data(RdBu.reverse())
-                .enter()
-                .append("rect")
-                    .attr('x', (d, i) => (i / RdBu.length * width))
-                    .attr('y', (d, i) => margin.top + squareLength)
-                    .attr("width", squareLength * 5) 
-                    .attr("height", squareLength * 5)
-                    .style("fill", (d) => d )
-                    .text((d,i) => (i));
-            
-            // Append "Positive Sentiment" label
-            svg.append("text")
-                .attr("x", 0)
-                .attr("y", margin.top)
-                .style("fill", "black") // Text color, change as needed
-                .style("font-size", "16px") // Text size, change as needed
-                .style("text-anchor", "start") // Anchor the text to the start position
-                .text("Positive Sentiment");
+                .attr("width", screenWidth/2)
+                .attr("height", 60);
 
-            // Append "Negative Sentiment" label
-            svg.append("text")
-                .attr("x", width)
-                .attr("y", margin.top)
-                .style("fill", "black") // Text color, change as needed
-                .style("font-size", "16px") // Text size, change as needed
-                .style("text-anchor", "end") // Anchor the text to the end position
-                .text("Negative Sentiment");
+        // Append the color legend
+        legend_svg.selectAll()
+            .data(RdBu.reverse())
+            .enter()
+            .append("rect")
+                .attr('x', (d, i) => (i / RdBu.length * screenWidth/2))
+                .attr('y', (d, i) => 30)
+                .attr("width", 100) 
+                .attr("height", 30)
+                .style("fill", (d) => d )
+                .text((d,i) => (i));
+        
+        // Append "Positive Sentiment" label
+        legend_svg.append("text")
+            .attr("x", 0)
+            .attr("y", 20)
+            .style("fill", "black")
+            .style("font-size", "1em")
+            .style("text-anchor", "start")
+            .text("Positive Sentiment");
 
-            // Add tooltip for mouse interaction
-            var tooltip = d3.select("#sentiment_div")
-                .append("div")
-                .style("opacity", 0)
-                .attr("class", "tooltip")
-                .style("background-color", "white")
-                .style("border", "solid")
-                .style("border-width", "2px")
-                .style("border-radius", "5px")
-                .style("padding", "5px")
+        // Append "Negative Sentiment" label
+        legend_svg.append("text")
+            .attr("x", screenWidth/2)
+            .attr("y", 20)
+            .style("fill", "black")
+            .style("font-size", "16px")
+            .style("text-anchor", "end")
+            .text("Negative Sentiment");
 
+        // Load the initial data for the first button
+        loadDetailData();
 
-            // Mouse event functions
-            var mouseover = function(event, d) {
-                tooltip.style("opacity", 1);
-            }
-            var mouseleave = function(event, d) {
-                tooltip.style("opacity", 0);
-            }
-            var mousemove = function(event, d) {
-                var xPosition = event.pageX; // X coordinate of the mouse pointer
-                var yPosition = event.pageY; // Y coordinate of the mouse pointer
-                tooltip
-                    .html(d.Title + "<br>Sentiment " + d.Sentiment )
-                    .style("left", (xPosition) + "px")
-                    .style("top", (yPosition) + "px");
-            }
-            var click = function(event, d) {
-                tooltip
-                    .html(d.Title + "<br>Sentiment " + d.Sentiment )
-                    .style("left", (event.x) + "px")
-                    .style("top", (event.y) + "px");
-            }
+        // Get the buttons
+        var detailButton = document.getElementById('detailButton');
+        var summaryButton = document.getElementById('summaryButton');
 
-            // Add squares to the SVG
-            svg.selectAll()
-                .data(data)
-                .enter()
-                .append("rect")
-                    .attr("class", "data")
-                    .attr('x', (d, i) => Math.floor(i / numRows) * squareLength)
-                    .attr('y', (d, i) => (i % numRows) * squareLength + legendSpace)
-                    .attr("width", squareLength)
-                    .attr("height", squareLength)
-                    .attr('stroke', '#fff') // adds a white border around the rectangles
-                    .attr('stroke-width', 1) // sets the width of the border
-                    .style("fill", function(d) { return colorScale(d.Sentiment); })
+        function toggleButtonSelection(selectedButton, otherButton) {
+            selectedButton.classList.add('selected');
+            otherButton.classList.remove('selected');
+        }
 
-                .on("mouseover", mouseover)
-                .on("mousemove", mousemove)
-                .on("mouseleave", mouseleave)
-                .on('click', function(event, d) {
-                    // Open the URL in a new tab when the rectangle is clicked
-                    window.open(d.URL, '_blank');
-                });
+        // Initially select the detail button
+        detailButton.classList.add('selected');
+
+        // Add event listeners
+        detailButton.addEventListener('click', function() {
+            loadDetailData();
+            toggleButtonSelection(detailButton, summaryButton);
         });
-    });
 
+        summaryButton.addEventListener('click', function() {
+            loadSummaryData();
+            toggleButtonSelection(summaryButton, detailButton);
+        });
+
+        //-------------------------------------------------------
+        // Load and display detail
+        //-------------------------------------------------------
+        function loadDetailData() {
+            d3.json('../data/data1.json').then(function(data) {
+                d3.select("#summary").selectAll("*").remove();
+                d3.select("#articles").selectAll("*").remove();
+                d3.select("#titles").selectAll("*").remove();
+
+                var title_svg_width = document.getElementById('titles').clientWidth,
+                    article_svg_width = document.getElementById('articles').clientWidth,
+                    total_width = title_svg_width + article_svg_width,
+                    margin = 50,
+                    //title_text_size = 16,
+                    titleBoxHeight = 30,
+                    //article_text_size = 12,
+                    articleBoxHeight = 60,
+                    height = data.length * titleBoxHeight;
+
+                let lastClicked = null,
+                    lastHovered = null,
+                    selectedColor = "#e5e5e5",
+                    unselectedColor = "#F4F4F4"; // Variable to store the last clicked element
+
+
+                var title_svg = d3.select("#titles")
+                    .append("svg")
+                        .attr("width", title_svg_width)
+                        .attr("height", height);
+                var article_svg = d3.select("#articles")
+                    .append("svg")
+                        .attr("width", article_svg_width)
+                        .attr("height", height);
+
+                
+                var mouseover = function(event, d) {
+                    d3.select(this).select("rect").style("fill", selectedColor);
+                }
+                var mouseleave = function(event, d) {
+                    if (this != lastClicked) {
+                        d3.select(this).select("rect").style("fill", unselectedColor);
+                    }
+                }
+
+                // On click action to display article text
+                var displayArticles = function(event, d) {
+                    var transformAttr = d3.select(this).attr("transform");
+                    var matches = transformAttr.match(/translate\((\d+),(\d+)\)/);
+                    //var translateX = matches[1];
+                    var translateY = parseInt(matches[2], 10);
+
+
+                    // If there's a last clicked element, reset its color
+                    if (lastClicked) {
+                        d3.select(lastClicked).select("rect").style("fill", unselectedColor);
+                    }
+                    d3.select(this).select("rect").style("fill", selectedColor);
+                    lastClicked = this;
+
+                    // Update svg heights if the article is long
+                    newHeight = translateY + d.article.length*articleBoxHeight
+                    if (height < newHeight){
+                        article_svg.attr("height", newHeight)
+                        title_svg.attr("height", newHeight)
+                    }
+
+                    // Create a g element to hold article information
+                    const article_cell = article_svg.selectAll("g")
+                        .data(d.article)
+                        .join("g")
+                        .attr("transform", (d, i) => `translate(${0},${(i*articleBoxHeight)+translateY})`);
+
+                    // Display articles associated with the clicked title
+                    article_cell.append("rect")
+                        .attr('x', (d, i) => 0)
+                        .attr('y', (d, i) => 0)
+                        .attr("width", article_svg_width-margin) 
+                        .attr("height", articleBoxHeight)
+                        .style("fill", selectedColor) //colorScale(d.Sentiment); })
+                        .attr('stroke', '#fff') // adds a white border around the rectangles
+                        .attr('stroke-width', 1); // sets the width of the border
+
+                    // Display sentiment color
+                    article_cell.append("rect")
+                        .attr('x', (d, i) => 0)
+                        .attr('y', (d, i) => 0)
+                        .attr("width", 10)
+                        .attr("height", articleBoxHeight)
+                        .style("fill", function(d) { return colorScale(d.score); })
+                        .attr('stroke', '#fff') // adds a white border around the rectangles
+                        .attr('stroke-width', 1); // sets the width of the border
+
+                    article_cell.append("text")
+                        .text(function(d) { return d.text; })
+                        .attr("x", 12)
+                        .attr("y", titleBoxHeight/2)
+                        .attr("dominant-baseline", "middle")
+                        .style("font-size", ".8em")
+                        .style('fill', '#000')
+                        .call(wrap, article_svg_width - margin - 20);
+
+                }
+
+                function wrap(text, width) {
+                    text.each(function() {
+                        var text = d3.select(this),
+                            words = text.text().split(/\s+/).reverse(),
+                            word,
+                            line = [],
+                            lineNumber = 0,
+                            lineHeight = 1.1, // ems
+                            x = text.attr("x"),
+                            y = text.attr("y"),
+                            dy = 0, // we will set the dy based on the number of lines
+                            tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
+                        
+                        while (word = words.pop()) {
+                            line.push(word);
+                            tspan.text(line.join(" "));
+                            if (tspan.node().getComputedTextLength() > width) {
+                                line.pop();
+                                tspan.text(line.join(" "));
+                                line = [word];
+                                tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                            }
+                        }
+                    });
+                }
+
+                const title_cell = title_svg.selectAll("g")
+                    .data(data)
+                    .join("g")
+                    .attr("transform", (d, i) => `translate(${margin},${i*titleBoxHeight})`)
+                    .on("mouseover", mouseover)
+                    .on("mouseleave", mouseleave)
+                    .on('click', displayArticles);
+
+                // Add background rectangle
+                title_cell.append("rect")
+                        .attr('x', (d, i) => 0)
+                        .attr('y', (d, i) => 0)
+                        .attr("width", title_svg_width-margin) 
+                        .attr("height", titleBoxHeight)
+                        .style("fill", function(d) { return unselectedColor;}) //colorScale(d.Sentiment); })
+                        .attr('stroke', '#fff') // adds a white border around the rectangles
+                        .attr('stroke-width', 1); // sets the width of the border
+                
+                // Add sentiment color rectangle 
+                title_cell.append("rect")
+                        .attr('x', (d, i) => 0)
+                        .attr('y', (d, i) => 0)
+                        .attr("width", titleBoxHeight/2) 
+                        .attr("height", titleBoxHeight)
+                        .style("fill", function(d) { return colorScale(d.sentiment); })
+                        // .style("fill", function(d) { return '#67001f';}) //colorScale(d.Sentiment); })
+                        .attr('stroke', '#fff') // adds a white border around the rectangles
+                        .attr('stroke-width', 1); // sets the width of the border
+                
+                // Add title text
+                title_cell.append("text")
+                    .text(function(d) { return d.title; })
+                    .attr("x", 20)
+                    .attr("y", titleBoxHeight/2)
+                    .attr("dominant-baseline", "middle")
+                    .style("font-size", "1em")
+                    .style('fill', '#000')
+                    .style("pointer-events", "none");
+
+                title_svg.select("g").dispatch('click');
+            });
+        };
+
+        //-------------------------------------------------------
+        // Load and display summary
+        //-------------------------------------------------------
+        function loadSummaryData() {
+            d3.csv("../data/sentiment_analysis_results.csv").then(function(data) {
+                d3.select("#summary").selectAll("*").remove();
+                d3.select("#articles").selectAll("*").remove();
+                d3.select("#titles").selectAll("*").remove();
+
+                
+                var svgLength = Math.min(screenWidth-50, screenHeight),//screenWidth*0.9,
+                    numCols = 100,
+                    numRows = 100,
+                    squareLength = svgLength / numCols;
+
+                // Log variables for troubleshooting
+                // console.log(screenWidth, screenHeight, squareLength);
+                // console.log(data);
+                // console.log("data.length:", data.length, " legendSpace:", legendSpace)
+                // console.log("numRows:",numRows, " totalRows:",totalRows, " numCols:", numCols);
+
+                var svg = d3.select("#summary")
+                    .append("svg")
+                        .attr("width", svgLength)
+                        .attr("height", svgLength);
+                
+                // Add tooltip for mouse interaction
+                var tooltip = d3.select("#summary")
+                    .append("div")
+                    .style("opacity", 0)
+                    .attr("class", "tooltip")
+                    .style("background-color", "white")
+                    .style("border", "solid")
+                    .style("border-width", "2px")
+                    .style("border-radius", "5px")
+                    .style("padding", "5px");
+
+                // Updated mousemove function to handle both mouse and touch events
+                var updateTooltipPosition = function(event, d) {
+                    var xPosition, yPosition;
+
+                    if(event.type.startsWith("touch")) {
+                        // For touch events, use the first touch point
+                        xPosition = event.touches[0].clientX;
+                        yPosition = event.touches[0].clientY - 240; // Adjust as needed
+                    } else {
+                        // For mouse events, use pageX and pageY
+                        xPosition = event.pageX;
+                        yPosition = event.pageY - 240;
+                    }
+
+                    tooltip
+                        .html(d.Title + "<br>Sentiment " + d.Sentiment)
+                        .style("left", (xPosition) + "px")
+                        .style("top", (yPosition) + "px");
+                }
+                // Touch event functions
+                var touchstart = function(event, d) {
+                    tooltip.style("opacity", 1);
+                    updateTooltipPosition(event, d);
+                }
+                var touchend = function(event, d) {
+                    tooltip.style("opacity", 0);
+                }
+                var touchmove = function(event, d) {
+                    updateTooltipPosition(event, d);
+                }
+
+                // Mouse event functions
+                var mouseover = function(event, d) {
+                    tooltip.style("opacity", 1);
+                }
+                var mouseleave = function(event, d) {
+                    tooltip.style("opacity", 0);
+                }
+                var mousemove = function(event, d) {
+                    var xPosition = event.pageX; // X coordinate of the mouse pointer
+                    var yPosition = event.pageY-240; // Y coordinate of the mouse pointer
+                    tooltip
+                        .html(d.Title + "<br>Sentiment " + d.Sentiment )
+                        .style("left", (xPosition) + "px")
+                        .style("top", (yPosition) + "px");
+                }
+                var click = function(event, d) {
+                    tooltip
+                        .html(d.Title + "<br>Sentiment " + d.Sentiment )
+                        .style("left", (event.x) + "px")
+                        .style("top", (event.y) + "px");
+                }
+
+                // Add squares to the SVG
+                svg.selectAll()
+                    .data(data)
+                    .enter()
+                    .append("rect")
+                        .attr("class", "data")
+                        .attr('x', (d, i) => Math.floor(i / numRows) * squareLength)
+                        .attr('y', (d, i) => (i % numRows) * squareLength)
+                        .attr("width", squareLength)
+                        .attr("height", squareLength)
+                        .attr('stroke', '#fff') // adds a white border around the rectangles
+                        .attr('stroke-width', 1) // sets the width of the border
+                        .style("fill", function(d) { return colorScale(d.Sentiment); })
+                    .on("touchstart", touchstart)
+                    .on("touchmove", touchmove)
+                    .on("touchend", touchend)
+                    .on("mouseover", mouseover)
+                    .on("mousemove", mousemove)
+                    .on("mouseleave", mouseleave)
+                    .on('click', function(event, d) {
+                        // Open the URL in a new tab when the rectangle is clicked
+                        window.open(d.URL, '_blank');
+                    });
+
+            });
+        }
+    });
   </script>
-  <p>TODO: Add link to Jupyter Notebook</p>
-  <br>
-  <p>Huge thank you to Hugging Face for the model and dataset!</p>
-  <p>Model: <a href="https://github.com/Jordanbarker">distilbert-base-uncased-finetuned-sst-2-english</a></p>
-  <p>Dataset: <a href="https://huggingface.co/datasets/wikimedia/wikipedia/tree/main">wikipedia_20231101.en</a></p>
 </body>
 </html>
