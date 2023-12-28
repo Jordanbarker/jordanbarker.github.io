@@ -3,21 +3,21 @@
 <head>
     <title>Wikipedia Article Sentiment</title>
     <h1>Wikipedia Article Sentiment</h1>
-    <button class="detail">Detail</button>
-    <button class="summary">Summary</button>
+    <button id="detailButton" class="detail">Detail</button>
+    <button id="summaryButton" class="summary">Summary</button>    
     <div id="legend" class="d3-container"></div>
     <style>
     body {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 210px;
+        margin-top: 250px;
         flex-direction: row; /* Stack elements vertically */
     }
     h1 {
         text-align: center;
         position: absolute;
-        top: 50px; /* Adjust this value to control space above the heading */
+        top: 40px; /* Adjust this value to control space above the heading */
         width: 100%;
         margin: 0; /* Remove default margin */
     }
@@ -28,6 +28,11 @@
         padding: .5em 2em;
         transition: 0.25s;
     }
+    button:hover {
+        background-color: #4CAF50; /* Green background on hover */
+        color: white; /* White text on hover */
+    }
+
     button.detail {
         margin: 0px 101px 0px 0px;
     }
@@ -48,7 +53,7 @@
         /* text-align: center; */
         text-align: center;
         position: absolute;
-        top: 100px; /* Adjust this value to control space above the heading */
+        top: 140px; /* Adjust this value to control space above the heading */
         width: 100%;
         margin: 0; /* Remove default margin */
     }
@@ -75,23 +80,70 @@
             .domain([0, 1])
             .range(RdBu);
 
-        d3.json('../data/data1.json').then(function(data) {
-                // console.log(data);
-                ///////////////////
-                //   _________   //
-                //  |__|------|  //
-                //  |__|------|  //
-                //  |__|------|  //
-                //  |__|------|  //
-                //  |__|______|  //
-                //               //
-                ///////////////////
+        var legend_svg_width = document.getElementById('legend').clientWidth/2
+
+        var legend_svg = d3.select("#legend")
+                .append("svg")
+                .attr("width", legend_svg_width)
+                .attr("height", 60);
+
+        // Append the color legend
+        legend_svg.selectAll()
+            .data(RdBu.reverse())
+            .enter()
+            .append("rect")
+                .attr('x', (d, i) => (i / RdBu.length * legend_svg_width))
+                .attr('y', (d, i) => 30)
+                .attr("width", 100) 
+                .attr("height", 30)
+                .style("fill", (d) => d )
+                .text((d,i) => (i));
+        
+        // Append "Positive Sentiment" label
+        legend_svg.append("text")
+            .attr("x", 0)
+            .attr("y", 20)
+            .style("fill", "black")
+            .style("font-size", "1em")
+            .style("text-anchor", "start")
+            .text("Positive Sentiment");
+
+        // Append "Negative Sentiment" label
+        legend_svg.append("text")
+            .attr("x", legend_svg_width)
+            .attr("y", 20)
+            .style("fill", "black")
+            .style("font-size", "16px")
+            .style("text-anchor", "end")
+            .text("Negative Sentiment");
+
+        // Load the initial data for the first button
+        loadDetailData();
+
+        // Get the buttons
+        var detailButton = document.getElementById('detailButton');
+        var summaryButton = document.getElementById('summaryButton');
+
+        // Add event listeners
+        detailButton.addEventListener('click', function() {
+            loadDetailData();
+        });
+
+        summaryButton.addEventListener('click', function() {
+            loadSummaryData();
+        });
+
+        function loadDetailData() {
+            d3.json('../data/data1.json').then(function(data) {
+                d3.select("#articles").selectAll("*").remove();
+                d3.select("#titles").selectAll("*").remove();
 
                 var title_svg_width = document.getElementById('titles').clientWidth,
                     article_svg_width = document.getElementById('articles').clientWidth
                     total_width = title_svg_width + article_svg_width
                     legend_svg_width = total_width / 2;
-                console.log(legend_svg_width)
+                
+                    console.log(legend_svg_width)
 
                 var margin = 50,
                     //title_text_size = 16,
@@ -107,8 +159,6 @@
 
                 // console.log(svgWidth, width)
 
-
-
                 var title_svg = d3.select("#titles")
                     .append("svg")
                         .attr("width", title_svg_width)
@@ -119,41 +169,7 @@
                         .attr("width", article_svg_width)
                         .attr("height", height);
 
-                
-                        var legend_svg = d3.select("#legend")
-                    .append("svg")
-                    .attr("width", legend_svg_width)
-                    .attr("height", 100);
 
-                // Append the color legend
-                legend_svg.selectAll()
-                    .data(RdBu.reverse())
-                    .enter()
-                    .append("rect")
-                        .attr('x', (d, i) => (i / RdBu.length * legend_svg_width))
-                        .attr('y', (d, i) => 2*titleBoxHeight)
-                        .attr("width", titleBoxHeight) 
-                        .attr("height", titleBoxHeight)
-                        .style("fill", (d) => d )
-                        .text((d,i) => (i));
-                
-                // Append "Positive Sentiment" label
-                legend_svg.append("text")
-                    .attr("x", 0)
-                    .attr("y", margin)
-                    .style("fill", "black")
-                    .style("font-size", "1em")
-                    .style("text-anchor", "start")
-                    .text("Positive Sentiment");
-
-                // Append "Negative Sentiment" label
-                legend_svg.append("text")
-                    .attr("x", legend_svg_width)
-                    .attr("y", margin)
-                    .style("fill", "black")
-                    .style("font-size", "16px")
-                    .style("text-anchor", "end")
-                    .text("Negative Sentiment");
                 
                 var mouseover = function(event, d) {
                     d3.select(this).select("rect").style("fill", selectedColor);
@@ -212,7 +228,7 @@
                         .attr('stroke', '#fff') // adds a white border around the rectangles
                         .attr('stroke-width', 1); // sets the width of the border
 
-                   article_cell.append("text")
+                    article_cell.append("text")
                         .text(function(d) { return d.text; })
                         .attr("x", 12)
                         .attr("y", titleBoxHeight/2)
@@ -289,8 +305,14 @@
                     .style("pointer-events", "none");
 
                 title_svg.select("g").dispatch('click');
-                });
             });
+        };
+        function loadSummaryData() {
+            d3.json('../data/data1.json').then(function(data) {
+                console.log("TODO")
+            });
+        }
+    });
   </script>
 </body>
 </html>
