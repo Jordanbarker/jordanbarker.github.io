@@ -153,7 +153,7 @@
         // Load and display detail
         //-------------------------------------------------------
         function loadDetailData() {
-            d3.json('../data/data1.json').then(function(data) {
+            d3.json('../data/detail_data.json').then(function(data) {
                 d3.select("#summary").selectAll("*").remove();
                 d3.select("#articles").selectAll("*").remove();
                 d3.select("#titles").selectAll("*").remove();
@@ -163,6 +163,10 @@
                     article_svg_width = screenWidth*2/3 // 2/3 of the screen width
                     margin = 10,
                     title_text_size = screenWidth/1000, // hueristic
+                    title_text_size_small = title_text_size * 0.75
+                    title_text_size_extra_small = title_text_size * 0.55
+                    smallTextLengthThreshold = 42,
+                    extraSmallTextLengthThreshold = 60,
                     titleBoxHeight = 30,
                     article_text_size = screenWidth/1200, // hueristic
                     articleBoxHeight = titleBoxHeight*3*article_text_size,
@@ -312,9 +316,19 @@
                 title_cell.append("text")
                     .text(function(d) { return d.title; })
                     .attr("x", 18)
-                    .attr("y", titleBoxHeight/2) //titleBoxHeight/2
+                    .attr("y", titleBoxHeight/2)
                     .attr("dominant-baseline", "central")
-                    .style("font-size", title_text_size+"em")
+                    .style("font-size", function(d) {
+                        // Use smaller font size if text length exceeds the threshold
+                        if (d.title.length >= extraSmallTextLengthThreshold) {
+                            return title_text_size_extra_small + "em"; // Use extra small font size
+                        } else if (d.title.length > smallTextLengthThreshold) {
+                            return title_text_size_small + "em"; // Use smaller font size
+                        } else {
+                            return title_text_size + "em"; // Use regular font size
+                        }
+                        // return d.title.length > smallTextLengthThreshold ? title_text_size_small + "em" : title_text_size + "em";
+                    }) //title_text_size+"em")
                     .style('fill', '#000')
                     .style("pointer-events", "none");
 
