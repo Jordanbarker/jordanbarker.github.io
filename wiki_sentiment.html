@@ -200,6 +200,7 @@
 
                 // On click action to display article text
                 var displayArticles = function(event, d) {
+                    d3.select("#articles").selectAll("g").remove();
                     var transformAttr = d3.select(this).attr("transform");
                     var matches = transformAttr.match(/translate\((\d+),(\d+)\)/);
                     //var translateX = matches[1];
