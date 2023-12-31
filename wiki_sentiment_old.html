@@ -2,31 +2,48 @@
 <html>
 <head>
     <title>Wikipedia Article Sentiment</title>
+    <h1>Wikipedia Article Sentiment</h1>
+    <!-- <button id="posnegButton" class="posneg">Positive/Negative</button> -->
+    <!-- <button id="emotionButton" class="emotion">Emotion</button>   -->
+    <button id="detailButton" class="detail">Detail</button>
+    <button id="summaryButton" class="summary">Summary</button>
+    <div class="dropdown">
+        <button class="dropbtn">Dropdown</button>
+        <div class="dropdown-content">
+          <a href="#">Link 1</a>
+          <a href="#">Link 2</a>
+          <a href="#">Link 3</a>
+        </div>
+      </div>
+    <div id="legend" class="d3-container"></div>
     <style>
-    body {
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-    .column-container {
+    /* head {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 20px; /* Adjust the space between elements */
-    }
-    .row-container {
+    } */
+    body {
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-top: 250px;
         flex-direction: row; /* Stack elements vertically */
     }
-    h1 { text-align: center; }
+    h1 {
+        text-align: center;
+        position: absolute;
+        top: 40px; /* Adjust this value to control space above the heading */
+        width: 100%;
+        margin: 0; /* Remove default margin */
+    }
     /* Dropdown container */
     .dropdown {
+        top: 0px;
+        position: absolute;
         display: inline-block;
+        margin: 0px 1px 0px 290px;
     }
+
     /* Dropdown content (hidden by default) */
     .dropdown-content {
         display: none;
@@ -49,14 +66,19 @@
     .dropdown-content a:hover {background-color: #f1f1f1}
 
     /* Show the dropdown menu on hover */
-    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
 
     /* Change the background color of the dropdown button when the dropdown content is shown */
-    .dropdown:hover .dropbtn { background-color: #3e8e41; }
+    .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+    }
 
     button {  
-        display: inline-block;
+        top: 100px;
         text-align: center;
+        position: absolute;
         padding: .5em 2em;
         transition: 0.25s;
     }
@@ -68,44 +90,40 @@
         background-color: #666666; /* Green background for selected button */
         color: white; /* White text for selected button */
     }
-    /* button.detail {
-        margin: 0px 0px 0px 0px;
+    button.detail {
+        margin: 0px 102px 0px 0px;
     }
     button.summary {
-        margin: 0px 0px 0px 0px;
-    } */
+        margin: 0px 0px 0px 101px;
+    }
     .tooltip {
         position: absolute;
         text-align: center;
         pointer-events: none;
         transition: opacity 0.3s;
     }
-    </style>
+    #legend {
+        /* text-align: center; */
+        text-align: center;
+        position: absolute;
+        top: 150px; /* Adjust this value to control space above the heading */
+        width: 100%;
+        margin: 0; /* Remove default margin */
+    }
+    #summary {
+        text-align: center;
+        position: absolute;
+        top: 240px; /* If you change this update the tooltip!*/
+        width: 100%;
+        margin: 0; /* Remove default margin */
+    }
+      </style>
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <div id="summary"></div>
 </head>
 <body>
-    <div class="column-container">
-        <h1>Wikipedia Article Sentiment</h1>
-        <div class="row-container">
-            <button id="detailButton" class="detail">Detail</button>
-            <button id="summaryButton" class="summary">Summary</button>
-            <div class="dropdown">
-                <button class="dropbtn">Dropdown</button>
-                <div class="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-                </div>
-            </div>
-        </div>
-        <div id="legend"></div>
-        <div id="summary"></div>
-
-        <div class="row-container">
-            <div id="titles"></div>
-            <div id="articles"></div>
-        </div>
-    </div>
+    <div id="titles"></div>
+    <div id="articles"></div>
     <script> 
     document.addEventListener('DOMContentLoaded', function() {
 
@@ -444,7 +462,7 @@
                 }
                 var mousemove = function(event, d) {
                     var xPosition = event.pageX; // X coordinate of the mouse pointer
-                    var yPosition = event.pageY; // Y coordinate of the mouse pointer
+                    var yPosition = event.pageY-240; // Y coordinate of the mouse pointer
                     tooltip
                         .html(d.Title + "<br>Sentiment " + d.Sentiment )
                         .style("left", (xPosition) + "px")
