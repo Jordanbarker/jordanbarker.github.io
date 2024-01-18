@@ -68,6 +68,9 @@
     }
     #summaryButton {
         margin-right: 20px; /* Create separation from other bottons */
+    }
+    #button10k {
+        margin-right: 20px; /* Create separation from other bottons */
     }   
     .tooltip {
         position: absolute;
@@ -86,13 +89,16 @@
             <button id="summaryButton" class="summary">Summary</button>
             <button id="button1k" class="1k">1k</button>
             <button id="button10k" class="10k">10k</button>
-            <div class="dropdown">
+            <button id="posneg" class="posneg">Positive/Negative</button>
+            <button id="emotion" class="emotion">Emotion</button>
+
+            <!-- <div class="dropdown">
                 <button class="dropbtn">Model</button>
                 <div class="dropdown-content">
                 <a href="#" id="posneg">Positive/Negative</a>
                 <a href="#" id="emotion">Emotion</a>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div id="legend"></div>
         <div id="summary"></div>
@@ -112,10 +118,9 @@
         var detailButton = document.getElementById('detailButton'),
             summaryButton = document.getElementById('summaryButton'),
             button1k = document.getElementById('button1k'),
-            button10k = document.getElementById('button10k');
-
-        var posneg = document.getElementById('posneg'),
-            emotion = document.getElementById('emotion');
+            button10k = document.getElementById('button10k'),
+            buttonPosNeg = document.getElementById('posneg'),
+            buttonEmotion = document.getElementById('emotion');
         
         var currentDataType = ""; // default value
         var currentDataSize = "";
@@ -169,6 +174,7 @@
         displaySelection(currentDisplay, 1000, "posneg")
         detailButton.classList.add('selected');
         button1k.classList.add('selected');
+        buttonPosNeg.classList.add('selected');
 
 
         // Add event listeners
@@ -186,14 +192,14 @@
             displaySelection(currentDisplay, 10000, currentDataType)
             toggleButtonSelection(button10k, button1k);
         });
-
-        posneg.addEventListener('click', function(event) {
+        buttonPosNeg.addEventListener('click', function(event) {
             event.preventDefault();
+            toggleButtonSelection(buttonPosNeg, buttonEmotion);
             displaySelection(currentDisplay, currentDataSize, "posneg")
         });
-
-        emotion.addEventListener('click', function(event) {
+        buttonEmotion.addEventListener('click', function(event) {
             event.preventDefault();
+            toggleButtonSelection(buttonEmotion, buttonPosNeg);
             displaySelection(currentDisplay, currentDataSize, "emotion")
         });
 
@@ -249,11 +255,11 @@
 
                     // Append the label for this scale
                     legend_svg.append("text")
-                        .attr("x", screenWidth / 4)
+                        .attr("x", screenWidth / 2)
                         .attr("y", yPos+yTextOffset)
                         .style("fill", "white")
                         .style("font-size", "1em")
-                        .style("text-anchor", "start")
+                        .style("text-anchor", "middle") // switched from start
                         .text(key);
                 });
         }
