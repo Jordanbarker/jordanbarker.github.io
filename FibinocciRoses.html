@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+    <style>
+        body {background-color: coral;}
+        body {background-color: #000000;}
+    </style>
+    <title></title>
+</head>
+
+<body>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script>
+
+    const margin = {top: 100, right: 100, bottom: 100, left: 100},
+      width = 800 - margin.left - margin.right,
+      height = 800 - margin.top - margin.bottom;
+
+    var svg = d3.select("body")
+      .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        //.attr("width", width)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform",
+              "translate(" + margin.left + "," + margin.top + ")");
+
+      let dataset = [1, 1];
+      let indexStart = 0
+      let indexEnd = 2
+      let nextNum = 0
+      while ( nextNum < 30 ) {
+      nextNum = dataset.slice(indexStart,indexEnd).reduce(function (accumVariable, curValue) {
+        return accumVariable + curValue
+        }, 0);
+      dataset.push(nextNum);
+      indexStart++
+      indexEnd++
+      };
+
+      let data = []
+      let valuesToInterpolate = 200
+      for (let i=0; i<dataset.length-1; i++){
+        var interpolater = d3.interpolateNumber(dataset[i], dataset[i+1]);
+        for (let val=1; val<valuesToInterpolate; val++) {
+          var x = Math.cos(360/val)*(dataset[0]+interpolater(val/valuesToInterpolate))
+          var y = Math.sin(360/val)*(dataset[0]+interpolater(val/valuesToInterpolate))
+          data.push([Math.round(x,2), Math.round(y,2)]);
+        }
+      };
+      data = data.reverse();
+
+      color = d3.scaleSequential() // d3.schemeOrRd
+        .interpolator(d3.interpolateOrRd)
+        .domain([-15,40]);
+
+      var xScale = d3.scaleLinear()
+      .domain([-100, 100])//d3.max(dataset, (d) => d[0])])
+      .range([0, width]);
+
+      var yScale = d3.scaleLinear()
+      .domain([-100, 100])//d3.max(dataset, (d) => d[1])])
+      .range([height, 0]);
+
+      var rScale = d3.scaleLinear()
+      .domain([-5,100])//.domain([d3.min(dataset, (d) => d[0]), d3.max(dataset, (d) => d[0])])
+      .range([1,100]);
+
+
+
+      function drawFlower(data, offsetX, offsetY){
+
+        svg.append('line')
+          .style("stroke", "#2E7C1D")
+          .style("stroke-width", 8)
+          .attr("x1", offsetX*2.5+width/2)
+          .attr("y1", height/2+offsetY)
+          .attr("x2", width/2+10)
+          .attr("y2", height);
+
+        var flower = svg.append("g")
+          flower.selectAll("circle")
+            .data(data)
+            .enter()
+            .append("circle")
+            .transition()
+            .attr("cx", (d) => xScale(d[0]+offsetX))
+            .attr("cy", (d) => yScale(d[1])+offsetY)
+            .attr("r", (d) => rScale(Math.abs(d[0])+Math.abs(d[1])))
+            .attr("fill", (d) => color(Math.abs(d[0])+Math.abs(d[1])));
+      }
+
+      drawFlower(data, offsetX = -0, offsetY = -60);
+      drawFlower(data, offsetX = 60, offsetY = 60);
+      drawFlower(data, offsetX = 50, offsetY = 50);
+      drawFlower(data, offsetX = -50, offsetY = 50);
+      drawFlower(data, offsetX = -40, offsetY = -40);
+      drawFlower(data, offsetX = 40, offsetY = -40);
+      drawFlower(data, offsetX = 30, offsetY = 30);
+      drawFlower(data, offsetX = -30, offsetY = 30);
+      drawFlower(data, offsetX = 20, offsetY = -20);
+      drawFlower(data, offsetX = 20, offsetY = -20);
+      drawFlower(data, offsetX = -10, offsetY = -10);
+      drawFlower(data, offsetX = 10, offsetY = 10);
+
+      drawFlower(data, offsetX = 0, offsetY = 0);
+
+
+      svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(0," + height/2 + ")")
+        //.call(d3.axisBottom(xScale));
+
+      svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate("+width/2+",0)")
+        //.call(d3.axisLeft(yScale));
+
+    </script>
+</body>
+</html>
