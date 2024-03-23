@@ -1,6 +1,6 @@
 
 .bodycontainer {
-  width: 75%;
+  width: 70%;
   padding-top: 10px;
   margin: 0 auto;
 }
@@ -16,7 +16,7 @@ body {
 }
 
 .headercontainer {
-  width: 80%;
+  width: 75%;
   margin: 0 auto;
 }
 
@@ -42,9 +42,9 @@ nav ul {
   line-height: 10px;
 }
 .name {
-  font-size: 1.3em;
+  font-size: 1.4em;
   font-weight: bolder;
-  margin: 0px 10px;
+  margin: 0px 20px;
   vertical-align: middle;
   display: inline-block;
 }

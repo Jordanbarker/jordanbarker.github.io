@@ -55,7 +55,7 @@
 
   <script>
 
-    const questions = [
+    const all_questions = [
       {
         question: "What is Machine Learning?",
         options: ["A branch of AI focused on computer vision", "A technique for developing software", "A method for data analysis that automates model building", "A type of computer hardware"],
@@ -612,6 +612,14 @@
       correct: 0
       }
     ]
+
+    function getRandomQuestions(questions, sampleSize) {
+      const shuffled = [...questions].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, sampleSize);
+    }
+
+    const questions = getRandomQuestions(all_questions, 10); // Get 10 random questions
+
 
 
 
