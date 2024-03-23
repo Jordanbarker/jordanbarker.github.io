@@ -54,18 +54,566 @@
   </div>
 
   <script>
+
     const questions = [
       {
-        question: "What is 2 + 2?",
-        options: ["2", "3", "4", "5"],
+        question: "What is Machine Learning?",
+        options: ["A branch of AI focused on computer vision", "A technique for developing software", "A method for data analysis that automates model building", "A type of computer hardware"],
         correct: 2
       },
       {
-        question: "What is the capital of France?",
-        options: ["Berlin", "Madrid", "Paris", "Rome"],
+        question: "Which of the following is a supervised learning task?",
+        options: ["Clustering", "Regression", "Dimensionality Reduction", "Association Rules"],
+        correct: 1
+      },
+      {
+        question: "What is the main difference between supervised and unsupervised learning?",
+        options: ["The presence of labeled data", "The complexity of algorithms", "The type of data used", "The computational resources required"],
+        correct: 0
+      },
+      {
+        question: "What is overfitting in machine learning?",
+        options: ["When a model performs well on training data but poorly on new data", "When a model is too simple to capture the underlying pattern", "When a model uses too much computational power", "When a model's predictions are always incorrect"],
+        correct: 0
+      },
+      {
+        question: "Which of the following is a technique to avoid overfitting?",
+        options: ["Increasing model complexity", "Reducing training data size", "Regularization", "Using a simpler algorithm"],
         correct: 2
       },
-    ];
+      {
+        question: "What is a confusion matrix?",
+        options: ["A matrix that displays the confusion of the model", "A tool to visualize data distribution", "A table used to evaluate the performance of a classification model", "A matrix used for matrix operations in linear algebra"],
+        correct: 2
+      },
+      {
+        question: "What is precision in the context of classification metrics?",
+        options: ["The number of true positive predictions", "The proportion of true positive predictions to the total positive predictions", "The proportion of true positive predictions to the total actual positives", "The overall accuracy of the model"],
+        correct: 1
+      },
+      {
+        question: "What is recall in the context of classification metrics?",
+        options: ["The number of true positive predictions", "The proportion of true positive predictions to the total positive predictions", "The proportion of true positive predictions to the total actual positives", "The overall accuracy of the model"],
+        correct: 2
+      },
+      {
+        question: "What is the purpose of the training set in machine learning?",
+        options: ["To test the model's performance", "To validate the model's hyperparameters", "To train the model to learn the underlying patterns", "To check the model's robustness"],
+        correct: 2
+      },
+      {
+        question: "What is the purpose of the test set in machine learning?",
+        options: ["To test the model's performance", "To validate the model's hyperparameters", "To train the model to learn the underlying patterns", "To check the model's robustness"],
+        correct: 0
+      },
+      {
+        question: "Which algorithm is commonly used for classification tasks?",
+        options: ["K-Means Clustering", "Principal Component Analysis", "Linear Regression", "Support Vector Machine"],
+        correct: 3
+      },
+      {
+        question: "Which algorithm is commonly used for regression tasks?",
+        options: ["K-Means Clustering", "Principal Component Analysis", "Linear Regression", "Support Vector Machine"],
+        correct: 2
+      },
+      {
+        question: "What is a hyperparameter in machine learning?",
+        options: ["A parameter that is set before the learning process begins", "A parameter that is learned during the training process", "A parameter that is used to predict the target variable", "A parameter that is used to measure the model's performance"],
+        correct: 0
+      },
+      {
+        question: "What is cross-validation in machine learning?",
+        options: ["A technique to compare different models", "A technique to test the model's performance on unseen data", "A technique to split the dataset into training and testing sets", "A technique to estimate the performance of a model by partitioning the data"],
+        correct: 3
+      },
+      {
+        question: "What is the purpose of feature scaling in machine learning?",
+        options: ["To increase the model's accuracy", "To reduce the computational complexity", "To make the features more interpretable", "To bring different features to a similar scale"],
+        correct: 3
+      },
+      {
+        question: "What is the purpose of the activation function in a neural network?",
+        options: ["To normalize the output", "To allow the network to learn complex patterns", "To reduce computational complexity", "To increase the speed of training"],
+        correct: 1
+      },
+      {
+        question: "What is the difference between a deep neural network and a shallow neural network?",
+        options: ["The number of hidden layers", "The type of activation function used", "The size of the input data", "The learning rate"],
+        correct: 0
+      },
+      {
+        question: "What is the role of the loss function in machine learning?",
+        options: ["To define the model architecture", "To initialize the model weights", "To evaluate the model's performance", "To update the model parameters"],
+        correct: 2
+      },
+      {
+        question: "Which of the following is a commonly used optimizer in deep learning?",
+        options: ["Linear regression", "K-means clustering", "Gradient descent", "Support vector machine"],
+        correct: 2
+      },
+      {
+        question: "What is the purpose of dropout in a neural network?",
+        options: ["To reduce the number of neurons", "To prevent overfitting", "To increase model accuracy", "To speed up training"],
+        correct: 1
+      },
+      {
+        question: "What is the difference between batch gradient descent and stochastic gradient descent?",
+        options: ["The number of epochs", "The size of the data used for each update", "The learning rate", "The type of loss function"],
+        correct: 1
+      },
+      {
+        question: "What is a hyperparameter in machine learning?",
+        options: ["A parameter that is learned from the data", "A parameter set before the training process", "A parameter that is updated during training", "A parameter that defines the model architecture"],
+        correct: 1
+      },
+      {
+        question: "What is the bias-variance tradeoff?",
+        options: ["The tradeoff between model complexity and model interpretability", "The tradeoff between training time and model accuracy", "The tradeoff between the model's ability to generalize and its accuracy on training data", "The tradeoff between the number of features and the number of samples"],
+        correct: 2
+      },
+      {
+        question: "What is a feature in machine learning?",
+        options: ["A unique attribute of the data", "A type of machine learning model", "A technique for data preprocessing", "A method for model evaluation"],
+        correct: 0
+      },
+      {
+        question: "What is the purpose of feature scaling in machine learning?",
+        options: ["To increase the number of features", "To reduce the dimensionality of the data", "To make the training process faster", "To ensure that features contribute equally to the model"],
+        correct: 3
+      },
+      {
+      question: "What is regularization in machine learning?",
+      options: [
+        "The process of training a model using a regular dataset",
+        "A technique to reduce overfitting by adding a penalty term to the loss function",
+        "The process of normalizing the input features of a model",
+        "A technique to increase the variance of a model"
+        ],
+        correct: 1
+      },
+      {
+        question: "What is the purpose of the activation function in a neural network?",
+        options: [
+          "To normalize the input features",
+          "To aggregate the input from all neurons",
+          "To introduce non-linearity into the model",
+          "To reduce the dimensionality of the input data"
+        ],
+        correct: 2
+      },
+      {
+        question: "What is the difference between supervised and unsupervised learning?",
+        options: [
+          "Supervised learning requires labeled data, while unsupervised learning does not",
+          "Supervised learning is faster than unsupervised learning",
+          "Unsupervised learning requires more computational resources",
+          "Supervised learning can only be used for classification tasks"
+        ],
+        correct: 0
+      },
+      {
+        question: "What is a convolutional neural network (CNN) primarily used for?",
+        options: [
+          "Time series analysis",
+          "Image recognition and processing",
+          "Natural language processing",
+          "Reinforcement learning"
+        ],
+        correct: 1
+      },
+      {
+        question: "What is the difference between a generative and discriminative model?",
+        options: [
+          "Generative models can generate new data points, while discriminative models cannot",
+          "Discriminative models are used for regression, while generative models are used for classification",
+          "Generative models are faster to train than discriminative models",
+          "Discriminative models focus on the boundary between classes, while generative models focus on the distribution of individual classes"
+        ],
+        correct: 0
+      },
+      {
+        question: "What is the purpose of dropout in a neural network?",
+        options: [
+          "To speed up the training process",
+          "To reduce the number of parameters in the model",
+          "To prevent overfitting by randomly dropping units during training",
+          "To increase the robustness of the network to noisy data"
+        ],
+        correct: 2
+      },
+      {
+        question: "What is the difference between batch gradient descent and stochastic gradient descent?",
+        options: [
+          "Batch gradient descent computes the gradient using the entire dataset, while stochastic gradient descent uses only one sample",
+          "Stochastic gradient descent is always faster than batch gradient descent",
+          "Batch gradient descent is more prone to local minima than stochastic gradient descent",
+          "Stochastic gradient descent requires more memory than batch gradient descent"
+        ],
+        correct: 0
+      },
+      {
+        question: "What is a decision tree?",
+        options: [
+          "A model used for regression tasks",
+          "A tree-like graph used for classification and regression tasks",
+          "A neural network architecture",
+          "A clustering algorithm"
+        ],
+        correct: 1
+      },
+      {
+        question: "What is the role of the cost function in machine learning?",
+        options: [
+          "To define the architecture of a neural network",
+          "To determine the optimal number of clusters in a dataset",
+          "To measure the performance of a model and guide the optimization process",
+          "To select the most important features in a dataset"
+        ],
+        correct: 2
+      },
+     {
+      question: "What is the difference between precision and recall?",
+      options: [
+        "Precision is the ratio of true positives to false positives, while recall is the ratio of true positives to false negatives",
+        "Precision is used for regression tasks, while recall is used for classification tasks",
+        "Recall is the accuracy of the model, while precision is the model's completeness",
+        "Precision measures the model's performanceon the training data, while recall measures the model's performance on the test data"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is cross-validation in machine learning?",
+      options: [
+      "A technique to combine predictions from multiple models",
+      "A method to evaluate the performance of a model on unseen data",
+      "A process to split the dataset into training and test sets",
+      "A strategy to update the weights of a neural network"
+      ],
+      correct: 1
+      },
+      {
+      question: "What is the purpose of feature scaling in machine learning?",
+      options: [
+      "To increase the computational efficiency of the model",
+      "To reduce the dimensionality of the dataset",
+      "To ensure that features contribute equally to the model's performance",
+      "To balance the bias and variance of the model"
+      ],
+      correct: 2
+      },
+      {
+      question: "What is the main advantage of using ensemble methods in machine learning?",
+      options: [
+      "They require less computational resources",
+      "They are easier to interpret than single models",
+      "They can improve the model's performance by combining multiple models",
+      "They reduce the need for feature engineering"
+      ],
+      correct: 2
+      },
+      {
+      question: "What is the difference between a shallow and a deep neural network?",
+      options: [
+      "Shallow networks have fewer layers, while deep networks have more layers",
+      "Deep networks are always better than shallow networks",
+      "Shallow networks are used for image processing, while deep networks are used for text processing",
+      "Deep networks require less training data than shallow networks"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is the purpose of transfer learning?",
+      options: [
+      "To transfer knowledge from one domain to another",
+      "To reduce the size of the neural network",
+      "To increase the speed of the training process",
+      "To prevent overfitting in the model"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is the difference between hard and soft clustering?",
+      options: [
+      "Hard clustering assigns each data point to a single cluster, while soft clustering assigns probabilities to each cluster",
+      "Soft clustering is faster than hard clustering",
+      "Hard clustering is used for classification tasks, while soft clustering is used for regression tasks",
+      "Soft clustering requires more computational resources than hard clustering"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is the significance of the learning rate in gradient descent?",
+      options: [
+      "It determines the speed at which the model learns",
+      "It defines the architecture of the neural network",
+      "It measures the accuracy of the model",
+      "It selects the most important features for the model"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is the difference between a parametric and a non-parametric model?",
+      options: [
+      "Parametric models have a fixed number of parameters, while non-parametric models do not",
+      "Non-parametric models are always more accurate than parametric models",
+      "Parametric models are used for classification tasks, while non-parametric models are used for regression tasks",
+      "Non-parametric models require less training data than parametric models"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is the purpose of the ReLU (Rectified Linear Unit) activation function?",
+      options: [
+      "To normalize the input features",
+      "To introduce non-linearity into the model while being computationally efficient",
+      "To reduce the dimensionality of the input data",
+      "To aggregate the input from all neurons"
+      ],
+      correct: 1
+      },
+      {
+      question: "What is the difference between L1 and L2 regularization?",
+      options: [
+      "L1 regularization adds the absolute value of the weights to the loss function, while L2 adds the squared value of the weights",
+      "L2 regularization is always better than L1 regularization",
+      "L1 regularization is used for regression tasks, while L2 regularization is used for classification tasks",
+      "L2 regularization requires more computational resources than L1 regularization"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is the role of the optimizer in training a neural network?",
+      options: [
+      "To define the architecture of the network",
+      "To select the most important features for the network",
+      "To update the weights of the network to minimize the loss function",
+      "To evaluate the performance of the network on the test data"
+      ],
+      correct: 2
+      },
+      { 
+      question: "What is the purpose of the softmax function in a neural network?",
+      options: [
+      "To introduce non-linearity into the network",
+      "To normalize the output of the final layerfor classification tasks",
+      "To reduce the dimensionality of the input data",
+      "To aggregate the input from all neurons"
+      ],
+      correct: 1
+      },
+      {
+      question: "What is the difference between a static and a dynamic model in machine learning?",
+      options: [
+      "Static models do not change over time, while dynamic models can adapt to new data",
+      "Dynamic models are always more accurate than static models",
+      "Static models are used for time series analysis, while dynamic models are used for classification tasks",
+      "Dynamic models require more computational resources than static models"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is the significance of the number of layers in a neural network?",
+      options: [
+      "It determines the speed at which the network learns",
+      "It defines the complexity and depth of the network",
+      "It measures the accuracy of the network",
+      "It selects the most important features for the network"
+      ],
+      correct: 1
+      },
+      {
+      question: "What is the purpose of data augmentation in machine learning?",
+      options: [
+      "To increase the size of the training dataset",
+      "To reduce the dimensionality of the dataset",
+      "To ensure that features contribute equally to the model's performance",
+      "To balance the bias and variance of the model"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is the difference between an epoch and an iteration in neural network training?",
+      options: [
+      "An epoch is a single pass through the entire dataset, while an iteration is a single update of the model's weights",
+      "An iteration is always longer than an epoch",
+      "An epoch is used for regression tasks, while an iteration is used for classification tasks",
+      "An iteration requires more computational resources than an epoch"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is the purpose of the pooling layer in a convolutional neural network?",
+      options: [
+      "To increase the computational efficiency of the network",
+      "To reduce the spatial dimensions of the feature maps",
+      "To introduce non-linearity into the network",
+      "To aggregate the input from all neurons"
+      ],
+      correct: 1
+      },
+      {
+      question: "What is the difference between a one-hot encoding and a label encoding?",
+      options: [
+      "One-hot encoding represents categorical variables as binary vectors, while label encoding assigns a unique integer to each category",
+      "Label encoding is always better than one-hot encoding",
+      "One-hot encoding is used for regression tasks, while label encoding is used for classification tasks",
+      "Label encoding requires more computational resources than one-hot encoding"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is the role of the loss function in machine learning?",
+      options: [
+      "To define the architecture of the model",
+      "To select the most important features for the model",
+      "To measure the performance of the model and guide the optimization process",
+      "To evaluate the performance of the model on the test data"
+      ],
+      correct: 2
+      },
+      {
+      question: "What is the purpose of the stride in a convolutional layer?",
+      options: [
+      "To determine the number of filters in the layer",
+      "To control the overlap between the receptive fields",
+      "To increase the depth of the feature maps",
+      "To aggregate the input from all neurons"
+      ],
+      correct: 1
+      },
+      {
+      question: "What is the difference between a feedforward and a recurrent neural network?",
+      options: [
+      "Feedforward networks have cycles in their graph structure, while recurrent networks do not",
+      "Recurrent networks are always more accurate than feedforward networks",
+      "Feedforward networks are used for time series analysis, while recurrent networks are used for sequential data processing",
+      "Recurrent networks require more computational resources than feedforward networks"
+      ],
+      correct: 2
+      },
+      {
+      question: "What is the purpose of the early stopping technique in training a model?",
+      options: [
+      "To prevent overfitting by stopping the training process when the model's performance on the validation set starts to degrade",
+      "To increase the speed of the training process",
+      "To reduce the size of the neural network",
+      "To balance the bias and variance of the model"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is the difference between a time series and a sequence model?",
+      options: [
+      "Time series models are used for forecasting, while sequence models are used for natural language processing",
+      "Sequence models require more computational resources than time series models",
+      "Time series models are used for classification tasks, while sequence models are used for regression tasks",
+      "Sequence models can handle variable-length input, while time series models cannot"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is the significance of the batch size in training a neural network?",
+      options: [
+      "It determines the number of samples used to update the weights of the network",
+      "It defines the architecture of the neural network",
+      "It measures the accuracy of the network",
+      "It selects the most important features for the network"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is the difference between online and batch learning?",
+      options: [
+      "Online learning updates the model with each new data point, while batch learning updates the model with batches of data",
+      "Batch learning is always more accurate than online learning",
+      "Online learning is used for classification tasks, while batch learning is used for regression tasks",
+      "Batch learning requires more computational resources than online learning"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is the purpose of data augmentation in machine learning?",
+      options: [
+      "To reduce the size of the dataset",
+      "To increase the diversity of the training data and reduce overfitting",
+      "To speed up the training process",
+      "To select the most important features in the dataset"
+      ],
+      correct: 1
+      },
+      {
+      question: "What is the difference between a linear and a nonlinear model?",
+      options: [
+      "Linear models can only model linear relationships, while nonlinear models can model complex relationships",
+      "Nonlinear models are always more accurate than linear models",
+      "Linear models are used for classification tasks, while nonlinear models are used for regression tasks",
+      "Nonlinear models require more computational resources than linear models"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is the purpose of the pooling layer in a convolutional neural network?",
+      options: [
+      "To normalize the input features",
+      "To introduce non-linearity into the network",
+      "To reduce the spatial dimensions of the input data",
+      "To aggregate the input from all neurons"
+      ],
+      correct: 2
+      },
+      {
+      question: "What is the difference between a static and a dynamic model?",
+      options: [
+      "Static models do not change over time, while dynamic models can adapt to new data",
+      "Dynamic models are always more accurate than static models",
+      "Static models are used for classification tasks, while dynamic models are used for regression tasks",
+      "Dynamic models require more computational resources than static models"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is the significance of the epoch number in training a neural network?",
+      options: [
+      "It determines the number of times the entire dataset is used to update the weights of the network",
+      "It defines the architecture of the neural network",
+      "It measures the accuracy of the network",
+      "It selects the most important features for the network"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is the difference between an autoencoder and a variational autoencoder?",
+      options: [
+      "Autoencoders are used for dimensionality reduction, while variational autoencoders are used for generative tasks",
+      "Variational autoencoders are always more accurate than autoencoders",
+      "Autoencoders are used for classification tasks, while variational autoencoders are used for regression tasks",
+      "Variational autoencoders require more computational resources than autoencoders"
+      ],
+      correct: 0
+      },
+      {
+      question: "What is the purpose of the loss function in training a neural network?",
+      options: [
+      "To define the architecture of the network",
+      "To select the most important features for the network",
+      "To measure the performance of the network and guide the optimization process",
+      "To evaluate the performance of the network on the test data"
+      ],
+      correct: 2
+      },
+      {
+      question: "What is the significance of the F1 score in evaluating classifiers?",
+      options: [
+      "It is the harmonic mean of precision and recall",
+      "It defines the architecture of the neural network",
+      "It measures the accuracy of the model",
+      "It selects the most important features for the model"
+      ],
+      correct: 0
+      }
+    ]
+
+
 
     let currentQuestion = 0;
     let score = 0;
