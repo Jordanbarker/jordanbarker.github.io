@@ -14,7 +14,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 20px; /* Adjust the space between elements */
+        gap: 10px; /* Adjust the space between elements */
     }
     .row-container {
         display: flex;
@@ -22,7 +22,6 @@
         align-items: center;
         flex-direction: row; /* Stack elements vertically */
     }
-    h1 { text-align: center; }
     /* Dropdown container */
     .dropdown {
         display: inline-block;
@@ -84,6 +83,16 @@
 <body>
     <div class="column-container">
         <h1>Wikipedia Article Sentiment</h1>
+        <p>
+            Huge thank you to Hugging Face for the models and dataset! 
+            <br><br>
+            Dataset: <a href="https://huggingface.co/datasets/wikimedia/wikipedia/tree/main">Wikipedia November 2023</a>
+            <br>
+            Models: 
+                <a href="https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english">DistilBERT SST-2</a> 
+                &
+                <a href="https://huggingface.co/bhadresh-savani/distilbert-base-uncased-emotion">DistilBERT Emotion</a>
+        </p>
         <div class="row-container">
             <button id="detailButton" class="detail">Detail</button>
             <button id="summaryButton" class="summary">Summary</button>
@@ -268,7 +277,6 @@
         // Load and display detail
         //-------------------------------------------------------
         function displayDetail() {
-            console.log(data.length)
 
             d3.select("#summary").selectAll("*").remove();
             d3.select("#articles").selectAll("*").remove();
