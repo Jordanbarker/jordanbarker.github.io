@@ -11,6 +11,7 @@ Was using custom_classic but this is going to take some work to cleanup
 Test locally with: 'live-server' or 'python -m http.server 8000'
 
 # Future ideas
+* Notebook on Clustering
+* Notebook on Statistical Tests
 * Increase performance by only loading in the required icons https://fontawesome.com/docs/web/dig-deeper/performance
 * Finish CNN Classifier
-* Clustering
