@@ -27,6 +27,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
 .highlight .gd { color: #A00000 } /* Generic.Deleted */
 .highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
 .highlight .gr { color: #E40000 } /* Generic.Error */
 .highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
 .highlight .gi { color: #008400 } /* Generic.Inserted */
@@ -13088,7 +13089,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Error-Metrics">Error Metrics<a class="anchor-link" href="#Error-Metrics">¶</a></h1>
+<h1 id="Accuracy-Metrics">Accuracy Metrics<a class="anchor-link" href="#Accuracy-Metrics">¶</a></h1>
 </div>
 </div>
 </div>
@@ -13109,10 +13110,20 @@ $$<ul>
 $$
 \text{MMAPE} = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{A_i - P_i}{A_i + \epsilon} \right| \times 100\%
 $$<ul>
-<li><strong>Symmetric MAPE (sMAPE)</strong>: This is an alternative to MAPE that equally penalizes overforecast and underforecast by modifying the denominator to be the average of the predicted and actual values, thus avoiding the issue when actual values are near zero.</li>
+<li><strong>Symmetric MAPE (SMAPE)</strong>: This is an alternative to MAPE that equally penalizes overforecast and underforecast by modifying the denominator to be the average of the predicted and actual values, thus avoiding the issue when actual values are near zero.</li>
 </ul>
 $$
-\text{sMAPE} = \frac{1}{n} \sum_{i=1}^{n} \frac{2 \times \left| A_i - P_i \right|}{\left| A_i \right| + \left| P_i \right|} \times 100\%
+\text{SMAPE} = \frac{100\%}{n} \sum_{i=1}^{n} \frac{|A_i - P_i|}{(|A_i| + |P_i|) / 2}
+$$<ul>
+<li><strong>Weighted Average Percentage Error (WAPE)</strong>: Errors are weighted by volume. Recommended over MAPE when the target can be low or has intermittent values. The problem of infinite error is removed since the summation of actual value in the denominator can never be zero.</li>
+</ul>
+$$
+\text{WAPE} = \frac{\sum_{i=1}^{n} |A_i - P_i|}{\sum_{i=1}^{n} |A_i|} \times 100\%
+$$<ul>
+<li><strong>Weighted MAPE (WMAPE)</strong>: Used in cases where we want errors to be weighted by a priority, weight $w$ at time $t$ $(w_t)$. For example, we could weight by day of week as assign a weight of 10 on Monday and 1 on the remaining days.</li>
+</ul>
+$$
+\text{WMAPE} = \frac{\sum_{i=1}^{n} w_t|A_i - P_i|}{\sum_{i=1}^{n} w_t|A_i|} \times 100\%
 $$
 </div>
 </div>
@@ -13367,29 +13378,21 @@ MAE: 13.5
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>Accuracy:</li>
+<li><strong>Accuracy</strong>:</li>
 </ul>
-<p>$ \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN} $</p>
-<ul>
-<li>Precision:</li>
+$$ \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN} $$<ul>
+<li><strong>Precision</strong>: “What proportion of positive identifications was actually correct?”</li>
 </ul>
-<p>$ \text{Precision} = \frac{TP}{TP + FP} $</p>
-<ul>
-<li>Recall:</li>
+$$ \text{Precision} = \frac{TP}{TP + FP} $$<ul>
+<li><strong>Sensitivity / Recall / True Positive Rate</strong>: “What proportion of actual positives was identified correctly?</li>
 </ul>
-<p>$ \text{Recall} = \frac{TP}{TP + FN} $</p>
-<ul>
-<li>F1 Score:</li>
+$$ \text{Sensitivity} = \text{Recall} = \frac{TP}{TP + FN} $$<ul>
+<li><strong>Specificity / True Negative Rate</strong>:</li>
 </ul>
-<p>$ \text{F1 Score} = 2 \times \frac{Precision \times Recall}{Precision + Recall} $</p>
-<ul>
-<li>Sensitivity (also known as Recall or True Positive Rate):</li>
+$$ \text{Specificity} = \frac{TN}{TN + FP} $$<ul>
+<li><strong>F1 Score</strong>: the harmonic mean of precision and recall</li>
 </ul>
-<p>$ \text{Sensitivity} = \frac{TP}{TP + FN} $</p>
-<ul>
-<li>Specificity (also known as True Negative Rate):</li>
-</ul>
-<p>$ \text{Specificity} = \frac{TN}{TN + FP} $</p>
+$$ \text{F1 Score} = 2 \times \frac{Precision \times Recall}{Precision + Recall} $$
 </div>
 </div>
 </div>
@@ -13668,7 +13671,7 @@ F1 Score: 0.80
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span>
+<div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
 </div>
