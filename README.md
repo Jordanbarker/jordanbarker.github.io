@@ -2,7 +2,10 @@
 Creating a website to store some of my commonly referenced notes.
 
 # Getting started
-To convert ipynb to html I'm using a custom nbconvert template.
+To convert ipynb to html I'm using a custom nbconvert template. I created a python script to convert all notebook files:
+* python convert_notebooks.py
+
+Or manually run the line in terminal:
 * jupyter nbconvert --to html Distributions.ipynb --template classic
 
 Was using custom_classic but this is going to take some work to cleanup

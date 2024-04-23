@@ -13116,8 +13116,8 @@ div#notebook {
 <strong>Types</strong>: <br/>
     - One-sample T-Test: Compares the means of the sample data to the population (e.g., Sample from a factory process). <br/>
     - Independent (Two-sample) T-test: Compares the means of two independent groups (e.g., comparing the heights of men and women). <br/>
+    --  Welch's T-Test for Unequal Variances should be used instead of the independent t-test regardless since it is more robust. It can be applied without any substantial disadvantages to Student's t-test. It's <em>not recommended</em> to pre-test for equal variances and then choose between Student's t-test or Welch's t-test. <br/>
     - Paired (Dependent) T-test: Compares the means of two related groups (e.g., comparing the weights of individuals before and after a diet).</p>
-<h3 id="1.1-Welch's-T-Test-for-Unequal-Variances-(use-this-regardless)">1.1 Welch's T-Test for Unequal Variances (use this regardless)<a class="anchor-link" href="#1.1-Welch's-T-Test-for-Unequal-Variances-(use-this-regardless)">¶</a></h3><p><strong>Note:</strong> Welch's t-test is more robust than Student's t-test. It can be applied without any substantial disadvantages to Student's t-test. It's <em>not recommended</em> to pre-test for equal variances and then choose between Student's t-test or Welch's t-test.</p>
 <h3 id="2.-ANOVA-(Analysis-of-Variance):">2. ANOVA (Analysis of Variance):<a class="anchor-link" href="#2.-ANOVA-(Analysis-of-Variance):">¶</a></h3><p><strong>Purpose</strong>: Compare the means of two or more groups.<br/>
 <strong>Assumptions</strong>: Assumes normal distribution of data, homogeneity of variances, and independence of observations.<br/>
 <strong>Types</strong>:<br/>
