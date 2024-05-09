@@ -13089,7 +13089,16 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Accuracy-Metrics">Accuracy Metrics<a class="anchor-link" href="#Accuracy-Metrics">¶</a></h1>
+<h1 id="Accuracy-Metrics">Accuracy Metrics<a class="anchor-link" href="#Accuracy-Metrics">¶</a></h1><p>Note that textbooks often use this notation:</p>
+<ul>
+<li>$ \hat{y_i} $ predicted value of the target for instance $i$</li>
+<li>$ y_i $ actual value of the target for instance $i$</li>
+</ul>
+<p>I'm using this instead because I find it easier to read:</p>
+<ul>
+<li>$ A_i $ predicted value of the target for instance $i$</li>
+<li>$ P_i $ actual value of the target for instance $i$</li>
+</ul>
 </div>
 </div>
 </div>
@@ -13258,6 +13267,11 @@ $$<ul>
 </ul>
 $$
 \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (A_i - P_i)^2}
+$$<ul>
+<li><strong>Root Mean Squared Logarithmic Error (RMSLE)</strong>:</li>
+</ul>
+$$
+\text{RMSLE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} ( \log(1+P_i) - \log(1+A_i))^2}
 $$<ul>
 <li><strong>Mean Absolute Error (MAE)</strong>:</li>
 </ul>
