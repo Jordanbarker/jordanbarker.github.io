@@ -3,6 +3,10 @@
 <head>
     <title>Wikipedia Article Sentiment</title>
     <style>
+    h1 {
+        margin: 5;
+        margin-bottom: 0px; /* Create separation from other bottons */
+    }
     body {
         margin: 0;
         display: flex;
@@ -84,8 +88,11 @@
     <div class="column-container">
         <h1>Wikipedia Article Sentiment</h1>
         <p>
-            Huge thank you to Hugging Face for the models and dataset! 
+            This project aims to explore sentiment models by visualizing their predictions on a subset of Wikipedia. <br>
+            The articles are split into chunks because the models have a maximum context window.
             <br><br>
+            Huge thank you to Hugging Face for the models and dataset! 
+            <br>
             Dataset: <a href="https://huggingface.co/datasets/wikimedia/wikipedia/tree/main">Wikipedia November 2023</a>
             <br>
             Models: 
@@ -96,6 +103,7 @@
         <div class="row-container">
             <button id="detailButton" class="detail">Detail</button>
             <button id="summaryButton" class="summary">Summary</button>
+            <button id="button100" class="1k">100</button>
             <button id="button1k" class="1k">1k</button>
             <button id="button10k" class="10k">10k</button>
             <button id="posneg" class="posneg">Positive/Negative</button>
@@ -120,12 +128,15 @@
     <script> 
     document.addEventListener('DOMContentLoaded', function() {
 
+        const baseUrl = "https://en.wikipedia.org/wiki/";
+
         var screenWidth = window.innerWidth,
             screenHeight = window.innerHeight;
 
          // Get the buttons
         var detailButton = document.getElementById('detailButton'),
             summaryButton = document.getElementById('summaryButton'),
+            button100 = document.getElementById('button100'),
             button1k = document.getElementById('button1k'),
             button10k = document.getElementById('button10k'),
             buttonPosNeg = document.getElementById('posneg'),
@@ -143,9 +154,14 @@
             Oranges = ['#fb8c3c', '#fb8b3b', '#fa8a3a', '#fa8938', '#fa8837', '#fa8736', '#fa8534', '#f98433', '#f98332', '#f98230', '#f8812f', '#f8802e', '#f87f2c', '#f77e2b', '#f77d2a', '#f77b29', '#f67a27', '#f67926', '#f57825', '#f57724', '#f57623', '#f47522', '#f47420', '#f3731f', '#f3721e', '#f2701d', '#f26f1c', '#f16e1b', '#f16d1a', '#f06c19', '#f06b18', '#ef6a17', '#ef6916', '#ee6815', '#ed6714', '#ed6614', '#ec6513', '#ec6312', '#eb6211', '#ea6110', '#ea6010', '#e95f0f', '#e85e0e', '#e85d0e', '#e75c0d', '#e65b0c', '#e55a0c', '#e4590b', '#e4580b', '#e3570a', '#e25609', '#e15509', '#e05408', '#df5308', '#de5208', '#dd5207', '#dc5107', '#db5006', '#da4f06', '#d94e06', '#d84d05', '#d74c05', '#d64c05', '#d54b04', '#d44a04', '#d24904', '#d14804', '#d04804', '#cf4703', '#cd4603', '#cc4503', '#cb4503', '#c94403', '#c84303', '#c74303', '#c54203', '#c44103', '#c24102', '#c14002', '#bf3f02', '#be3f02', '#bd3e02', '#bb3e02', '#ba3d02', '#b83d02', '#b73c02', '#b53b02', '#b43b02', '#b23a03', '#b13a03', '#af3903', '#ae3903', '#ac3803', '#ab3803', '#aa3703', '#a83703', '#a73603', '#a53603', '#a43503', '#a33503', '#a13403', '#a03403', '#9f3303', '#9d3303', '#9c3203', '#9b3203', '#993103', '#983103', '#973003', '#953003', '#942f03', '#932f03', '#922e04', '#902e04', '#8f2d04', '#8e2d04', '#8d2c04', '#8b2c04', '#8a2b04', '#892b04', '#882a04', '#862a04', '#852904', '#842904', '#832804', '#812804', '#802704', '#7f2704'] ,
             Reds = ['#f9684b', '#f9674a', '#f96549', '#f86448', '#f86347', '#f86146', '#f86045', '#f75e44', '#f75d43', '#f75c42', '#f65a41', '#f65940', '#f6573f', '#f5563e', '#f5553d', '#f4533c', '#f4523b', '#f4503a', '#f34f39', '#f34e38', '#f24c37', '#f24b37', '#f14936', '#f14835', '#f04734', '#ef4533', '#ef4433', '#ee4332', '#ed4131', '#ed4030', '#ec3f2f', '#eb3d2f', '#eb3c2e', '#ea3b2d', '#e93a2d', '#e8382c', '#e7372b', '#e6362b', '#e6352a', '#e5342a', '#e43229', '#e33128', '#e23028', '#e12f27', '#e02e27', '#df2d26', '#de2c26', '#dd2b25', '#dc2a25', '#db2924', '#da2824', '#d92723', '#d72623', '#d62522', '#d52422', '#d42321', '#d32221', '#d22121', '#d12020', '#d01f20', '#ce1f1f', '#cd1e1f', '#cc1d1f', '#cb1d1e', '#ca1c1e', '#c91b1e', '#c71b1d', '#c61a1d', '#c5191d', '#c4191c', '#c3181c', '#c2181c', '#c0171b', '#bf171b', '#be161b', '#bd161a', '#bb151a', '#ba151a', '#b91419', '#b81419', '#b61419', '#b51319', '#b41318', '#b21218', '#b11218', '#b01218', '#ae1117', '#ad1117', '#ac1117', '#aa1017', '#a91016', '#a71016', '#a60f16', '#a40f16', '#a30e15', '#a10e15', '#a00e15', '#9e0d15', '#9c0d14', '#9b0c14', '#990c14', '#970c14', '#960b13', '#940b13', '#920a13', '#900a13', '#8f0a12', '#8d0912', '#8b0912', '#890812', '#870811', '#860711', '#840711', '#820711', '#800610', '#7e0610', '#7c0510', '#7a0510', '#78040f', '#76040f', '#75030f', '#73030f', '#71020e', '#6f020e', '#6d010e', '#6b010e', '#69000d', '#67000d'] ,
             Purples = ['#9e9ac9', '#9d9ac8', '#9c99c8', '#9b98c7', '#9a97c7', '#9996c6', '#9895c6', '#9794c5', '#9693c5', '#9592c4', '#9491c4', '#9390c3', '#928fc3', '#918ec2', '#908dc2', '#908cc1', '#8f8bc1', '#8e8ac0', '#8d89c0', '#8c88bf', '#8b87bf', '#8a86be', '#8985be', '#8884bd', '#8883bd', '#8782bc', '#8680bc', '#857fbb', '#847eba', '#837dba', '#827cb9', '#827bb9', '#817ab8', '#8079b8', '#7f77b7', '#7e76b6', '#7e75b6', '#7d74b5', '#7c73b4', '#7b71b4', '#7b70b3', '#7a6fb3', '#796eb2', '#786cb1', '#786bb1', '#776ab0', '#7668af', '#7567af', '#7566ae', '#7465ad', '#7363ad', '#7362ac', '#7261ab', '#715fab', '#705eaa', '#705ca9', '#6f5ba8', '#6e5aa8', '#6e58a7', '#6d57a6', '#6c56a6', '#6c54a5', '#6b53a4', '#6a52a4', '#6950a3', '#694fa2', '#684ea2', '#674ca1', '#674ba0', '#664aa0', '#65489f', '#65479e', '#64469e', '#63449d', '#63439c', '#62429c', '#61409b', '#613f9a', '#603e9a', '#5f3c99', '#5e3b99', '#5e3a98', '#5d3897', '#5c3797', '#5c3696', '#5b3595', '#5a3395', '#5a3294', '#593194', '#582f93', '#582e92', '#572d92', '#562b91', '#562a91', '#552990', '#54288f', '#54268f', '#53258e', '#52248e', '#52238d', '#51218c', '#50208c', '#501f8b', '#4f1e8b', '#4e1c8a', '#4e1b8a', '#4d1a89', '#4c1988', '#4c1788', '#4b1687', '#4a1587', '#4a1486', '#491286', '#481185', '#481084', '#470f84', '#460d83', '#460c83', '#450b82', '#440a82', '#440981', '#430780', '#420680', '#42057f', '#41047f', '#40027e', '#40017e', '#3f007d'];
-        function toggleButtonSelection(selectedButton, otherButton) {
+        function toggleButtonSelection(selectedButton, otherButtons) {
+            // Add 'selected' class to the selected button
             selectedButton.classList.add('selected');
-            otherButton.classList.remove('selected');
+            
+            // Remove 'selected' class from each button in otherButtons array
+            otherButtons.forEach(button => {
+                button.classList.remove('selected');
+            });
         };
 
         function displaySelection(selectedDisplay, selectedDataSize, selectedDataType){
@@ -171,18 +187,18 @@
             } else if (selectedDisplay == "detail"){
                 currentDisplay = "detail"
                 displayDetail();
-                toggleButtonSelection(detailButton, summaryButton);
+                toggleButtonSelection(detailButton, [summaryButton]);
             } else if (selectedDisplay == "summary"){
                 currentDisplay = "summary"
                 displaySummary();
-                toggleButtonSelection(summaryButton, detailButton);
+                toggleButtonSelection(summaryButton, [detailButton]);
             };
             displayLegend();
 
         };
-        displaySelection(currentDisplay, 1000, "posneg")
+        displaySelection(currentDisplay, 100, "posneg")
         detailButton.classList.add('selected');
-        button1k.classList.add('selected');
+        button100.classList.add('selected');
         buttonPosNeg.classList.add('selected');
 
 
@@ -193,22 +209,26 @@
         summaryButton.addEventListener('click', function() {
             displaySelection("summary", currentDataSize, currentDataType)
         });
+        button100.addEventListener('click', function() {
+            displaySelection(currentDisplay, 100, currentDataType)
+            toggleButtonSelection(button100, [button1k, button10k]);
+        });
         button1k.addEventListener('click', function() {
             displaySelection(currentDisplay, 1000, currentDataType)
-            toggleButtonSelection(button1k, button10k);
+            toggleButtonSelection(button1k, [button100, button10k]);
         });
         button10k.addEventListener('click', function() {
             displaySelection(currentDisplay, 10000, currentDataType)
-            toggleButtonSelection(button10k, button1k);
+            toggleButtonSelection(button10k, [button100, button1k]);
         });
         buttonPosNeg.addEventListener('click', function(event) {
             event.preventDefault();
-            toggleButtonSelection(buttonPosNeg, buttonEmotion);
+            toggleButtonSelection(buttonPosNeg, [buttonEmotion]);
             displaySelection(currentDisplay, currentDataSize, "posneg")
         });
         buttonEmotion.addEventListener('click', function(event) {
             event.preventDefault();
-            toggleButtonSelection(buttonEmotion, buttonPosNeg);
+            toggleButtonSelection(buttonEmotion, [buttonPosNeg]);
             displaySelection(currentDisplay, currentDataSize, "emotion")
         });
 
@@ -299,7 +319,8 @@
             let lastClicked = null,
                 lastHovered = null,
                 selectedColor = "#e5e5e5",
-                unselectedColor = "#F4F4F4"; // Variable to store the last clicked element
+                // unselectedColor = "#F4F4F4"; // Variable to store the last clicked element
+                unselectedColor = "#ffffff"; // Variable to store the last clicked element
 
             var title_svg = d3.select("#titles")
                 .append("svg")
@@ -465,10 +486,13 @@
             d3.select("#summary").selectAll("*").remove();
             d3.select("#articles").selectAll("*").remove();
             d3.select("#titles").selectAll("*").remove();
-
             
             var svgLength = Math.min(screenWidth-50, screenHeight);
-            if (currentDataSize==1000) {
+            if (currentDataSize==100) {
+                numCols = 20,
+                numRows = 5,
+                squareLength = svgLength / numCols;
+            } else if (currentDataSize==1000) {
                 numCols = 40,
                 numRows = 25,
                 squareLength = svgLength / numCols;
@@ -478,12 +502,10 @@
                 squareLength = svgLength / numCols;
             }
                 
-
             // Log variables for troubleshooting
             // console.log(screenWidth, screenHeight, squareLength);
-            // console.log(data);
-            // console.log("data.length:", data.length, " legendSpace:", legendSpace)
-            // console.log("numRows:",numRows, " totalRows:",totalRows, " numCols:", numCols);
+            // console.log("data.length:", data.length)
+            // console.log("numRows:", numRows, " squareLength:", squareLength, " numCols:", numCols);
 
             var svg = d3.select("#summary")
                 .append("svg")
@@ -575,7 +597,7 @@
                 .on("mouseleave", mouseleave)
                 .on('click', function(event, d) {
                     // Open the URL in a new tab when the rectangle is clicked
-                    window.open(d.url, '_blank');
+                    window.open(baseUrl + d.url, '_blank');
                 });
         }
     });
