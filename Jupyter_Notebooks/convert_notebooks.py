@@ -4,7 +4,8 @@ import subprocess
 notebooks = [
     "Accuracy_Metrics.ipynb", 
     "StatisticalTests.ipynb",
-    "TimeSeries.ipynb"
+    "TimeSeries.ipynb",
+    "Distributions.ipynb"
 ]
 # Output directory should be one level up.
 output_dir = "../"
