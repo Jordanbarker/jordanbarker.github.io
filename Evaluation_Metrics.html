@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Accuracy_Metrics</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script><script type="module">
+<title>Evaluation_Metrics</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script><script type="module">
   import mermaid from 'https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.0/mermaid.esm.min.mjs';
   mermaid.initialize({ startOnLoad: true });
 </script>
@@ -13089,7 +13089,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Accuracy-Metrics">Accuracy Metrics<a class="anchor-link" href="#Accuracy-Metrics">¶</a></h1><p>Note that I use different notation from textbooks because I find it easier to read:</p>
+<h1 id="Evaluation-Metrics">Evaluation Metrics<a class="anchor-link" href="#Evaluation-Metrics">¶</a></h1><p>Note that I use different notation from textbooks because I find it easier to read:</p>
 <ul>
 <li>$ P_i $ instead of $ \hat{y_i} $ for predicted value of the target for instance $i$</li>
 <li>$ A_i $ instead of $ y_i $ actual value of the target for instance $i$</li>
@@ -13101,7 +13101,27 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Regression">Regression<a class="anchor-link" href="#Regression">¶</a></h2><ul>
-<li><strong>Mean Absolute Percentage Error (MAPE)</strong>: MAPE is often used when you want a measure that is independent of the scale of your data. It expresses the error as a percentage of the actual values, making it easier to interpret and compare across different datasets or models, regardless of their units or scales.<ul>
+<li><strong>Mean Squared Error (MSE)</strong>: Useful when large errors are particularly undesirable. Larger errors have a disproportionately larger impact on the metric.</li>
+</ul>
+$$
+\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (A_i - P_i)^2
+$$<ul>
+<li><strong>Root Mean Squared Error (RMSE)</strong>: Provids an error in the same units as the original data. Like MSE, it is sensitive to outliers.</li>
+</ul>
+$$
+\text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (A_i - P_i)^2}
+$$<ul>
+<li><strong>Root Mean Squared Logarithmic Error (RMSLE)</strong>:</li>
+</ul>
+$$
+\text{RMSLE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} ( \log(1+P_i) - \log(1+A_i))^2}
+$$<ul>
+<li><strong>Mean Absolute Error (MAE)</strong>: More robust to outliers compared to MSE and RMSE.</li>
+</ul>
+$$
+\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |A_i - P_i|
+$$<h3 id="Percentage-Error">Percentage Error<a class="anchor-link" href="#Percentage-Error">¶</a></h3><ul>
+<li><strong>Mean Absolute Percentage Error (MAPE)</strong>: Used when you want a measure that is independent of the scale of your data. It expresses the error as a percentage of the actual values, making it easier to interpret and compare across different datasets or models, regardless of their units or scales.<ul>
 <li>The output can be arbitrarily high when y_true is small or when abs(y_true - y_pred) is large (which is common for most regression metrics).</li>
 </ul>
 </li>
@@ -13134,30 +13154,52 @@ $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [17]:</div>
+<div class="prompt input_prompt">In [9]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
+<span class="k">def</span> <span class="nf">calculate_metrics</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">predicted</span><span class="p">,</span> <span class="n">rounding</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">mse</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(((</span><span class="n">actual</span> <span class="o">-</span> <span class="n">predicted</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">rounding</span><span class="p">)</span>  <span class="c1"># Mean Squared Error</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">),</span> <span class="n">rounding</span><span class="p">)</span>  <span class="c1"># Root Mean Squared Error</span>
+    <span class="n">mae</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">actual</span> <span class="o">-</span> <span class="n">predicted</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">rounding</span><span class="p">)</span>  <span class="c1"># Mean Absolute Error</span>
+    <span class="n">mape</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">actual</span> <span class="o">-</span> <span class="n">predicted</span><span class="p">)</span> <span class="o">/</span> <span class="n">actual</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">rounding</span><span class="p">)</span>  <span class="c1"># Mean Absolute Percentage Error</span>
+    <span class="n">modified_mape</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">actual</span> <span class="o">-</span> <span class="n">predicted</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">actual</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">rounding</span><span class="p">)</span>  <span class="c1"># Modified Mean Absolute Percentage Error</span>
+    <span class="n">smape</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">actual</span> <span class="o">-</span> <span class="n">predicted</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">actual</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">predicted</span><span class="p">)))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">rounding</span><span class="p">)</span>  <span class="c1"># Symmetric Mean Absolute Percentage Error</span>
+    <span class="n">wape</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">actual</span> <span class="o">-</span> <span class="n">predicted</span><span class="p">))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">actual</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">rounding</span><span class="p">)</span>  <span class="c1"># Weighted Absolute Percentage Error</span>
+    <span class="n">wmape</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">actual</span> <span class="o">-</span> <span class="n">predicted</span><span class="p">)</span> <span class="o">/</span> <span class="n">actual</span><span class="p">)</span> <span class="o">*</span> <span class="n">actual</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">actual</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">rounding</span><span class="p">)</span>  <span class="c1"># Weighted Mean Absolute Percentage Error</span>
+    <span class="k">return</span> <span class="n">mse</span><span class="p">,</span> <span class="n">rmse</span><span class="p">,</span> <span class="n">mae</span><span class="p">,</span> <span class="n">mape</span><span class="p">,</span> <span class="n">modified_mape</span><span class="p">,</span> <span class="n">smape</span><span class="p">,</span> <span class="n">wape</span><span class="p">,</span> <span class="n">wmape</span>
+
+
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>    
-    <span class="s1">'actual'</span><span class="p">:</span>       <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">500</span><span class="p">],</span>
-    <span class="s1">'predicted'</span><span class="p">:</span>    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">380</span><span class="p">,</span> <span class="mi">480</span><span class="p">]</span>
+    <span class="s1">'actual'</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">500</span><span class="p">],</span>
+    <span class="s1">'model_1'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">380</span><span class="p">,</span> <span class="mi">480</span><span class="p">],</span>
+    <span class="s1">'model_2'</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">310</span><span class="p">,</span> <span class="mi">390</span><span class="p">,</span> <span class="mi">490</span><span class="p">],</span>
+    <span class="s1">'model_3'</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">205</span><span class="p">,</span> <span class="mi">290</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">510</span><span class="p">]</span>
 <span class="p">})</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">'diff'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">'predicted'</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'model_1_abs_diff'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">'model_1'</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'model_2_abs_diff'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">'model_2'</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'model_3_abs_diff'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">'model_3'</span><span class="p">])</span>
 <span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 
-<span class="n">mape</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">'predicted'</span><span class="p">])</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span>
-<span class="n">modified_mape</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">'predicted'</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span>
-<span class="n">smape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">'predicted'</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">])</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'predicted'</span><span class="p">])))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span>
-<span class="n">wape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">'predicted'</span><span class="p">]))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
-<span class="n">wmape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">'predicted'</span><span class="p">])</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">])</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="c1"># Calculate metrics for each model</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'model_1'</span><span class="p">,</span> <span class="s1">'model_2'</span><span class="p">,</span> <span class="s1">'model_3'</span><span class="p">]:</span>
+    <span class="n">mse</span><span class="p">,</span> <span class="n">rmse</span><span class="p">,</span> <span class="n">mae</span><span class="p">,</span> <span class="n">mape</span><span class="p">,</span> <span class="n">modified_mape</span><span class="p">,</span> <span class="n">smape</span><span class="p">,</span> <span class="n">wape</span><span class="p">,</span> <span class="n">wmape</span> <span class="o">=</span> <span class="n">calculate_metrics</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">model</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">metrics</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">'model'</span><span class="p">:</span> <span class="n">model</span><span class="p">,</span>
+        <span class="s1">'MSE'</span><span class="p">:</span> <span class="n">mse</span><span class="p">,</span>
+        <span class="s1">'RMSE'</span><span class="p">:</span> <span class="n">rmse</span><span class="p">,</span>
+        <span class="s1">'MAE'</span><span class="p">:</span> <span class="n">mae</span><span class="p">,</span>
+        <span class="s1">'MAPE'</span><span class="p">:</span> <span class="n">mape</span><span class="p">,</span>
+        <span class="s1">'Modified MAPE'</span><span class="p">:</span> <span class="n">modified_mape</span><span class="p">,</span>
+        <span class="s1">'SMAPE'</span><span class="p">:</span> <span class="n">smape</span><span class="p">,</span>
+        <span class="s1">'WAPE'</span><span class="p">:</span> <span class="n">wape</span><span class="p">,</span>
+        <span class="s1">'WMAPE'</span><span class="p">:</span> <span class="n">wmape</span>
+    <span class="p">})</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'MAPE:    </span><span class="si">{</span><span class="n">mape</span><span class="si">:</span><span class="s1">.03</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'MMAPE:  </span><span class="si">{</span><span class="n">modified_mape</span><span class="si">:</span><span class="s1">.04</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'SMAPE:  </span><span class="si">{</span><span class="n">smape</span><span class="si">:</span><span class="s1">.04</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'WAPE:   </span><span class="si">{</span><span class="n">smape</span><span class="si">:</span><span class="s1">.04</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'WMAPE:   </span><span class="si">{</span><span class="n">wape</span><span class="si">:</span><span class="s1">.04</span><span class="si">}</span><span class="s1">0'</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -13185,8 +13227,12 @@ $$
 <tr style="text-align: right;">
 <th></th>
 <th>actual</th>
-<th>predicted</th>
-<th>diff</th>
+<th>model_1</th>
+<th>model_2</th>
+<th>model_3</th>
+<th>model_1_abs_diff</th>
+<th>model_2_abs_diff</th>
+<th>model_3_abs_diff</th>
 </tr>
 </thead>
 <tbody>
@@ -13194,110 +13240,69 @@ $$
 <th>0</th>
 <td>0</td>
 <td>1</td>
-<td>-1</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
 </tr>
 <tr>
 <th>1</th>
 <td>100</td>
 <td>110</td>
-<td>-10</td>
+<td>105</td>
+<td>120</td>
+<td>10</td>
+<td>5</td>
+<td>20</td>
 </tr>
 <tr>
 <th>2</th>
 <td>200</td>
 <td>210</td>
-<td>-10</td>
+<td>195</td>
+<td>205</td>
+<td>10</td>
+<td>5</td>
+<td>5</td>
 </tr>
 <tr>
 <th>3</th>
 <td>300</td>
 <td>320</td>
-<td>-20</td>
+<td>310</td>
+<td>290</td>
+<td>20</td>
+<td>10</td>
+<td>10</td>
 </tr>
 <tr>
 <th>4</th>
 <td>400</td>
 <td>380</td>
+<td>390</td>
+<td>400</td>
 <td>20</td>
+<td>10</td>
+<td>0</td>
 </tr>
 <tr>
 <th>5</th>
 <td>500</td>
 <td>480</td>
+<td>490</td>
+<td>510</td>
 <td>20</td>
+<td>10</td>
+<td>10</td>
 </tr>
 </tbody>
 </table>
 </div></div>
 </div>
 <div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>MAPE:    6.13
-MMAPE:  21.75
-SMAPE:  38.34
-WAPE:   38.34
-WMAPE:   5.40
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li><strong>Mean Squared Error (MSE)</strong>: Useful when large errors are particularly undesirable. Since it squares the errors before averaging them, larger errors have a disproportionately larger impact on the metric.</li>
-</ul>
-$$
-\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (A_i - P_i)^2
-$$<ul>
-<li><strong>Root Mean Squared Error (RMSE)</strong>:</li>
-</ul>
-$$
-\text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (A_i - P_i)^2}
-$$<ul>
-<li><strong>Root Mean Squared Logarithmic Error (RMSLE)</strong>:</li>
-</ul>
-$$
-\text{RMSLE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} ( \log(1+P_i) - \log(1+A_i))^2}
-$$<ul>
-<li><strong>Mean Absolute Error (MAE)</strong>:</li>
-</ul>
-$$
-\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |A_i - P_i|
-$$
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [66]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>    
-    <span class="s1">'actual'</span><span class="p">:</span>       <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">500</span><span class="p">],</span>
-    <span class="s1">'predicted'</span><span class="p">:</span>    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">380</span><span class="p">,</span> <span class="mi">480</span><span class="p">]</span>
-<span class="p">})</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">'diff'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">'predicted'</span><span class="p">]</span>
-<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-
-<span class="n">df</span><span class="p">[</span><span class="s1">'MSE'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">'predicted'</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">'MAE'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'actual'</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">'predicted'</span><span class="p">])</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">"MSE:"</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">'MSE'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"RMSE: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'MSE'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"MAE: "</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">'MAE'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_html rendered_html output_subarea"><div>
+<div class="prompt output_prompt">Out[9]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -13315,60 +13320,57 @@ $$
 <thead>
 <tr style="text-align: right;">
 <th></th>
-<th>actual</th>
-<th>predicted</th>
-<th>diff</th>
+<th>model</th>
+<th>MSE</th>
+<th>RMSE</th>
+<th>MAE</th>
+<th>MAPE</th>
+<th>Modified MAPE</th>
+<th>SMAPE</th>
+<th>WAPE</th>
+<th>WMAPE</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <th>0</th>
-<td>0</td>
-<td>1</td>
-<td>-1</td>
+<td>model_1</td>
+<td>233.50</td>
+<td>15.28</td>
+<td>13.5</td>
+<td>6.13</td>
+<td>21.75</td>
+<td>38.34</td>
+<td>5.4</td>
+<td>5.33</td>
 </tr>
 <tr>
 <th>1</th>
-<td>100</td>
-<td>110</td>
-<td>-10</td>
+<td>model_2</td>
+<td>59.00</td>
+<td>7.68</td>
+<td>7.0</td>
+<td>3.07</td>
+<td>35.88</td>
+<td>35.87</td>
+<td>2.8</td>
+<td>2.67</td>
 </tr>
 <tr>
 <th>2</th>
-<td>200</td>
-<td>210</td>
-<td>-10</td>
-</tr>
-<tr>
-<th>3</th>
-<td>300</td>
-<td>320</td>
-<td>-20</td>
-</tr>
-<tr>
-<th>4</th>
-<td>400</td>
-<td>380</td>
-<td>20</td>
-</tr>
-<tr>
-<th>5</th>
-<td>500</td>
-<td>480</td>
-<td>20</td>
+<td>model_3</td>
+<td>104.17</td>
+<td>10.21</td>
+<td>7.5</td>
+<td>5.57</td>
+<td>4.60</td>
+<td>5.20</td>
+<td>3.0</td>
+<td>3.00</td>
 </tr>
 </tbody>
 </table>
 </div></div>
-</div>
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>MSE: 233.5
-RMSE: 15.28
-MAE:  13.5
-</pre>
-</div>
 </div>
 </div>
 </div>
@@ -13384,19 +13386,19 @@ MAE:  13.5
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li><strong>Accuracy</strong>:</li>
+<li><strong>Accuracy</strong>: The proportion of correct predictions among the all predictions.</li>
 </ul>
 $$ \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN} $$<ul>
-<li><strong>Precision</strong>: “What proportion of positive identifications was actually correct?”</li>
+<li><strong>Precision</strong>: Of all the instances that the classifier labeled as positive, how many are actually positive.</li>
 </ul>
 $$ \text{Precision} = \frac{TP}{TP + FP} $$<ul>
-<li><strong>Sensitivity / Recall / True Positive Rate</strong>: “Of all the actual positives, what proportion were correctly identified as positive?</li>
+<li><strong>Sensitivity / Recall / True Positive Rate</strong>: Of all the actual positives, what proportion were correctly identified as positive.</li>
 </ul>
 $$ \text{Sensitivity} = \text{Recall} = \frac{TP}{TP + FN} $$<ul>
-<li><strong>Specificity / True Negative Rate</strong>: "Of all the actual negatives, how many were correctly identified as negative?"</li>
+<li><strong>Specificity / True Negative Rate</strong>: Of all the actual negatives, how many were correctly identified as negative.</li>
 </ul>
 $$ \text{Specificity} = \frac{TN}{TN + FP} $$<ul>
-<li><strong>F1 Score</strong>: the harmonic mean of precision and recall</li>
+<li><strong>F1 Score</strong>: Harmonic mean of precision and recall</li>
 </ul>
 $$ \text{F1 Score} = 2 \times \frac{Precision \times Recall}{Precision + Recall} $$
 </div>

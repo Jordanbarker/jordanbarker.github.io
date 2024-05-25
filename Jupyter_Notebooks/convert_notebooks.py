@@ -2,7 +2,7 @@ import subprocess
 
 # List of notebook files
 notebooks = [
-    "Accuracy_Metrics.ipynb", 
+    "Evaluation_Metrics.ipynb", 
     "StatisticalTests.ipynb",
     "TimeSeries.ipynb",
     "Distributions.ipynb"
