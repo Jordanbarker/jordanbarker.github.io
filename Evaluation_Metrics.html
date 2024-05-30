@@ -13091,8 +13091,8 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Evaluation-Metrics">Evaluation Metrics<a class="anchor-link" href="#Evaluation-Metrics">¶</a></h1><p>Note that I use different notation from textbooks because I find it easier to read:</p>
 <ul>
-<li>$ P_i $ instead of $ \hat{y_i} $ for predicted value of the target for instance $i$</li>
-<li>$ A_i $ instead of $ y_i $ actual value of the target for instance $i$</li>
+<li>$ Predicted_i $ instead of $ \hat{y_i} $ for predicted value of the target for instance $i$</li>
+<li>$ Actual_i $ instead of $ y_i $ actual value of the target for instance $i$</li>
 </ul>
 </div>
 </div>
@@ -13104,22 +13104,22 @@ div#notebook {
 <li><strong>Mean Squared Error (MSE)</strong>: Useful when large errors are particularly undesirable. Larger errors have a disproportionately larger impact on the metric.</li>
 </ul>
 $$
-\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (A_i - P_i)^2
+\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (Actual_i - Predicted_i)^2
 $$<ul>
 <li><strong>Root Mean Squared Error (RMSE)</strong>: Provids an error in the same units as the original data. Like MSE, it is sensitive to outliers.</li>
 </ul>
 $$
-\text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (A_i - P_i)^2}
+\text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (Actual_i - Predicted_i)^2}
 $$<ul>
 <li><strong>Root Mean Squared Logarithmic Error (RMSLE)</strong>:</li>
 </ul>
 $$
-\text{RMSLE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} ( \log(1+P_i) - \log(1+A_i))^2}
+\text{RMSLE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} ( \log(1+Predicted_i) - \log(1+Actual_i))^2}
 $$<ul>
 <li><strong>Mean Absolute Error (MAE)</strong>: More robust to outliers compared to MSE and RMSE.</li>
 </ul>
 $$
-\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |A_i - P_i|
+\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |Actual_i - Predicted_i|
 $$<h3 id="Percentage-Error">Percentage Error<a class="anchor-link" href="#Percentage-Error">¶</a></h3><ul>
 <li><strong>Mean Absolute Percentage Error (MAPE)</strong>: Used when you want a measure that is independent of the scale of your data. It expresses the error as a percentage of the actual values, making it easier to interpret and compare across different datasets or models, regardless of their units or scales.<ul>
 <li>The output can be arbitrarily high when y_true is small or when abs(y_true - y_pred) is large (which is common for most regression metrics).</li>
@@ -13127,27 +13127,27 @@ $$<h3 id="Percentage-Error">Percentage Error<a class="anchor-link" href="#Percen
 </li>
 </ul>
 $$
-MAPE = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{Actual_i - Prediction_i}{Actual_i} \right| \times 100\%
+\text{MAPE} = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{Actual_i - Predicted_i}{Actual_i} \right| \times 100\%
 $$<ul>
 <li><strong>Modified MAPE (MMAPE) or Adjusted MAPE</strong>: To address the issue of small actual values, a modified version of MAPE can be used where a small constant is added to the denominator to avoid extremely high percentage errors.</li>
 </ul>
 $$
-\text{MMAPE} = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{A_i - P_i}{A_i + \epsilon} \right| \times 100\%
+\text{MMAPE} = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{Actual_i - Predicted_i}{Actual_i + \epsilon} \right| \times 100\%
 $$<ul>
 <li><strong>Symmetric MAPE (SMAPE)</strong>: This is an alternative to MAPE that equally penalizes overforecast and underforecast by modifying the denominator to be the average of the predicted and actual values, thus avoiding the issue when actual values are near zero.</li>
 </ul>
 $$
-\text{SMAPE} = \frac{100\%}{n} \sum_{i=1}^{n} \frac{|A_i - P_i|}{(|A_i| + |P_i|) / 2}
+\text{SMAPE} = \frac{100\%}{n} \sum_{i=1}^{n} \frac{|Actual_i - Predicted_i|}{(|Actual_i| + |Predicted_i|) / 2}
 $$<ul>
 <li><strong>Weighted Average Percentage Error (WAPE)</strong>: Errors are weighted by volume. Recommended over MAPE when the target can be low or has intermittent values. The problem of infinite error is removed since the summation of actual value in the denominator can never be zero.</li>
 </ul>
 $$
-\text{WAPE} = \frac{\sum_{i=1}^{n} |A_i - P_i|}{\sum_{i=1}^{n} |A_i|} \times 100\%
+\text{WAPE} = \frac{\sum_{i=1}^{n} |Actual_i - Predicted_i|}{\sum_{i=1}^{n} |Actual_i|} \times 100\%
 $$<ul>
 <li><strong>Weighted MAPE (WMAPE)</strong>: Used in cases where we want errors to be weighted by a priority, weight $w$ at time $t$ $(w_t)$. For example, we could weight by day of week as assign a weight of 10 on Monday and 1 on the remaining days.</li>
 </ul>
 $$
-\text{WMAPE} = \frac{\sum_{i=1}^{n} w_t|A_i - P_i|}{\sum_{i=1}^{n} w_t|A_i|} \times 100\%
+\text{WMAPE} = \frac{\sum_{i=1}^{n} w_t|Actual_i - Predicted_i|}{\sum_{i=1}^{n} w_t|Actual_i|} \times 100\%
 $$
 </div>
 </div>
