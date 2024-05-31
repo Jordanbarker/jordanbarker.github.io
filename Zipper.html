@@ -72,20 +72,38 @@
             z-index: 1000;
         }
         #zipper-pull {
-            top: 74%;
+            position: fixed;
+            top: 70%;
+            transform: translate(-50%, -50%) scaleY(-1);
             width: 15vh;
-            height: 25vh;
+            height: 15vh;
             background-color: #9b9b97;
             border-radius: 5%;
-            z-index: 10000;
+            z-index: 100;
         }
-        #zipper-pull-loop {
-            top: 60%;
-            width: 12vh;
-            height: 12vh;
-            border: 2.1vh solid #9b9b97;
-            border-radius: 50%;
-            z-index: 101;
+        #zipper-pull::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: -15%;
+            transform: translate(-50%, -50%) scaleY(-1);
+            width: 8vh;
+            height: 10vh;
+            border: 3.5vh solid #9b9b97;
+            border-radius: 15%;
+            z-index: 11;
+        }
+        #zipper-pull::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 120%;
+            transform: translate(-50%, -50%) scaleY(-1);
+            width: 11vh;
+            height: 8vh;
+            border: 2.0vh solid #9b9b97;
+            border-radius: 15%;
+            z-index: 11;
         }
     </style>
     
@@ -94,7 +112,6 @@
         <div id="zipper-slider-rect" class="zipper-element"></div>
         <div id="zipper-slider-rect-light" class="zipper-element"></div>
         <div id="zipper-pull" class="zipper-element"></div>
-        <div id="zipper-pull-loop" class="zipper-element"></div>
         <div id="blocks-container"></div>
     </body>
     
@@ -129,7 +146,6 @@
 
         // Zipper pull movement
         const zipperPull = document.getElementById('zipper-pull');
-        const zipperPullLoop = document.getElementById('zipper-pull-loop');
         let lastScrollTop = 0;
 
         window.addEventListener('scroll', function() {
@@ -137,11 +153,9 @@
             if (currentScrollTop > lastScrollTop) {
                 // Scrolling down
                 zipperPull.style.transform = 'translate(-50%, -50%)';
-                zipperPullLoop.style.transform = 'translate(-50%, -50%)'; 
             } else {
                 // Scrolling up
-                zipperPull.style.transform = 'translate(-50%, -220%)';
-                zipperPullLoop.style.transform = 'translate(-50%, -150%)'; 
+                zipperPull.style.transform = 'translate(-50%, -300%) scaleY(-1)';
             }
             lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
         }, false);
