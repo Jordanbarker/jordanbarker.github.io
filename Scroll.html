@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+        body {
+            font-family: Helvetica, sans-serif;
+            font-size: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .block {
+            width: 100%;
+            margin-top: 1em;
+            margin-bottom: 60vh;
+            height: 33vh;
+            background-color: #a5b7fd;
+            text-align: center;
+        }
+        .entered {
+            background-color: #75e200; 
+            /* color: rgb(0, 0, 0); */
+        }
+    </style>
+    
+    <body>
+        <div class="block block-a"><p>.block-a</p></div>
+        <div class="block block-b">
+            <p>.block-b
+                <span class="progress">0.0</span>
+            </p>
+        </div>
+    </body>
+    
+    <script src="https://unpkg.com/enter-view"></script>
+    <script>
+        enterView({
+            selector: '.block-b',
+            offset: 0.5,
+            enter: function(el) {el.classList.add('entered');},
+            progress: function(el, progress) {
+                var p = el.querySelector('.progress')
+                p.innerText = progress.toFixed(2);
+            },
+            exit: function(el) {el.classList.remove('entered');}
+        });
+    </script>
+</html>
