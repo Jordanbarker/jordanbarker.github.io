@@ -32,7 +32,7 @@
             left: 50%;
             background-color: #e2bc00;
             transform: translate(-50%, -50%); 
-            transition: transform 0.05s;       
+            transition: transform 0.2s;       
         }
         .block-left {
             left: -5%;
@@ -153,14 +153,7 @@
                 progress: function(el, progress) {
                     const translation = (i % 2 === 0) ? -1000 : 1000;
                     const rotation = (i % 2 === 0) ? -25 : 25;
-                    // el.style.transform = `translateX(${translation * progress}%) rotate(${rotation ** progress}deg)`;
                     el.style.transform = `translateX(${translation * progress}%) rotate(${rotation * Math.pow(progress, 2)}deg)`;
-                    if (i % 2 === 0) {
-                        console.log(rotation, progress)
-                        console.log(rotation ** progress)
-                        // console.log(el.style.transform)
-                    }
-                    // el.style.transform = `translateX(${translation * progress}%)`;
                     if (progress >= .99) {
                         el.classList.add('invisible')
                     } else {
