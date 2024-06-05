@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    @keyframes slideInLeft {
+        from {
+            transform: translateX(-10vw);
+        }
+        to {
+            transform: translateX(0);
+        }
+    }
+    /* .header {
+        padding: 10px 10px;
+        background: #c6c6c6;
+    }
+    .sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+    } */
+    body {
+        margin: 0;
+        padding-top: 0;
+        justify-content: center;
+        font-family: Helvetica, sans-serif;
+    }
+    h1 {
+        margin-top: 0;
+        /* animation-name: slideInLeft;  */
+        animation-duration: 1s;
+        animation-timing-function: ease-in;
+    }
+    /* main {
+    } */
+    article {
+        font-size: 4vw;
+        width: 50%;
+        line-height: 1.1;
+    }
+    /* h3 {
+        padding: 0px;
+        margin: 0px;
+        padding-top: 1vh;
+        padding-bottom: 1vh;
+    } */
+    h4 {
+        padding-top: 1vh;
+        padding-bottom: 0vh;
+        margin: 0px;
+        font-style: italic;
+        font-weight: normal;
+    }
+    p {
+        padding-top: 0vh;
+    }
+    .top-container {
+        background: linear-gradient(-45deg, #000428 0%, #004e92 100%);
+        padding: 40vh;
+        color: white;
+        height: 100vh;
+        margin: 0;
+        text-align: center;
+    }
+    .timeline-container {
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .timeline-event {
+        display: flex; 
+        align-items: flex-start;
+        height: 150vh;
+    }
+    .timeline-text {
+        width: 50%;
+        max-width: 50%;
+    }
+    .timeline-image {
+        width: 50%;
+        max-width: 50%;
+        position: sticky;
+        top: 30vh;
+        text-align: center;
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Jordan Barker</title>
+</head>
+
+<body>
+    <div class="top-container">
+        <h1>About Me</h1>
+        <p>I struggle with writing CSS/HTML</p>
+    </div>
+
+    <!-- <div class="header" id="myHeader">
+        <h2>My Career Timeline</h2>
+    </div> -->
+
+    <main>
+        <div class="timeline-container">
+            
+            <div class="timeline-event">
+                <article class="timeline-text">
+                    <div class='text'><h3>Epic Systems Corporation</h3></div>
+                    <div class='text'><h4>January 2019 - May 2024</h4></div>
+                    <div class='text'><p>Partner with major healthcare organizations</p></div>
+                </article>
+                <figure class="timeline-image"><img src="./Assets/Epic_systems_logo.svg" alt="Epic Systems Logo" style="max-width: 100%;"></figure>
+            </div>
+    
+            <div class="timeline-event">
+                <article class="timeline-text">
+                    <div class='text'><h3>LinkedIn</h3></div>
+                    <div class='text'><h4>January 2024 - May 2024</h4></div>
+                    <div class='text'><p>Practicum project with LinkedIn.</p></div>
+                </article>
+                <figure class="timeline-image"><img src="./Assets/linkedin-logo.svg" alt="LinkedIn Logo" style="width: 65%; filter: invert(24%) sepia(81%) saturate(5493%) hue-rotate(187deg) brightness(99%) contrast(101%);"></figure>
+                <!-- SVG coloring tool -->
+                <!-- https://codepen.io/sosuke/pen/Pjoqqp -->
+            </div>
+    
+            <div class="timeline-event">
+                <article class="timeline-text">
+                    <div class='text'><h3>Union Pacific Railroad</h3></div>
+                    <div class='text'><h4>May 2018 - August 2018</h4></div>
+                    <div class='text'><p>Built a TensorFlow model to predict train faults.</p></div>
+                </article>
+                <figure class="timeline-image"><img src="./Assets/Union_pacific_railroad_logo.svg" alt="Union Pacific Logo" style="width: 70%;"></figure>
+            </div>
+    
+            <div class="timeline-event">
+                <article class="timeline-text">
+                    <div class='text'><h3>Iowa Department of Transportation</h3></div>
+                    <div class='text'><h4>August 2016 - January 2018</h4></div>
+                    <div class='text'><p>Migrated data to a new asset management system</p></div>
+                </article>
+                <figure class="timeline-image"><img src="./Assets/Iowa_DOT_stacked_logo.jpg" alt="Iowa DOT Logo" style="width: 100%;"></figure>
+            </div>
+            
+            <div class="timeline-event">
+                <article class="timeline-text">
+                    <div class='text'><h3>Georgia Institute of Technology</h3></div>
+                    <div class='text'><h4>August 2020 - May 2024</h4></div>
+                    <div class='text'><p>Master's of Science, Analytics</p></div>
+                </article>
+                <figure class="timeline-image"><img src="./Assets/Georgia_Tech_logo.svg" alt="Georgia Tech Logo" style="width: 80%;"></figure>
+            </div>
+            
+            <div class="timeline-event">
+                <article class="timeline-text">
+                    <div class='text'><h3>Iowa State University</h3></div>
+                    <div class='text'><h4>August 2014 - December 2018</h4></div>
+                    <div class='text'><p>Bachelor's of Science, Management Information Systems</p></div>
+                </article>
+                <figure class="timeline-image"><img src="./Assets/Iowa_State_logo.svg" alt="Iowa State Logo" style="width: 80%;"></figure>
+            </div>
+    
+        </div>
+    </main>
+</body>
+
+<script>
+
+    // window.onscroll = function() {myFunction()};
+
+    // var header = document.getElementById("myHeader");
+    // var sticky = header.offsetTop;
+
+    // function myFunction() {
+    //     if (window.pageYOffset > sticky) {
+    //         header.classList.add("sticky");
+    //     } else {
+    //         header.classList.remove("sticky");
+    //     }
+    // }
+
+</script>
