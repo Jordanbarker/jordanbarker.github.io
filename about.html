@@ -3,21 +3,12 @@
 <style>
     @keyframes slideInLeft {
         from {
-            transform: translateX(-10vw);
+            transform: translateX(-100vw);
         }
         to {
             transform: translateX(0);
         }
     }
-    /* .header {
-        padding: 10px 10px;
-        background: #c6c6c6;
-    }
-    .sticky {
-        position: fixed;
-        top: 0;
-        width: 100%;
-    } */
     body {
         margin: 0;
         padding-top: 0;
@@ -25,62 +16,101 @@
         font-family: Helvetica, sans-serif;
     }
     h1 {
-        margin-top: 0;
-        /* animation-name: slideInLeft;  */
-        animation-duration: 1s;
-        animation-timing-function: ease-in;
-    }
-    /* main {
-    } */
-    article {
         font-size: 4vw;
-        width: 50%;
-        line-height: 1.1;
+        margin-top: 0;
     }
-    /* h3 {
-        padding: 0px;
-        margin: 0px;
-        padding-top: 1vh;
-        padding-bottom: 1vh;
-    } */
+    h3 {
+        font-size: 4vw;
+        margin-top: 2vh;
+        margin-bottom: 0; 
+    }
     h4 {
-        padding-top: 1vh;
+        /* font-size: 4vw; */
+        padding-top: .1vh;
         padding-bottom: 0vh;
         margin: 0px;
         font-style: italic;
         font-weight: normal;
     }
+    article {
+        font-size: 3vw;
+        width: 50%;
+        line-height: 1.1;
+        animation-name: slideInLeft; 
+        animation-duration: 1s;
+        animation-timing-function: ease-in;
+    }
     p {
+        font-size: 3vw;
+        margin-top: 2vh;
+        margin-bottom: 0;
         padding-top: 0vh;
     }
     .top-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
         background: linear-gradient(-45deg, #000428 0%, #004e92 100%);
-        padding: 40vh;
+        padding: 0;
+        margin: 0;
         color: white;
         height: 100vh;
-        margin: 0;
-        text-align: center;
+        width: 100vw;
     }
     .timeline-container {
-        max-width: 80%;
+        max-width: 85%;
         margin-left: auto;
         margin-right: auto;
     }
     .timeline-event {
         display: flex; 
         align-items: flex-start;
-        height: 150vh;
+        /* height: 250vh; */
     }
     .timeline-text {
         width: 50%;
         max-width: 50%;
     }
     .timeline-image {
+        display: flex;
+        justify-content: space-evenly; 
+        align-items: center;
+        margin-inline-end: 0;
+        margin-inline-start: 0; 
         width: 50%;
         max-width: 50%;
-        position: sticky;
         top: 30vh;
         text-align: center;
+        position: sticky;
+    }
+    .logo {
+        /* position: relative; */
+    }
+    .entered {
+        position: fixed;
+        right: 1000vw;
+        /* background-color: #75e200; */
+        /* color: rgb(0, 0, 0); */
+    }
+
+    @media (max-width: 1000px) {
+        .timeline-container {
+            max-width: 95%;
+        }
+        p {
+            font-size: 5vw;
+        }
+        h1 {
+            font-size: 8vw;
+        }
+        h3 {
+            font-size: 7vw;
+        }
+        article {
+            font-size: 5vw;
+        }
     }
 </style>
 
@@ -93,89 +123,119 @@
 <body>
     <div class="top-container">
         <h1>About Me</h1>
-        <p>I struggle with writing CSS/HTML</p>
+        <p>Here is a brief timeline of my career and educational background.</p>
     </div>
-
-    <!-- <div class="header" id="myHeader">
-        <h2>My Career Timeline</h2>
-    </div> -->
-
+    
     <main>
         <div class="timeline-container">
             
-            <div class="timeline-event">
-                <article class="timeline-text">
-                    <div class='text'><h3>Epic Systems Corporation</h3></div>
-                    <div class='text'><h4>January 2019 - May 2024</h4></div>
-                    <div class='text'><p>Partner with major healthcare organizations</p></div>
-                </article>
-                <figure class="timeline-image"><img src="./Assets/Epic_systems_logo.svg" alt="Epic Systems Logo" style="max-width: 100%;"></figure>
-            </div>
-    
-            <div class="timeline-event">
+            <div id="epic-era" class="timeline-event">
                 <article class="timeline-text">
                     <div class='text'><h3>LinkedIn</h3></div>
-                    <div class='text'><h4>January 2024 - May 2024</h4></div>
-                    <div class='text'><p>Practicum project with LinkedIn.</p></div>
+                    <div class='text'><h4>January 2024 - </h4></div>
+                    <div class='text'><h4>May 2024</h4></div>
+                    <div class='text'><p>Practicum project where I developed a time-series forecasting model to predict new signups and renewals.</p></div>
+                    <div class='text'><p>I also developed an interface that allows users to run the model and update predictions based on new factors such as promotions.</p></div>
+                    <br><br>
+                    <div class='text'><h3>Georgia Institute of Technology</h3></div>
+                    <div class='text'><h4>August 2020 - </h4></div>
+                    <div class='text'><h4>May 2024</h4></div>
+                    <div class='text'><p>I got my Master's of Science in Analytics remotely while working at Epic.</p></div>
+                    <div class='text'><p>Here I applied machine learning and statistics on a range of projects including: </p></div>
+                        <ul>
+                            <li>PyTorch N-BEATS time-series model with a Tableau dashboard and drill-down reports.</li>
+                            <li>Deep learning for radio frequency fingerprinting.</li>
+                            <li>Monte Carlo queuing simulation to aid with staffing.</li>
+                            <li>Clustering analysis of MLB pitchers with k-means.</li>
+                        </ul>
+                    <br><br>
+                    <div class='text'><h3>Epic Systems Corporation</h3></div>
+                    <div class='text'><h4>January 2019 - </h4></div>
+                    <div class='text'><h4>May 2024</h4></div>
+                    <div class='text'><p>I helped optimize the revenue cycle of healthcare organizations across the United States.</p></div>
+                    <div class='text'><p>Lead the reporting workgroup. Developed analytical reports and new features with SQL, Python and Caché.</p></div>
+                    <div class='text'><p>Presented machine learning features both internally and externally and helped lead project implementations.</p></div>
+                    <br><br>
                 </article>
-                <figure class="timeline-image"><img src="./Assets/linkedin-logo.svg" alt="LinkedIn Logo" style="width: 65%; filter: invert(24%) sepia(81%) saturate(5493%) hue-rotate(187deg) brightness(99%) contrast(101%);"></figure>
-                <!-- SVG coloring tool -->
-                <!-- https://codepen.io/sosuke/pen/Pjoqqp -->
+                <figure class="timeline-image">
+                    <img id="epic-logo" class="logo" src="./Assets/Epic_systems_logo.svg" alt="Epic Systems Logo" style="max-width: 45%;">
+                    <!-- SVG coloring tool -->
+                    <!-- https://codepen.io/sosuke/pen/Pjoqqp -->
+                    <img id="linkedin-logo" class="logo" src="./Assets/linkedin-logo.svg" alt="LinkedIn Logo" style="width: 33%; filter: invert(24%) sepia(81%) saturate(5493%) hue-rotate(187deg) brightness(99%) contrast(101%);">
+                    <img id="georgia-tech-logo" class="logo" src="./Assets/Georgia_Tech_logo.svg" alt="Georgia Tech Logo" style="width: 33%;">
+                </figure>
             </div>
     
-            <div class="timeline-event">
+            <div id="isu-era" class="timeline-event">
                 <article class="timeline-text">
                     <div class='text'><h3>Union Pacific Railroad</h3></div>
-                    <div class='text'><h4>May 2018 - August 2018</h4></div>
-                    <div class='text'><p>Built a TensorFlow model to predict train faults.</p></div>
-                </article>
-                <figure class="timeline-image"><img src="./Assets/Union_pacific_railroad_logo.svg" alt="Union Pacific Logo" style="width: 70%;"></figure>
-            </div>
-    
-            <div class="timeline-event">
-                <article class="timeline-text">
+                    <div class='text'><h4>May 2018 - </h4></div>
+                    <div class='text'><h4>August 2018</h4></div>
+                    <div class='text'><p>Constructed a TensorFlow LSTM model for predicting train faults using time series data.</p></div>
+                    <div class='text'><p>Improved AUC by 15% which significantly improved fault prediction and understanding of the root causes.</p></div>
+                    <br><br>
                     <div class='text'><h3>Iowa Department of Transportation</h3></div>
-                    <div class='text'><h4>August 2016 - January 2018</h4></div>
-                    <div class='text'><p>Migrated data to a new asset management system</p></div>
-                </article>
-                <figure class="timeline-image"><img src="./Assets/Iowa_DOT_stacked_logo.jpg" alt="Iowa DOT Logo" style="width: 100%;"></figure>
-            </div>
-            
-            <div class="timeline-event">
-                <article class="timeline-text">
-                    <div class='text'><h3>Georgia Institute of Technology</h3></div>
-                    <div class='text'><h4>August 2020 - May 2024</h4></div>
-                    <div class='text'><p>Master's of Science, Analytics</p></div>
-                </article>
-                <figure class="timeline-image"><img src="./Assets/Georgia_Tech_logo.svg" alt="Georgia Tech Logo" style="width: 80%;"></figure>
-            </div>
-            
-            <div class="timeline-event">
-                <article class="timeline-text">
+                    <div class='text'><h4>August 2016 - </h4></div>
+                    <div class='text'><h4>January 2018</h4></div>
+                    <div class='text'><p>Served as a data analyst intern.</p></div>
+                    <div class='text'><p>Collaborated with several teams to implement a new asset management system that would help track equipment and repairs.</p></div>
+                    <div class='text'><p>This project enabled new analyics to be performed such as answering "which A/C manufacterer is the most reliable?"</p></div>
+                    <br><br>
                     <div class='text'><h3>Iowa State University</h3></div>
-                    <div class='text'><h4>August 2014 - December 2018</h4></div>
-                    <div class='text'><p>Bachelor's of Science, Management Information Systems</p></div>
+                    <div class='text'><h4>August 2014 - </h4></div>
+                    <div class='text'><h4>December 2018</h4></div>
+                    <div class='text'><p>I got my Bachelor's of Science in Management Information Systems with a focus on analytics.</p></div>
+                    <div class='text'><p>Awarded “Best Healthcare Innovation Helping People Live Healthier Lives" at HackISU 2018 by developing an AI assistant with Rasa, a Python deep learning NLP library, with fellow Union Pacific interns.</p></div>
+                    <div class='text'><p>Volunteered with the Computational Thinking Workshop to teach over 100 students programming skills.</p></div>
+                    <br><br><br><br><br><br><br><br>
                 </article>
-                <figure class="timeline-image"><img src="./Assets/Iowa_State_logo.svg" alt="Iowa State Logo" style="width: 80%;"></figure>
+                <figure class="timeline-image">
+                    <img id="isu-logo" src="./Assets/Iowa_State_logo.svg" alt="Iowa State Logo" style="width: 40%;">
+                    <img id="union-pacific-logo" src="./Assets/Union_pacific_railroad_logo.svg" alt="Union Pacific Logo" style="width: 35%">
+                    <!-- <img src="./Assets/Iowa_DOT_stacked_logo.jpg" alt="Iowa DOT Logo" style="max-width: 40%;"> -->
+                    <img id="dot-logo" class="entered" src="./Assets/Iowa DOT Logo_stacked_full color.svg" alt="Iowa DOT Logo" style="width: 40%;">
+                </figure>
             </div>
     
         </div>
     </main>
 </body>
 
+<script src="https://unpkg.com/enter-view"></script>
 <script>
+    function toggleClassBasedOnProgress(element, progress, startThreshold, endThreshold) {
+        if (progress >= startThreshold && progress <= endThreshold) {
+            element.classList.remove('entered');
+        } else {
+            element.classList.add('entered');
+        }
+    }
 
-    // window.onscroll = function() {myFunction()};
+    enterView({
+        selector: '#epic-era',
+        offset: 0.5,
+        // enter: function(el) {el.classList.add('entered');},
+        progress: function(el, progress) {
+            // console.log(progress);
+            // var epic_logo = el.querySelector('#epic-logo');
+            var linkedin_logo = el.querySelector('#linkedin-logo');
+            var georgia_tech_logo = el.querySelector('#georgia-tech-logo');
+            toggleClassBasedOnProgress(linkedin_logo, progress, 0, 0.25);
+            toggleClassBasedOnProgress(georgia_tech_logo, progress, 0, 0.7);
+        },
+        // exit: function(el) {el.classList.remove('entered');}
+    });
 
-    // var header = document.getElementById("myHeader");
-    // var sticky = header.offsetTop;
-
-    // function myFunction() {
-    //     if (window.pageYOffset > sticky) {
-    //         header.classList.add("sticky");
-    //     } else {
-    //         header.classList.remove("sticky");
-    //     }
-    // }
+    enterView({
+        selector: '#isu-era',
+        offset: 0.5,
+        progress: function(el, progress) {
+            var union_pacific_logo = el.querySelector('#union-pacific-logo');
+            var dot_logo = el.querySelector('#dot-logo');
+            toggleClassBasedOnProgress(union_pacific_logo, progress, 0, 0.25);
+            toggleClassBasedOnProgress(dot_logo, progress, 0.3, 0.6);
+        },
+        // exit: function(el) {el.classList.remove('entered');}
+    });
 
 </script>

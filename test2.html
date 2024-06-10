@@ -36,11 +36,21 @@
         display: flex;
         justify-content: space-evenly; 
         align-items: middle;
+        margin-inline-end: 0;
+        margin-inline-start: 0; 
         width: 50%;
         max-width: 50%;
-        position: sticky;
         top: 30vh;
         text-align: center;
+        position: sticky;
+    }
+    .logo {
+        position: relative;
+    }
+    .entered {
+        background-color: #75e200;
+        position: fixed;
+        /* color: rgb(0, 0, 0); */
     }
 </style>
 
@@ -59,69 +69,91 @@
     <main>
         <div class="timeline-container">
             
-            <div class="timeline-event">
+            <div id="epic-era" class="timeline-event">
                 <article class="timeline-text">
                     <div class='text'><h3>LinkedIn</h3></div>
                     <div class='text'><h4>January 2014 - May 2018</h4></div>
                     <div class='text'><p>Practicum project with LinkedIn.</p></div>
-
+                    <br><br>
                     <div class='text'><h3>Georgia Institute of Technology</h3></div>
                     <div class='text'><h4>August 2020 - May 2024</h4></div>
                     <div class='text'><p>Master's of Science, Analytics</p></div>
-
+                    <br><br>
                     <div class='text'><h3>Epic Systems Corporation</h3></div>
                     <div class='text'><h4>January 2019 - May 2024</h4></div>
                     <div class='text'><p>Partner with major healthcare organizations</p></div>
                 </article>
                 <figure class="timeline-image">
-                    <img src="./Assets/Epic_systems_logo.svg" alt="Epic Systems Logo" style="max-width: 30%;">
-                    <img src="./Assets/linkedin-logo.svg" alt="LinkedIn Logo" style="width: 20%; filter: invert(24%) sepia(81%) saturate(5493%) hue-rotate(187deg) brightness(99%) contrast(101%);">
-                    <img src="./Assets/Georgia_Tech_logo.svg" alt="Georgia Tech Logo" style="width: 30%;">
+                    <img id="epic-logo" class="logo" src="./Assets/Epic_systems_logo.svg" alt="Epic Systems Logo" style="max-width: 30%;">
+                    <!-- SVG coloring tool -->
+                    <!-- https://codepen.io/sosuke/pen/Pjoqqp -->
+                    <img id="linkedin-logo" class="logo" src="./Assets/linkedin-logo.svg" alt="LinkedIn Logo" style="width: 20%; filter: invert(24%) sepia(81%) saturate(5493%) hue-rotate(187deg) brightness(99%) contrast(101%);">
+                    <img id="georgia-tech-logo" class="logo" src="./Assets/Georgia_Tech_logo.svg" alt="Georgia Tech Logo" style="width: 30%;">
                 </figure>
             </div>
     
-            <div class="timeline-event">
-                <article class="timeline-text">
-
-                </article>
-                <!-- SVG coloring tool -->
-                <!-- https://codepen.io/sosuke/pen/Pjoqqp -->
-                <figure class="timeline-image"><img src="./Assets/linkedin-logo.svg" alt="LinkedIn Logo" style="width: 65%; filter: invert(24%) sepia(81%) saturate(5493%) hue-rotate(187deg) brightness(99%) contrast(101%);"></figure>
-            </div>
-    
-            <div class="timeline-event">
-                <article class="timeline-text">
-                    <div class='text'><h3>Union Pacific Railroad</h3></div>
-                    <div class='text'><h4>May 2018 - August 2018</h4></div>
-                    <div class='text'><p>Built a TensorFlow model to predict train faults.</p></div>
-                </article>
-                <figure class="timeline-image"><img src="./Assets/Union_pacific_railroad_logo.svg" alt="Union Pacific Logo" style="width: 70%;"></figure>
-            </div>
-    
-            <div class="timeline-event">
-                <article class="timeline-text">
-                    <div class='text'><h3>Iowa Department of Transportation</h3></div>
-                    <div class='text'><h4>August 2016 - January 2018</h4></div>
-                    <div class='text'><p>Migrated data to a new asset management system</p></div>
-                </article>
-                <figure class="timeline-image"><img src="./Assets/Iowa_DOT_stacked_logo.jpg" alt="Iowa DOT Logo" style="width: 100%;"></figure>
-            </div>
-            
-            <div class="timeline-event">
-                <article class="timeline-text">
-                </article>
-                <figure class="timeline-image"><img src="./Assets/Georgia_Tech_logo.svg" alt="Georgia Tech Logo" style="width: 80%;"></figure>
-            </div>
-            
-            <div class="timeline-event">
+            <div id="isu-era" class="timeline-event">
                 <article class="timeline-text">
                     <div class='text'><h3>Iowa State University</h3></div>
                     <div class='text'><h4>August 2014 - December 2018</h4></div>
                     <div class='text'><p>Bachelor's of Science, Management Information Systems</p></div>
+                    <br><br>
+                    <div class='text'><h3>Union Pacific Railroad</h3></div>
+                    <div class='text'><h4>May 2018 - August 2018</h4></div>
+                    <div class='text'><p>Built a TensorFlow model to predict train faults.</p></div>
+                    <br><br>
+                    <div class='text'><h3>Iowa Department of Transportation</h3></div>
+                    <div class='text'><h4>August 2016 - January 2018</h4></div>
+                    <div class='text'><p>Migrated data to a new asset management system</p></div>
                 </article>
-                <figure class="timeline-image"><img src="./Assets/Iowa_State_logo.svg" alt="Iowa State Logo" style="width: 80%;"></figure>
+                <figure class="timeline-image">
+                    <img id="isu-logo" src="./Assets/Iowa_State_logo.svg" alt="Iowa State Logo" style="width: 30%;">
+                    <img id="union-pacific-logo" src="./Assets/Union_pacific_railroad_logo.svg" alt="Union Pacific Logo" style="max-width: 25%;">
+                    <!-- <img src="./Assets/Iowa_DOT_stacked_logo.jpg" alt="Iowa DOT Logo" style="max-width: 40%;"> -->
+                    <img id="dot-logo" class="entered" src="./Assets/Iowa_DOT_stacked/Iowa DOT Logo_stacked/Full Color/Iowa DOT Logo_stacked_full color.svg" alt="Iowa DOT Logo" style="max-width: 30%;">
+                </figure>
             </div>
     
         </div>
     </main>
 </body>
+
+<script src="https://unpkg.com/enter-view"></script>
+<script>
+    function toggleClassBasedOnProgress(element, progress, startThreshold, endThreshold) {
+        if (progress >= startThreshold && progress <= endThreshold) {
+            element.classList.remove('entered');
+        } else {
+            element.classList.add('entered');
+        }
+    }
+
+
+    enterView({
+        selector: '#epic-era',
+        offset: 0.5,
+        // enter: function(el) {el.classList.add('entered');},
+        progress: function(el, progress) {
+            // console.log(progress);
+            // var epic_logo = el.querySelector('#epic-logo');
+            var linkedin_logo = el.querySelector('#linkedin-logo');
+            var georgia_tech_logo = el.querySelector('#georgia-tech-logo');
+            toggleClassBasedOnProgress(linkedin_logo, progress, 0, 0.3);
+            toggleClassBasedOnProgress(georgia_tech_logo, progress, 0, 0.8);
+        },
+        // exit: function(el) {el.classList.remove('entered');}
+    });
+
+    enterView({
+        selector: '#isu-era',
+        offset: 0.5,
+        progress: function(el, progress) {
+            var union_pacific_logo = el.querySelector('#union-pacific-logo');
+            var dot_logo = el.querySelector('#dot-logo');
+            toggleClassBasedOnProgress(union_pacific_logo, progress, 0, 0.3);
+            toggleClassBasedOnProgress(dot_logo, progress, 0.4, 0.7);
+        },
+        // exit: function(el) {el.classList.remove('entered');}
+    });
+
+</script>
