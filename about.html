@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <style>
+    :root {
+        --sans-serif: -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
+        --serif: "Source Serif Pro", Iowan Old Style, Apple Garamond, Palatino Linotype, Times New Roman, "Droid Serif", Times, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+        --code: SFMono-Regular, Menlo, Consolas, Monaco, "Liberation Mono", "Courier New", monospace;
+    }
     @keyframes slideInLeft {
         from {
             transform: translateX(-100vw);
@@ -13,7 +18,8 @@
         margin: 0;
         padding-top: 0;
         justify-content: center;
-        font-family: Helvetica, sans-serif;
+        font-family: var(--sans-serif);
+        /* font-family: var(--serif); */
     }
     h1 {
         font-size: 4vw;
@@ -36,7 +42,7 @@
         font-size: 3vw;
         width: 50%;
         line-height: 1.1;
-        animation-name: slideInLeft; 
+        /* animation-name: slideInLeft;  */
         animation-duration: 1s;
         animation-timing-function: ease-in;
     }
