@@ -13,14 +13,15 @@
             <nav>
                 <ul>
                     <li class="name">Jordan Barker</li>
-                    <li><a href="./index.html">Home</a></li>
-                    <!-- <li></svg><a href="./index.html"><i class="fas fa-house"></i></a></li> -->
-                    <!-- <li><a href="./about.html">About</a></li> --> 
-                    <li><a href="https://www.linkedin.com/in/barkerjordan/">LinkedIn</a></li>
-                    <li><a href="https://github.com/Jordanbarker">GitHub</a></li>
-                    <!-- <li><a href="https://www.linkedin.com/in/barkerjordan/.html"><i class="fa-brands fa-linkedin"></i></a></li> -->
-                    <!-- <li><a href="#notes">Notes</a></li> -->
-                    <!--<li class="rightli">Jordan Barker</li> --> 
+                    <div class="header_links">
+                        <li><a href="./index.html">Home</a></li>
+                        <li><a href="./about.html">About</a></li> 
+                        <li><a href="https://www.linkedin.com/in/barkerjordan/">LinkedIn</a></li>
+                        <li><a href="https://github.com/Jordanbarker">GitHub</a></li>
+                        <!-- <li></svg><a href="./index.html"><i class="fas fa-house"></i></a></li> -->
+                        <!-- <li><a href="https://www.linkedin.com/in/barkerjordan/.html"><i class="fa-brands fa-linkedin"></i></a></li> -->
+                        <!-- <li><a href="#notes">Notes</a></li> -->
+                    </div>
                 </ul>
             </nav>
         </div>
@@ -43,4 +44,16 @@
         
     </main>
 </body>
+
+<script>
+    function toggleMenu() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+    }
+</script>
+
 </html>
