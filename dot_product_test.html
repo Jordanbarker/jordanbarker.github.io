@@ -3,120 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Diagram</title>
     <style>
-        .green {
-            color: #98c379;
-        }
-        .red {
-            color: #e06c75;
-        }
-        .blue {
-            color: #61afef;
-        }
-        .yellow {
-            color: #e5c07b;
-            font-size: 50px;
-            font-weight: bold;
-        }
-        
         body {
-            background-color: rgb(19, 19, 19);
-            color: white;
-            font-family: Arial, sans-serif;
-            font-size: 40px;
-        }
-        .matrix {
-            display: inline-block;
-            border: 2px solid white;
-            padding: 10px;
-            margin: 10px;
-            color: white;
-            text-align: center;
-        }
-        .matrix div {
-            line-height: 60px;
+            background-color: rgb(19, 19, 19)
         }
         .container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            height: 100vh;
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 50px auto;
         }
-        .row {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 60px;
-        }
-        .dot {
-            font-size: 50px;
-            color: white;
-            margin: 0 20px;
-        }
-        .arrow {
-            display: inline-block;
+        .vector {
+            position: absolute;
             width: 0;
             height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-bottom: 20px solid yellow;
-            margin: 0 10px;
+            border-style: solid;
         }
-        .calculation {
-            margin-left: 50px;
+        .vector.a {
+            border-width: 10px 0 10px 30px;
+            border-color: transparent transparent transparent #d9ed92;
+            top: 250px;
+            left: 250px;
+            transform: rotate(0deg);
         }
-        .final-calculation {
-            margin-left: 20px;
+        .vector.a:after {
+            content: '';
+            position: absolute;
+            width: 250px;
+            height: 6px;
+            left: -270px;
+            top: -3px;
+            background: #d9ed92;
         }
-        .highlight {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        .vector.b {
+            border-width: 10px 30px 10px 0px;
+            border-color: transparent #1e6091 transparent transparent;
+            top: 30px;
+            left: 125px;
+            transform: rotate(120deg);
+        }
+        .vector.b:after {
+            content: '';
+            position: absolute;
+            width: 250px;
+            height: 6px;
+            right: -270px;
+            top: -3px;
+            background: #1e6091;
+        }
+        .vector.c {
+            border-width: 10px 30px 10px 0;
+            border-color: transparent #76c893 transparent transparent;
+            top: 237px;
+            left: 259px;
+            transform: rotate(-119.25deg);
+        }
+        .vector.c:after {
+            content: '';
+            position: absolute;
+            width: 250px;
+            height: 6px;
+            right: -270px;
+            top: -3px;
+            background: #76c893;
+        }
+        .label {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .label.a {
+            color: #d9ed92;
+            top: 270px;
+            left: 130px;
+        }
+        .label.b {
+            color: #1e6091;
+            top: 130px;
+            left: 30px;
+        }
+        .label.c {
+            color: #76c893;
+            top: 130px;
+            left: 230px;
+        }
+        .label.theta {
+            color: #9f86c0;
+            top: 200px;
+            left: 100px;
+        }
+        .theta-arc {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid #9f86c0;
+            border-radius: 50%;
+            border-bottom-color: transparent;
+            border-left-color: transparent;
+            top: 170px;
+            left: 42px;
         }
     </style>
-    <title>Matrix Multiplication Visualization</title>
 </head>
 <body>
     <div class="container">
-        <div class="row">
-            <!-- <div class="row yellow">Dot product</div> -->
-            <!-- <div class="arrow"></div> -->
-            <div class="matrix">
-                <div class="green">2</div>
-                <div class="red">7</div>
-                <div class="blue">1</div>
-            </div>
-            <div class="dot">&#8901;</div>
-            <div class="matrix">
-                <div class="green">8</div>
-                <div class="red">2</div>
-                <div class="blue">8</div>
-            </div>
-            <div class="row highlight">
-                <div class="calculation green">2 &#8901; 8</div>
-                <div class="calculation red">7 &#8901; 2</div>
-                <div class="calculation blue">1 &#8901; 8</div>
-            </div>
-            <div class="final-calculation" id="finalCalculation">
-                = <span class="green">2 · 8</span> + <span class="red">7 · 2</span> + <span class="blue">1 · 8</span>
-            </div>
-        </div>
+        <div class="label theta">θ</div>
+        <div class="theta-arc"></div>
+        <div class="vector b"></div>
+        <div class="vector a"></div>
+        <div class="vector c"></div>
+        <div class="label a">a</div>
+        <div class="label b">b</div>
+        <div class="label c">c</div>
     </div>
 </body>
-
-<script src="https://unpkg.com/enter-view"></script>
-<script>
-    enterView({
-        selector: '.calculation green',
-        offset: 0.5,
-        enter: function(el) {el.classList.add('entered');},
-        progress: function(el, progress) {
-            var p = el.querySelector('.progress')
-            p.innerText = progress.toFixed(2);
-        },
-        exit: function(el) {el.classList.remove('entered');}
-    });
-</script>
-
 </html>
