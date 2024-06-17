@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .green {
+            color: #98c379;
+        }
+        .red {
+            color: #e06c75;
+        }
+        .blue {
+            color: #61afef;
+        }
+        .yellow {
+            color: #e5c07b;
+            font-size: 50px;
+            font-weight: bold;
+        }
+        
+        body {
+            background-color: rgb(19, 19, 19);
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 40px;
+        }
+        .matrix {
+            display: inline-block;
+            border: 2px solid white;
+            padding: 10px;
+            margin: 10px;
+            color: white;
+            text-align: center;
+        }
+        .matrix div {
+            line-height: 60px;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 60px;
+        }
+        .dot {
+            font-size: 50px;
+            color: white;
+            margin: 0 20px;
+        }
+        .arrow {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 20px solid yellow;
+            margin: 0 10px;
+        }
+        .calculation {
+            margin-left: 10px;
+        }
+        .final-calculation {
+            margin-left: 20px;
+        }
+        .highlight {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    </style>
+    <title>Dot Product Visualization</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <!-- <div class="row yellow">Dot product</div> -->
+            <!-- <div class="arrow"></div> -->
+            <div class="matrix">
+                <div class="green">2</div>
+                <div class="red">7</div>
+                <div class="blue">1</div>
+            </div>
+            <div class="dot">&#8901;</div>
+            <div class="matrix">
+                <div class="green">8</div>
+                <div class="red">2</div>
+                <div class="blue">8</div>
+            </div>
+            <div class="dot">=</div>
+            <div class="row highlight">
+                <div class="calculation green">2 &#8901; 8</div>
+                <div class="calculation red">7 &#8901; 2</div>
+                <div class="calculation blue">1 &#8901; 8</div>
+            </div>
+            <div class="final-calculation" id="finalCalculation"> 
+                = <span class="green">2 · 8</span> + <span class="red">7 · 2</span> + <span class="blue">1 · 8</span>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
