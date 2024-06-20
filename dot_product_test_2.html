@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Diagram</title>
+    <style>
+        body {
+            background-color: rgb(245, 245, 245)
+        }
+        .draggable {
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+    <svg width="400" height="400"></svg>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script>
+        const svg = d3.select("svg");
+        const width = +svg.attr("width");
+        const height = +svg.attr("height");
+        const margin = 30;
+
+        const data = [
+            { x: 302, y: 98, label: "a", index: 0},
+            { x: width/2, y: height/2, label: "center", index: 2 },
+            { x: 302, y: 200, label: "b", index: 1 }
+        ];
+
+        const x = d3.scaleLinear()
+          .domain([10, -10])
+          .range([width - margin, margin]);
+
+        const y = d3.scaleLinear()
+          .domain([-10, 10])
+          .range([height - margin, margin]);
+
+        svg.append("g")
+            .attr("transform", `translate(0,${height/2})`)
+            .call(d3.axisBottom(x).ticks().tickFormat(d => d === 0 ? '' : d));
+
+        svg.append("g")
+            .attr("transform", `translate(${width/2},${0})`)
+            .call(d3.axisLeft(y).ticks().tickFormat(d => d === 0 ? '' : d));
+
+        const drag = d3.drag()
+            .on("start", dragStarted)
+            .on("drag", dragged)
+            .on("end", dragEnded);
+
+        const lineA = svg.append("line")
+            .attr("x1", data[1].x)
+            .attr("y1", data[1].y)
+            .attr("x2", data[0].x)
+            .attr("y2", data[0].y)
+            .attr("stroke", "steelblue")
+            .attr("stroke-width", 2);
+
+        const lineB = svg.append("line")
+            .attr("x1", data[1].x)
+            .attr("y1", data[1].y)
+            .attr("x2", data[2].x)
+            .attr("y2", data[2].y)
+            .attr("stroke", "steelblue")
+            .attr("stroke-width", 2);
+
+        const lineAB = svg.append("line")
+            .attr("x1", data[0].x)
+            .attr("y1", data[0].y)
+            .attr("x2", data[2].x)
+            .attr("y2", data[2].y)
+            .attr("stroke", d3.rgb(200, 100, 200))
+            .attr("stroke-width", 2);
+
+        const points = svg.selectAll(".point")
+            .data(data)
+            .enter()
+            .each(function(d) {
+                if (d.label !== "center") {
+                    d3.select(this)
+                        .append("circle")
+                        .attr("class", "draggable")
+                        .attr("r", 8)
+                        .attr("cx", d => d.x)
+                        .attr("cy", d => d.y)
+                        .attr("fill", "orange")
+                        .call(drag);
+                }
+            });
+
+        const labels = svg.selectAll(".label")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("class", "label")
+            .attr("x", d => d.x - 20)
+            .attr("y", d => d.y - 10)
+            .each(function(d) {
+                if (d.label !== "center") {
+                    d3.select(this).text(d => d.label);
+                }
+            });
+        
+        const labels2 = svg.selectAll(".label2")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("class", "label2")
+            .attr("x", d => 20)
+            .attr("y", d => d.index*20 + margin)
+            .each(function(d) {
+                if (d.label !== "center") {
+                    d3.select(this).text(d => d.label);
+                } else {
+                    d3.select(this).text(d => "a·b");        
+                }
+            });
+
+        const labels3 = svg.selectAll(".label3")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("class", "label3")
+            .attr("x", d => 50)
+            .attr("y", d => d.index*20 + margin)
+            .each(function(d) {
+                if (d.label !== "center") {
+                    d3.select(this).text(d => `(${x.invert(d.x).toFixed(1)}, ${y.invert(d.y).toFixed(1)})`);
+                } else {
+                    d3.select(this).text(d => x.invert(data[0].x).toFixed(1) * x.invert(data[2].x).toFixed(1)
+                    + y.invert(data[0].y).toFixed(1) * y.invert(data[2].y).toFixed(1));
+                }
+            });
+
+        function dragStarted(event, d) {
+            d3.select(this).raise().attr("stroke", "black");
+        }
+
+        function dragged(event, d) {
+            d.x = event.x;
+            d.y = event.y;
+            d3.select(this)
+                .attr("cx", d.x)
+                .attr("cy", d.y);
+            if (d.label === "a") {
+                lineA
+                    .attr("x2", d.x)
+                    .attr("y2", d.y);
+                lineAB
+                    .attr("x1", d.x)
+                    .attr("y1", d.y);
+            } else if (d.label === "b") {
+                lineB
+                    .attr("x2", d.x)
+                    .attr("y2", d.y);
+                lineAB
+                    .attr("x2", d.x)
+                    .attr("y2", d.y);
+            }
+            labels3.each(function(d) {
+                    if (d.label !== "center") {
+                        d3.select(this).text(d => `(${x.invert(d.x).toFixed(1)}, ${y.invert(d.y).toFixed(1)})`);
+                    } else {
+                        d3.select(this).text(d => 
+                            (x.invert(data[0].x).toFixed(1) * x.invert(data[2].x).toFixed(1)
+                            + y.invert(data[0].y).toFixed(1) * y.invert(data[2].y).toFixed(1))
+                            .toFixed(1));
+                    }
+            })
+            labels
+                .attr("x", d => d.x - 20)
+                .attr("y", d => d.y - 10).each(function(d) {
+                    if (d.label !== "center") {
+                        d3.select(this).text(d => d.label);
+                    }
+            });
+        }
+
+        function dragEnded(event, d) {
+            d3.select(this).attr("stroke", null);
+        }
+
+    </script>
+</body>
+</html>
