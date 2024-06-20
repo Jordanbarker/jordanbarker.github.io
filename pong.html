@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            margin: 0;
+            background-color: black;
+        }
+        #pongCanvas {
+            background-color: #333;
+            border: 2px solid #fff;
+            width: 100%;
+            max-width: 800px;
+            height: 50vh;
+        }
+        #scoreboard {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 800px;
+            color: #333;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+    <title>Pong Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="scoreboard">
+        <div id="playerScore">Player: 0</div>
+        <div id="computerScore">Computer: 0</div>
+    </div>
+    <canvas id="pongCanvas" width="800" height="400"></canvas>
+    
+    <script>
+        const canvas = document.getElementById("pongCanvas");
+        const context = canvas.getContext("2d");
+
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const paddleWidth = 10;
+        const paddleHeight = 100;
+        const paddleSpeed = 5;
+
+        const playerPaddle = {
+            x: 10,
+            y: (canvas.height - paddleHeight) / 2,
+            width: paddleWidth,
+            height: paddleHeight,
+            dy: 0
+        };
+
+        const computerPaddle = {
+            x: canvas.width - paddleWidth - 10,
+            y: (canvas.height - paddleHeight) / 2,
+            width: paddleWidth,
+            height: paddleHeight,
+            dy: 5
+        };
+
+        const ball = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            radius: 7,
+            speed: 4,
+            dx: 4,
+            dy: 4
+        };
+
+        let playerScore = 0;
+        let computerScore = 0;
+        const playerScoreElement = document.getElementById("playerScore");
+        const computerScoreElement = document.getElementById("computerScore");
+
+        function drawRect(x, y, width, height, color) {
+            context.fillStyle = color;
+            context.fillRect(x, y, width, height);
+        }
+
+        function drawCircle(x, y, radius, color) {
+            context.fillStyle = color;
+            context.beginPath();
+            context.arc(x, y, radius, 0, Math.PI * 2);
+            context.closePath();
+            context.fill();
+        }
+
+        function movePaddles() {
+            playerPaddle.y += playerPaddle.dy;
+
+            if (playerPaddle.y < 0) {
+                playerPaddle.y = 0;
+            } else if (playerPaddle.y + paddleHeight > canvas.height) {
+                playerPaddle.y = canvas.height - paddleHeight;
+            }
+
+            if (computerPaddle.y + computerPaddle.height / 2 < ball.y) {
+                computerPaddle.y += computerPaddle.dy;
+            } else {
+                computerPaddle.y -= computerPaddle.dy;
+            }
+        }
+
+        function moveBall() {
+            ball.x += ball.dx;
+            ball.y += ball.dy;
+
+            if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
+                ball.dy *= -1;
+            }
+
+            if (ball.x - ball.radius < 0) {
+                computerScore++;
+                updateScore();
+                resetBall();
+            } else if (ball.x + ball.radius > canvas.width) {
+                playerScore++;
+                updateScore();
+                resetBall();
+            }
+
+            if (
+                (ball.x - ball.radius < playerPaddle.x + playerPaddle.width &&
+                    ball.y > playerPaddle.y &&
+                    ball.y < playerPaddle.y + playerPaddle.height) ||
+                (ball.x + ball.radius > computerPaddle.x &&
+                    ball.y > computerPaddle.y &&
+                    ball.y < computerPaddle.y + computerPaddle.height)
+            ) {
+                ball.dx *= -1;
+            }
+        }
+
+        function resetBall() {
+            ball.x = canvas.width / 2;
+            ball.y = canvas.height / 2;
+            ball.dx *= -1;
+        }
+
+        function updateScore() {
+            playerScoreElement.textContent = `Player: ${playerScore}`;
+            computerScoreElement.textContent = `Computer: ${computerScore}`;
+        }
+
+        function draw() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            drawRect(playerPaddle.x, playerPaddle.y, playerPaddle.width, playerPaddle.height, "#FFF");
+            drawRect(computerPaddle.x, computerPaddle.y, computerPaddle.width, computerPaddle.height, "#FFF");
+            drawCircle(ball.x, ball.y, ball.radius, "#FFF");
+        }
+
+        function update() {
+            movePaddles();
+            moveBall();
+        }
+
+        function gameLoop() {
+            update();
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowUp") {
+                playerPaddle.dy = -paddleSpeed;
+            } else if (event.key === "ArrowDown") {
+                playerPaddle.dy = paddleSpeed;
+            }
+        });
+
+        document.addEventListener("keyup", () => {
+            playerPaddle.dy = 0;
+        });
+
+        // Start game
+        gameLoop();
+
+    </script>
+</body>
+</html>
