@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        :root {
+            --light_green: #D1F7B2;
+            --light_red: #F7C8B2;
+            --light_blue: #90e0ef;
+        }
         .green {
             color: #98c379;
         }
@@ -25,6 +30,21 @@
             font-family: Arial, sans-serif;
             font-size: 40px;
         }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .graph-container {
+            position: relative;
+            width: 400px;
+            height: 100vh;
+            margin: 50px auto;
+        }
+
         .matrix {
             display: inline-block;
             border: 2px solid white;
@@ -36,23 +56,19 @@
         .matrix div {
             line-height: 60px;
         }
-        .container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            height: 100vh;
-        }
+
+
+
         .row {
             display: flex;
             align-items: center;
-            justify-content: center;
             line-height: 60px;
+            gap: 10px
+            
         }
         .dot {
             font-size: 50px;
             color: white;
-            margin: 0 20px;
         }
         .arrow {
             display: inline-block;
@@ -63,23 +79,14 @@
             border-bottom: 20px solid yellow;
             margin: 0 10px;
         }
-        .calculation {
-            margin-left: 10px;
-        }
-        .final-calculation {
-            margin-left: 20px;
+        var.vector-symbol span {
+            margin-left: -.2em;   /* shift the arrow back over the letter */
+            vertical-align : .2em; /* tune the arrow vertical position */
         }
         .highlight {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-        }
-
-        .graph-container {
-            position: relative;
-            width: 400px;
-            height: 400px;
-            margin: 50px auto;
         }
         .vector {
             position: absolute;
@@ -89,7 +96,7 @@
         }
         .vector.a {
             border-width: 10px 0 10px 30px;
-            border-color: transparent transparent transparent #d9ed92;
+            border-color: transparent transparent transparent var(--light_green);
             top: 250px;
             left: 250px;
             transform: rotate(0deg);
@@ -101,11 +108,11 @@
             height: 6px;
             left: -270px;
             top: -3px;
-            background: #d9ed92;
+            background: var(--light_green);
         }
         .vector.b {
             border-width: 10px 30px 10px 0px;
-            border-color: transparent #1e6091 transparent transparent;
+            border-color: transparent var(--light_blue) transparent transparent;
             top: 30px;
             left: 125px;
             transform: rotate(120deg);
@@ -117,11 +124,11 @@
             height: 6px;
             right: -270px;
             top: -3px;
-            background: #1e6091;
+            background: var(--light_blue);
         }
         .vector.c {
             border-width: 10px 30px 10px 0;
-            border-color: transparent #76c893 transparent transparent;
+            border-color: transparent var(--light_red)  transparent transparent;
             top: 237px;
             left: 259px;
             transform: rotate(-119.25deg);
@@ -133,7 +140,7 @@
             height: 6px;
             right: -270px;
             top: -3px;
-            background: #76c893;
+            background: var(--light_red);
         }
         .label {
             position: absolute;
@@ -141,17 +148,17 @@
             font-weight: bold;
         }
         .label.a {
-            color: #d9ed92;
+            color: var(--light_green);
             top: 270px;
             left: 130px;
         }
         .label.b {
-            color: #1e6091;
+            color: var(--light_blue);
             top: 130px;
             left: 30px;
         }
         .label.c {
-            color: #76c893;
+            color: var(--light_red);
             top: 130px;
             left: 230px;
         }
@@ -172,6 +179,32 @@
             left: 42px;
         }
 
+        /* For the d3 visualization */
+        .draggable {
+            cursor: move;
+        }
+        .line-a {
+            stroke: var(--light_blue);
+            stroke-width: 2;
+        }
+        .line-b {
+            stroke: var(--light_green);
+            stroke-width: 2;
+        }
+        .line-ab {
+            stroke: var(--light_red);
+            stroke-width: 2;
+        }
+        .point {
+            fill: orange;
+        }
+        .label_d3, .label2, .label3 {
+            font-size: 18px;
+            /* color: white; */
+            /* stroke: white; */
+            fill: white;
+        }
+
     </style>
     <title>Dot Product Visualization</title>
 </head>
@@ -180,27 +213,29 @@
         <div class="row">
             <!-- <div class="row yellow">Dot product</div> -->
             <!-- <div class="arrow"></div> -->
+            <var class="vector-symbol">a<span>&#8407;</span></var>
             <div class="matrix">
                 <div class="green">2</div>
                 <div class="blue">1</div>
-                <!-- <div class="red">7</div> -->
-            </div>
+                <div class="red">7</div>
+                </div>
             <div class="dot">&#8901;</div>
+            <var class="vector-symbol">b<span>&#8407;</span></var>
             <div class="matrix">
                 <div class="green">8</div>
                 <div class="blue">8</div>
-                <!-- <div class="red">2</div> -->
+                <div class="red">2</div>
             </div>
             <div class="dot">=</div>
             <div class="row highlight">
-                <div class="calculation green">2 &#8901; 8</div>
-                <div class="calculation blue">1 &#8901; 8</div>
-                <!-- <div class="calculation red">7 &#8901; 2</div> -->
+                <div class="calculation green">2&#8901;8</div>
+                <div class="calculation blue">1&#8901;8</div>
+                <div class="calculation red">7&#8901;2</div>
             </div>
             <div class="final-calculation" id="finalCalculation"> 
-                = <span class="green">2 &#8901; 8</span> + <span class="blue">1 &#8901; 8</span>
-                <!-- = <span class="green">2 · 8</span> + <span class="red">7 · 2</span> + <span class="blue">1 · 8</span> -->
-            </div>
+                <!-- = <span class="green">2&#8901;8</span> + <span class="blue">1&#8901;8</span> = 24 -->
+                = <span class="green">2&#8901;8</span> + <span class="red">7&#8901;2</span> + <span class="blue">1&#8901;8</span> = 38
+                </div>
         </div>
     </div>
     <div class="graph-container">
@@ -209,10 +244,179 @@
         <div class="vector b"></div>
         <div class="vector a"></div>
         <div class="vector c"></div>
-        <div class="label a">a</div>
-        <div class="label b">b</div>
-        <div class="label c">c</div>
+        <div class="label a"><var class="vector-symbol">b<span>&#8407;</span></var></div>
+        <div class="label b"><var class="vector-symbol">a<span>&#8407;</span></var></div>
+        <div class="label c">a - b</div>
+        <!-- <div class="label c"></var class="vector-symbol">a<span>&#8407;</span></var><var class="vector-symbol">-b<span>&#8407;</span></var></div> -->
+    </div>
+    <div class="graph-container">
+        <svg width="400" height="400"></svg>
     </div>
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+<script>
+    const svg = d3.select("svg");
+    const width = +svg.attr("width");
+    const height = +svg.attr("height");
+    const margin = 30;
+
+    const data = [
+        { x: 302, y: 98, label: "a", index: 0},
+        { x: width/2, y: height/2, label: "center", index: 2 },
+        { x: 302, y: 200, label: "b", index: 1 }
+    ];
+
+    const x = d3.scaleLinear()
+      .domain([10, -10])
+      .range([width - margin, margin]);
+
+    const y = d3.scaleLinear()
+      .domain([-10, 10])
+      .range([height - margin, margin]);
+
+    svg.append("g")
+        .attr("transform", `translate(0,${height/2})`)
+        .call(d3.axisBottom(x).ticks().tickFormat(d => d === 0 ? '' : d));
+
+    svg.append("g")
+        .attr("transform", `translate(${width/2},${0})`)
+        .call(d3.axisLeft(y).ticks().tickFormat(d => d === 0 ? '' : d));
+
+    const drag = d3.drag()
+        .on("start", dragStarted)
+        .on("drag", dragged)
+        .on("end", dragEnded);
+
+    const lineA = svg.append("line")
+        .attr("x1", data[1].x)
+        .attr("y1", data[1].y)
+        .attr("x2", data[0].x)
+        .attr("y2", data[0].y)
+        .attr("class", "line-a");
+
+    const lineB = svg.append("line")
+        .attr("x1", data[1].x)
+        .attr("y1", data[1].y)
+        .attr("x2", data[2].x)
+        .attr("y2", data[2].y)
+        .attr("class", "line-b");
+
+    // const lineAB = svg.append("line")
+    //     .attr("x1", data[0].x)
+    //     .attr("y1", data[0].y)
+    //     .attr("x2", data[2].x)
+    //     .attr("y2", data[2].y)
+    //     .attr("class", "line-ab");
+
+    const points = svg.selectAll(".point")
+        .data(data)
+        .enter()
+        .each(function(d) {
+            if (d.label !== "center") {
+                d3.select(this)
+                    .append("circle")
+                    .attr("class", "draggable point")
+                    .attr("r", 8)
+                    .attr("cx", d => d.x)
+                    .attr("cy", d => d.y)
+                    .call(drag);
+            }
+        });
+
+    const labels = svg.selectAll(".label_d3")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("class", "label_d3")
+        .attr("x", d => d.x - 20)
+        .attr("y", d => d.y - 10)
+        .each(function(d) {
+            if (d.label !== "center") {
+                d3.select(this).text(d => d.label);
+            }
+        });
+    
+    const labels2 = svg.selectAll(".label2")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("class", "label2")
+        .attr("x", d => 20)
+        .attr("y", d => d.index*25 + margin)
+        .each(function(d) {
+            if (d.label !== "center") {
+                d3.select(this).text(d => d.label);
+            } else {
+                d3.select(this).text(d => "a·b");        
+            }
+        });
+
+    const labels3 = svg.selectAll(".label3")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("class", "label3")
+        .attr("x", d => 70)
+        .attr("y", d => d.index*25 + margin)
+        .each(function(d) {
+            if (d.label !== "center") {
+                d3.select(this).text(d => `(${x.invert(d.x).toFixed(1)}, ${y.invert(d.y).toFixed(1)})`);
+            } else {
+                d3.select(this).text(d => x.invert(data[0].x).toFixed(1) * x.invert(data[2].x).toFixed(1)
+                + y.invert(data[0].y).toFixed(1) * y.invert(data[2].y).toFixed(1));
+            }
+        });
+
+    function dragStarted(event, d) {
+        d3.select(this).raise().attr("stroke", "white");
+    }
+
+    function dragged(event, d) {
+        d.x = event.x;
+        d.y = event.y;
+        d3.select(this)
+            .attr("cx", d.x)
+            .attr("cy", d.y);
+        if (d.label === "a") {
+            lineA
+                .attr("x2", d.x)
+                .attr("y2", d.y);
+            // lineAB
+            //     .attr("x1", d.x)
+            //     .attr("y1", d.y);
+        } else if (d.label === "b") {
+            lineB
+                .attr("x2", d.x)
+                .attr("y2", d.y);
+            // lineAB
+            //     .attr("x2", d.x)
+            //     .attr("y2", d.y);
+        }
+        labels3.each(function(d) {
+                if (d.label !== "center") {
+                    d3.select(this).text(d => `(${x.invert(d.x).toFixed(1)}, ${y.invert(d.y).toFixed(1)})`);
+                } else {
+                    d3.select(this).text(d => 
+                        (x.invert(data[0].x).toFixed(1) * x.invert(data[2].x).toFixed(1)
+                        + y.invert(data[0].y).toFixed(1) * y.invert(data[2].y).toFixed(1))
+                        .toFixed(1));
+                }
+        })
+        labels
+            .attr("x", d => d.x - 20)
+            .attr("y", d => d.y - 10).each(function(d) {
+                if (d.label !== "center") {
+                    d3.select(this).text(d => d.label);
+                }
+        });
+    }
+
+    function dragEnded(event, d) {
+        d3.select(this).attr("stroke", null);
+    }
+
+</script>
 
 </html>
