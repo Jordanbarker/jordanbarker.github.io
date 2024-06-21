@@ -1,0 +1,353 @@
+<html>
+<head>
+<title>minimal demo</title>
+<style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            margin: 0;
+            background-color: black;
+        }
+        #pongCanvas {
+            background-color: #333;
+            border: 2px solid #fff;
+            width: 100%;
+            max-width: 800px;
+            height: 40vh;
+        }
+        #scoreboard {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 800px;
+            color: #333;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 50px;
+        }
+        #chart-container, #button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 10px;
+        }
+        #chart-container canvas, #button-container button {
+            margin: 0 10px;
+        }
+</style>
+
+</head>
+<body>
+<!-- <body onload="start()"> -->
+<div id="egdiv"></div>
+<div id="scoreboard">
+    <div id="playerScore">Player: 0</div>
+    <div id="computerScore">Computer: 0</div>
+</div>
+<canvas id="pongCanvas" width="800" height="400"></canvas>
+<div id="chart-container">
+    <canvas id="lineChart"></canvas>
+</div>
+<div id="button-container">
+    <button onclick="savenet()">Save Network</button>
+    <input type="file" id="fileInput" accept=".json">
+    <button onclick="loadnet()">Load Network</button>
+    <!-- <textarea id="tt"></textarea> -->
+    <textarea id="tt" style="display:none;"></textarea>
+</div>
+</body>
+
+<script src="convnetjs/convnet-min.js"></script>
+<script src="convnetjs/util.js"></script>
+<script src="convnetjs/deepqlearn.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    let rewardHistory = [];
+    const ctx = document.getElementById('lineChart').getContext('2d');
+    const lineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [
+                {
+                    label: 'Average Reward',
+                    data: [],
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 2,
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Time'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Value'
+                    }
+                }
+            }
+        }
+    });
+
+    function addData() {
+        const currentTime = new Date().toLocaleTimeString()
+        const newValue = reward;
+        rewardHistory.push(newValue);
+        
+        const sum = rewardHistory.reduce((a, b) => a + b, 0)
+        const averageValue = (sum / rewardHistory.length).toFixed(4)
+        lineChart.data.labels.push(currentTime);
+        lineChart.data.datasets[0].data.push(averageValue);
+        
+        console.log(averageValue)
+        lineChart.update();
+    }
+
+    
+
+    // Define the RL Agent
+    var num_inputs = 3; // ball.x, ball.y, computer.y
+    var num_actions = 3; // up, down, stay
+    var temporal_window = 10; // amount of temporal memory. 0 = agent lives in-the-moment :)
+    var network_size = num_inputs*temporal_window + num_actions*temporal_window + num_inputs;
+
+    // the value function network computes a value of taking any of the possible actions
+    // given an input state. Here we specify one explicitly the hard way
+    // but user could also equivalently instead use opt.hidden_layer_sizes = [20,20]
+    // to just insert simple relu hidden layers.
+    var layer_defs = [];
+    layer_defs.push({type:'input', out_sx:1, out_sy:1, out_depth:network_size});
+    layer_defs.push({type:'fc', num_neurons: 50, activation:'relu'});
+    layer_defs.push({type:'fc', num_neurons: 50, activation:'relu'});
+    layer_defs.push({type:'regression', num_neurons:num_actions});
+
+    var opt = {};
+    opt.temporal_window = temporal_window;
+    opt.experience_size = 30000;
+    opt.start_learn_threshold = 1000;
+    opt.gamma = 0.7;
+    opt.learning_steps_total = 200000;
+    opt.learning_steps_burnin = 3000;
+    opt.epsilon_min = 0.05;
+    opt.epsilon_test_time = 0.05;
+    opt.layer_defs = layer_defs;
+    opt.tdtrainer_options = {learning_rate:0.001, momentum:0.0, batch_size:64, l2_decay:0.01};
+    var brain = new deepqlearn.Brain(num_inputs, num_actions, opt);
+    var action = 0; // globally scope 
+    var reward = 0;
+
+    function savenet() {
+        var json = brain.value_net.toJSON();
+        var text = JSON.stringify(json);
+        document.getElementById('tt').value = text;
+
+        var blob = new Blob([text], { type: 'application/json' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'pong_agent_network.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+    
+    function loadnet() {
+        //   var text = document.getElementById('tt').value;
+        //   var json = JSON.parse(text);
+        //   brain.value_net.fromJSON(json);
+        var fileInput = document.getElementById('fileInput');
+        var file = fileInput.files[0];
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+            var text = e.target.result;
+            var json = JSON.parse(text);
+            brain.value_net.fromJSON(json);
+        };
+                
+        reader.readAsText(file);
+        console.log("Network Loaded Sucesssfully!")
+    }
+
+
+
+    const canvas = document.getElementById("pongCanvas");
+    const context = canvas.getContext("2d");
+
+    function resizeCanvas() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const framerate = 600; // frames per second
+    const intervalTime = 1000 / framerate;
+    const paddleWidth = 10;
+    const paddleHeight = 100;
+    const gameSpeed = 5;
+    const paddleSpeed = gameSpeed;
+    const ballSpeed = gameSpeed;
+
+    const playerPaddle = {
+        x: 10,
+        y: (canvas.height - paddleHeight) / 2,
+        width: paddleWidth,
+        height: paddleHeight,
+        dy: 0
+    };
+
+    const computerPaddle = {
+        x: canvas.width - paddleWidth - 10,
+        y: (canvas.height - paddleHeight) / 2,
+        width: paddleWidth,
+        height: paddleHeight,
+        dy: 5
+    };
+
+    const ball = {
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        radius: 7,
+        dx: ballSpeed,
+        dy: ballSpeed
+    };
+
+    let playerScore = 0;
+    let computerScore = 0;
+    const playerScoreElement = document.getElementById("playerScore");
+    const computerScoreElement = document.getElementById("computerScore");
+
+    function drawRect(x, y, width, height, color) {
+        context.fillStyle = color;
+        context.fillRect(x, y, width, height);
+    }
+
+    function drawCircle(x, y, radius, color) {
+        context.fillStyle = color;
+        context.beginPath();
+        context.arc(x, y, radius, 0, Math.PI * 2);
+        context.closePath();
+        context.fill();
+    }
+
+    function movePaddles() {
+        playerPaddle.y += playerPaddle.dy;
+
+        if (playerPaddle.y < 0) {
+            playerPaddle.y = 0;
+        } else if (playerPaddle.y + paddleHeight > canvas.height) {
+            playerPaddle.y = canvas.height - paddleHeight;
+        }
+
+        action = brain.forward([ball.x, ball.y, computerPaddle.y]);
+        if (action == 1) {
+            computerPaddle.y += paddleSpeed;
+        } else if (action == 2) {
+            computerPaddle.y -= paddleSpeed;
+        }
+        // Else do nothing 
+
+        if (computerPaddle.y < 0) {
+            computerPaddle.y = 0
+        } else if (computerPaddle.y + paddleHeight > canvas.height) {
+            computerPaddle.y = canvas.height - paddleHeight;
+        }
+        // console.log(action)
+    }
+
+    function moveBall() {
+        ball.x += ball.dx;
+        ball.y += ball.dy;
+        reward = (action == 0) ? 0.005: -0.005 // penalize twitchy behavior
+        // console.log(action, reward)
+
+        if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
+            ball.dy *= -1;
+        }
+
+        if (ball.x - ball.radius < 0) {
+            computerScore++;
+            updateScore();
+            resetBall();
+        } else if (ball.x + ball.radius > canvas.width) {
+            reward = -1.0
+            playerScore++;
+            updateScore();
+            resetBall();
+        } else if (ball.x + ball.radius > computerPaddle.x &&
+            ball.y > computerPaddle.y &&
+            ball.y < computerPaddle.y + computerPaddle.height) 
+        {
+            ball.dx *= -1;
+            reward = 1.0; // Reward hitting the ball
+        } else if (ball.x - ball.radius < playerPaddle.x + playerPaddle.width &&
+            ball.y > playerPaddle.y &&
+            ball.y < playerPaddle.y + playerPaddle.height)
+        {
+            ball.dx *= -1;
+        }
+
+        brain.backward(reward);
+        if (Math.random() > 0.995) {
+                addData()
+        }
+
+    }
+
+    function resetBall() {
+        ball.x = canvas.width / 2;
+        ball.y = canvas.height / 2;
+        ball.dx *= -1;
+    }
+
+    function updateScore() {
+        playerScoreElement.textContent = `Player: ${playerScore}`;
+        computerScoreElement.textContent = `Computer: ${computerScore}`;
+    }
+
+    function draw() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        drawRect(playerPaddle.x, playerPaddle.y, playerPaddle.width, playerPaddle.height, "#FFF");
+        drawRect(computerPaddle.x, computerPaddle.y, computerPaddle.width, computerPaddle.height, "#FFF");
+        drawCircle(ball.x, ball.y, ball.radius, "#FFF");
+    }
+
+    function update() {
+        movePaddles();
+        moveBall();
+    }
+
+    function gameLoop() {
+        update();
+        draw();
+    }
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowUp") {
+            playerPaddle.dy = -paddleSpeed;
+        } else if (event.key === "ArrowDown") {
+            playerPaddle.dy = paddleSpeed;
+        }
+    });
+
+    document.addEventListener("keyup", () => {
+        playerPaddle.dy = 0;
+    });
+
+    setInterval(gameLoop, intervalTime);
+
+    </script>
+</html>
