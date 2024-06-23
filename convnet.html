@@ -2,43 +2,43 @@
 <head>
 <title>minimal demo</title>
 <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 90vh;
-            margin: 0;
-            background-color: black;
-        }
-        #pongCanvas {
-            background-color: #333;
-            border: 2px solid #fff;
-            width: 100%;
-            max-width: 800px;
-            height: 40vh;
-        }
-        #scoreboard {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            max-width: 800px;
-            color: #333;
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 50px;
-        }
-        #chart-container, #button-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            max-width: 800px;
-            margin-top: 10px;
-        }
-        #chart-container canvas, #button-container button {
-            margin: 0 10px;
-        }
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
+        margin: 0;
+        background-color: black;
+    }
+    #pongCanvas {
+        background-color: #333;
+        border: 2px solid #fff;
+        width: 100%;
+        max-width: 800px;
+        height: 40vh;
+    }
+    #scoreboard {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        max-width: 800px;
+        color: #333;
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 50px;
+    }
+    #chart-container, #button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 800px;
+        margin-top: 10px;
+    }
+    #chart-container canvas, #button-container button {
+        margin: 0 10px;
+    }
 </style>
 
 </head>
@@ -67,7 +67,6 @@
 <script src="convnetjs/deepqlearn.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    let rewardHistory = [];
     const ctx = document.getElementById('lineChart').getContext('2d');
     const lineChart = new Chart(ctx, {
         type: 'line',
@@ -84,6 +83,7 @@
             ]
         },
         options: {
+            animation: false,
             scales: {
                 x: {
                     title: {
@@ -103,50 +103,50 @@
 
     function addData() {
         const currentTime = new Date().toLocaleTimeString()
-        const newValue = reward;
-        rewardHistory.push(newValue);
-        
-        const sum = rewardHistory.reduce((a, b) => a + b, 0)
-        const averageValue = (sum / rewardHistory.length).toFixed(4)
         lineChart.data.labels.push(currentTime);
-        lineChart.data.datasets[0].data.push(averageValue);
-        
-        console.log(averageValue)
+        lineChart.data.datasets[0].data.push(brain.average_reward_window.sum / brain.average_reward_window.size);
         lineChart.update();
     }
 
     
-
-    // Define the RL Agent
+    
+    // RL Agent Settings
     var num_inputs = 3; // ball.x, ball.y, computer.y
     var num_actions = 3; // up, down, stay
-    var temporal_window = 10; // amount of temporal memory. 0 = agent lives in-the-moment :)
+    var temporal_window = 1; // amount of temporal memory. 0 = agent lives in-the-moment :)
     var network_size = num_inputs*temporal_window + num_actions*temporal_window + num_inputs;
-
-    // the value function network computes a value of taking any of the possible actions
-    // given an input state. Here we specify one explicitly the hard way
-    // but user could also equivalently instead use opt.hidden_layer_sizes = [20,20]
-    // to just insert simple relu hidden layers.
     var layer_defs = [];
-    layer_defs.push({type:'input', out_sx:1, out_sy:1, out_depth:network_size});
-    layer_defs.push({type:'fc', num_neurons: 50, activation:'relu'});
-    layer_defs.push({type:'fc', num_neurons: 50, activation:'relu'});
-    layer_defs.push({type:'regression', num_neurons:num_actions});
+        layer_defs.push({type:'input', out_sx:1, out_sy:1, out_depth:network_size});
+        layer_defs.push({type:'fc', num_neurons: 10, activation:'relu'});
+        layer_defs.push({type:'fc', num_neurons: 10, activation:'relu'});
+        // layer_defs.push({type:'fc', num_neurons: 50, activation:'relu'});
+        layer_defs.push({type:'regression', num_neurons:num_actions});
 
     var opt = {};
-    opt.temporal_window = temporal_window;
-    opt.experience_size = 30000;
-    opt.start_learn_threshold = 1000;
-    opt.gamma = 0.7;
-    opt.learning_steps_total = 200000;
-    opt.learning_steps_burnin = 3000;
-    opt.epsilon_min = 0.05;
-    opt.epsilon_test_time = 0.05;
-    opt.layer_defs = layer_defs;
-    opt.tdtrainer_options = {learning_rate:0.001, momentum:0.0, batch_size:64, l2_decay:0.01};
+        opt.temporal_window = temporal_window;
+        opt.experience_size = 300000;
+        opt.start_learn_threshold = 0;
+        // opt.start_learn_threshold = 1000;
+        opt.gamma = 0.99;
+        // opt.learning_steps_total = 2000000;
+        // opt.learning_steps_burnin = 3000;
+        opt.learning_steps_burnin = 0;
+        opt.epsilon_min = 0.1;
+        // opt.epsilon_test_time = 0.05;
+        opt.layer_defs = layer_defs;
+        opt.tdtrainer_options = {learning_rate:0.01, momentum:0.0, batch_size: 32, l2_decay:0.1};
     var brain = new deepqlearn.Brain(num_inputs, num_actions, opt);
     var action = 0; // globally scope 
     var reward = 0;
+
+    // Game settings
+    const framerate = 10000; // frames per second
+    const intervalTime = 1000 / framerate;
+    const paddleWidth = 10;
+    const paddleHeight = 100;
+    const gameSpeed = 5;
+    const paddleSpeed = gameSpeed;
+    const ballSpeed = gameSpeed;
 
     function savenet() {
         var json = brain.value_net.toJSON();
@@ -181,8 +181,6 @@
         console.log("Network Loaded Sucesssfully!")
     }
 
-
-
     const canvas = document.getElementById("pongCanvas");
     const context = canvas.getContext("2d");
 
@@ -192,14 +190,6 @@
     }
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
-
-    const framerate = 600; // frames per second
-    const intervalTime = 1000 / framerate;
-    const paddleWidth = 10;
-    const paddleHeight = 100;
-    const gameSpeed = 5;
-    const paddleSpeed = gameSpeed;
-    const ballSpeed = gameSpeed;
 
     const playerPaddle = {
         x: 10,
@@ -252,7 +242,10 @@
             playerPaddle.y = canvas.height - paddleHeight;
         }
 
-        action = brain.forward([ball.x, ball.y, computerPaddle.y]);
+        // Normalize each dimension to [-1, 1]
+        // console.log((ball.x / canvas.height),(ball.y / canvas.width), (computerPaddle.y / canvas.height))
+        action = brain.forward([(ball.x / canvas.height), (ball.y / canvas.width), (computerPaddle.y / canvas.height)]);
+        // action = brain.forward([ball.x, ball.y, computerPaddle.y]);
         if (action == 1) {
             computerPaddle.y += paddleSpeed;
         } else if (action == 2) {
@@ -271,19 +264,20 @@
     function moveBall() {
         ball.x += ball.dx;
         ball.y += ball.dy;
-        reward = (action == 0) ? 0.005: -0.005 // penalize twitchy behavior
+        reward = (action == 0) ? 0.5: -0.5 // Penalize twitchy behavior
+        reward = 0
         // console.log(action, reward)
+        // console.log("ball", ball.x - ball.radius)
 
         if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
             ball.dy *= -1;
         }
-
-        if (ball.x - ball.radius < 0) {
+        if (ball.x - ball.radius < 15) {
             computerScore++;
             updateScore();
             resetBall();
-        } else if (ball.x + ball.radius > canvas.width) {
-            reward = -1.0
+        } else if (ball.x + ball.radius > canvas.width - 15) {
+            reward = -1.0 // Negative reward for failing to hit the ball
             playerScore++;
             updateScore();
             resetBall();
@@ -300,9 +294,12 @@
             ball.dx *= -1;
         }
 
+        
+        // console.log(reward)
         brain.backward(reward);
-        if (Math.random() > 0.995) {
-                addData()
+        if (Math.random() > 0.9999) {
+            console.log(brain)
+            addData()
         }
 
     }
