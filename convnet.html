@@ -10,13 +10,14 @@
         height: 200vh;
         margin: 0;
         background-color: rgb(242, 239, 239);
+        font-family: 'Roboto', sans-serif;
+        color: #333;
     }
     #scoreboard {
         display: flex;
         justify-content: space-around;
         width: 100%;
         max-width: 800px;
-        color: #333;
         font-size: 20px;
         font-weight: bold;
         margin-top: 50px;
@@ -28,6 +29,8 @@
         max-width: 800px;
         height: 40vh;
         z-index: 1;
+        border-radius: 10px;
+
     }
     #main-button-container {
         display: flex; 
@@ -47,19 +50,66 @@
         border-radius: 10px;
         cursor: pointer;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .game-button:hover {
+        background-color: #007BFF;
+        color: white;
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
     .game-button:focus {
         outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
     }
+    #fps-buttons, #button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    #fps-buttons button, #button-container button, #network-visualization button {
+        font-size: 18px;
+        padding: 10px 20px;
+        background-color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+
+    #fps-buttons button:hover, #button-container button:hover, #network-visualization button:hover {
+        background-color: #007BFF;
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Ensure the selected class has higher specificity */
+    #fps-buttons button.selected, #button-container button.selected, #network-visualization button.selected {
+        background-color: #007BFF !important;
+        color: white !important;
+    }
+
+    #fps-buttons, #network-button {
+        display: none; /* Initially hide the fps-buttons */
+    }
+
     #network-visualization {
         display: flex;
-        justify-content: center;  /* Horizontal centering */
-        align-items: center;      /* Vertical centering */
+        justify-content: center;
+        align-items: center;
         width: 100%;
         height: 100vh;
-        background-color: #e0e0e0; /* Optional: to visualize the allocated space */
+        background-color: #e0e0e0;
+        margin-top: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
-    #chart-container, #button-container {
+
+    #chart-container {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -67,15 +117,16 @@
         max-width: 800px;
         margin-top: 10px;
     }
-    #chart-container canvas, #button-container button {
+    #chart-container canvas  {
         margin: 0 10px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
     .selected {
         background-color: #007BFF;
         color: white;
     }
     .label {
-        /* fill: white; */
         text-anchor: middle;
     }
     .description {
@@ -86,12 +137,12 @@
         text-decoration: none;
     }
     .circle {
-            stroke: #000;
-            stroke-width: 1px;
+        stroke: #000;
+        stroke-width: 1px;
     }
     .line {
-            stroke: #000;
-            stroke-width: 1px;
+        stroke: #000;
+        stroke-width: 1px;
     }
 </style>
 
@@ -119,8 +170,12 @@
     <button onclick="savenet()">Save Network</button>
     <button id="loadNetButton">Load Network</button>
     <input type="file" id="fileInput" accept=".json" style="display: none;">
+    <textarea id="network-text" style="display:none;"></textarea>
 </div>
-<div id="network-visualization"></div>
+<!-- <button id="playButton" class="game-button">Play</button> -->
+<div id="network-visualization">
+    <button id="network-button" class="network-button">Pause Visualization</button>
+</div>
 <div id="brain-attributes"></div>
 <div id="chart-container"><canvas id="rewardChart"></canvas></div>
 <div id="chart-container"><canvas id="lossChart"></canvas></div>
@@ -291,9 +346,9 @@
     var network_size = num_inputs*temporal_window + num_actions*temporal_window + num_inputs;
     var layer_defs = [];
         layer_defs.push({type:'input', out_sx:1, out_sy:1, out_depth:network_size});
-        layer_defs.push({type:'fc', num_neurons: 16, activation:'relu'});
-        layer_defs.push({type:'fc', num_neurons: 12, activation:'relu'});
         layer_defs.push({type:'fc', num_neurons: 8, activation:'relu'});
+        layer_defs.push({type:'fc', num_neurons: 6, activation:'relu'});
+        // layer_defs.push({type:'fc', num_neurons: 4, activation:'relu'});
         layer_defs.push({type:'regression', num_neurons:num_actions});
 
     var opt = {};
@@ -301,7 +356,7 @@
         opt.experience_size = 30000;
         opt.start_learn_threshold = 50;
         opt.gamma = 0.7;
-        opt.learning_steps_total = 50000;
+        opt.learning_steps_total = 1000000;
         opt.learning_steps_burnin = 50;
         opt.epsilon_min = 0.05;
         opt.epsilon_test_time = 0.0; // No random moves when learning == False
@@ -317,13 +372,13 @@
     // Game settings
     const paddleWidth = 10;
     const paddleHeight = 80;
-    const paddleSpeed = 8;
-    const ballSpeed = 8;
+    const paddleSpeed = 7;
+    const ballSpeed = 7;
     var frame = 0
     let pauseFrames = 0;
     const pauseDuration = 15; // Number of frames to pause and change ball color
     let ballColor = "#FFF";
-    let playerColor = "#a9def9" // blue
+    let playerColor = "#1b98e0" // blue
     let computerColor = "#f26a8d" // world domination red
 
 
@@ -335,6 +390,17 @@
             button.classList.remove('selected');
         });
         event.target.classList.add('selected');
+    }
+
+    playNetworkVisualization = true
+    function pauseNetworkVisualization() {
+        if (playNetworkVisualization) {
+            playNetworkVisualization = false;
+            event.target.classList.add('selected');
+        } else {
+            playNetworkVisualization = true;
+            event.target.classList.remove('selected');
+        }
     }
 
     const canvas = document.getElementById("pongCanvas");
@@ -361,6 +427,7 @@
         y: (canvas.height - paddleHeight) / 2,
         width: paddleWidth,
         height: paddleHeight,
+        radius: 5,
     };
 
     const computerPaddle = {
@@ -368,6 +435,7 @@
         y: (canvas.height - paddleHeight) / 2,
         width: paddleWidth,
         height: paddleHeight,
+        radius: 5,
     };
 
     const ball = {
@@ -375,7 +443,11 @@
         y: canvas.height / 2,
         radius: 7,
         dx: ballSpeed,
-        dy: ballSpeed
+        dy: ballSpeed,
+        initialSpeed: ballSpeed / 4,
+        speed: ballSpeed / 2,
+        maxSpeed: ballSpeed,
+        speedIncrement: 0.1
     };
     
     function calculateLayerPositions(layers) {
@@ -563,9 +635,61 @@
         normalizedDistance = Math.abs(ball.y - computerPaddle.y) / canvas.height
         reward = 1 - 2 * normalizedDistance;  // This scales the reward from 1 (when they are equal) to -1 (when they are farthest apart)
 
+        // Ball collision with top and bottom walls
         if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
             ball.dy *= -1;
-        } else if (ball.x - ball.radius < 15) {
+        }
+
+        // Ball collision with player paddle (considering rounded corners)
+        if (ball.x - ball.radius < playerPaddle.x + playerPaddle.width &&
+            ball.y > playerPaddle.y &&
+            ball.y < playerPaddle.y + playerPaddle.height) {
+            // Check if the ball is hitting the paddle's straight edges
+            if (ball.y > playerPaddle.y + playerPaddle.radius &&
+                ball.y < playerPaddle.y + playerPaddle.height - playerPaddle.radius) {
+                ball.dx *= -1;
+                ball.x = playerPaddle.x + playerPaddle.width + ball.radius; // prevent getting stuck
+            } 
+            // Check if the ball is hitting the paddle's rounded corners
+            else {
+                if (Math.hypot(ball.x - (playerPaddle.x + playerPaddle.width), ball.y - playerPaddle.y) <= ball.radius + playerPaddle.radius ||
+                    Math.hypot(ball.x - (playerPaddle.x + playerPaddle.width), ball.y - (playerPaddle.y + playerPaddle.height)) <= ball.radius + playerPaddle.radius) {
+                    ball.dx *= -1;
+                    ball.x = playerPaddle.x + playerPaddle.width + ball.radius; // prevent getting stuck
+                }
+            }
+        }
+
+        // Ball collision with computer paddle (considering rounded corners)
+        if (ball.x + ball.radius > computerPaddle.x &&
+            ball.y > computerPaddle.y &&
+            ball.y < computerPaddle.y + computerPaddle.height) {
+            // Check if the ball is hitting the paddle's straight edges
+            if (ball.y > computerPaddle.y + computerPaddle.radius &&
+                ball.y < computerPaddle.y + computerPaddle.height - computerPaddle.radius) {
+                ball.dx *= -1;
+                ball.x = computerPaddle.x - ball.radius; // prevent getting stuck
+                reward = 1.0; // Reward hitting the ball
+                if (brain.epsilon <= opt.epsilon_min) {
+                    hitCount++
+                }
+            } 
+            // Check if the ball is hitting the paddle's rounded corners
+            else {
+                if (Math.hypot(ball.x - computerPaddle.x, ball.y - computerPaddle.y) <= ball.radius + computerPaddle.radius ||
+                    Math.hypot(ball.x - computerPaddle.x, ball.y - (computerPaddle.y + computerPaddle.height)) <= ball.radius + computerPaddle.radius) {
+                    ball.dx *= -1;
+                    ball.x = computerPaddle.x - ball.radius; // prevent getting stuck
+                    reward = 1.0; // Reward hitting the ball
+                    if (brain.epsilon <= opt.epsilon_min) {
+                        hitCount++
+                    }
+                }
+            }
+        }
+
+        // Ball out of bounds: player loses
+        if (ball.x - ball.radius < 0) {
             computerScore++;
             updateScore();
             if (userInput === true) {
@@ -574,7 +698,10 @@
             } else {
                 resetBall();
             }
-        } else if (ball.x + ball.radius > canvas.width - 15) {
+        }
+
+        // Ball out of bounds: computer loses
+        if (ball.x + ball.radius > canvas.width) {
             reward = -1.0 // Negative reward for failing to hit the ball
             playerScore++;
             updateScore();
@@ -587,22 +714,7 @@
             if (brain.epsilon <= opt.epsilon_min) {
                 missCount++
             }
-        } else if  (ball.x + ball.radius > computerPaddle.x &&
-                    ball.y > computerPaddle.y &&
-                    ball.y < computerPaddle.y + computerPaddle.height) 
-        {
-            reward = 1.0; // Reward hitting the ball
-            ball.dx *= -1;
-            if (brain.epsilon <= opt.epsilon_min) {
-                hitCount++
-            }
-        } else if  (ball.x - ball.radius < playerPaddle.x + playerPaddle.width &&
-                    ball.y > playerPaddle.y &&
-                    ball.y < playerPaddle.y + playerPaddle.height)
-        {
-            ball.dx *= -1;
         }
-        
         
         brain.backward(reward);
         // updateActionChart();
@@ -610,7 +722,10 @@
             drawNetwork(brain.value_net.layers)
         }
         if (frame > 100) {
-            updateNetworkColors(brain.value_net.layers)
+            // console.log(playNetworkVisualization)
+            if (playNetworkVisualization === true) {
+                updateNetworkColors(brain.value_net.layers)
+            }
         }
         if (frame > 100 && frame % 100 === 0) {
             if (brain.value_net.layers[brain.value_net.layers.length-1].out_act.w.some(Number.isNaN)) {
@@ -620,6 +735,13 @@
         }
         if (frame % 10000 === 0) {
             console.log(brain)
+        }
+
+        // Gradually increase the ball's speed up to the maximum speed
+        if (ball.speed < ball.maxSpeed) {
+            ball.speed += ball.speedIncrement;
+            ball.dx = ball.speed * Math.sign(ball.dx);
+            ball.dy = ball.speed * Math.sign(ball.dy);
         }
     }
 
@@ -657,7 +779,9 @@
     function resetBall() {
         ball.x = canvas.width / 2;
         ball.y = Math.random() * (canvas.height - 200) + 100;
-        ball.dx *= -1;
+        ball.dx = ballSpeed * (Math.random() > 0.5 ? 1 : -1); // randomize direction
+        ball.dy = ballSpeed * (Math.random() > 0.5 ? 1 : -1); // randomize direction
+        ball.speed = ball.initialSpeed;
     }
 
     function updateScore() {
@@ -673,8 +797,6 @@
     }
 
     function gameLoop() {   
-        // update();
-        // draw();
         if (pauseFrames > 0) {
             pauseFrames--;
             if (pauseFrames === 0) {
@@ -691,6 +813,9 @@
     const playButton = document.getElementById('playButton');
     const trainButton = document.getElementById('trainButton');
     const fpsButtons = Array.from(document.querySelectorAll('#fps-buttons button'));
+    const fpsButtonsDiv = document.getElementById('fps-buttons');
+    const networkButton = document.getElementById('network-button');
+    networkButton.addEventListener('click', pauseNetworkVisualization);
     let gameLoopInterval;
     let gameStarted = false;
     let userInput = false;
@@ -703,11 +828,14 @@
             gameStarted = true;
             playButton.style.display = 'none';
             trainButton.style.display = 'none';
+            fpsButtonsDiv.style.display = 'flex';
+            networkButton.style.display = 'flex';
             userInput = true
             playerPaddle.dy = 0
+            fpsButtons[2].click();
+            // networkButton.click();
+            // networkButton.click();
 
-            const button = fpsButtons[2];
-            button.click();
 
             document.addEventListener("keydown", (event) => {
                 if (event.key === "ArrowUp") {
@@ -741,17 +869,17 @@
             gameStarted = true;
             trainButton.style.display = 'none';
             playButton.style.display = 'none';
-
-            const button = fpsButtons[3];
-            button.click();
-
+            fpsButtonsDiv.style.display = 'flex';
+            networkButton.style.display = 'flex';
+            fpsButtons[3].click();
+            networkButton.click();
         }
     });
 
     function savenet() {
         var json = brain.value_net.toJSON();
         var text = JSON.stringify(json);
-        document.getElementById('tt').value = text;
+        document.getElementById('network-text').value = text;
 
         var blob = new Blob([text], { type: 'application/json' });
         var url = URL.createObjectURL(blob);
