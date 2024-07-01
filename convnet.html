@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Pong RL Agent</title>
+<title>Pong Reinforment Learning Agent</title>
 <style>
     body {
         display: flex;
@@ -18,9 +18,9 @@
         justify-content: space-around;
         width: 100%;
         max-width: 800px;
-        font-size: 20px;
-        font-weight: bold;
-        margin-top: 50px;
+        font-size: 27px;
+        /* font-weight: bold; */
+        margin-top: 10px;
     }
     #pongCanvas {
         background-color: #333;
@@ -36,7 +36,7 @@
         display: flex; 
         flex-direction: column;
         position: absolute;
-        top: 30%;
+        top: 25%;
         left: 50%;
         transform: translate(-50%, -50%);
         z-index: 2;
@@ -100,6 +100,8 @@
     #network-visualization {
         display: flex;
         justify-content: center;
+        flex-direction: column;
+        padding-bottom: 10px;
         align-items: center;
         width: 100%;
         height: 100vh;
@@ -148,9 +150,7 @@
 
 </head>
 <body>
-<!-- <body onload="start()"> -->
-<!-- <div id="networkChart"></div> -->
-<!-- <div id="egdiv"></div> -->
+<!-- <div id="title">Pong Reinforment Learning Agent</div> -->
 <div id="scoreboard">
     <div id="playerScore">Player: 0</div>
     <div id="computerScore">Computer: 0</div>
@@ -166,20 +166,21 @@
     <button onclick="setFrameRate(60)">60 FPS</button>
     <button onclick="setFrameRate(1000)">1000 FPS</button>
 </div>
-<div id="button-container">
-    <button onclick="savenet()">Save Network</button>
-    <button id="loadNetButton">Load Network</button>
-    <input type="file" id="fileInput" accept=".json" style="display: none;">
-    <textarea id="network-text" style="display:none;"></textarea>
-</div>
 <!-- <button id="playButton" class="game-button">Play</button> -->
 <div id="network-visualization">
+    <svg id="network-svg"></svg>
     <button id="network-button" class="network-button">Pause Visualization</button>
 </div>
 <div id="brain-attributes"></div>
 <div id="chart-container"><canvas id="rewardChart"></canvas></div>
 <div id="chart-container"><canvas id="lossChart"></canvas></div>
 <div id="chart-container"><canvas id="actionChart"></canvas></div>
+<div id="button-container">
+    <button onclick="savenet()">Save Network</button>
+    <button id="loadNetButton">Load Network</button>
+    <input type="file" id="fileInput" accept=".json" style="display: none;">
+    <textarea id="network-text" style="display:none;"></textarea>
+</div>
 <p id="hit-miss"></p>
 </body>
 
@@ -346,8 +347,16 @@
     var network_size = num_inputs*temporal_window + num_actions*temporal_window + num_inputs;
     var layer_defs = [];
         layer_defs.push({type:'input', out_sx:1, out_sy:1, out_depth:network_size});
+        
+        // layer_defs.push({type:'fc', num_neurons: 16, activation:'relu'});
+        // layer_defs.push({type:'fc', num_neurons: 12, activation:'relu'});
+        // layer_defs.push({type:'fc', num_neurons: 8, activation:'relu'});
+        
         layer_defs.push({type:'fc', num_neurons: 8, activation:'relu'});
-        layer_defs.push({type:'fc', num_neurons: 6, activation:'relu'});
+        layer_defs.push({type:'fc', num_neurons: 16, activation:'relu'});
+        layer_defs.push({type:'fc', num_neurons: 16, activation:'relu'});
+        layer_defs.push({type:'fc', num_neurons: 8, activation:'relu'});
+        // layer_defs.push({type:'fc', num_neurons: 6, activation:'relu'});
         // layer_defs.push({type:'fc', num_neurons: 4, activation:'relu'});
         layer_defs.push({type:'regression', num_neurons:num_actions});
 
@@ -413,7 +422,7 @@
     
     const networkVisualization = document.getElementById("network-visualization");
     function resizeNtworkVisualization() {
-        networkVisualization.width = canvas.offsetWidth;
+        networkVisualization.width = canvas.offsetWidth + 100;
         networkVisualization.height = canvas.offsetHeight;
     }
 
@@ -471,9 +480,9 @@
     function drawNetwork(layers) {
         width = networkVisualization.width;
         height = networkVisualization.height;
-        margin = { top: 20, right: 20, bottom: 20, left: 20 };
+        margin = { top: 10, right: 50, bottom: 10, left: 50 };
 
-        svg = d3.select('#network-visualization').append('svg')
+        svg = d3.select('#network-svg')
             .attr('width', width)
             .attr('height', height);
 
@@ -532,7 +541,7 @@
             .enter()
             .append('text')
             .attr('class', 'first-layer-text')
-            .attr('x', d => d.x - 120)
+            .attr('x', d => d.x - 130)
             .attr('y', d => d.y + 5)
             .attr('text-anchor', 'left')
             .text((d, i) => firstLayerLabels[i])
@@ -785,7 +794,11 @@
     }
 
     function updateScore() {
-        playerScoreElement.textContent = `Player: ${playerScore}`;
+        if (userInput == true) {
+            playerScoreElement.textContent = `Player: ${playerScore}`;
+        } else {
+            playerScoreElement.textContent = `Perfect Training Computer: ${playerScore}`;
+        }
         computerScoreElement.textContent = `Computer: ${computerScore}`;
     }
 
