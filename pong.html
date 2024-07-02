@@ -1,194 +1,844 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 80vh;
-            margin: 0;
-            background-color: black;
-        }
-        #pongCanvas {
-            background-color: #333;
-            border: 2px solid #fff;
-            width: 100%;
-            max-width: 800px;
-            height: 50vh;
-        }
-        #scoreboard {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            max-width: 800px;
-            color: #333;
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-    </style>
-    <title>Pong Game</title>
-    <link rel="stylesheet" href="styles.css">
+<title>Pong Reinforment Learning Agent</title>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: 200vh;
+        margin: 0;
+        background-color: rgb(242, 239, 239);
+        font-family: 'Roboto', sans-serif;
+        color: #333;
+    }
+    #scoreboard {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        max-width: 800px;
+        font-size: 27px;
+        margin-top: 10px;
+    }
+    #pongCanvas {
+        background-color: #333;
+        border: 2px solid #fff;
+        width: 100%;
+        max-width: 800px;
+        height: 40vh;
+        z-index: 1;
+        border-radius: 10px;
+
+    }
+    #main-button-container {
+        display: flex; 
+        flex-direction: column;
+        position: absolute;
+        top: 25%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        gap: 20px;
+    }
+    .game-button {
+        font-size: 24px;
+        padding: 20px 40px;
+        background-color: #fff;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .game-button:hover {
+        background-color: #007BFF;
+        color: white;
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    .game-button:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+    }
+    #fps-buttons, #button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    #fps-buttons button, #button-container button, #network-visualization button {
+        font-size: 18px;
+        padding: 10px 20px;
+        background-color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+
+    #fps-buttons button:hover, #button-container button:hover, #network-visualization button:hover {
+        background-color: #007BFF;
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Ensure the selected class has higher specificity */
+    #fps-buttons button.selected, #button-container button.selected, #network-visualization button.selected {
+        background-color: #007BFF !important;
+        color: white !important;
+    }
+
+    #fps-buttons, #network-button {
+        display: none; /* Initially hide the fps-buttons */
+    }
+
+    #network-visualization {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding-bottom: 10px;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+        background-color: #e0e0e0;
+        margin-top: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #chart-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 800px;
+        margin-top: 10px;
+    }
+    #chart-container canvas  {
+        margin: 0 10px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .selected {
+        background-color: #007BFF;
+        color: white;
+    }
+    .label {
+        text-anchor: middle;
+    }
+    .description {
+        fill: black;
+        text-anchor: middle;
+    }
+    #brain-attributes {
+        text-decoration: none;
+    }
+    .circle {
+        stroke: #000;
+        stroke-width: 1px;
+    }
+    .line {
+        stroke: #000;
+        stroke-width: 1px;
+    }
+</style>
+
 </head>
 <body>
-    <div id="scoreboard">
-        <div id="playerScore">Player: 0</div>
-        <div id="computerScore">Computer: 0</div>
-    </div>
-    <canvas id="pongCanvas" width="800" height="400"></canvas>
+<!-- <div id="title">Pong Reinforment Learning Agent</div> -->
+<div id="scoreboard">
+    <div id="playerScore">Player: 0</div>
+    <div id="computerScore">Computer: 0</div>
+</div>
+<canvas id="pongCanvas" width="800" height="400" tabindex="0"></canvas>
+<div id="main-button-container">
+    <button id="playButton" class="game-button">Play</button>
+    <button id="trainButton" class="game-button">Train Agent</button>
+</div>
+<div id="fps-buttons">
+    <button onclick="setFrameRate(1)">1 FPS</button>
+    <button onclick="setFrameRate(10)">10 FPS</button>
+    <button onclick="setFrameRate(60)">60 FPS</button>
+    <button onclick="setFrameRate(1000)">1000 FPS</button>
+</div>
+<!-- <button id="playButton" class="game-button">Play</button> -->
+<div id="network-visualization">
+    <svg id="network-svg"></svg>
+    <button id="network-button" class="network-button">Pause Visualization</button>
+</div>
+<div id="brain-attributes"></div>
+<div id="chart-container"><canvas id="rewardChart"></canvas></div>
+<div id="chart-container"><canvas id="lossChart"></canvas></div>
+<div id="button-container">
+    <button onclick="savenet()">Save Network</button>
+    <button id="loadNetButton">Load Network</button>
+    <input type="file" id="fileInput" accept=".json" style="display: none;">
+    <textarea id="network-text" style="display:none;"></textarea>
+</div>
+<p id="hit-miss"></p>
+</body>
+
+<script src="convnetjs/convnet-min.js"></script>
+<script src="convnetjs/util.js"></script>
+<script src="convnetjs/deepqlearn.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+    const rewardChart = new Chart(document.getElementById('rewardChart').getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{label: 'Average Reward',
+                        data: [],
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 2,
+                        fill: false}]
+        },
+        options: {
+            animation: false,
+            scales: {
+                x: {title: {display: true,
+                            text: 'Time'}},
+                y: {title: {display: true,
+                            text: 'Value'}}}
+        }
+    });
+    const lossChart = new Chart(document.getElementById('lossChart').getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{label: 'Average Loss',
+                        data: [],
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 2,
+                        fill: false}]
+        },
+        options: {
+            animation: false,
+            scales: {
+                x: {title: {display: true,
+                            text: 'Time'}},
+                y: {title: {display: true,
+                            text: 'Value'}}
+            }
+        }
+    });
+
+    function addData() {
+        const currentTime = new Date().toLocaleTimeString()
+        rewardChart.data.labels.push(currentTime);
+        // console.log(brain.average_reward_window)
+        rewardChart.data.datasets[0].data.push(brain.average_reward_window.sum / brain.average_reward_window.size);
+        rewardChart.update();
+
+        lossChart.data.labels.push(currentTime);
+        lossChart.data.datasets[0].data.push(brain.average_loss_window.sum / brain.average_loss_window.v.length);
+        lossChart.update();
+
+        if (brain.epsilon <= opt.epsilon_min) {
+            hit_miss = (hitCount / missCount).toFixed(2);
+        } else {
+            hit_miss = 'Will calculate once the epsilon reaches its minimum'
+        }
+
+        const brainAttributes = [
+            `age: ${brain.age}`,
+            `epsilon: ${brain.epsilon.toFixed(2)}`,
+            `hit/miss ratio: ${hit_miss}`,
+        ];
+
+        const brainAttributesList = brainAttributes.map(attr => `<li>${attr}</li>`).join('');
+            
+        document.getElementById('brain-attributes').innerHTML = `<ul>${brainAttributesList}</ul>`;
+    }
     
-    <script>
-        const canvas = document.getElementById("pongCanvas");
-        const context = canvas.getContext("2d");
+    // RL Agent Settings
+    var num_inputs = 5; // ball.x, ball.y, ball.dx, ball.dy, computer.y
+    var num_actions = 3; // up, down, stay
+    var temporal_window = 0; // amount of temporal memory. 0 = agent lives in-the-moment :)
+    var network_size = num_inputs*temporal_window + num_actions*temporal_window + num_inputs;
+    var layer_defs = [];
+        layer_defs.push({type:'input', out_sx:1, out_sy:1, out_depth:network_size});
+        
+        // layer_defs.push({type:'fc', num_neurons: 16, activation:'relu'});
+        // layer_defs.push({type:'fc', num_neurons: 12, activation:'relu'});
+        // layer_defs.push({type:'fc', num_neurons: 8, activation:'relu'});
+        
+        layer_defs.push({type:'fc', num_neurons: 8, activation:'relu'});
+        layer_defs.push({type:'fc', num_neurons: 16, activation:'relu'});
+        layer_defs.push({type:'fc', num_neurons: 16, activation:'relu'});
+        layer_defs.push({type:'fc', num_neurons: 8, activation:'relu'});
+        // layer_defs.push({type:'fc', num_neurons: 6, activation:'relu'});
+        // layer_defs.push({type:'fc', num_neurons: 4, activation:'relu'});
+        layer_defs.push({type:'regression', num_neurons:num_actions});
 
-        function resizeCanvas() {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
+    var opt = {};
+        opt.temporal_window = temporal_window;
+        opt.experience_size = 30000;
+        opt.start_learn_threshold = 50;
+        opt.gamma = 0.7;
+        opt.learning_steps_total = 1000000;
+        opt.learning_steps_burnin = 50;
+        opt.epsilon_min = 0.05;
+        opt.epsilon_test_time = 0.0; // No random moves when learning == False
+        opt.layer_defs = layer_defs;
+        // opt.tdtrainer_options = {learning_rate:0.005, momentum:0.01, batch_size: 16, l2_decay:0.1, eps:.001};
+        opt.tdtrainer_options = {learning_rate:0.0003, momentum:0.01, batch_size: 8, l2_decay:0.01};
+    var brain = new deepqlearn.Brain(num_inputs, num_actions, opt);
+    var action = 0;
+    var reward = 0;
+    var missCount = 1;
+    var hitCount = 1;
+
+    // Game settings
+    const paddleWidth = 10;
+    const paddleHeight = 80;
+    const paddleSpeed = 7;
+    const ballSpeed = 7;
+    var frame = 0
+    let pauseFrames = 0;
+    const pauseDuration = 15; // Number of frames to pause and change ball color
+    let ballColor = "#FFF";
+    let playerColor = "#1b98e0" // blue
+    let computerColor = "#f26a8d" // world domination red
+
+
+    function setFrameRate(fps) {
+        clearInterval(gameLoopInterval);
+        intervalTime = 1000 / fps;
+        gameLoopInterval = setInterval(gameLoop, intervalTime);
+        fpsButtons.forEach(function(button) {
+            button.classList.remove('selected');
+        });
+        event.target.classList.add('selected');
+    }
+
+    playNetworkVisualization = true
+    function pauseNetworkVisualization() {
+        if (playNetworkVisualization) {
+            playNetworkVisualization = false;
+            event.target.classList.add('selected');
+        } else {
+            playNetworkVisualization = true;
+            event.target.classList.remove('selected');
         }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
+    }
 
-        const paddleWidth = 10;
-        const paddleHeight = 100;
-        const paddleSpeed = 5;
+    const canvas = document.getElementById("pongCanvas");
+    const context = canvas.getContext("2d");
 
-        const playerPaddle = {
-            x: 10,
-            y: (canvas.height - paddleHeight) / 2,
-            width: paddleWidth,
-            height: paddleHeight,
-            dy: 0
-        };
+    function resizeCanvas() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+    }
+    
+    const networkVisualization = document.getElementById("network-visualization");
+    function resizeNtworkVisualization() {
+        networkVisualization.width = canvas.offsetWidth + 100;
+        networkVisualization.height = canvas.offsetHeight;
+    }
 
-        const computerPaddle = {
-            x: canvas.width - paddleWidth - 10,
-            y: (canvas.height - paddleHeight) / 2,
-            width: paddleWidth,
-            height: paddleHeight,
-            dy: 5
-        };
+    window.addEventListener('resize', resizeNtworkVisualization);
+    window.addEventListener('resize', resizeCanvas);
+    resizeNtworkVisualization();
+    resizeCanvas();
+    
+    const playerPaddle = {
+        x: 10,
+        y: (canvas.height - paddleHeight) / 2,
+        width: paddleWidth,
+        height: paddleHeight,
+        radius: 5,
+    };
 
-        const ball = {
-            x: canvas.width / 2,
-            y: canvas.height / 2,
-            radius: 7,
-            speed: 4,
-            dx: 4,
-            dy: 4
-        };
+    const computerPaddle = {
+        x: canvas.width - paddleWidth - 10,
+        y: (canvas.height - paddleHeight) / 2,
+        width: paddleWidth,
+        height: paddleHeight,
+        radius: 5,
+    };
 
-        let playerScore = 0;
-        let computerScore = 0;
-        const playerScoreElement = document.getElementById("playerScore");
-        const computerScoreElement = document.getElementById("computerScore");
+    const ball = {
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        radius: 7,
+        dx: ballSpeed,
+        dy: ballSpeed,
+        initialSpeed: ballSpeed / 4,
+        speed: ballSpeed / 2,
+        maxSpeed: ballSpeed,
+        speedIncrement: 0.1
+    };
+    
+    function calculateLayerPositions(layers) {
+        const positions = [];
+        layers.forEach((layer, layerIndex) => {
+            if (layer.layer_type !== 'relu' && layer.layer_type !== 'regression' ) {
+                const layerX = margin.left + layerSpacing * (positions.length + 1);
+                const nodeSpacing = (height - margin.top - margin.bottom) / (layer.out_act.w.length + 1);
+                const layerPositions = Array.from(layer.out_act.w).map((weight, weightIndex) => ({
+                    x: layerX,
+                    y: margin.top + nodeSpacing * (weightIndex + 1),
+                    weight,
+                    layer_type: layer.layer_type
+                }));
+                positions.push({ positions: layerPositions, layer_type: layer.layer_type, x: layerX });
+            }
+        });
+        return positions;
+    }
 
-        function drawRect(x, y, width, height, color) {
-            context.fillStyle = color;
-            context.fillRect(x, y, width, height);
+    function drawNetwork(layers) {
+        width = networkVisualization.width;
+        height = networkVisualization.height;
+        margin = { top: 10, right: 50, bottom: 10, left: 50 };
+
+        svg = d3.select('#network-svg')
+            .attr('width', width)
+            .attr('height', height);
+
+        const numOfLayers = brain.value_net.layers.filter(layer => layer.layer_type !== 'relu' && layer.layer_type !== 'regression').length;
+        layerSpacing = (width - margin.left - margin.right) / (numOfLayers + 1);
+        const maxWeightCount = Math.max(...layers.map(layer => layer.out_act.w.length));
+        const nodeSpacing = (height - margin.top - margin.bottom) / (maxWeightCount + 1);
+        const layerPositions = calculateLayerPositions(layers)
+
+        // Draw lines between neighboring layers
+        for (let i = 0; i < layerPositions.length - 1; i++) {
+            const currentLayer = layerPositions[i].positions;
+            const nextLayer = layerPositions[i + 1].positions;
+            
+            currentLayer.forEach(currentNode => {
+                nextLayer.forEach(nextNode => {
+                    svg.append('line')
+                    .attr('x1', currentNode.x)
+                    .attr('y1', currentNode.y)
+                    .attr('x2', nextNode.x)
+                    .attr('y2', nextNode.y)
+                    .attr('class', 'line');
+                });
+            });
         }
 
-        function drawCircle(x, y, radius, color) {
-            context.fillStyle = color;
-            context.beginPath();
-            context.arc(x, y, radius, 0, Math.PI * 2);
-            context.closePath();
-            context.fill();
-        }
+        const firstLayer = layerPositions[0].positions;
+        const firstLayerLabels = ["ball.x", "ball.y", "ball.dx", "ball.dy", "computer.y"];
 
-        function movePaddles() {
+        const lastLayerIndex = layerPositions.length - 1;
+        const lastLayer = layerPositions[lastLayerIndex].positions;
+        const lastLayerLabels = ["Stay", "Down", "Up"];
+
+        const colorScale = d3.scaleLinear()
+            .domain([d3.min(lastLayer.map(d => d.weight)), d3.max(lastLayer.map(d => d.weight))])
+            .range([0, 1]);
+
+        svg.selectAll('.circle')
+            .data(layerPositions.flatMap(d => d.positions))
+            .enter()
+            .append('circle')
+            .attr('class', 'circle')
+            .attr('cx', d => d.x)
+            .attr('cy', d => d.y)
+            // .attr('r', d => layerPositions[lastLayerIndex].positions.includes(d) ? 25 : 10)
+            .attr('r', d => 10)
+            .attr('fill', d => {
+                if (layerPositions[lastLayerIndex].positions.includes(d)) {
+                    return d.weight > 0 ? d3.interpolateBlues(colorScale(d.weight)) : d3.interpolateOranges(colorScale(-d.weight));
+                }
+                return d.weight > 0 ? d3.interpolateBlues(d.weight) : d3.interpolateOranges(-d.weight);
+            });
+
+        svg.selectAll('.first-layer-text')
+            .data(firstLayer)
+            .enter()
+            .append('text')
+            .attr('class', 'first-layer-text')
+            .attr('x', d => d.x - 130)
+            .attr('y', d => d.y + 5)
+            .attr('text-anchor', 'left')
+            .text((d, i) => firstLayerLabels[i])
+            .style('font-size', '22px')
+            .style('font-weight', '800')
+            .style('fill', '#000')
+            .style('stroke', '#fff')
+            .style('stroke-width', '3px')
+            .style('paint-order', 'stroke');
+
+        svg.selectAll('.last-layer-text')
+            .data(lastLayer)
+            .enter()
+            .append('text')
+            .attr('class', 'last-layer-text')
+            .attr('x', d => d.x + 20)
+            .attr('y', d => d.y + 5)
+            .attr('text-anchor', 'left')
+            .text((d, i) => lastLayerLabels[i])
+            .style('font-size', '22px')
+            .style('font-weight', '800')
+            .style('fill', '#000')
+            .style('stroke', '#fff')
+            .style('stroke-width', '3px')
+            .style('paint-order', 'stroke');
+    }
+
+    function updateNetworkColors(layers) {
+        const layerPositions = calculateLayerPositions(layers)
+        const lastLayerIndex = layerPositions.length - 1;
+        const lastLayer = layerPositions[lastLayerIndex].positions;
+
+        const colorScale = d3.scaleLinear()
+            .domain([d3.min(lastLayer.map(d => d.weight)), d3.max(lastLayer.map(d => d.weight))])
+            .range([0, 1]);
+
+        svg.selectAll('.circle')
+            .data(layerPositions.flatMap(d => d.positions))
+            .attr('fill', d => {
+                if (layerPositions[lastLayerIndex].positions.includes(d)) {
+                    return d.weight > 0 ? d3.interpolateBlues(colorScale(d.weight)) : d3.interpolateOranges(colorScale(-d.weight));
+                }
+                return d.weight > 0 ? d3.interpolateBlues(d.weight) : d3.interpolateOranges(-d.weight);
+        });
+    }
+
+    function update() { 
+        frame++;
+        
+
+        //
+        // Move Paddles
+        //
+        if (userInput === true) {
             playerPaddle.y += playerPaddle.dy;
-
             if (playerPaddle.y < 0) {
                 playerPaddle.y = 0;
             } else if (playerPaddle.y + paddleHeight > canvas.height) {
                 playerPaddle.y = canvas.height - paddleHeight;
             }
-
-            if (computerPaddle.y + computerPaddle.height / 2 < ball.y) {
-                computerPaddle.y += computerPaddle.dy;
+        } else {
+            // Training partner will play perfectly 
+            if (playerPaddle.y + playerPaddle.height / 2 < ball.y) {
+                playerPaddle.y += paddleSpeed;
             } else {
-                computerPaddle.y -= computerPaddle.dy;
+                playerPaddle.y -= paddleSpeed;
             }
         }
 
-        function moveBall() {
-            ball.x += ball.dx;
-            ball.y += ball.dy;
 
-            if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
-                ball.dy *= -1;
-            }
+        inputs = [
+            4 * ((ball.x / canvas.width) - 0.5), 
+            4 * ((ball.y / canvas.height) - 0.5), 
+            (ball.dx / ballSpeed), 
+            (ball.dy / ballSpeed), 
+            4 * ((computerPaddle.y / canvas.height) - 0.5)
+        ]
+        // inputs = [1, 1]
+        action = brain.forward(inputs);
+        // console.log(inputs, action)
+        // action = brain.forward([ball.x, ball.y, computerPaddle.y]);
+        if (action == 1) {
+            computerPaddle.y += paddleSpeed;
+        } else if (action == 2) {
+            computerPaddle.y -= paddleSpeed;
+        }
+        // Else do nothing 
+        
+        if (computerPaddle.y < 0) {
+            computerPaddle.y = 0
+        } else if (computerPaddle.y + paddleHeight > canvas.height) {
+            computerPaddle.y = canvas.height - paddleHeight;
+        }
+        
+        //
+        // Move Ball
+        //
+        ball.x += ball.dx;
+        ball.y += ball.dy;
+        normalizedDistance = Math.abs(ball.y - computerPaddle.y) / canvas.height
+        reward = 1 - 2 * normalizedDistance;  // This scales the reward from 1 (when they are equal) to -1 (when they are farthest apart)
 
-            if (ball.x - ball.radius < 0) {
-                computerScore++;
-                updateScore();
-                resetBall();
-            } else if (ball.x + ball.radius > canvas.width) {
-                playerScore++;
-                updateScore();
-                resetBall();
-            }
+        // Ball collision with top and bottom walls
+        if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
+            ball.dy *= -1;
+        }
 
-            if (
-                (ball.x - ball.radius < playerPaddle.x + playerPaddle.width &&
-                    ball.y > playerPaddle.y &&
-                    ball.y < playerPaddle.y + playerPaddle.height) ||
-                (ball.x + ball.radius > computerPaddle.x &&
-                    ball.y > computerPaddle.y &&
-                    ball.y < computerPaddle.y + computerPaddle.height)
-            ) {
+        // Ball collision with player paddle (considering rounded corners)
+        if (ball.x - ball.radius < playerPaddle.x + playerPaddle.width &&
+            ball.y > playerPaddle.y &&
+            ball.y < playerPaddle.y + playerPaddle.height) {
+            // Check if the ball is hitting the paddle's straight edges
+            if (ball.y > playerPaddle.y + playerPaddle.radius &&
+                ball.y < playerPaddle.y + playerPaddle.height - playerPaddle.radius) {
                 ball.dx *= -1;
+                ball.x = playerPaddle.x + playerPaddle.width + ball.radius; // prevent getting stuck
+            } 
+            // Check if the ball is hitting the paddle's rounded corners
+            else {
+                if (Math.hypot(ball.x - (playerPaddle.x + playerPaddle.width), ball.y - playerPaddle.y) <= ball.radius + playerPaddle.radius ||
+                    Math.hypot(ball.x - (playerPaddle.x + playerPaddle.width), ball.y - (playerPaddle.y + playerPaddle.height)) <= ball.radius + playerPaddle.radius) {
+                    ball.dx *= -1;
+                    ball.x = playerPaddle.x + playerPaddle.width + ball.radius; // prevent getting stuck
+                }
             }
         }
 
-        function resetBall() {
-            ball.x = canvas.width / 2;
-            ball.y = canvas.height / 2;
-            ball.dx *= -1;
+        // Ball collision with computer paddle (considering rounded corners)
+        if (ball.x + ball.radius > computerPaddle.x &&
+            ball.y > computerPaddle.y &&
+            ball.y < computerPaddle.y + computerPaddle.height) {
+            // Check if the ball is hitting the paddle's straight edges
+            if (ball.y > computerPaddle.y + computerPaddle.radius &&
+                ball.y < computerPaddle.y + computerPaddle.height - computerPaddle.radius) {
+                ball.dx *= -1;
+                ball.x = computerPaddle.x - ball.radius; // prevent getting stuck
+                reward = 1.0; // Reward hitting the ball
+                if (brain.epsilon <= opt.epsilon_min) {
+                    hitCount++
+                }
+            } 
+            // Check if the ball is hitting the paddle's rounded corners
+            else {
+                if (Math.hypot(ball.x - computerPaddle.x, ball.y - computerPaddle.y) <= ball.radius + computerPaddle.radius ||
+                    Math.hypot(ball.x - computerPaddle.x, ball.y - (computerPaddle.y + computerPaddle.height)) <= ball.radius + computerPaddle.radius) {
+                    ball.dx *= -1;
+                    ball.x = computerPaddle.x - ball.radius; // prevent getting stuck
+                    reward = 1.0; // Reward hitting the ball
+                    if (brain.epsilon <= opt.epsilon_min) {
+                        hitCount++
+                    }
+                }
+            }
         }
 
-        function updateScore() {
+        // Ball out of bounds: player loses
+        if (ball.x - ball.radius < 0) {
+            computerScore++;
+            updateScore();
+            if (userInput === true) {
+                ballColor = computerColor;
+                pauseFrames = pauseDuration;
+            } else {
+                resetBall();
+            }
+        }
+
+        // Ball out of bounds: computer loses
+        if (ball.x + ball.radius > canvas.width) {
+            reward = -1.0 // Negative reward for failing to hit the ball
+            playerScore++;
+            updateScore();
+            if (userInput === true) {
+                ballColor = playerColor;
+                pauseFrames = pauseDuration;
+            } else {
+                resetBall();
+            }
+            if (brain.epsilon <= opt.epsilon_min) {
+                missCount++
+            }
+        }
+        
+        if (userInput === true) {
+            brain.backward(reward);
+        }
+        // updateActionChart();
+        if (frame == 100 && userInput != true || userInput === true && frame == 1) {
+            drawNetwork(brain.value_net.layers)
+        }
+        if (frame > 1) {
+            // console.log(playNetworkVisualization)
+            if (playNetworkVisualization === true) {
+                updateNetworkColors(brain.value_net.layers)
+            }
+        }
+        if (frame > 100 && frame % 100 === 0) {
+            if (brain.value_net.layers[brain.value_net.layers.length-1].out_act.w.some(Number.isNaN)) {
+                console.log("ERROR! The array contains NaN values.");
+            }
+            addData()
+        }
+        if (frame % 10000 === 0) {
+            console.log(brain)
+        }
+
+        // Gradually increase the ball's speed up to the maximum speed
+        if (ball.speed < ball.maxSpeed) {
+            ball.speed += ball.speedIncrement;
+            ball.dx = ball.speed * Math.sign(ball.dx);
+            ball.dy = ball.speed * Math.sign(ball.dy);
+        }
+    }
+
+    let playerScore = 0;
+    let computerScore = 0;
+    const playerScoreElement = document.getElementById("playerScore");
+    const computerScoreElement = document.getElementById("computerScore");
+
+    function drawPaddle(x, y, width, height, color) {
+        radius = 5
+        context.fillStyle = color;
+        // context.fillRect(x, y, width, height);
+        context.beginPath();
+        context.moveTo(x + radius, y);
+        context.lineTo(x + width - radius, y);
+        context.quadraticCurveTo(x + width, y, x + width, y + radius);
+        context.lineTo(x + width, y + height - radius);
+        context.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+        context.lineTo(x + radius, y + height);
+        context.quadraticCurveTo(x, y + height, x, y + height - radius);
+        context.lineTo(x, y + radius);
+        context.quadraticCurveTo(x, y, x + radius, y);
+        context.closePath();
+        context.fill();
+    }
+
+    function drawCircle(x, y, radius, color) {
+        context.fillStyle = color;
+        context.beginPath();
+        context.arc(x, y, radius, 0, Math.PI * 2);
+        context.closePath();
+        context.fill();
+    }
+
+    function resetBall() {
+        ball.x = canvas.width / 2;
+        ball.y = Math.random() * (canvas.height - 200) + 100;
+        ball.dx = ballSpeed * (Math.random() > 0.5 ? 1 : -1); // randomize direction
+        ball.dy = ballSpeed * (Math.random() > 0.5 ? 1 : -1); // randomize direction
+        ball.speed = ball.initialSpeed;
+    }
+
+    function updateScore() {
+        if (userInput == true) {
             playerScoreElement.textContent = `Player: ${playerScore}`;
-            computerScoreElement.textContent = `Computer: ${computerScore}`;
+        } else {
+            playerScoreElement.textContent = `Perfect Training Computer: ${playerScore}`;
         }
+        computerScoreElement.textContent = `Computer: ${computerScore}`;
+    }
 
-        function draw() {
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            drawRect(playerPaddle.x, playerPaddle.y, playerPaddle.width, playerPaddle.height, "#FFF");
-            drawRect(computerPaddle.x, computerPaddle.y, computerPaddle.width, computerPaddle.height, "#FFF");
-            drawCircle(ball.x, ball.y, ball.radius, "#FFF");
-        }
+    function draw() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        drawPaddle(computerPaddle.x, computerPaddle.y, computerPaddle.width, computerPaddle.height, computerColor);
+        drawPaddle(playerPaddle.x, playerPaddle.y, playerPaddle.width, playerPaddle.height, playerColor);
+        drawCircle(ball.x, ball.y, ball.radius, ballColor);
+    }
 
-        function update() {
-            movePaddles();
-            moveBall();
-        }
-
-        function gameLoop() {
+    function gameLoop() {   
+        if (pauseFrames > 0) {
+            pauseFrames--;
+            if (pauseFrames === 0) {
+                ballColor = "#FFF"; // Reset ball color
+                resetBall(); // Reset the ball after the pause
+            }
+            draw();
+        } else {
             update();
             draw();
-            requestAnimationFrame(gameLoop);
         }
+    }
 
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "ArrowUp") {
-                playerPaddle.dy = -paddleSpeed;
-            } else if (event.key === "ArrowDown") {
-                playerPaddle.dy = paddleSpeed;
-            }
-        });
+    const playButton = document.getElementById('playButton');
+    const trainButton = document.getElementById('trainButton');
+    const fpsButtons = Array.from(document.querySelectorAll('#fps-buttons button'));
+    const fpsButtonsDiv = document.getElementById('fps-buttons');
+    const networkButton = document.getElementById('network-button');
+    networkButton.addEventListener('click', pauseNetworkVisualization);
+    let gameLoopInterval;
+    let gameStarted = false;
+    let userInput = false;
 
-        document.addEventListener("keyup", () => {
-            playerPaddle.dy = 0;
-        });
+    playButton.addEventListener('click', () => {
+        if (!gameStarted) {
+            fps = 60; // frames per second
+            intervalTime = 1000 / fps;
+            gameLoopInterval = setInterval(gameLoop, intervalTime);
+            gameStarted = true;
+            playButton.style.display = 'none';
+            trainButton.style.display = 'none';
+            fpsButtonsDiv.style.display = 'flex';
+            networkButton.style.display = 'flex';
+            userInput = true
+            playerPaddle.dy = 0
+            fpsButtons[2].click();
 
-        // Start game
-        gameLoop();
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "ArrowUp") {
+                    playerPaddle.dy = -paddleSpeed;
+                    event.preventDefault();
+                } else if (event.key === "ArrowDown") {
+                    playerPaddle.dy = paddleSpeed;
+                    event.preventDefault();
+                }
+            });
+
+            document.addEventListener("keyup", () => {
+                playerPaddle.dy = 0;
+            });
+
+            canvas.addEventListener('click', () => {
+                canvas.focus();
+            });
+
+            const defaultBrainJSON = {"layers":[{"out_depth":5,"out_sx":1,"out_sy":1,"layer_type":"input"},{"out_depth":16,"out_sx":1,"out_sy":1,"layer_type":"fc","num_inputs":5,"l1_decay_mul":0,"l2_decay_mul":1,"filters":[{"sx":1,"sy":1,"depth":5,"w":{"0":0.1096283591821072,"1":-0.563380505469707,"2":-0.10187032017582548,"3":-0.39333708473387513,"4":0.2945391599315134}},{"sx":1,"sy":1,"depth":5,"w":{"0":0.3442557781047075,"1":0.12001429310882651,"2":0.02023425270169848,"3":0.07405359071319713,"4":-0.35630650569160266}},{"sx":1,"sy":1,"depth":5,"w":{"0":-0.007403068468196973,"1":0.9134034241677575,"2":-0.005368394540713903,"3":0.011185688346475216,"4":-0.9038356517218356}},{"sx":1,"sy":1,"depth":5,"w":{"0":0.0372075733233773,"1":0.2227583947346543,"2":0.18855133214902323,"3":-0.048726576587947996,"4":-0.26066140938283644}},{"sx":1,"sy":1,"depth":5,"w":{"0":0.0289489983051246,"1":-0.7928000481242307,"2":0.006411868297617576,"3":-0.019643013302442162,"4":0.7937878545784997}},{"sx":1,"sy":1,"depth":5,"w":{"0":-0.14386258528487297,"1":-0.05841888717059626,"2":0.2801230880612629,"3":0.1893639013151507,"4":0.2678350623832835}},{"sx":1,"sy":1,"depth":5,"w":{"0":-0.5317813166343318,"1":0.27970295256628724,"2":-0.34285753445662537,"3":0.1390986858142375,"4":0.27522248624603135}},{"sx":1,"sy":1,"depth":5,"w":{"0":0.15056999124895884,"1":0.03211358208302314,"2":0.2700655816189065,"3":-0.3629071419145674,"4":-0.11772282261277646}},{"sx":1,"sy":1,"depth":5,"w":{"0":0.0749104024342636,"1":-0.2315013372332204,"2":-0.017294307620525154,"3":0.19605314648333413,"4":0.744309800122881}},{"sx":1,"sy":1,"depth":5,"w":{"0":-0.1168785949993824,"1":-0.17032406031042258,"2":0.0836027756227964,"3":-0.15668815500234173,"4":0.0705437545525821}},{"sx":1,"sy":1,"depth":5,"w":{"0":0.22331930455123084,"1":-0.15775870581800866,"2":0.03360964736204667,"3":0.2394232330970253,"4":-0.010758280615973153}},{"sx":1,"sy":1,"depth":5,"w":{"0":0.06595611897399481,"1":-0.1651808986131911,"2":-0.26233437969481377,"3":-0.26085316024261507,"4":0.029167204968067083}},{"sx":1,"sy":1,"depth":5,"w":{"0":-0.14247976626191877,"1":0.17997659019716522,"2":-0.14285144315124668,"3":0.3737760771035208,"4":0.4241853805753249}},{"sx":1,"sy":1,"depth":5,"w":{"0":0.06568935592565112,"1":0.31588221074463974,"2":-0.06983474288016486,"3":-0.5504004962301066,"4":0.11561439661550589}},{"sx":1,"sy":1,"depth":5,"w":{"0":0.4708277002974641,"1":0.05507740697510113,"2":0.06161832175829145,"3":0.18899908847154498,"4":-0.17030450031175043}},{"sx":1,"sy":1,"depth":5,"w":{"0":0.1847745541924,"1":0.12371635045805737,"2":-0.40606437996184225,"3":-0.08535949058448511,"4":0.22501488708376916}}],"biases":{"sx":1,"sy":1,"depth":16,"w":{"0":0.26711301046308195,"1":0.12456000731146125,"2":-0.02758408390836784,"3":0.18904805127299995,"4":0.004462052723110504,"5":0.18081573151980915,"6":0.20775232588326117,"7":0.2574605247397394,"8":0.21679398495316118,"9":0.4929341878551005,"10":0.4248528289189692,"11":0.35918171495882734,"12":0.38178754722640695,"13":0.04955873257354686,"14":0.06810421079681202,"15":0.10427350433504008}}},{"out_depth":16,"out_sx":1,"out_sy":1,"layer_type":"relu"},{"out_depth":12,"out_sx":1,"out_sy":1,"layer_type":"fc","num_inputs":16,"l1_decay_mul":0,"l2_decay_mul":1,"filters":[{"sx":1,"sy":1,"depth":16,"w":{"0":0.3418809152649506,"1":0.00610656192215821,"2":0.2491939648122537,"3":0.186446623201232,"4":0.3716607400053651,"5":-0.03752417325942904,"6":0.09866795250278076,"7":0.014400868444980255,"8":0.20194670330462708,"9":-0.018404999437058207,"10":-0.21033345119207472,"11":-0.13253510293376247,"12":0.06679731633481167,"13":0.05667250071321583,"14":0.20499969993322797,"15":0.007472527805886789}},{"sx":1,"sy":1,"depth":16,"w":{"0":-0.19965889771403184,"1":0.25397974928150385,"2":-0.39297835269319714,"3":-0.050978157620237524,"4":-0.15180601870188035,"5":0.13124863075268287,"6":-0.12133870309974255,"7":0.01261771993433366,"8":-0.011368836981811393,"9":0.11749683845378418,"10":0.0725386358392091,"11":-0.2599536074540365,"12":0.012073884325357128,"13":0.016829233565102387,"14":0.054570513604305454,"15":-0.05919638517365898}},{"sx":1,"sy":1,"depth":16,"w":{"0":-0.060791046785700076,"1":-0.04840140909883317,"2":-0.5510196151544663,"3":-0.15509916577623586,"4":-0.7249132780277281,"5":0.15431474437205364,"6":0.021783613309447464,"7":0.19109087285309298,"8":-0.09179431524651574,"9":0.24541733536727836,"10":0.21495662125533818,"11":0.2506896565690393,"12":0.17529097243267952,"13":0.15851645105502665,"14":-0.017498162078164743,"15":-0.007819567446592431}},{"sx":1,"sy":1,"depth":16,"w":{"0":-0.014915015119832462,"1":-0.013358802834975671,"2":0.13299610897499242,"3":0.2653928024360979,"4":-0.09528583224109664,"5":-0.08022040942539198,"6":-0.0008078907217300683,"7":-0.021672488709162475,"8":-0.2497519732836488,"9":-0.2208997361580977,"10":0.15927214105694482,"11":-0.1992640006724731,"12":0.1207890434918034,"13":-0.08544754335432601,"14":0.13191831588743672,"15":0.00017015187036822216}},{"sx":1,"sy":1,"depth":16,"w":{"0":0.020350133789612413,"1":-0.049198359007609736,"2":-0.0679180086317728,"3":-0.005959508259535949,"4":-0.10914562749297727,"5":-0.2712992216734902,"6":0.10654833108324258,"7":0.022781002737863643,"8":0.09398462370249624,"9":-0.10269338285325984,"10":0.02389912034173951,"11":0.031616506933880975,"12":-0.030486156117013486,"13":-0.15198998129544358,"14":-0.05542569120198581,"15":0.09560265816397773}},{"sx":1,"sy":1,"depth":16,"w":{"0":-0.10123544200871747,"1":0.0613304029188421,"2":-0.11806127739693444,"3":0.20947416518070164,"4":-0.3193470798718989,"5":-0.1440554695694257,"6":0.1562009937697884,"7":0.09071892432621119,"8":0.04797410153997245,"9":0.07872396195264116,"10":0.19235359098574617,"11":-0.06351643573381832,"12":0.2251685079427491,"13":0.05143929125597543,"14":0.16445198459211355,"15":0.15169305074221434}},{"sx":1,"sy":1,"depth":16,"w":{"0":-0.1367380215762566,"1":0.29551901418463167,"2":0.4000483288012454,"3":0.07247299479142251,"4":-0.12871296000677399,"5":-0.061927516249356364,"6":-0.03740282525761044,"7":-0.19117817974719942,"8":-0.24227868684716294,"9":-0.13905350874078778,"10":0.03425840860883683,"11":-0.11149970352127658,"12":0.08120042874175572,"13":0.10269321947384792,"14":0.0005672176916025326,"15":0.07288103431616189}},{"sx":1,"sy":1,"depth":16,"w":{"0":0.11632339193975005,"1":0.10091679575720554,"2":0.335115783003782,"3":-0.06665205472796895,"4":0.2405069843251651,"5":0.09149571575107113,"6":0.1535483202464934,"7":0.06933441812040816,"8":0.30813487667356126,"9":0.009764106897658211,"10":0.10639499628415974,"11":0.17179795027325998,"12":-0.2039767973892844,"13":0.04631898747740148,"14":0.07417177017092721,"15":-0.14290927928400943}},{"sx":1,"sy":1,"depth":16,"w":{"0":-0.15494392674020435,"1":-0.11894094224624181,"2":-0.002491839505500259,"3":-0.2594936373028505,"4":-0.2410865822338377,"5":0.08774013371033423,"6":-0.27450034010301677,"7":0.13605866867712396,"8":0.039511100572233664,"9":0.1675226865055827,"10":0.0007172995296926984,"11":0.12800886318244495,"12":-0.13003439099009248,"13":0.08313920612728454,"14":0.15890695365130636,"15":-0.02612635851926476}},{"sx":1,"sy":1,"depth":16,"w":{"0":-0.11987849482337441,"1":0.13396161271046436,"2":-0.29018132920159967,"3":-0.026075039423313982,"4":-0.10571913677226907,"5":0.051494942806411315,"6":0.0033712277020191673,"7":-0.017148653232272406,"8":-0.09886559443417887,"9":0.10079874573355287,"10":-0.2872078182891879,"11":0.13923513988981454,"12":-0.02538413109902011,"13":-0.07548922762848102,"14":0.07828740561768219,"15":-0.06651861948613186}},{"sx":1,"sy":1,"depth":16,"w":{"0":0.10431358590139889,"1":-0.038166451302897024,"2":-0.22559027887940003,"3":-0.18175851462965037,"4":-0.045817095819961816,"5":-0.029187461465516783,"6":0.35231825332438904,"7":-0.047630409771015285,"8":-0.12377891745933157,"9":-0.13839433792052183,"10":-0.15548033555663265,"11":-0.05555655310985775,"12":-0.02855971318997734,"13":0.28933615933392387,"14":0.08166428324206061,"15":-0.02482589237423831}},{"sx":1,"sy":1,"depth":16,"w":{"0":-0.058962793639340434,"1":0.038525063391807,"2":0.4440544789220222,"3":0.006570343096389696,"4":0.1762412110472062,"5":-0.03368896766124866,"6":0.3055352270621308,"7":0.05896274386473684,"8":0.006936934157515382,"9":-0.06673488408488379,"10":-0.04270107408752524,"11":-0.09154108731536709,"12":0.2723314866700146,"13":0.015453296889627554,"14":0.0474793119187263,"15":-0.05238474791892041}}],"biases":{"sx":1,"sy":1,"depth":12,"w":{"0":-0.04267850904831191,"1":0.2736070261865894,"2":1.0456980918643186,"3":0.10416124347617176,"4":0.16844030711354124,"5":0.3886202853272395,"6":0.1072235731927495,"7":0.11963064878776948,"8":0.19208597233068736,"9":0.018015803292179465,"10":0.12506518235884034,"11":0.18376932468739743}}},{"out_depth":12,"out_sx":1,"out_sy":1,"layer_type":"relu"},{"out_depth":8,"out_sx":1,"out_sy":1,"layer_type":"fc","num_inputs":12,"l1_decay_mul":0,"l2_decay_mul":1,"filters":[{"sx":1,"sy":1,"depth":12,"w":{"0":0.2953777601429314,"1":0.06518358088768803,"2":-0.18744790693483307,"3":-0.074850172663947,"4":-0.21614393962812156,"5":-0.2385004219443794,"6":0.15293242883640837,"7":0.22321332307335418,"8":-0.1295427317194258,"9":-0.09709899926936207,"10":-0.02470029870025071,"11":0.32525244954508825}},{"sx":1,"sy":1,"depth":12,"w":{"0":-0.27472346452449,"1":0.018138133288280466,"2":0.36125763137270445,"3":0.07696226372815315,"4":0.042059841538911805,"5":0.22619971433677272,"6":-0.12204030249664254,"7":-0.15726892396955458,"8":0.2603664756138391,"9":0.07015937295646843,"10":0.034148209603534416,"11":0.03944183221234015}},{"sx":1,"sy":1,"depth":12,"w":{"0":-0.3003252781071005,"1":-0.3636571222202195,"2":0.06679467925061844,"3":0.2206850672554276,"4":0.2652770524553472,"5":-0.14577857331957475,"6":-0.2901859037107834,"7":0.1534828583785449,"8":0.25832899861971936,"9":0.11642497525260702,"10":-0.05771429609667597,"11":-0.1576543796435257}},{"sx":1,"sy":1,"depth":12,"w":{"0":0.01509840767176932,"1":0.1696359974124776,"2":0.39053830476411716,"3":-0.15401748582633465,"4":0.015254554007558261,"5":0.11480147559905081,"6":-0.09203737542182955,"7":-0.2625309187403195,"8":0.1713663499307273,"9":0.10927284380840666,"10":-0.023373159900472243,"11":-0.009887545885552552}},{"sx":1,"sy":1,"depth":12,"w":{"0":-0.45089863902411076,"1":0.3164400885150524,"2":1.1701192735596926,"3":-0.24150294236583805,"4":0.3263283059249053,"5":0.29323075279906446,"6":-0.27927594904442127,"7":0.03194575017982871,"8":0.1041861230127914,"9":-0.04160625754689258,"10":0.03137909339528289,"11":-0.1945898835533383}},{"sx":1,"sy":1,"depth":12,"w":{"0":0.2217148584220933,"1":-0.1750144637404618,"2":-0.3822368782578559,"3":0.07957442068812853,"4":0.19484536922014653,"5":0.1541482214125155,"6":0.1305668160532281,"7":0.43329535861814367,"8":0.06189985443401755,"9":0.24115310368496218,"10":-0.10297276346710255,"11":0.15143438447508392}},{"sx":1,"sy":1,"depth":12,"w":{"0":0.05064024240906613,"1":0.13149490315129803,"2":-0.18070500778259405,"3":-0.032654226395334794,"4":0.16506053344879004,"5":0.0816490190811266,"6":-0.2122005543356274,"7":-0.1640493849833723,"8":0.0904953735997016,"9":-0.019494655971534148,"10":-0.15321660715480165,"11":0.020070226450162734}},{"sx":1,"sy":1,"depth":12,"w":{"0":-0.08552270168909906,"1":-0.1887446523582455,"2":-0.21167109595367203,"3":0.06703314158763135,"4":-0.012683219284457948,"5":0.37220870358084435,"6":0.026837851240992066,"7":0.11939710504201528,"8":0.004818795025996194,"9":0.024089390863925527,"10":-0.11687229155091115,"11":0.11101648310277663}}],"biases":{"sx":1,"sy":1,"depth":8,"w":{"0":0.2958587186920483,"1":0.4235809996993864,"2":-0.10151506198523076,"3":0.3820926879458709,"4":0.7629842589317837,"5":0.17968320690899545,"6":0.043012396023119466,"7":0.1567231823771886}}},{"out_depth":8,"out_sx":1,"out_sy":1,"layer_type":"relu"},{"out_depth":3,"out_sx":1,"out_sy":1,"layer_type":"fc","num_inputs":8,"l1_decay_mul":0,"l2_decay_mul":1,"filters":[{"sx":1,"sy":1,"depth":8,"w":{"0":-0.3804111160019246,"1":0.4788295982554565,"2":0.28158910968449397,"3":0.4693070278857774,"4":0.7267896475791515,"5":-0.09673407731446614,"6":0.2903326118726002,"7":-0.2795337471027093}},{"sx":1,"sy":1,"depth":8,"w":{"0":-0.32573462809906695,"1":0.4659871668063978,"2":-0.14260170900705907,"3":0.22799819407704106,"4":0.7409204118632353,"5":-0.5098776157243958,"6":0.16338361080072983,"7":0.0919108980017898}},{"sx":1,"sy":1,"depth":8,"w":{"0":-0.28630438408134357,"1":0.15923856698766303,"2":-0.14849662522858698,"3":0.26883883158576777,"4":0.8706953399440601,"5":-0.3845967010111581,"6":-0.1562274300532862,"7":-0.13691772521902826}}],"biases":{"sx":1,"sy":1,"depth":3,"w":{"0":0.2290005298606351,"1":0.4407263497349899,"2":0.402043156453234}}},{"out_depth":3,"out_sx":1,"out_sy":1,"layer_type":"regression","num_inputs":3}]}
+            brain.value_net.fromJSON(defaultBrainJSON);
+            brain.learning = false;
+        }
+    });
+
+    trainButton.addEventListener('click', () => {
+        if (!gameStarted) {
+            fps = 1000; // frames per second
+            intervalTime = 1000 / fps;
+            gameLoopInterval = setInterval(gameLoop, intervalTime);
+            gameStarted = true;
+            trainButton.style.display = 'none';
+            playButton.style.display = 'none';
+            fpsButtonsDiv.style.display = 'flex';
+            networkButton.style.display = 'flex';
+            fpsButtons[3].click();
+            networkButton.click();
+        }
+    });
+
+    function savenet() {
+        var json = brain.value_net.toJSON();
+        var text = JSON.stringify(json);
+        document.getElementById('network-text').value = text;
+
+        var blob = new Blob([text], { type: 'application/json' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'pong_agent_network.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+
+    document.getElementById('loadNetButton').onclick = function() {
+        document.getElementById('fileInput').click();
+    };
+
+    document.getElementById('fileInput').onchange = function() {
+        var file = this.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var text = e.target.result;
+                var json = JSON.parse(text);
+                brain.value_net.fromJSON(json);
+                console.log("Network Loaded Successfully!");
+            };
+            brain.learning = false;
+            reader.readAsText(file);
+        }
+    };
+
+    // let gameLoopInterval = setInterval(gameLoop, intervalTime);
 
     </script>
-</body>
 </html>
