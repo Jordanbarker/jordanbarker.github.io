@@ -19,7 +19,6 @@
         width: 100%;
         max-width: 800px;
         font-size: 27px;
-        /* font-weight: bold; */
         margin-top: 10px;
     }
     #pongCanvas {
@@ -174,7 +173,6 @@
 <div id="brain-attributes"></div>
 <div id="chart-container"><canvas id="rewardChart"></canvas></div>
 <div id="chart-container"><canvas id="lossChart"></canvas></div>
-<div id="chart-container"><canvas id="actionChart"></canvas></div>
 <div id="button-container">
     <button onclick="savenet()">Save Network</button>
     <button id="loadNetButton">Load Network</button>
@@ -194,121 +192,41 @@
         type: 'line',
         data: {
             labels: [],
-            datasets: [
-                {
-                    label: 'Average Reward',
-                    data: [],
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 2,
-                    fill: false
-                }
-            ]
+            datasets: [{label: 'Average Reward',
+                        data: [],
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 2,
+                        fill: false}]
         },
         options: {
             animation: false,
             scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Time'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Value'
-                    }
-                }
-            }
+                x: {title: {display: true,
+                            text: 'Time'}},
+                y: {title: {display: true,
+                            text: 'Value'}}}
         }
     });
     const lossChart = new Chart(document.getElementById('lossChart').getContext('2d'), {
         type: 'line',
         data: {
             labels: [],
-            datasets: [
-                {
-                    label: 'Average Loss',
-                    data: [],
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 2,
-                    fill: false
-                }
-            ]
+            datasets: [{label: 'Average Loss',
+                        data: [],
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 2,
+                        fill: false}]
         },
         options: {
             animation: false,
             scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Time'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Value'
-                    }
-                }
+                x: {title: {display: true,
+                            text: 'Time'}},
+                y: {title: {display: true,
+                            text: 'Value'}}
             }
         }
     });
-    const actionChart = new Chart(document.getElementById('actionChart').getContext('2d'), {
-        type: 'bar',
-        data: {
-            labels: ["Stay", "Up", "Down"],
-            datasets: [{
-                label: 'Value',
-                data: [.0001, .0001, .0001],
-                borderColor: 'black',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            animation: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        callback: function(value) {
-                            return value.toFixed(4);
-                        }
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(tooltipItem) {
-                            return tooltipItem.raw.toFixed(2);
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-    function updateActionChart() {
-
-        data = [brain.value_net.layers[brain.value_net.layers.length-1].out_act.w[0], 
-                brain.value_net.layers[brain.value_net.layers.length-1].out_act.w[1], 
-                brain.value_net.layers[brain.value_net.layers.length-1].out_act.w[2]]
-
-        actionChart.data.datasets[0].data = data;
-        actionChart.data.datasets[0].backgroundColor = data.map(value => {
-            const max = Math.max(...data);
-            const min = Math.min(...data);
-            const ratio = (value - min) / (max - min);
-            const blueValue = Math.floor(255 * ratio);
-            return `rgb(${255 - blueValue}, ${255 - blueValue}, 255)`;
-        });
-
-        actionChart.update();
-    }
 
     function addData() {
         const currentTime = new Date().toLocaleTimeString()
@@ -320,8 +238,6 @@
         lossChart.data.labels.push(currentTime);
         lossChart.data.datasets[0].data.push(brain.average_loss_window.sum / brain.average_loss_window.v.length);
         lossChart.update();
-
-        updateActionChart()
 
         if (brain.epsilon <= opt.epsilon_min) {
             hit_miss = (hitCount / missCount).toFixed(2);
@@ -725,12 +641,14 @@
             }
         }
         
-        brain.backward(reward);
+        if (userInput === true) {
+            brain.backward(reward);
+        }
         // updateActionChart();
-        if (frame == 100){
+        if (frame == 100 && userInput != true || userInput === true && frame == 1) {
             drawNetwork(brain.value_net.layers)
         }
-        if (frame > 100) {
+        if (frame > 1) {
             // console.log(playNetworkVisualization)
             if (playNetworkVisualization === true) {
                 updateNetworkColors(brain.value_net.layers)
@@ -846,9 +764,6 @@
             userInput = true
             playerPaddle.dy = 0
             fpsButtons[2].click();
-            // networkButton.click();
-            // networkButton.click();
-
 
             document.addEventListener("keydown", (event) => {
                 if (event.key === "ArrowUp") {
