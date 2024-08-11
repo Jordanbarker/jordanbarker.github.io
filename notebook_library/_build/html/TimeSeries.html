@@ -1,0 +1,1571 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Time Series Forecasting &#8212; Data Science Cookbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'TimeSeries';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Statistical Tests (A/B Testing)" href="StatisticalTests.html" />
+    <link rel="prev" title="Evaluation Metrics" href="Evaluation_Metrics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Data Science Cookbook - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Data Science Cookbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Data Science Cookbook
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Distributions.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Evaluation_Metrics.html">Evaluation Metrics</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Time Series Forecasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StatisticalTests.html">Statistical Tests (A/B Testing)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebook Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Jordanbarker/jordanbarker.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Jordanbarker/jordanbarker.github.io/issues/new?title=Issue%20on%20page%20%2FTimeSeries.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/TimeSeries.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Time Series Forecasting</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-data-with-linear-trend-with-a-cyclic-pattern-and-random-noise">Generate Data with linear trend with a cyclic pattern and random noise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seasonality">Seasonality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-smoothing">Exponential Smoothing <a name="Exponential-Smoothing"></a></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-smoothing-with-seasonality-holt-winters">Exponential smoothing with seasonality (Holt-Winters)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-decomposition">Model decomposition</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arima-sarimax-p-d-q-x-p-d-q-s">ARIMA / SARIMAX(p, d, q)x(P, D, Q, s) <a name="ARIMA"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm">LightGBM <a name="lightgbm"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-networks">Neural Networks <a name="neural-networks"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-profiles">Matrix Profiles  <a name="Matrix-Profiles"></a></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motif-pattern">Motif / Pattern</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#potential-anomolies">Potential Anomolies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#box-cox-transformation">Box-Cox Transformation <a name="box-cox"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portmanteau-test">Portmanteau Test <a name="Portmanteau-Test"></a></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="time-series-forecasting">
+<h1>Time Series Forecasting<a class="headerlink" href="#time-series-forecasting" title="Link to this heading">#</a></h1>
+<section id="table-of-contents">
+<h2>Table of Contents:<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
+<p>Models:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#Exponential-Smoothing"><span class="xref myst">Exponential Smoothing</span></a></p></li>
+<li><p><a class="reference internal" href="#ARIMA"><span class="xref myst">ARIMA</span></a></p></li>
+<li><p><a class="reference internal" href="#lightgbm"><span class="xref myst">Gradient Boosted Trees</span></a></p></li>
+<li><p><a class="reference internal" href="#neural-networks"><span class="xref myst">Neural Networks</span></a></p></li>
+</ul>
+<p>Other Topics:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#Matrix-Profiles"><span class="xref myst">Matrix Profiles (Pattern and Anomoly Detection)</span></a></p></li>
+<li><p><a class="reference internal" href="#box-cox"><span class="xref myst">Box-Cox Transform</span></a></p></li>
+<li><p><a class="reference internal" href="#Portmanteau-Test"><span class="xref myst">Portmanteau Test</span></a></p></li>
+</ul>
+<p>References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://otexts.com/fpp2/">Forecasting: Principles and Practice</a></p></li>
+<li><p><a class="reference external" href="https://people.duke.edu/~rnau/411arim.htm#pdq">ARIMA models for time series forecasting</a></p></li>
+<li><p><a class="reference external" href="https://www.statsmodels.org/dev/examples/notebooks/generated/exponential_smoothing.html">statsmodels.org</a></p></li>
+<li><p><a class="reference external" href="https://lightgbm.readthedocs.io/en/stable/Parameters-Tuning.html">LightGBM</a></p></li>
+</ul>
+</section>
+<section id="generate-data-with-linear-trend-with-a-cyclic-pattern-and-random-noise">
+<h2>Generate Data with linear trend with a cyclic pattern and random noise<a class="headerlink" href="#generate-data-with-linear-trend-with-a-cyclic-pattern-and-random-noise" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.api</span> <span class="kn">import</span> <span class="n">ExponentialSmoothing</span><span class="p">,</span> <span class="n">SimpleExpSmoothing</span><span class="p">,</span> <span class="n">Holt</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.arima.model</span> <span class="kn">import</span> <span class="n">ARIMA</span>
+<span class="kn">from</span> <span class="nn">statsmodels.stats.diagnostic</span> <span class="kn">import</span> <span class="n">acorr_ljungbox</span>
+<span class="kn">import</span> <span class="nn">lightgbm</span> <span class="k">as</span> <span class="nn">lgb</span>
+
+<span class="n">FIGSIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="n">data_size</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">sin</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">data_size</span><span class="p">)</span><span class="o">*</span><span class="mf">.05</span><span class="p">)</span>
+<span class="n">linear</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">data_size</span><span class="p">)</span><span class="o">*</span><span class="mf">.005</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sin</span> <span class="o">+</span> <span class="n">linear</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">noisy_data</span> <span class="o">=</span> <span class="n">data</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">data_size</span><span class="p">)</span>
+
+<span class="c1"># Split the data into train and test sets</span>
+<span class="n">train_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data_size</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">)</span>
+<span class="n">test_size</span> <span class="o">=</span> <span class="n">data_size</span> <span class="o">-</span> <span class="n">train_size</span>
+<span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="n">train_size</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="n">train_size</span><span class="p">:]</span>
+<span class="n">noisy_train</span><span class="p">,</span> <span class="n">noisy_test</span> <span class="o">=</span> <span class="n">noisy_data</span><span class="p">[:</span><span class="n">train_size</span><span class="p">],</span> <span class="n">noisy_data</span><span class="p">[</span><span class="n">train_size</span><span class="p">:]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">FIGSIZE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sin</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Sin&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">linear</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Linear&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">noisy_data</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Sin + Linear (Noisy)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Sin + Linear&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/17d4ae8e204ebcf0701fb47caa9d18509be91d40a84f69e9f47c7e50d2031c5c.png" src="_images/17d4ae8e204ebcf0701fb47caa9d18509be91d40a84f69e9f47c7e50d2031c5c.png" />
+</div>
+</div>
+</section>
+<section id="seasonality">
+<h2>Seasonality<a class="headerlink" href="#seasonality" title="Link to this heading">#</a></h2>
+<p>This is data dependent. For example, if you have daily data and a weekly trend in the data, then the seasonality parameter will be 7.</p>
+<p>Here I find the seasonality by looking at when the sin function repeats.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">peaks</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">train</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">train</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">train</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">train</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">window_size</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">:</span> <span class="n">x2</span><span class="o">-</span><span class="n">x1</span><span class="p">,</span> <span class="n">peaks</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">peaks</span><span class="p">[</span><span class="mi">1</span><span class="p">:])))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average distance between peaks: </span><span class="si">{</span><span class="n">window_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">FIGSIZE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">peaks</span><span class="p">,</span> <span class="n">train</span><span class="p">[</span><span class="n">peaks</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;local maximum&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average distance between peaks: 126
+</pre></div>
+</div>
+<img alt="_images/8f9819b4355962a76c9b617d532a1139199520072b747fe4e1fdf06e169fed95.png" src="_images/8f9819b4355962a76c9b617d532a1139199520072b747fe4e1fdf06e169fed95.png" />
+</div>
+</div>
+</section>
+<section id="exponential-smoothing">
+<h2>Exponential Smoothing <a name="Exponential-Smoothing"></a><a class="headerlink" href="#exponential-smoothing" title="Link to this heading">#</a></h2>
+<p><span class="math notranslate nohighlight">\( S_t = \alpha  y_t + (1 - \alpha) S_{t-1} \)</span>, where</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( S_t \)</span> is the smoothed value at time <span class="math notranslate nohighlight">\( t \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( y_t \)</span> is the actual value at time <span class="math notranslate nohighlight">\( t \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( \alpha \)</span> is the smoothing parameter, <span class="math notranslate nohighlight">\( 0 \leq \alpha \leq 1 \)</span></p></li>
+</ul>
+<br>
+Simple exponential smoothing won't be able to capture any of the trends on the data :(<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">FIGSIZE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="n">data_size</span><span class="p">),</span> <span class="n">test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test Data&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
+    <span class="n">exp_model</span> <span class="o">=</span> <span class="n">SimpleExpSmoothing</span><span class="p">(</span><span class="n">train</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">smoothing_level</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">optimized</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">exp_smoothing_forecast</span> <span class="o">=</span> <span class="n">exp_model</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="n">test_size</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="n">data_size</span><span class="p">),</span> <span class="n">exp_smoothing_forecast</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Exponential Smoothing Alpha=</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c78ff4c96adcf8b640fd6495ae98612e8ae1e3afd87101c49dcda752707c8a4c.png" src="_images/c78ff4c96adcf8b640fd6495ae98612e8ae1e3afd87101c49dcda752707c8a4c.png" />
+</div>
+</div>
+<section id="exponential-smoothing-with-seasonality-holt-winters">
+<h3>Exponential smoothing with seasonality (Holt-Winters)<a class="headerlink" href="#exponential-smoothing-with-seasonality-holt-winters" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">FIGSIZE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="n">data_size</span><span class="p">),</span> <span class="n">test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test Data&#39;</span><span class="p">)</span>
+
+<span class="n">exp_model</span> <span class="o">=</span> <span class="n">ExponentialSmoothing</span><span class="p">(</span><span class="n">noisy_train</span><span class="p">,</span>
+                <span class="n">seasonal_periods</span><span class="o">=</span><span class="n">window_size</span><span class="p">,</span>
+                <span class="n">trend</span><span class="o">=</span><span class="s2">&quot;add&quot;</span><span class="p">,</span>
+                <span class="n">seasonal</span><span class="o">=</span><span class="s2">&quot;add&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">exp_smoothing_forecast</span> <span class="o">=</span> <span class="n">exp_model</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="n">test_size</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span> <span class="n">exp_smoothing_forecast</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Exponential Smoothing with Seasonality Trained on Noisy data&#39;</span><span class="p">)</span>
+
+<span class="n">exp_model</span> <span class="o">=</span> <span class="n">ExponentialSmoothing</span><span class="p">(</span><span class="n">train</span><span class="p">,</span>
+                <span class="n">seasonal_periods</span><span class="o">=</span><span class="n">window_size</span><span class="p">,</span>
+                <span class="n">trend</span><span class="o">=</span><span class="s2">&quot;add&quot;</span><span class="p">,</span>
+                <span class="n">seasonal</span><span class="o">=</span><span class="s2">&quot;add&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">exp_smoothing_forecast</span> <span class="o">=</span> <span class="n">exp_model</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="n">test_size</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span> <span class="n">exp_smoothing_forecast</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Exponential Smoothing with Seasonality&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1d70ce677848534f36b53b37f8dae146411e51f2cb379924330486f35123f589.png" src="_images/1d70ce677848534f36b53b37f8dae146411e51f2cb379924330486f35123f589.png" />
+</div>
+</div>
+</section>
+<section id="model-decomposition">
+<h3>Model decomposition<a class="headerlink" href="#model-decomposition" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">noisy_exp_model</span> <span class="o">=</span> <span class="n">ExponentialSmoothing</span><span class="p">(</span><span class="n">noisy_train</span><span class="p">,</span>
+                <span class="n">seasonal_periods</span><span class="o">=</span><span class="n">window_size</span><span class="p">,</span>
+                <span class="n">trend</span><span class="o">=</span><span class="s2">&quot;add&quot;</span><span class="p">,</span>
+                <span class="n">seasonal</span><span class="o">=</span><span class="s2">&quot;add&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="n">exp_model</span> <span class="o">=</span> <span class="n">ExponentialSmoothing</span><span class="p">(</span><span class="n">train</span><span class="p">,</span>
+                <span class="n">seasonal_periods</span><span class="o">=</span><span class="n">window_size</span><span class="p">,</span>
+                <span class="n">trend</span><span class="o">=</span><span class="s2">&quot;add&quot;</span><span class="p">,</span>
+                <span class="n">seasonal</span><span class="o">=</span><span class="s2">&quot;add&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="c1"># Create data frames for each model</span>
+<span class="n">noisy_states</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">noisy_exp_model</span><span class="o">.</span><span class="n">level</span><span class="p">,</span> <span class="n">noisy_exp_model</span><span class="o">.</span><span class="n">trend</span><span class="p">,</span> <span class="n">noisy_exp_model</span><span class="o">.</span><span class="n">season</span><span class="p">],</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;level&quot;</span><span class="p">,</span> <span class="s2">&quot;slope&quot;</span><span class="p">,</span> <span class="s2">&quot;seasonal&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">standard_states</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">exp_model</span><span class="o">.</span><span class="n">level</span><span class="p">,</span> <span class="n">exp_model</span><span class="o">.</span><span class="n">trend</span><span class="p">,</span> <span class="n">exp_model</span><span class="o">.</span><span class="n">season</span><span class="p">],</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;level&quot;</span><span class="p">,</span> <span class="s2">&quot;slope&quot;</span><span class="p">,</span> <span class="s2">&quot;seasonal&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">standard_states</span><span class="p">[[</span><span class="s2">&quot;level&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Standard Model Level&quot;</span><span class="p">)</span>
+<span class="n">standard_states</span><span class="p">[[</span><span class="s2">&quot;slope&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Standard Model Slope&quot;</span><span class="p">)</span>
+<span class="n">standard_states</span><span class="p">[[</span><span class="s2">&quot;seasonal&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Standard Model Seasonal&quot;</span><span class="p">)</span>
+<span class="n">noisy_states</span><span class="p">[[</span><span class="s2">&quot;level&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Noisy Model Level&quot;</span><span class="p">)</span>
+<span class="n">noisy_states</span><span class="p">[[</span><span class="s2">&quot;slope&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Noisy Model Slope&quot;</span><span class="p">)</span>
+<span class="n">noisy_states</span><span class="p">[[</span><span class="s2">&quot;seasonal&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Noisy Model Seasonal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a2ae4d376d1c386d752d03086a677258b2d37dec1b0b42c7e65a9194ab5c1d57.png" src="_images/a2ae4d376d1c386d752d03086a677258b2d37dec1b0b42c7e65a9194ab5c1d57.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="arima-sarimax-p-d-q-x-p-d-q-s">
+<h2>ARIMA / SARIMAX(p, d, q)x(P, D, Q, s) <a name="ARIMA"></a><a class="headerlink" href="#arima-sarimax-p-d-q-x-p-d-q-s" title="Link to this heading">#</a></h2>
+<p>Parameters:</p>
+<ul class="simple">
+<li><p><strong>AutoRegressive (p)</strong>: Relationship between an observation and a certain number of lagged observations (previous time steps). The parameter p determines the number of lag observations included in the model.</p></li>
+<li><p><strong>Integrated (d)</strong>: Order of differencing required to make the series stationary. Differencing is the transformation of a time series to remove trends and seasonality, and d is the number of times the differencing operation is performed.</p></li>
+<li><p><strong>Moving Average (q)</strong>: Relationship between an observation and a residual error from a moving average model applied to lagged observations. The parameter q specifies the number of terms.</p></li>
+</ul>
+<p>Seasonal components:</p>
+<ul class="simple">
+<li><p><strong>Seasonal AR (P)</strong>: Similar to the AR but apply to the seasonal component of the series. The parameter P specifies the number of seasonal autoregressive terms.</p></li>
+<li><p><strong>Seasonal differencing order (D)</strong>: How many seasonal differences are needed to make the series stationary.</p></li>
+<li><p><strong>Seasonal MA (Q)</strong>: MA for the seasonal differences. Q specifies the number of seasonal moving average terms.</p></li>
+<li><p><strong>Seasonal period (s)</strong>: Length of the seasonal cycle. E.g. s=12 for monthly data with an annual cycle.</p></li>
+</ul>
+<p>Other:</p>
+<ul class="simple">
+<li><p><strong>Exogenous variables (X)</strong>: External variables that influence the forecast but are not predicted by the model. They can include any variable thought to affect the dependent variable, such as economic indicators, weather conditions, etc.</p></li>
+</ul>
+<p>ARIMA(0,1,1) without constant = simple exponential smoothing</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ARIMA_forecast</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="n">arima_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;warn_convergence&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">arima_fit</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">FIGSIZE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span> <span class="n">test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span> <span class="n">ARIMA_forecast</span><span class="p">(</span><span class="n">ARIMA</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ARIMA order=(0, 1, 1)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span> <span class="n">ARIMA_forecast</span><span class="p">(</span><span class="n">ARIMA</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ARIMA order=(1, 1, 1)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span> <span class="n">ARIMA_forecast</span><span class="p">(</span><span class="n">ARIMA</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ARIMA order=(2, 1, 1)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/jordanbarker/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/tsa/statespace/sarimax.py:978: UserWarning: Non-invertible starting MA parameters found. Using zeros as starting parameters.
+  warn(&#39;Non-invertible starting MA parameters found.&#39;
+</pre></div>
+</div>
+<img alt="_images/50c4e041db4671358c5b7605cc1db46df9be81616a8da449de6bf1582450df23.png" src="_images/50c4e041db4671358c5b7605cc1db46df9be81616a8da449de6bf1582450df23.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># arima_model = ARIMA(train, order=(1, 1, 1))</span>
+<span class="n">arima_model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">seasonal_order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">window_size</span><span class="p">))</span>
+<span class="n">arima_fit</span> <span class="o">=</span> <span class="n">arima_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;warn_convergence&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+<span class="n">arima_forecast</span> <span class="o">=</span> <span class="n">arima_fit</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">FIGSIZE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span> <span class="n">test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span> <span class="n">arima_forecast</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ARIMA Forecast&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/jordanbarker/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/tsa/statespace/sarimax.py:1009: UserWarning: Non-invertible starting seasonal moving average Using zeros as starting parameters.
+  warn(&#39;Non-invertible starting seasonal moving average&#39;
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># arima_model = ARIMA(train, order=(1, 1, 1))</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">arima_model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">seasonal_order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">window_size</span><span class="p">))</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">arima_fit</span> <span class="o">=</span> <span class="n">arima_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;warn_convergence&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">arima_forecast</span> <span class="o">=</span> <span class="n">arima_fit</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">FIGSIZE</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/tsa/arima/model.py:395,</span> in <span class="ni">ARIMA.fit</span><span class="nt">(self, start_params, transformed, includes_fixed, method, method_kwargs, gls, gls_kwargs, cov_type, cov_kwds, return_params, low_memory)</span>
+<span class="g g-Whitespace">    </span><span class="mi">392</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">393</span>     <span class="n">method_kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;disp&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">395</span>     <span class="n">res</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">396</span>         <span class="n">return_params</span><span class="o">=</span><span class="n">return_params</span><span class="p">,</span> <span class="n">low_memory</span><span class="o">=</span><span class="n">low_memory</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">397</span>         <span class="n">cov_type</span><span class="o">=</span><span class="n">cov_type</span><span class="p">,</span> <span class="n">cov_kwds</span><span class="o">=</span><span class="n">cov_kwds</span><span class="p">,</span> <span class="o">**</span><span class="n">method_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">398</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">return_params</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">399</span>         <span class="n">res</span><span class="o">.</span><span class="n">fit_details</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">mlefit</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/tsa/statespace/mlemodel.py:704,</span> in <span class="ni">MLEModel.fit</span><span class="nt">(self, start_params, transformed, includes_fixed, cov_type, cov_kwds, method, maxiter, full_output, disp, callback, return_params, optim_score, optim_complex_step, optim_hessian, flags, low_memory, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">702</span>         <span class="n">flags</span><span class="p">[</span><span class="s1">&#39;hessian_method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">optim_hessian</span>
+<span class="g g-Whitespace">    </span><span class="mi">703</span>     <span class="n">fargs</span> <span class="o">=</span> <span class="p">(</span><span class="n">flags</span><span class="p">,)</span>
+<span class="ne">--&gt; </span><span class="mi">704</span>     <span class="n">mlefit</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">MLEModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">start_params</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">705</span>                                        <span class="n">fargs</span><span class="o">=</span><span class="n">fargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">706</span>                                        <span class="n">maxiter</span><span class="o">=</span><span class="n">maxiter</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">707</span>                                        <span class="n">full_output</span><span class="o">=</span><span class="n">full_output</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">708</span>                                        <span class="n">disp</span><span class="o">=</span><span class="n">disp</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">709</span>                                        <span class="n">skip_hessian</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">711</span> <span class="c1"># Just return the fitted parameters if requested</span>
+<span class="g g-Whitespace">    </span><span class="mi">712</span> <span class="k">if</span> <span class="n">return_params</span><span class="p">:</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/base/model.py:566,</span> in <span class="ni">LikelihoodModel.fit</span><span class="nt">(self, start_params, method, maxiter, full_output, disp, fargs, callback, retall, skip_hessian, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">563</span>     <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;use_t&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">565</span> <span class="n">optimizer</span> <span class="o">=</span> <span class="n">Optimizer</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">566</span> <span class="n">xopt</span><span class="p">,</span> <span class="n">retvals</span><span class="p">,</span> <span class="n">optim_settings</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">start_params</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">567</span>                                                <span class="n">fargs</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">568</span>                                                <span class="n">hessian</span><span class="o">=</span><span class="n">hess</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">569</span>                                                <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">570</span>                                                <span class="n">disp</span><span class="o">=</span><span class="n">disp</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">571</span>                                                <span class="n">maxiter</span><span class="o">=</span><span class="n">maxiter</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">572</span>                                                <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">573</span>                                                <span class="n">retall</span><span class="o">=</span><span class="n">retall</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">574</span>                                                <span class="n">full_output</span><span class="o">=</span><span class="n">full_output</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">575</span> <span class="c1"># Restore cov_type, cov_kwds and use_t</span>
+<span class="g g-Whitespace">    </span><span class="mi">576</span> <span class="n">optim_settings</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/base/optimizer.py:242,</span> in <span class="ni">Optimizer._fit</span><span class="nt">(self, objective, gradient, start_params, fargs, kwargs, hessian, method, maxiter, full_output, disp, callback, retall)</span>
+<span class="g g-Whitespace">    </span><span class="mi">239</span>     <span class="n">fit_funcs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">extra_fit_funcs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">241</span> <span class="n">func</span> <span class="o">=</span> <span class="n">fit_funcs</span><span class="p">[</span><span class="n">method</span><span class="p">]</span>
+<span class="ne">--&gt; </span><span class="mi">242</span> <span class="n">xopt</span><span class="p">,</span> <span class="n">retvals</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">gradient</span><span class="p">,</span> <span class="n">start_params</span><span class="p">,</span> <span class="n">fargs</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">243</span>                      <span class="n">disp</span><span class="o">=</span><span class="n">disp</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="n">maxiter</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">244</span>                      <span class="n">retall</span><span class="o">=</span><span class="n">retall</span><span class="p">,</span> <span class="n">full_output</span><span class="o">=</span><span class="n">full_output</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">245</span>                      <span class="n">hess</span><span class="o">=</span><span class="n">hessian</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">247</span> <span class="n">optim_settings</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;optimizer&#39;</span><span class="p">:</span> <span class="n">method</span><span class="p">,</span> <span class="s1">&#39;start_params&#39;</span><span class="p">:</span> <span class="n">start_params</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">248</span>                   <span class="s1">&#39;maxiter&#39;</span><span class="p">:</span> <span class="n">maxiter</span><span class="p">,</span> <span class="s1">&#39;full_output&#39;</span><span class="p">:</span> <span class="n">full_output</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">249</span>                   <span class="s1">&#39;disp&#39;</span><span class="p">:</span> <span class="n">disp</span><span class="p">,</span> <span class="s1">&#39;fargs&#39;</span><span class="p">:</span> <span class="n">fargs</span><span class="p">,</span> <span class="s1">&#39;callback&#39;</span><span class="p">:</span> <span class="n">callback</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">250</span>                   <span class="s1">&#39;retall&#39;</span><span class="p">:</span> <span class="n">retall</span><span class="p">,</span> <span class="s2">&quot;extra_fit_funcs&quot;</span><span class="p">:</span> <span class="n">extra_fit_funcs</span><span class="p">}</span>
+<span class="g g-Whitespace">    </span><span class="mi">251</span> <span class="n">optim_settings</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/base/optimizer.py:659,</span> in <span class="ni">_fit_lbfgs</span><span class="nt">(f, score, start_params, fargs, kwargs, disp, maxiter, callback, retall, full_output, hess)</span>
+<span class="g g-Whitespace">    </span><span class="mi">656</span> <span class="k">elif</span> <span class="n">approx_grad</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">657</span>     <span class="n">func</span> <span class="o">=</span> <span class="n">f</span>
+<span class="ne">--&gt; </span><span class="mi">659</span> <span class="n">retvals</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fmin_l_bfgs_b</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">start_params</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="n">maxiter</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">660</span>                                  <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">fargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">661</span>                                  <span class="n">bounds</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="n">disp</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">662</span>                                  <span class="o">**</span><span class="n">extra_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">664</span> <span class="k">if</span> <span class="n">full_output</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">665</span>     <span class="n">xopt</span><span class="p">,</span> <span class="n">fopt</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">retvals</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/scipy/optimize/_lbfgsb_py.py:199,</span> in <span class="ni">fmin_l_bfgs_b</span><span class="nt">(func, x0, fprime, args, approx_grad, bounds, m, factr, pgtol, epsilon, iprint, maxfun, maxiter, disp, callback, maxls)</span>
+<span class="g g-Whitespace">    </span><span class="mi">187</span> <span class="n">callback</span> <span class="o">=</span> <span class="n">_wrap_callback</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">188</span> <span class="n">opts</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;disp&#39;</span><span class="p">:</span> <span class="n">disp</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">189</span>         <span class="s1">&#39;iprint&#39;</span><span class="p">:</span> <span class="n">iprint</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">190</span>         <span class="s1">&#39;maxcor&#39;</span><span class="p">:</span> <span class="n">m</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">196</span>         <span class="s1">&#39;callback&#39;</span><span class="p">:</span> <span class="n">callback</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">197</span>         <span class="s1">&#39;maxls&#39;</span><span class="p">:</span> <span class="n">maxls</span><span class="p">}</span>
+<span class="ne">--&gt; </span><span class="mi">199</span> <span class="n">res</span> <span class="o">=</span> <span class="n">_minimize_lbfgsb</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="n">jac</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">200</span>                        <span class="o">**</span><span class="n">opts</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">201</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;grad&#39;</span><span class="p">:</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;jac&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">202</span>      <span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">203</span>      <span class="s1">&#39;funcalls&#39;</span><span class="p">:</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;nfev&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">204</span>      <span class="s1">&#39;nit&#39;</span><span class="p">:</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;nit&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">205</span>      <span class="s1">&#39;warnflag&#39;</span><span class="p">:</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]}</span>
+<span class="g g-Whitespace">    </span><span class="mi">206</span> <span class="n">f</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;fun&#39;</span><span class="p">]</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/scipy/optimize/_lbfgsb_py.py:369,</span> in <span class="ni">_minimize_lbfgsb</span><span class="nt">(fun, x0, args, jac, bounds, disp, maxcor, ftol, gtol, eps, maxfun, maxiter, iprint, callback, maxls, finite_diff_rel_step, **unknown_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">363</span> <span class="n">task_str</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">364</span> <span class="k">if</span> <span class="n">task_str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;FG&#39;</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">365</span>     <span class="c1"># The minimization routine wants f and g at the current x.</span>
+<span class="g g-Whitespace">    </span><span class="mi">366</span>     <span class="c1"># Note that interruptions due to maxfun are postponed</span>
+<span class="g g-Whitespace">    </span><span class="mi">367</span>     <span class="c1"># until the completion of the current minimization iteration.</span>
+<span class="g g-Whitespace">    </span><span class="mi">368</span>     <span class="c1"># Overwrite f and g:</span>
+<span class="ne">--&gt; </span><span class="mi">369</span>     <span class="n">f</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="n">func_and_grad</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">370</span> <span class="k">elif</span> <span class="n">task_str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;NEW_X&#39;</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">371</span>     <span class="c1"># new iteration</span>
+<span class="g g-Whitespace">    </span><span class="mi">372</span>     <span class="n">n_iterations</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/scipy/optimize/_differentiable_functions.py:297,</span> in <span class="ni">ScalarFunction.fun_and_grad</span><span class="nt">(self, x)</span>
+<span class="g g-Whitespace">    </span><span class="mi">295</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_update_x_impl</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">296</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_fun</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">297</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_grad</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">298</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">g</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/scipy/optimize/_differentiable_functions.py:267,</span> in <span class="ni">ScalarFunction._update_grad</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">265</span> <span class="k">def</span> <span class="nf">_update_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">266</span>     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">g_updated</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">267</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_update_grad_impl</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">268</span>         <span class="bp">self</span><span class="o">.</span><span class="n">g_updated</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/scipy/optimize/_differentiable_functions.py:181,</span> in <span class="ni">ScalarFunction.__init__.&lt;locals&gt;.update_grad</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">179</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_fun</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">180</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngev</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="ne">--&gt; </span><span class="mi">181</span> <span class="bp">self</span><span class="o">.</span><span class="n">g</span> <span class="o">=</span> <span class="n">approx_derivative</span><span class="p">(</span><span class="n">fun_wrapped</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">f0</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">182</span>                            <span class="o">**</span><span class="n">finite_diff_options</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/scipy/optimize/_numdiff.py:519,</span> in <span class="ni">approx_derivative</span><span class="nt">(fun, x0, method, rel_step, abs_step, f0, bounds, sparsity, as_linear_operator, args, kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">516</span>     <span class="n">use_one_sided</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="g g-Whitespace">    </span><span class="mi">518</span> <span class="k">if</span> <span class="n">sparsity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">519</span>     <span class="k">return</span> <span class="n">_dense_difference</span><span class="p">(</span><span class="n">fun_wrapped</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">f0</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">520</span>                              <span class="n">use_one_sided</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">521</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">522</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">issparse</span><span class="p">(</span><span class="n">sparsity</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">sparsity</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/scipy/optimize/_numdiff.py:590,</span> in <span class="ni">_dense_difference</span><span class="nt">(fun, x0, f0, h, use_one_sided, method)</span>
+<span class="g g-Whitespace">    </span><span class="mi">588</span>     <span class="n">x</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">h_vecs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">589</span>     <span class="n">dx</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">x0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="c1"># Recompute dx as exactly representable number.</span>
+<span class="ne">--&gt; </span><span class="mi">590</span>     <span class="n">df</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">f0</span>
+<span class="g g-Whitespace">    </span><span class="mi">591</span> <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;3-point&#39;</span> <span class="ow">and</span> <span class="n">use_one_sided</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+<span class="g g-Whitespace">    </span><span class="mi">592</span>     <span class="n">x1</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">h_vecs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/scipy/optimize/_numdiff.py:470,</span> in <span class="ni">approx_derivative.&lt;locals&gt;.fun_wrapped</span><span class="nt">(x)</span>
+<span class="g g-Whitespace">    </span><span class="mi">467</span> <span class="k">if</span> <span class="n">xp</span><span class="o">.</span><span class="n">isdtype</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="s2">&quot;real floating&quot;</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">468</span>     <span class="n">x</span> <span class="o">=</span> <span class="n">xp</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x0</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">470</span> <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">fun</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">471</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">472</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;`fun` return value has &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">473</span>                        <span class="s2">&quot;more than 1 dimension.&quot;</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/scipy/optimize/_differentiable_functions.py:145,</span> in <span class="ni">ScalarFunction.__init__.&lt;locals&gt;.fun_wrapped</span><span class="nt">(x)</span>
+<span class="g g-Whitespace">    </span><span class="mi">141</span> <span class="bp">self</span><span class="o">.</span><span class="n">nfev</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="g g-Whitespace">    </span><span class="mi">142</span> <span class="c1"># Send a copy because the user may overwrite it.</span>
+<span class="g g-Whitespace">    </span><span class="mi">143</span> <span class="c1"># Overwriting results in undefined behaviour because</span>
+<span class="g g-Whitespace">    </span><span class="mi">144</span> <span class="c1"># fun(self.x) will change self.x, with the two no longer linked.</span>
+<span class="ne">--&gt; </span><span class="mi">145</span> <span class="n">fx</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">146</span> <span class="c1"># Make sure the function returns a true scalar</span>
+<span class="g g-Whitespace">    </span><span class="mi">147</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">fx</span><span class="p">):</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/base/model.py:534,</span> in <span class="ni">LikelihoodModel.fit.&lt;locals&gt;.f</span><span class="nt">(params, *args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">533</span> <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">534</span>     <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">loglike</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">/</span> <span class="n">nobs</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/tsa/statespace/mlemodel.py:939,</span> in <span class="ni">MLEModel.loglike</span><span class="nt">(self, params, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">936</span> <span class="k">if</span> <span class="n">complex_step</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">937</span>     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;inversion_method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">INVERT_UNIVARIATE</span> <span class="o">|</span> <span class="n">SOLVE_LU</span>
+<span class="ne">--&gt; </span><span class="mi">939</span> <span class="n">loglike</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">loglike</span><span class="p">(</span><span class="n">complex_step</span><span class="o">=</span><span class="n">complex_step</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">941</span> <span class="c1"># Koopman, Shephard, and Doornik recommend maximizing the average</span>
+<span class="g g-Whitespace">    </span><span class="mi">942</span> <span class="c1"># likelihood to avoid scale issues, but the averaging is done</span>
+<span class="g g-Whitespace">    </span><span class="mi">943</span> <span class="c1"># automatically in the base model `fit` method</span>
+<span class="g g-Whitespace">    </span><span class="mi">944</span> <span class="k">return</span> <span class="n">loglike</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/tsa/statespace/kalman_filter.py:1001,</span> in <span class="ni">KalmanFilter.loglike</span><span class="nt">(self, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">985</span><span class="w"> </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">986</span><span class="sd"> Calculate the loglikelihood associated with the statespace model.</span>
+<span class="g g-Whitespace">    </span><span class="mi">987</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">    </span><span class="mi">997</span><span class="sd">     The joint loglikelihood.</span>
+<span class="g g-Whitespace">    </span><span class="mi">998</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">999</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;conserve_memory&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1000</span>                   <span class="n">MEMORY_CONSERVE</span> <span class="o">^</span> <span class="n">MEMORY_NO_LIKELIHOOD</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1001</span> <span class="n">kfilter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1002</span> <span class="n">loglikelihood_burn</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;loglikelihood_burn&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1003</span>                                 <span class="bp">self</span><span class="o">.</span><span class="n">loglikelihood_burn</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1004</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;conserve_memory&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">MEMORY_NO_LIKELIHOOD</span><span class="p">):</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/tsa/statespace/kalman_filter.py:924,</span> in <span class="ni">KalmanFilter._filter</span><span class="nt">(self, filter_method, inversion_method, stability_method, conserve_memory, filter_timing, tolerance, loglikelihood_burn, complex_step)</span>
+<span class="g g-Whitespace">    </span><span class="mi">921</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_state</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span> <span class="n">complex_step</span><span class="o">=</span><span class="n">complex_step</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">923</span> <span class="c1"># Run the filter</span>
+<span class="ne">--&gt; </span><span class="mi">924</span> <span class="n">kfilter</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">926</span> <span class="k">return</span> <span class="n">kfilter</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># sarimax_model = SARIMAX(train, order=(2, 1, 1))</span>
+<span class="c1"># sarimax_fit = sarimax_model.fit()</span>
+<span class="c1"># sarimax_forecast = sarimax_fit.forecast(len(test))</span>
+<span class="c1"># plt.plot(np.arange(train_size, len(data)), sarimax_forecast, label=&#39;SARIMAX Forecast&#39;)</span>
+<span class="c1"># plt.plot(np.arange(train_size, len(data)), test, label=&#39;Test Data&#39;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="lightgbm">
+<h2>LightGBM <a name="lightgbm"></a><a class="headerlink" href="#lightgbm" title="Link to this heading">#</a></h2>
+<p>We can turn the forecasting data into tabular form by creating lag features.</p>
+<p>Tree based models cannot make predictions outside of the training data. Below we see the result of this by finding that the model won’t predict a value higher than what was previously observed</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Parameter Tuning</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="c1"># from sklearn.model_selection import GridSearchCV</span>
+
+<span class="c1"># param_grid = {</span>
+<span class="c1">#     &#39;boosting_type&#39;: [&#39;gbdt&#39;, &#39;dart&#39;],</span>
+<span class="c1">#     &#39;metric&#39;: [&#39;l2&#39;],</span>
+<span class="c1">#     &#39;learning_rate&#39;: [0.05, 0.1, 0.2],</span>
+<span class="c1">#     &#39;num_leaves&#39;: [5, 10, 20, 40],</span>
+<span class="c1">#     &#39;feature_fraction&#39;: [0.5, 0.9, 0.95, 1],</span>
+<span class="c1">#     &#39;bagging_fraction&#39;: [0.5, 0.9, 0.95, 1],</span>
+<span class="c1">#     &#39;lambda_l1&#39;: [0, 0.1, 0.2],</span>
+<span class="c1">#     &#39;lambda_l2&#39;: [0, 0.1, 0.2],</span>
+<span class="c1">#     &#39;min_gain_to_split&#39;: [0.01, 0.1, 0.2],</span>
+<span class="c1">#     &#39;verbose&#39;: [-1]</span>
+<span class="c1"># }</span>
+
+<span class="c1"># gbm = lgb.LGBMRegressor()</span>
+<span class="c1"># grid_search = GridSearchCV(estimator=gbm, param_grid=param_grid, scoring=&#39;neg_mean_squared_error&#39;)</span>
+<span class="c1"># grid_search.fit(X_train, y_train)</span>
+
+<span class="c1"># print(&quot;Best parameters found by grid search are:&quot;, grid_search.best_params_)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">})</span>
+<span class="k">for</span> <span class="n">lag</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+    <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;t_</span><span class="si">{</span><span class="n">lag</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">lag</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="n">train_size</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">train_size</span><span class="p">:]</span> 
+<span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:</span><span class="n">train_size</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_size</span><span class="p">:]</span> 
+
+<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;bagging_fraction&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;boosting_type&#39;</span><span class="p">:</span> <span class="s1">&#39;gbdt&#39;</span><span class="p">,</span> <span class="s1">&#39;feature_fraction&#39;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s1">&#39;lambda_l1&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;lambda_l2&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;metric&#39;</span><span class="p">:</span> <span class="s1">&#39;l2&#39;</span><span class="p">,</span> <span class="s1">&#39;min_gain_to_split&#39;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span> <span class="s1">&#39;num_leaves&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;objective&#39;</span><span class="p">:</span> <span class="s1">&#39;regression&#39;</span><span class="p">,</span> <span class="s1">&#39;verbose&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">}</span>
+<span class="n">lgb_train</span> <span class="o">=</span> <span class="n">lgb</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">gbm</span> <span class="o">=</span> <span class="n">lgb</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">lgb_train</span><span class="p">)</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">gbm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">FIGSIZE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="n">data_size</span><span class="p">),</span> <span class="n">test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="n">data_size</span><span class="p">),</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;LightGBM Predictions&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>data</th>
+      <th>t_1</th>
+      <th>t_2</th>
+      <th>t_3</th>
+      <th>t_4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.000000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.054979</td>
+      <td>1.000000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.109833</td>
+      <td>1.054979</td>
+      <td>1.000000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.164438</td>
+      <td>1.109833</td>
+      <td>1.054979</td>
+      <td>1.000000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.218669</td>
+      <td>1.164438</td>
+      <td>1.109833</td>
+      <td>1.054979</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="_images/65597111404f0c93f4194ef099aaa6908da8b643e881109b1cf1888d375be89a.png" src="_images/65597111404f0c93f4194ef099aaa6908da8b643e881109b1cf1888d375be89a.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">noisy_data</span><span class="p">})</span>
+<span class="k">for</span> <span class="n">lag</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+    <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;t_</span><span class="si">{</span><span class="n">lag</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">lag</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="n">train_size</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">train_size</span><span class="p">:]</span> 
+<span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:</span><span class="n">train_size</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_size</span><span class="p">:]</span> 
+
+<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;bagging_fraction&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;boosting_type&#39;</span><span class="p">:</span> <span class="s1">&#39;gbdt&#39;</span><span class="p">,</span> <span class="s1">&#39;feature_fraction&#39;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s1">&#39;lambda_l1&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;lambda_l2&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;metric&#39;</span><span class="p">:</span> <span class="s1">&#39;l2&#39;</span><span class="p">,</span> <span class="s1">&#39;min_gain_to_split&#39;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span> <span class="s1">&#39;num_leaves&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;objective&#39;</span><span class="p">:</span> <span class="s1">&#39;regression&#39;</span><span class="p">,</span> <span class="s1">&#39;verbose&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">}</span>
+<span class="n">lgb_train</span> <span class="o">=</span> <span class="n">lgb</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">gbm</span> <span class="o">=</span> <span class="n">lgb</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">lgb_train</span><span class="p">)</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">gbm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">FIGSIZE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">noisy_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="n">data_size</span><span class="p">),</span> <span class="n">noisy_test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="n">data_size</span><span class="p">),</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;LightGBM Predictions&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>data</th>
+      <th>t_1</th>
+      <th>t_2</th>
+      <th>t_3</th>
+      <th>t_4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.152359</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.534987</td>
+      <td>1.152359</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.485059</td>
+      <td>0.534987</td>
+      <td>1.152359</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.634720</td>
+      <td>1.485059</td>
+      <td>0.534987</td>
+      <td>1.152359</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.243152</td>
+      <td>1.634720</td>
+      <td>1.485059</td>
+      <td>0.534987</td>
+      <td>1.152359</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="_images/5ea4d3f20a004cbf38c559d38eb65442df11eb4c55b5043931e05fdab5036203.png" src="_images/5ea4d3f20a004cbf38c559d38eb65442df11eb4c55b5043931e05fdab5036203.png" />
+</div>
+</div>
+</section>
+<section id="neural-networks">
+<h2>Neural Networks <a name="neural-networks"></a><a class="headerlink" href="#neural-networks" title="Link to this heading">#</a></h2>
+<p>Below is a simple example of using a single RNN layer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span><span class="p">,</span> <span class="n">Dataset</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">from</span> <span class="nn">pytorch_lightning</span> <span class="kn">import</span> <span class="n">LightningModule</span><span class="p">,</span> <span class="n">Trainer</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+
+<span class="k">class</span> <span class="nc">TimeSeriesDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">seq_length</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seq_length</span> <span class="o">=</span> <span class="n">seq_length</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">seq_length</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">:</span><span class="n">idx</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">seq_length</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">seq_length</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">RNNModel</span><span class="p">(</span><span class="n">LightningModule</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">output_size</span><span class="p">,</span> <span class="n">seq_length</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RNNModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span> <span class="o">=</span> <span class="n">hidden_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seq_length</span> <span class="o">=</span> <span class="n">seq_length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rnn</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">RNN</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">output_size</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">h0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rnn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h0</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="p">(</span><span class="n">out</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
+        <span class="n">y_hat</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mse_loss</span><span class="p">(</span><span class="n">y_hat</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="c1"># self.log(&#39;train_loss&#39;, loss)</span>
+        <span class="k">return</span> <span class="n">loss</span>
+
+    <span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data_loader</span><span class="p">,</span> <span class="n">seq_length</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">data_loader</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">predictions</span>
+
+<span class="c1"># Hyperparameters</span>
+<span class="n">seq_length</span> <span class="o">=</span> <span class="mi">20</span>  <span class="c1"># Number of time steps to look back</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">4</span> <span class="c1">#128</span>
+<span class="n">hidden_size</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">num_layers</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.001</span>
+<span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">20</span>
+
+<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">TimeSeriesDataset</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">seq_length</span><span class="p">)</span>
+<span class="n">test_dataset</span> <span class="o">=</span> <span class="n">TimeSeriesDataset</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">seq_length</span><span class="p">)</span>
+<span class="n">train_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">test_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">test_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">RNNModel</span><span class="p">(</span><span class="n">input_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hidden_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">output_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">seq_length</span><span class="o">=</span><span class="n">seq_length</span><span class="p">)</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">max_epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">log_every_n_steps</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_loader</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True (mps), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name | Type   | Params
+--------------------------------
+0 | rnn  | RNN    | 2.6 K 
+1 | fc   | Linear | 51    
+--------------------------------
+2.7 K     Trainable params
+0         Non-trainable params
+2.7 K     Total params
+0.011     Total estimated model params size (MB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 19: 100%|██████████| 195/195 [00:02&lt;00:00, 70.56it/s, v_num=17]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>`Trainer.fit` stopped: `max_epochs=20` reached.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 19: 100%|██████████| 195/195 [00:02&lt;00:00, 70.37it/s, v_num=17]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># predictions = predict(model, test_loader, seq_length)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">FIGSIZE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="n">data_size</span><span class="p">),</span> <span class="n">test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="n">data_size</span><span class="p">),</span> <span class="n">test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="o">+</span><span class="n">seq_length</span><span class="p">,</span> <span class="n">data_size</span><span class="p">),</span> <span class="n">predict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">test_loader</span><span class="p">,</span> <span class="n">seq_length</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;RNN Predictions&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ff23cf14b8c101199c2dab5ad722b98d22cc73707c2f5a3601af5d1cdddc3189.png" src="_images/ff23cf14b8c101199c2dab5ad722b98d22cc73707c2f5a3601af5d1cdddc3189.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">TimeSeriesDataset</span><span class="p">(</span><span class="n">noisy_train</span><span class="p">,</span> <span class="n">seq_length</span><span class="p">),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">test_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">TimeSeriesDataset</span><span class="p">(</span><span class="n">noisy_test</span><span class="p">,</span> <span class="n">seq_length</span><span class="p">),</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">RNNModel</span><span class="p">(</span><span class="n">input_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hidden_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">output_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">seq_length</span><span class="o">=</span><span class="n">seq_length</span><span class="p">)</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">max_epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">log_every_n_steps</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_loader</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU available: True (mps), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name | Type   | Params
+--------------------------------
+0 | rnn  | RNN    | 2.6 K 
+1 | fc   | Linear | 51    
+--------------------------------
+2.7 K     Trainable params
+0         Non-trainable params
+2.7 K     Total params
+0.011     Total estimated model params size (MB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 19: 100%|██████████| 195/195 [00:02&lt;00:00, 75.01it/s, v_num=18]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>`Trainer.fit` stopped: `max_epochs=20` reached.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 19: 100%|██████████| 195/195 [00:02&lt;00:00, 74.77it/s, v_num=18]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">FIGSIZE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">noisy_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="n">data_size</span><span class="p">),</span> <span class="n">noisy_test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="p">,</span> <span class="n">data_size</span><span class="p">),</span> <span class="n">test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">train_size</span><span class="o">+</span><span class="n">seq_length</span><span class="p">,</span> <span class="n">data_size</span><span class="p">),</span> <span class="n">predict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">test_loader</span><span class="p">,</span> <span class="n">seq_length</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;RNN Predictions&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/025b4d00fe2e4570ab54061a1114cd5ea4f809fb4078db754650eb21ffbc530c.png" src="_images/025b4d00fe2e4570ab54061a1114cd5ea4f809fb4078db754650eb21ffbc530c.png" />
+</div>
+</div>
+</section>
+<section id="matrix-profiles">
+<h2>Matrix Profiles  <a name="Matrix-Profiles"></a><a class="headerlink" href="#matrix-profiles" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://stumpy.readthedocs.io/en/latest/#">Stumpy Documentation</a></p></li>
+<li><p><a class="reference external" href="https://www.cs.ucr.edu/~eamonn/Top_Ten_Things_Matrix_Profile.pdf">10 Things to Do with Matrix Profiles</a></p></li>
+</ul>
+<p>The idea here is that we find the nearest neighbor in the time series based on euclidean distance. We split the data into “windows” that are just smaller chunks of data. For example, if you had daily data and wanted to compare weekly trends, you’d use a window of size 7.</p>
+<p>The lowest values are considered a motif (pattern) since they represent the pair of nearest neighbor subsequences with the smallest z-normalized Euclidean distance.</p>
+<p>The subsequences that have the highest local values are unique.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">stumpy</span>
+<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Rectangle</span>
+
+<span class="n">anomoly_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">105</span><span class="p">),</span> <span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">420</span><span class="p">),</span> <span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">610</span><span class="p">)]:</span>
+    <span class="n">anomoly_data</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span> <span class="o">=</span> <span class="n">anomoly_data</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.9</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">FIGSIZE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">anomoly_data</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Sin + Linear&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="mi">20</span> <span class="c1"># Originally tried using m = window_size = 126, but this wasn&#39;t ideal</span>
+<span class="n">matrix_profile</span> <span class="o">=</span> <span class="n">stumpy</span><span class="o">.</span><span class="n">stump</span><span class="p">(</span><span class="n">anomoly_data</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> 
+
+<span class="c1"># the first column consists of the matrix profile, </span>
+<span class="c1"># the second column consists of the matrix profile indices, </span>
+<span class="c1"># the third column consists of the left matrix profile indices, </span>
+<span class="c1"># the fourth column consists of the right matrix profile indices.</span>
+<span class="c1"># mp_df = pd.DataFrame({</span>
+<span class="c1">#     &quot;matrix_profile&quot;: matrix_profile[:,0],</span>
+<span class="c1">#     &quot;indices&quot;: matrix_profile[:,1],</span>
+<span class="c1">#     &quot;left_indices&quot;: matrix_profile[:,2],</span>
+<span class="c1">#     &quot;right_indices&quot;: matrix_profile[:,3]</span>
+<span class="c1"># })</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/5364846d35b9a83938d2f35a8df739cf0499be996c8b912125db06a7fc1c8aa4.png" src="_images/5364846d35b9a83938d2f35a8df739cf0499be996c8b912125db06a7fc1c8aa4.png" />
+</div>
+</div>
+<section id="motif-pattern">
+<h3>Motif / Pattern<a class="headerlink" href="#motif-pattern" title="Link to this heading">#</a></h3>
+<p>The matrix profile allows you to find patterns and also the nearest neighbor for all subsequences.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">motif_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">matrix_profile</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The motif is located at index </span><span class="si">{</span><span class="n">motif_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">nearest_neighbor_idx</span> <span class="o">=</span> <span class="n">matrix_profile</span><span class="p">[</span><span class="n">motif_idx</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The nearest neighbor is located at index </span><span class="si">{</span><span class="n">nearest_neighbor_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Motif (Pattern) Discovery&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;25&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">anomoly_data</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">motif_idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">m</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;lightgrey&#39;</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">nearest_neighbor_idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">m</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;lightgrey&#39;</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Data&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;20&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span><span class="s1">&#39;20&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Matrix Profile&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;20&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">motif_idx</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">nearest_neighbor_idx</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">matrix_profile</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The motif is located at index 498
+The nearest neighbor is located at index 875
+</pre></div>
+</div>
+<img alt="_images/112ff568ae5350545c9a37ecdf87f75968131779992842e3071886cc741325af.png" src="_images/112ff568ae5350545c9a37ecdf87f75968131779992842e3071886cc741325af.png" />
+</div>
+</div>
+</section>
+<section id="potential-anomolies">
+<h3>Potential Anomolies<a class="headerlink" href="#potential-anomolies" title="Link to this heading">#</a></h3>
+<p>The subsequence located at this global maximum is referred to as a discord, novelty, or potential anomaly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">discord_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">matrix_profile</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The discord is located at index </span><span class="si">{</span><span class="n">discord_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">nearest_neighbor_distance</span> <span class="o">=</span> <span class="n">matrix_profile</span><span class="p">[</span><span class="n">discord_idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The nearest neighbor subsequence to this discord is </span><span class="si">{</span><span class="n">nearest_neighbor_distance</span><span class="si">}</span><span class="s2"> units away&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Discord (Anomaly/Novelty) Discovery&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;25&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">anomoly_data</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Data&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;20&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">discord_idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">m</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;lightgrey&#39;</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span><span class="s1">&#39;20&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Matrix Profile&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;20&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">discord_idx</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">matrix_profile</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The discord is located at index 419
+The nearest neighbor subsequence to this discord is 2.459451015269966 units away
+</pre></div>
+</div>
+<img alt="_images/17d92eb0136c2be6c9621e7bbdb208954c5f13b0217bdba2b33f40661914fa14.png" src="_images/17d92eb0136c2be6c9621e7bbdb208954c5f13b0217bdba2b33f40661914fa14.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="box-cox-transformation">
+<h2>Box-Cox Transformation <a name="box-cox"></a><a class="headerlink" href="#box-cox-transformation" title="Link to this heading">#</a></h2>
+<p>Transforms the target variable so that data resembles a normal distribution which is assumed by many models.</p>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Harder to interprete</p></li>
+<li><p>Usually gives the median of the forecast distribution when we revert the transformed data to its original scale.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">FIGSIZE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Before Box-Cox Transform&quot;</span><span class="p">)</span>
+
+<span class="n">transformed_data</span><span class="p">,</span> <span class="n">lambda_best</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">boxcox</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">transformed_data</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;After Box-Cox Transform&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c0cbec70b94a03ed17ae50739bdfead21008eee1c2da79f22add574e9557bda1.png" src="_images/c0cbec70b94a03ed17ae50739bdfead21008eee1c2da79f22add574e9557bda1.png" />
+</div>
+</div>
+</section>
+<section id="portmanteau-test">
+<h2>Portmanteau Test <a name="Portmanteau-Test"></a><a class="headerlink" href="#portmanteau-test" title="Link to this heading">#</a></h2>
+<p>Hypothesis test for the presence of autocorrelation.</p>
+<p><a class="reference external" href="https://www.statsmodels.org/stable/generated/statsmodels.stats.diagnostic.acorr_ljungbox.html">Ljung-Box test of autocorrelation in residuals</a></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Evaluation_Metrics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Evaluation Metrics</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="StatisticalTests.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Statistical Tests (A/B Testing)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-data-with-linear-trend-with-a-cyclic-pattern-and-random-noise">Generate Data with linear trend with a cyclic pattern and random noise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seasonality">Seasonality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-smoothing">Exponential Smoothing <a name="Exponential-Smoothing"></a></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-smoothing-with-seasonality-holt-winters">Exponential smoothing with seasonality (Holt-Winters)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-decomposition">Model decomposition</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arima-sarimax-p-d-q-x-p-d-q-s">ARIMA / SARIMAX(p, d, q)x(P, D, Q, s) <a name="ARIMA"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm">LightGBM <a name="lightgbm"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-networks">Neural Networks <a name="neural-networks"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-profiles">Matrix Profiles  <a name="Matrix-Profiles"></a></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motif-pattern">Motif / Pattern</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#potential-anomolies">Potential Anomolies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#box-cox-transformation">Box-Cox Transformation <a name="box-cox"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portmanteau-test">Portmanteau Test <a name="Portmanteau-Test"></a></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jordan Barker
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,7 +1,14 @@
 # About
-Creating a website to store some of my commonly referenced notes.
+Creating a library to store some of my commonly referenced notes.
 
-# Getting started
+# Technical details
+The notebook library is created using [Jupyter Book](https://jupyterbook.org/en/stable/intro.html).
+
+jupyter-book build notebook_library/
+
+## nbconvert 
+Before learning about Jupyter Book, this was done using nbconvert. Here are the original steps:
+
 To convert ipynb to html I'm using a custom nbconvert template. I created a python script to convert all notebook files:
 * python convert_notebooks.py
 
