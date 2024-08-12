@@ -108,6 +108,10 @@ nav ul li a:hover {
   .body_container {
     padding: 100px 10px;
   }
+  nav ul {
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
   nav ul li {
     padding: 5px 0px;
   }
@@ -125,6 +129,7 @@ nav ul li a:hover {
     align-items: center;
     height: 100%;
     margin-top: 20px;
+    font-size: 14px;
     line-height: 1;
   }
   .card {
