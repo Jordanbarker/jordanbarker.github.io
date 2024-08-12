@@ -59,11 +59,11 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'Evaluation_Metrics';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'evaluation_metrics';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Time Series Forecasting" href="TimeSeries.html" />
-    <link rel="prev" title="Distributions" href="Distributions.html" />
+    <link rel="next" title="Time Series Forecasting" href="time_series.html" />
+    <link rel="prev" title="Distributions" href="distributions.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -182,13 +182,19 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="Distributions.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Evaluation Metrics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="TimeSeries.html">Time Series Forecasting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="StatisticalTests.html">Statistical Tests (A/B Testing)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebook Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series Forecasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="statistical_tests.html">Statistical Tests (A/B Testing)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Generate and Visualize Data</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="optimization.html">Portfolio Optimization  <a name="Portfolio-Optimization"></a></a></li>
 </ul>
 
     </div>
@@ -260,7 +266,7 @@
       
       
       
-      <li><a href="https://github.com/Jordanbarker/jordanbarker.github.io/issues/new?title=Issue%20on%20page%20%2FEvaluation_Metrics.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/Jordanbarker/jordanbarker.github.io/issues/new?title=Issue%20on%20page%20%2Fevaluation_metrics.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -290,7 +296,7 @@
       
       
       
-      <li><a href="_sources/Evaluation_Metrics.ipynb" target="_blank"
+      <li><a href="_sources/evaluation_metrics.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -402,11 +408,14 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="evaluation-metrics">
 <h1>Evaluation Metrics<a class="headerlink" href="#evaluation-metrics" title="Link to this heading">#</a></h1>
-<p>Note that I use different notation from textbooks because I find it easier to read:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I use a slightly different notation from textbooks because I find it easier to read:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\( Predicted_i \)</span> instead of <span class="math notranslate nohighlight">\( \hat{y_i} \)</span> for predicted value of the target for instance <span class="math notranslate nohighlight">\(i\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\( Actual_i \)</span> instead of <span class="math notranslate nohighlight">\( y_i \)</span> actual value of the target for instance <span class="math notranslate nohighlight">\(i\)</span></p></li>
 </ul>
+</div>
 <section id="regression">
 <h2>Regression<a class="headerlink" href="#regression" title="Link to this heading">#</a></h2>
 <ul class="simple">
@@ -417,19 +426,26 @@ document.write(`
 \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (Actual_i - Predicted_i)^2
 \]</div>
 <ul class="simple">
-<li><p><strong>Root Mean Squared Error (RMSE)</strong>: Provids an error in the same units as the original data. Like MSE, it is sensitive to outliers.
-$<span class="math notranslate nohighlight">\(
-\text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (Actual_i - Predicted_i)^2}
-\)</span>$</p></li>
-<li><p><strong>Root Mean Squared Logarithmic Error (RMSLE)</strong>:
-$<span class="math notranslate nohighlight">\(
-\text{RMSLE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} ( \log(1+Predicted_i) - \log(1+Actual_i))^2}
-\)</span>$</p></li>
-<li><p><strong>Mean Absolute Error (MAE)</strong>: More robust to outliers compared to MSE and RMSE.
-$<span class="math notranslate nohighlight">\(
-\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |Actual_i - Predicted_i|
-\)</span>$</p></li>
+<li><p><strong>Root Mean Squared Error (RMSE)</strong>: Provids an error in the same units as the original data. Like MSE, it is sensitive to outliers.</p></li>
 </ul>
+<div class="math notranslate nohighlight">
+\[
+\text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (Actual_i - Predicted_i)^2}
+\]</div>
+<ul class="simple">
+<li><p><strong>Root Mean Squared Logarithmic Error (RMSLE)</strong>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\text{RMSLE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} ( \log(1+Predicted_i) - \log(1+Actual_i))^2}
+\]</div>
+<ul class="simple">
+<li><p><strong>Mean Absolute Error (MAE)</strong>: More robust to outliers compared to MSE and RMSE.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |Actual_i - Predicted_i|
+\]</div>
 <section id="percentage-error">
 <h3>Percentage Error<a class="headerlink" href="#percentage-error" title="Link to this heading">#</a></h3>
 <ul class="simple">
@@ -458,15 +474,19 @@ $<span class="math notranslate nohighlight">\(
 \text{SMAPE} = \frac{100\%}{n} \sum_{i=1}^{n} \frac{|Actual_i - Predicted_i|}{(|Actual_i| + |Predicted_i|) / 2}
 \]</div>
 <ul class="simple">
-<li><p><strong>Weighted Average Percentage Error (WAPE)</strong>: Errors are weighted by volume. Recommended over MAPE when the target can be low or has intermittent values. The problem of infinite error is removed since the summation of actual value in the denominator can never be zero.
-$<span class="math notranslate nohighlight">\(
-\text{WAPE} = \frac{\sum_{i=1}^{n} |Actual_i - Predicted_i|}{\sum_{i=1}^{n} |Actual_i|} \times 100\%
-\)</span>$</p></li>
-<li><p><strong>Weighted MAPE (WMAPE)</strong>: Used in cases where we want errors to be weighted by a priority, weight <span class="math notranslate nohighlight">\(w\)</span> at time <span class="math notranslate nohighlight">\(t\)</span> <span class="math notranslate nohighlight">\((w_t)\)</span>. For example, we could weight by day of week as assign a weight of 10 on Monday and 1 on the remaining days.
-$<span class="math notranslate nohighlight">\(
-\text{WMAPE} = \frac{\sum_{i=1}^{n} w_t|Actual_i - Predicted_i|}{\sum_{i=1}^{n} w_t|Actual_i|} \times 100\%
-\)</span>$</p></li>
+<li><p><strong>Weighted Average Percentage Error (WAPE)</strong>: Errors are weighted by volume. Recommended over MAPE when the target can be low or has intermittent values. The problem of infinite error is removed since the summation of actual value in the denominator can never be zero.</p></li>
 </ul>
+<div class="math notranslate nohighlight">
+\[
+\text{WAPE} = \frac{\sum_{i=1}^{n} |Actual_i - Predicted_i|}{\sum_{i=1}^{n} |Actual_i|} \times 100\%
+\]</div>
+<ul class="simple">
+<li><p><strong>Weighted MAPE (WMAPE)</strong>: Used in cases where we want errors to be weighted by a priority, weight <span class="math notranslate nohighlight">\(w\)</span> at time <span class="math notranslate nohighlight">\(t\)</span> <span class="math notranslate nohighlight">\((w_t)\)</span>. For example, we could weight by day of week as assign a weight of 10 on Monday and 1 on the remaining days.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\text{WMAPE} = \frac{\sum_{i=1}^{n} w_t|Actual_i - Predicted_i|}{\sum_{i=1}^{n} w_t|Actual_i|} \times 100\%
+\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -681,17 +701,30 @@ $<span class="math notranslate nohighlight">\(
 <section id="classification-metrics">
 <h2>Classification metrics<a class="headerlink" href="#classification-metrics" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Accuracy</strong>: The proportion of correct predictions among the all predictions.
-$<span class="math notranslate nohighlight">\( \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN} \)</span>$</p></li>
-<li><p><strong>Precision</strong>: Of all the instances that the classifier labeled as positive, how many are actually positive.
-$<span class="math notranslate nohighlight">\( \text{Precision} = \frac{TP}{TP + FP} \)</span>$</p></li>
-<li><p><strong>Sensitivity / Recall / True Positive Rate</strong>: Of all the actual positives, what proportion were correctly identified as positive.
-$<span class="math notranslate nohighlight">\( \text{Sensitivity} = \text{Recall} = \frac{TP}{TP + FN} \)</span>$</p></li>
-<li><p><strong>Specificity / True Negative Rate</strong>: Of all the actual negatives, how many were correctly identified as negative.
-$<span class="math notranslate nohighlight">\( \text{Specificity} = \frac{TN}{TN + FP} \)</span>$</p></li>
-<li><p><strong>F1 Score</strong>: Harmonic mean of precision and recall
-$<span class="math notranslate nohighlight">\( \text{F1 Score} = 2 \times \frac{Precision \times Recall}{Precision + Recall} \)</span>$</p></li>
+<li><p><strong>Accuracy</strong>: The proportion of correct predictions among the all predictions.</p></li>
 </ul>
+<div class="math notranslate nohighlight">
+\[ \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN} \]</div>
+<ul class="simple">
+<li><p><strong>Precision</strong>: Of all the instances that the classifier labeled as positive, how many are actually positive.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ \text{Precision} = \frac{TP}{TP + FP} \]</div>
+<ul class="simple">
+<li><p><strong>Sensitivity / Recall / True Positive Rate</strong>: Of all the actual positives, what proportion were correctly identified as positive.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ \text{Sensitivity} = \text{Recall} = \frac{TP}{TP + FN} \]</div>
+<ul class="simple">
+<li><p><strong>Specificity / True Negative Rate</strong>: Of all the actual negatives, how many were correctly identified as negative.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ \text{Specificity} = \frac{TN}{TN + FP} \]</div>
+<ul class="simple">
+<li><p><strong>F1 Score</strong>: Harmonic mean of precision and recall.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ \text{F1 Score} = 2 \times \frac{Precision \times Recall}{Precision + Recall} \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -903,7 +936,7 @@ $<span class="math notranslate nohighlight">\( \text{F1 Score} = 2 \times \frac{
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="Distributions.html"
+       href="distributions.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
@@ -912,7 +945,7 @@ $<span class="math notranslate nohighlight">\( \text{F1 Score} = 2 \times \frac{
       </div>
     </a>
     <a class="right-next"
-       href="TimeSeries.html"
+       href="time_series.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>

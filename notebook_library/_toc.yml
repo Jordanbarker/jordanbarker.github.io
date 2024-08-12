@@ -4,10 +4,10 @@
 format: jb-book
 root: intro
 chapters:
-- file: Distributions
-- file: Evaluation_Metrics
-- file: TimeSeries
-- file: StatisticalTests
-- file: markdown
-- file: notebooks
-- file: markdown-notebooks
+- file: python_fundamentals
+- file: distributions
+- file: evaluation_metrics
+- file: time_series
+- file: statistical_tests
+- file: anomaly_detection
+- file: optimization
