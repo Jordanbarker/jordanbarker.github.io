@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -183,18 +183,13 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Python Fundamentals <a class="anchor" id="chapter1"></a></a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="evaluation_metrics.html">Evaluation Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series Forecasting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="statistical_tests.html">Statistical Tests (A/B Testing)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Generate and Visualize Data</a></li>
-
-
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomoly Detection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optimization.html">Portfolio Optimization  <a name="Portfolio-Optimization"></a></a></li>
+
 </ul>
 
     </div>
@@ -390,7 +385,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Python Fundamentals <a class="anchor" id="chapter1"></a></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#string-manipulation">String Manipulation <a class="anchor" id="String_Manipulation"></a></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loops">Loops <a class="anchor" id="Loops"></a></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types">Data Types <a class="anchor" id="Data_Types"></a></a><ul class="nav section-nav flex-column">
@@ -408,9 +402,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assertions">Assertions</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pip">Pip</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pip">Pip</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regular-expressions">Regular Expressions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy">Numpy <a class="anchor" id="Numpy"></a></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#array-creation">Array creation</a></li>
@@ -454,9 +446,6 @@ document.write(`
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -824,8 +813,8 @@ Hello World
 [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 [1, 2, 3]
-[5, 2, 4, 1, 7, 0, 3, 8, 9, 6]
-[2, 4, 0, 8, 6]
+[1, 7, 8, 3, 4, 6, 0, 2, 9, 5]
+[8, 4, 6, 0, 2]
 </pre></div>
 </div>
 </div>
@@ -868,10 +857,10 @@ Hello World
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;u&#39;, &#39;q&#39;, &#39;x&#39;}
-{&#39;u&#39;, &#39;p&#39;, &#39;q&#39;, &#39;x&#39;}
-{&#39;p&#39;, &#39;q&#39;, &#39;x&#39;}
-{1, &#39;x&#39;, 2, 3, &#39;q&#39;, &#39;p&#39;}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;u&#39;, &#39;x&#39;, &#39;q&#39;}
+{&#39;p&#39;, &#39;u&#39;, &#39;x&#39;, &#39;q&#39;}
+{&#39;u&#39;, &#39;x&#39;, &#39;q&#39;}
+{1, 2, 3, &#39;x&#39;, &#39;u&#39;, &#39;q&#39;}
 True
 False
 set()
@@ -934,7 +923,7 @@ set()
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>In specified format: Sunday, 11 Aug 2024
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>In specified format: Monday, 12 Aug 2024
 </pre></div>
 </div>
 </div>
@@ -954,7 +943,7 @@ set()
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8
 </pre></div>
 </div>
 </div>
@@ -974,7 +963,7 @@ set()
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hi!
-The time taken by print statement is 8.082389831542969e-05 seconds
+The time taken by print statement is 0.00026917457580566406 seconds
 </pre></div>
 </div>
 </div>
@@ -1068,9 +1057,8 @@ hello world
 </div>
 </section>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="pip">
-<h1>Pip<a class="headerlink" href="#pip" title="Link to this heading">#</a></h1>
+<section id="pip">
+<h2>Pip<a class="headerlink" href="#pip" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://pip.pypa.io/en/stable/user_guide/">https://pip.pypa.io/en/stable/user_guide/</a></p>
 <p>pip install –upgrade pip <br>
 pip install SomePackage –upgrade <br>
@@ -1082,6 +1070,7 @@ pip list –outdated</p>
 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">$(pip</span> <span class="pre">list</span> <span class="pre">--outdated</span> <span class="pre">|</span> <span class="pre">awk</span> <span class="pre">'{</span> <span class="pre">print</span> <span class="pre">$1</span> <span class="pre">}')</span> <span class="pre">--upgrade</span></code></p>
 <p><br>Another option<br>
 <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span>&#160; <span class="pre">$(pip</span> <span class="pre">list</span> <span class="pre">--outdated</span> <span class="pre">--format=columns</span> <span class="pre">|tail</span> <span class="pre">-n</span> <span class="pre">+3|cut</span> <span class="pre">-d&quot;</span> <span class="pre">&quot;</span> <span class="pre">-f1);</span> <span class="pre">do</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">$i</span> <span class="pre">--upgrade;</span> <span class="pre">done</span></code></p>
+</section>
 <section id="regular-expressions">
 <h2>Regular Expressions<a class="headerlink" href="#regular-expressions" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://docs.python.org/3/howto/regex.html">https://docs.python.org/3/howto/regex.html</a></p>
@@ -1407,10 +1396,7 @@ Vuduc
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 3 -6  5]
  [-4 -6  5]
  [ 2  3  9]
- [-3  6 -4]]
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 
+ [-3  6 -4]] 
 
 [[ 1  1 -6]
  [-7 -6  3]
@@ -6806,7 +6792,6 @@ The entries of Takes: [(123, &#39;CSE 6040&#39;, 4.0), (991, &#39;CSE 6040&#39;,
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Python Fundamentals <a class="anchor" id="chapter1"></a></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#string-manipulation">String Manipulation <a class="anchor" id="String_Manipulation"></a></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loops">Loops <a class="anchor" id="Loops"></a></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types">Data Types <a class="anchor" id="Data_Types"></a></a><ul class="nav section-nav flex-column">
@@ -6824,9 +6809,7 @@ The entries of Takes: [(123, &#39;CSE 6040&#39;, 4.0), (991, &#39;CSE 6040&#39;,
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assertions">Assertions</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pip">Pip</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pip">Pip</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regular-expressions">Regular Expressions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy">Numpy <a class="anchor" id="Numpy"></a></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#array-creation">Array creation</a></li>
@@ -6870,9 +6853,6 @@ The entries of Takes: [(123, &#39;CSE 6040&#39;, 4.0), (991, &#39;CSE 6040&#39;,
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>

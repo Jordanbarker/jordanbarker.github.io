@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Generate and Visualize Data &#8212; Data Science Cookbook</title>
+    <title>Anomoly Detection &#8212; Data Science Cookbook</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -181,18 +181,13 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="evaluation_metrics.html">Evaluation Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series Forecasting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="statistical_tests.html">Statistical Tests (A/B Testing)</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Generate and Visualize Data</a></li>
-
-
-
-
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Anomoly Detection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optimization.html">Portfolio Optimization  <a name="Portfolio-Optimization"></a></a></li>
+
 </ul>
 
     </div>
@@ -378,7 +373,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Generate and Visualize Data</h1>
+    <h1>Anomoly Detection</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -388,14 +383,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Generate and Visualize Data</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#interquartile-range-iqr">Interquartile Range (IQR)</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#z-score">Z-Score</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dbscan-clustering">DBSCAN Clustering</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#isolation-forest">Isolation Forest <a name="Isolation-Forest"></a></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#local-outlier-factor-lof">Local Outlier Factor (LOF)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interquartile-range-iqr">Interquartile Range (IQR)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#z-score">Z-Score</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dbscan-clustering">DBSCAN Clustering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isolation-forest">Isolation Forest <a name="Isolation-Forest"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-outlier-factor-lof">Local Outlier Factor (LOF)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -406,14 +400,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <p>Resources:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.cs.ucr.edu/~eamonn/MatrixProfile.html">The UCR Matrix Profile Page</a></p></li>
-<li><p><a class="reference external" href="https://github.com/matrix-profile-foundation/article-matrix-profile-intro/blob/master/Matrix%20Profile%20Example.ipynb">Matrix Profile Example</a></p></li>
-</ul>
-<section id="generate-and-visualize-data">
-<h1>Generate and Visualize Data<a class="headerlink" href="#generate-and-visualize-data" title="Link to this heading">#</a></h1>
-<p>Created 100 samples from a normal distribution with a mean of 10 and standard deviation of 2.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="anomoly-detection">
+<h1>Anomoly Detection<a class="headerlink" href="#anomoly-detection" title="Link to this heading">#</a></h1>
+<p>Generate and Visualize Data
+Created 100 samples from a normal distribution with a mean of 10 and standard deviation of 2.</p>
 <p>Manually added 3 outliers (15, 20, 25) which would be very rare to observe.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -471,12 +461,11 @@ The probability of observing a value less than or equal to 25 is 0.9999999999999
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/cf12fbe3d94ae5e25d04c75ef7b321cc5fb59f93e5d40660883f9b2ebc706f18.png" src="_images/cf12fbe3d94ae5e25d04c75ef7b321cc5fb59f93e5d40660883f9b2ebc706f18.png" />
+<img alt="_images/377ba7bdfdbccf756221daa71c64671c4e983a4d12a80e4c1693a4470cf6fe12.png" src="_images/377ba7bdfdbccf756221daa71c64671c4e983a4d12a80e4c1693a4470cf6fe12.png" />
 </div>
 </div>
-</section>
 <section id="interquartile-range-iqr">
-<h1>Interquartile Range (IQR)<a class="headerlink" href="#interquartile-range-iqr" title="Link to this heading">#</a></h1>
+<h2>Interquartile Range (IQR)<a class="headerlink" href="#interquartile-range-iqr" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Q1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span> <span class="c1"># 25th percentile</span>
@@ -493,8 +482,8 @@ The probability of observing a value less than or equal to 25 is 0.9999999999999
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>lower_bound: 5.18
-upper_bound: 14.94
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>lower_bound: 4.44
+upper_bound: 15.99
 </pre></div>
 </div>
 <div class="output text_html"><div>
@@ -520,24 +509,12 @@ upper_bound: 14.94
   </thead>
   <tbody>
     <tr>
-      <th>5</th>
-      <td>3.917148</td>
-    </tr>
-    <tr>
-      <th>88</th>
-      <td>15.129722</td>
-    </tr>
-    <tr>
-      <th>100</th>
-      <td>15.000000</td>
-    </tr>
-    <tr>
       <th>101</th>
-      <td>20.000000</td>
+      <td>20.0</td>
     </tr>
     <tr>
       <th>102</th>
-      <td>25.000000</td>
+      <td>25.0</td>
     </tr>
   </tbody>
 </table>
@@ -545,7 +522,7 @@ upper_bound: 14.94
 </div>
 </section>
 <section id="z-score">
-<h1>Z-Score<a class="headerlink" href="#z-score" title="Link to this heading">#</a></h1>
+<h2>Z-Score<a class="headerlink" href="#z-score" title="Link to this heading">#</a></h2>
 <p>A common threshold for identifying outliers is a Z-score greater than 3 or less than -3.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -583,13 +560,13 @@ upper_bound: 14.94
       <th>101</th>
       <td>20.0</td>
       <td>20.0</td>
-      <td>3.542783</td>
+      <td>3.455173</td>
     </tr>
     <tr>
       <th>102</th>
       <td>25.0</td>
       <td>25.0</td>
-      <td>5.349379</td>
+      <td>5.258565</td>
     </tr>
   </tbody>
 </table>
@@ -597,7 +574,7 @@ upper_bound: 14.94
 </div>
 </section>
 <section id="dbscan-clustering">
-<h1>DBSCAN Clustering<a class="headerlink" href="#dbscan-clustering" title="Link to this heading">#</a></h1>
+<h2>DBSCAN Clustering<a class="headerlink" href="#dbscan-clustering" title="Link to this heading">#</a></h2>
 <p>cluster = -1 are considered outliers by DBSCAN</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -614,12 +591,12 @@ upper_bound: 14.94
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/122217197634d0019d67eb60a09762bde91cd2ffacd864886176431033836728.png" src="_images/122217197634d0019d67eb60a09762bde91cd2ffacd864886176431033836728.png" />
+<img alt="_images/39bcb96110f5aafc398b5efb94243ccd8a0561e31172d4455dc5942f468b077a.png" src="_images/39bcb96110f5aafc398b5efb94243ccd8a0561e31172d4455dc5942f468b077a.png" />
 </div>
 </div>
 </section>
 <section id="isolation-forest">
-<h1>Isolation Forest <a name="Isolation-Forest"></a><a class="headerlink" href="#isolation-forest" title="Link to this heading">#</a></h1>
+<h2>Isolation Forest <a name="Isolation-Forest"></a><a class="headerlink" href="#isolation-forest" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">IsolationForest</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]])</span>
@@ -633,12 +610,12 @@ upper_bound: 14.94
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6c2362f72dc1a5b5250441118211dde84d7a73fc775462e824f2153b1d983ee2.png" src="_images/6c2362f72dc1a5b5250441118211dde84d7a73fc775462e824f2153b1d983ee2.png" />
+<img alt="_images/2f6b0b40ac1ecba072075caaa8b303eca0bd4e6f134d7dbc395d481265093545.png" src="_images/2f6b0b40ac1ecba072075caaa8b303eca0bd4e6f134d7dbc395d481265093545.png" />
 </div>
 </div>
 </section>
 <section id="local-outlier-factor-lof">
-<h1>Local Outlier Factor (LOF)<a class="headerlink" href="#local-outlier-factor-lof" title="Link to this heading">#</a></h1>
+<h2>Local Outlier Factor (LOF)<a class="headerlink" href="#local-outlier-factor-lof" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor">scikit-learn API</a></p></li>
 <li><p><a class="reference external" href="https://scikit-learn.org/stable/auto_examples/neighbors/plot_lof_outlier_detection.html">Outlier detection with Local Outlier Factor (LOF)</a></p></li>
@@ -666,9 +643,17 @@ upper_bound: 14.94
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a774fec67dcd0a9a9ce44221d7181767d3eadb04f463418153453bd08c9f054a.png" src="_images/a774fec67dcd0a9a9ce44221d7181767d3eadb04f463418153453bd08c9f054a.png" />
+<img alt="_images/67dc2db07eaba39b5408178fbedda5747d34d9c498d0ba2b1f5c2d9a4319c26c.png" src="_images/67dc2db07eaba39b5408178fbedda5747d34d9c498d0ba2b1f5c2d9a4319c26c.png" />
 </div>
 </div>
+</section>
+<section id="resources">
+<h2>Resources<a class="headerlink" href="#resources" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.cs.ucr.edu/~eamonn/MatrixProfile.html">The UCR Matrix Profile Page</a></p></li>
+<li><p><a class="reference external" href="https://github.com/matrix-profile-foundation/article-matrix-profile-intro/blob/master/Matrix%20Profile%20Example.ipynb">Matrix Profile Example</a></p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -735,14 +720,13 @@ upper_bound: 14.94
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Generate and Visualize Data</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#interquartile-range-iqr">Interquartile Range (IQR)</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#z-score">Z-Score</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dbscan-clustering">DBSCAN Clustering</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#isolation-forest">Isolation Forest <a name="Isolation-Forest"></a></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#local-outlier-factor-lof">Local Outlier Factor (LOF)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interquartile-range-iqr">Interquartile Range (IQR)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#z-score">Z-Score</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dbscan-clustering">DBSCAN Clustering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isolation-forest">Isolation Forest <a name="Isolation-Forest"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-outlier-factor-lof">Local Outlier Factor (LOF)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>

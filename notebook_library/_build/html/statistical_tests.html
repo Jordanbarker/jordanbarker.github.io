@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -62,7 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'statistical_tests';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Generate and Visualize Data" href="anomaly_detection.html" />
+    <link rel="next" title="Anomoly Detection" href="anomaly_detection.html" />
     <link rel="prev" title="Time Series Forecasting" href="time_series.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -183,18 +183,13 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="evaluation_metrics.html">Evaluation Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series Forecasting</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Statistical Tests (A/B Testing)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Generate and Visualize Data</a></li>
-
-
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomoly Detection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optimization.html">Portfolio Optimization  <a name="Portfolio-Optimization"></a></a></li>
+
 </ul>
 
     </div>
@@ -431,7 +426,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpson-s-paradox">Simpson’s Paradox <a name="Simpsons-Paradox"></a></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
         </div>
@@ -663,12 +658,12 @@ True Interpretation: “If we were to take many samples and construct a confiden
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-statistic: -2.4971
-P-value: 0.0127
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-statistic: -3.9372
+P-value: 0.0001
 Fail to reject the null hypothesis - sample mean is not significantly different from the population mean.
 </pre></div>
 </div>
-<img alt="_images/a090111f4a428aeb6f2adc210d53b078cd93bc9ba95fd442a335278c7d298443.png" src="_images/a090111f4a428aeb6f2adc210d53b078cd93bc9ba95fd442a335278c7d298443.png" />
+<img alt="_images/a69fe94e80480ffd937cd20f019475b2ddf9c2df7ed8d367e325339b27d869e9.png" src="_images/a69fe94e80480ffd937cd20f019475b2ddf9c2df7ed8d367e325339b27d869e9.png" />
 </div>
 </div>
 </section>
@@ -704,15 +699,15 @@ Fail to reject the null hypothesis - sample mean is not significantly different 
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-Test Assuming Equal Variance:
-	T-statistic: -1.6013
-	P-value: 0.1095
+	T-statistic: -3.4212
+	P-value: 0.0006
 
 Welch&#39;s T-Test for Unequal Variance:
-	T-statistic: -1.6013
-	P-value: 0.1095
+	T-statistic: -3.4212
+	P-value: 0.0006
 </pre></div>
 </div>
-<img alt="_images/c155b8b1d55c73381cd920635ea2b1cb8af7dd6b71f848a147cb492ab10877b4.png" src="_images/c155b8b1d55c73381cd920635ea2b1cb8af7dd6b71f848a147cb492ab10877b4.png" />
+<img alt="_images/7283ce57dba12d80ee2893ab74f4ed40821c1e7923d0f02c84ea79be67e5d160.png" src="_images/7283ce57dba12d80ee2893ab74f4ed40821c1e7923d0f02c84ea79be67e5d160.png" />
 </div>
 </div>
 </section>
@@ -746,15 +741,15 @@ Welch&#39;s T-Test for Unequal Variance:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-Test Assuming Equal Variance:
-	T-statistic: -1.0962
-	P-value: 0.2731
+	T-statistic: -1.7196
+	P-value: 0.0857
 
 Welch&#39;s T-Test for Unequal Variance:
-	T-statistic: -1.0962
-	P-value: 0.2732
+	T-statistic: -1.7196
+	P-value: 0.0858
 </pre></div>
 </div>
-<img alt="_images/28db09180e8be214ba7caf87facee2d8dceea8108541c593f6dbd206cc6a7f01.png" src="_images/28db09180e8be214ba7caf87facee2d8dceea8108541c593f6dbd206cc6a7f01.png" />
+<img alt="_images/ac4e71af42beffcc26df8593ec3e40a15db21f33746221bd1dba04b31d651d20.png" src="_images/ac4e71af42beffcc26df8593ec3e40a15db21f33746221bd1dba04b31d651d20.png" />
 </div>
 </div>
 </section>
@@ -791,15 +786,15 @@ Welch&#39;s T-Test for Unequal Variance:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Independent T-Test:
-	T-statistic: -1.8394
-	P-value: 0.0660
+	T-statistic: -1.6723
+	P-value: 0.0946
 
 Paired T-Test:
-	T-statistic: -1.8049
-	P-value: 0.0714
+	T-statistic: -1.6749
+	P-value: 0.0943
 </pre></div>
 </div>
-<img alt="_images/8794a3db26fcb2643018d6798b9f41b985aada263e39cccea94f087d33c8466a.png" src="_images/8794a3db26fcb2643018d6798b9f41b985aada263e39cccea94f087d33c8466a.png" />
+<img alt="_images/84fe296f9cb4d83a373d1a9864308096016e126f9288a7dd85704a8dd4a12184.png" src="_images/84fe296f9cb4d83a373d1a9864308096016e126f9288a7dd85704a8dd4a12184.png" />
 </div>
 </div>
 <p>Simulate null hypothesis and observe falsely rejecting the null hypothesis at a given p-value probability, regardless of sample size</p>
@@ -845,40 +840,40 @@ Paired T-Test:
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Independent ______________________________________________________
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 952, Accepted: 48
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 962, Accepted: 38
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 951, Accepted: 49
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 953, Accepted: 47
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 950, Accepted: 50
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 942, Accepted: 58
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 955, Accepted: 45
 
 Paired ______________________________________________________
-Sample Size: 10      Reject: 952, Accepted: 48
+Sample Size: 10      Reject: 944, Accepted: 56
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 965, Accepted: 35
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 950, Accepted: 50
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 940, Accepted: 60
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 967, Accepted: 33
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 945, Accepted: 55
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 936, Accepted: 64
 
 Welch ______________________________________________________
-Sample Size: 10      Reject: 950, Accepted: 50
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 949, Accepted: 51
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 956, Accepted: 44
+Sample Size: 100     Reject: 953, Accepted: 47
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 957, Accepted: 43
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 961, Accepted: 39
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 939, Accepted: 61
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 948, Accepted: 52
 </pre></div>
 </div>
 </div>
@@ -912,9 +907,9 @@ Sample Size: 10      Reject: 950, Accepted: 50
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original p-values: 0.6084, 0.4623, 0.8212
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original p-values: 0.8758, 0.1747, 0.1290
 Bonferroni corrected alpha: 0.0167
-Adjusted p-values: 1.0000, 1.0000, 1.0000
+Adjusted p-values: 1.0000, 0.5242, 0.3869
 </pre></div>
 </div>
 </div>
@@ -1264,11 +1259,11 @@ P-value: 0.000044
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Observed difference in means: -0.0951
-P-value from permutation test: 0.5297
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Observed difference in means: 0.0012
+P-value from permutation test: 0.9943
 </pre></div>
 </div>
-<img alt="_images/4cc6674b6fbdc1edcf8c5332428d78178ff30ac0584417fdda357d5c1fe5c64b.png" src="_images/4cc6674b6fbdc1edcf8c5332428d78178ff30ac0584417fdda357d5c1fe5c64b.png" />
+<img alt="_images/9a74f7a647807f0fe5654ade23b11da357d5a9a5aa162c96a89e3889029e6670.png" src="_images/9a74f7a647807f0fe5654ade23b11da357d5a9a5aa162c96a89e3889029e6670.png" />
 </div>
 </div>
 </section>
@@ -1649,8 +1644,8 @@ Kullback-Leibler Divergence (histogram method): 0.0978
 </div></div></div>
 </div>
 </section>
-<section id="further-reading">
-<h2>Further Reading:<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Kohavi, Ron, Diane Tang, and Ya Xu. 2020. ​Trustworthy Online Controlled Experiments: A Practical Guide to A/B Testing. Cambridge University Press. <a class="reference external" href="https://experimentguide.com/">https://experimentguide.com/</a></p></li>
 <li><p><a class="reference external" href="https://en.wikiversity.org/wiki/Analysis_of_variance">Analysis of Variance - Wikiversity</a></p></li>
@@ -1702,7 +1697,7 @@ Kullback-Leibler Divergence (histogram method): 0.0978
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Generate and Visualize Data</p>
+        <p class="prev-next-title">Anomoly Detection</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1763,7 +1758,7 @@ Kullback-Leibler Divergence (histogram method): 0.0978
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpson-s-paradox">Simpson’s Paradox <a name="Simpsons-Paradox"></a></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
 
