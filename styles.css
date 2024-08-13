@@ -59,6 +59,7 @@ nav ul li {
 }
 nav ul li a {
   color: #fff;
+  border-radius: 5px;
   text-decoration: none;
   transition: background-color 0.3s ease;
   padding: 10px 10px;
@@ -106,7 +107,7 @@ nav ul li a:hover {
     margin: 0 auto;
   }
   .body_container {
-    padding: 100px 10px;
+    padding: 40px 10px;
   }
   nav ul {
     margin-top: 8px;
@@ -128,16 +129,16 @@ nav ul li a:hover {
     justify-content: center;
     align-items: center;
     height: 100%;
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 14px;
     line-height: 1;
   }
   .card {
-    width: 400px;
+    width: 360px;
   }
   .card img {
-    width: 400px;
-    height: 200px;
+    width: 360px;
+    height: 180px;
   }
   
 }
