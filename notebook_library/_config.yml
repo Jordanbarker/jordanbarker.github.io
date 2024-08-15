@@ -3,7 +3,7 @@
 
 title: Data Science Cookbook
 author: Jordan Barker
-logo: logo.png
+logo: logo_with_text.png
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
