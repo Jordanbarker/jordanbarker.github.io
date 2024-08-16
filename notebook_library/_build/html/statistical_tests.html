@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -155,8 +155,8 @@
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="Data Science Cookbook - Home"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Data Science Cookbook - Home"/>`);</script>
+    <img src="_static/logo_with_text.png" class="logo__image only-light" alt="Data Science Cookbook - Home"/>
+    <script>document.write(`<img src="_static/logo_with_text.png" class="logo__image only-dark" alt="Data Science Cookbook - Home"/>`);</script>
   
   
 </a></div>
@@ -525,16 +525,18 @@ Significance Level (α) and Power (1-β)
 <section id="margin-of-error-moe">
 <h3>Margin of Error (MoE)  <a name="Margin of Error"></a><a class="headerlink" href="#margin-of-error-moe" title="Link to this heading">#</a></h3>
 <p>Expresses the sampling error in a survey’s results. It is a range within which the true population parameter is expected to lie, with a certain level of confidence. Used for many things including sample size determination.</p>
-<p>Sample proportion MoE:
-$<span class="math notranslate nohighlight">\(\text{MoE} = z \times \sqrt{\frac{p(1-p)}{n}}\)</span>$</p>
+<p>Sample proportion MoE:</p>
+<div class="math notranslate nohighlight">
+\[\text{MoE} = z \times \sqrt{\frac{p(1-p)}{n}}\]</div>
 <p>Where:</p>
 <ul class="simple">
 <li><p>z is the critical value from the standard normal distribution corresponding to the desired confidence level (e.g., 1.96 for 95% confidence).</p></li>
 <li><p>p is the sample proportion.</p></li>
 <li><p>n is the sample size.</p></li>
 </ul>
-<p>Sample mean MoE:
-$<span class="math notranslate nohighlight">\( \text{MoE} = t \times \frac{s}{\sqrt{n}} \)</span>$</p>
+<p>Sample mean MoE:</p>
+<div class="math notranslate nohighlight">
+\[ \text{MoE} = t \times \frac{s}{\sqrt{n}} \]</div>
 <p>Where:</p>
 <ul class="simple">
 <li><p>t is the critical value from the t-distribution corresponding to the desired confidence level and degrees of freedom.</p></li>
@@ -658,12 +660,12 @@ True Interpretation: “If we were to take many samples and construct a confiden
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-statistic: -5.7980
-P-value: 0.0000
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-statistic: -0.6056
+P-value: 0.5449
 Fail to reject the null hypothesis - sample mean is not significantly different from the population mean.
 </pre></div>
 </div>
-<img alt="_images/a072af037ffd825a96889e5c2bc896276388ef601f56dfac3ac1422e27c663d6.png" src="_images/a072af037ffd825a96889e5c2bc896276388ef601f56dfac3ac1422e27c663d6.png" />
+<img alt="_images/4ac8e34e9eef64e13836f28e530a929f9fff153a9bf28471b9d8126acfbb177b.png" src="_images/4ac8e34e9eef64e13836f28e530a929f9fff153a9bf28471b9d8126acfbb177b.png" />
 </div>
 </div>
 </section>
@@ -699,15 +701,15 @@ Fail to reject the null hypothesis - sample mean is not significantly different 
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-Test Assuming Equal Variance:
-	T-statistic: -1.9288
-	P-value: 0.0539
+	T-statistic: -3.8056
+	P-value: 0.0001
 
 Welch&#39;s T-Test for Unequal Variance:
-	T-statistic: -1.9288
-	P-value: 0.0539
+	T-statistic: -3.8056
+	P-value: 0.0001
 </pre></div>
 </div>
-<img alt="_images/b4215b8099ce1345bb603acfd5c62b6d316b897c44ee90d08921996e30aaa1b1.png" src="_images/b4215b8099ce1345bb603acfd5c62b6d316b897c44ee90d08921996e30aaa1b1.png" />
+<img alt="_images/b065238af3b4a80825d4ca8c4440317018378a662cafc24144415c39580e3a55.png" src="_images/b065238af3b4a80825d4ca8c4440317018378a662cafc24144415c39580e3a55.png" />
 </div>
 </div>
 </section>
@@ -741,15 +743,15 @@ Welch&#39;s T-Test for Unequal Variance:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-Test Assuming Equal Variance:
-	T-statistic: -2.4130
-	P-value: 0.0159
+	T-statistic: -1.2211
+	P-value: 0.2222
 
 Welch&#39;s T-Test for Unequal Variance:
-	T-statistic: -2.4130
-	P-value: 0.0160
+	T-statistic: -1.2211
+	P-value: 0.2223
 </pre></div>
 </div>
-<img alt="_images/9a456ad4a7084bc0508f74174001c390a68f06d367921abe18a722a0085acc1f.png" src="_images/9a456ad4a7084bc0508f74174001c390a68f06d367921abe18a722a0085acc1f.png" />
+<img alt="_images/3483831c38345b84d56266a38ba97fae10d7ba88a2dbe8fa8efb427a9294e25b.png" src="_images/3483831c38345b84d56266a38ba97fae10d7ba88a2dbe8fa8efb427a9294e25b.png" />
 </div>
 </div>
 </section>
@@ -786,15 +788,15 @@ Welch&#39;s T-Test for Unequal Variance:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Independent T-Test:
-	T-statistic: -0.2809
-	P-value: 0.7788
+	T-statistic: -2.9957
+	P-value: 0.0028
 
 Paired T-Test:
-	T-statistic: -0.2817
-	P-value: 0.7783
+	T-statistic: -3.1108
+	P-value: 0.0019
 </pre></div>
 </div>
-<img alt="_images/45efb777f25584418c906bf54f6fb09563b3024925518d24f17585d702bccb4f.png" src="_images/45efb777f25584418c906bf54f6fb09563b3024925518d24f17585d702bccb4f.png" />
+<img alt="_images/1243549ae13129fae2e2400472584a38f9ab406fdeb1d18c5867c790454b7676.png" src="_images/1243549ae13129fae2e2400472584a38f9ab406fdeb1d18c5867c790454b7676.png" />
 </div>
 </div>
 <p>Simulate null hypothesis and observe falsely rejecting the null hypothesis at a given p-value probability, regardless of sample size</p>
@@ -840,44 +842,40 @@ Paired T-Test:
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Independent ______________________________________________________
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 948, Accepted: 52
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 933, Accepted: 67
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 956, Accepted: 44
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 958, Accepted: 42
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 951, Accepted: 49
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 943, Accepted: 57
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 942, Accepted: 58
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 954, Accepted: 46
 
 Paired ______________________________________________________
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 952, Accepted: 48
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 946, Accepted: 54
+Sample Size: 100     Reject: 950, Accepted: 50
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 954, Accepted: 46
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 947, Accepted: 53
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 939, Accepted: 61
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 952, Accepted: 48
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 948, Accepted: 52
 
 Welch ______________________________________________________
+Sample Size: 10      Reject: 946, Accepted: 54
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 953, Accepted: 47
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 959, Accepted: 41
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 953, Accepted: 47
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 950, Accepted: 50
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 948, Accepted: 52
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 947, Accepted: 53
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 928, Accepted: 72
 </pre></div>
 </div>
 </div>
@@ -911,9 +909,9 @@ Welch ______________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original p-values: 0.3370, 0.7165, 0.5768
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original p-values: 0.1674, 0.8879, 0.1389
 Bonferroni corrected alpha: 0.0167
-Adjusted p-values: 1.0000, 1.0000, 1.0000
+Adjusted p-values: 0.5021, 1.0000, 0.4167
 </pre></div>
 </div>
 </div>
@@ -1263,11 +1261,11 @@ P-value: 0.000044
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Observed difference in means: 0.0000
-P-value from permutation test: 0.9998
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Observed difference in means: 0.0913
+P-value from permutation test: 0.5508
 </pre></div>
 </div>
-<img alt="_images/0be49d568a0957770993faa97a398d49f0e09738f70d85ee1c2ad9eeaa51cf0b.png" src="_images/0be49d568a0957770993faa97a398d49f0e09738f70d85ee1c2ad9eeaa51cf0b.png" />
+<img alt="_images/469a1924dbcf078309006b2677a11924279eefa492d2f040940625efa9f0a23b.png" src="_images/469a1924dbcf078309006b2677a11924279eefa492d2f040940625efa9f0a23b.png" />
 </div>
 </div>
 </section>
