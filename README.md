@@ -6,6 +6,7 @@ The notebook library is created using [Jupyter Book](https://jupyterbook.org/en/
 
 jupyter-book build notebook_library/
 
+
 ## nbconvert 
 Before learning about Jupyter Book, this was done using nbconvert. Here are the original steps:
 

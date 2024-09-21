@@ -1,0 +1,74 @@
+Traceback (most recent call last):
+  File "/Users/jordanbarker/miniconda3/envs/py311/lib/python3.11/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/Users/jordanbarker/miniconda3/envs/py311/lib/python3.11/site-packages/nbclient/client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jordanbarker/miniconda3/envs/py311/lib/python3.11/site-packages/jupyter_core/utils/__init__.py", line 173, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jordanbarker/miniconda3/envs/py311/lib/python3.11/asyncio/base_events.py", line 653, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/jordanbarker/miniconda3/envs/py311/lib/python3.11/site-packages/nbclient/client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "/Users/jordanbarker/miniconda3/envs/py311/lib/python3.11/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/Users/jordanbarker/miniconda3/envs/py311/lib/python3.11/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+from dataclasses import dataclass
+from typing import List, Union
+
+@dataclass
+class Person:
+    name: str
+    age: int = 25
+    country: Union[str, List[str]] = ["United States", "Australia"]
+
+person = Person(name="Alice") # Person(name='Alice', age=25, country='Unknown')
+print(person)
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mValueError[0m                                Traceback (most recent call last)
+Cell [0;32mIn[3], line 4[0m
+[1;32m      1[0m [38;5;28;01mfrom[39;00m [38;5;21;01mdataclasses[39;00m [38;5;28;01mimport[39;00m dataclass
+[1;32m      2[0m [38;5;28;01mfrom[39;00m [38;5;21;01mtyping[39;00m [38;5;28;01mimport[39;00m List, Union
+[0;32m----> 4[0m [38;5;129;43m@dataclass[39;49m
+[1;32m      5[0m [38;5;28;43;01mclass[39;49;00m[43m [49m[38;5;21;43;01mPerson[39;49;00m[43m:[49m
+[1;32m      6[0m [43m    [49m[43mname[49m[43m:[49m[43m [49m[38;5;28;43mstr[39;49m
+[1;32m      7[0m [43m    [49m[43mage[49m[43m:[49m[43m [49m[38;5;28;43mint[39;49m[43m [49m[38;5;241;43m=[39;49m[43m [49m[38;5;241;43m25[39;49m
+
+File [0;32m~/miniconda3/envs/py311/lib/python3.11/dataclasses.py:1230[0m, in [0;36mdataclass[0;34m(cls, init, repr, eq, order, unsafe_hash, frozen, match_args, kw_only, slots, weakref_slot)[0m
+[1;32m   1227[0m     [38;5;28;01mreturn[39;00m wrap
+[1;32m   1229[0m [38;5;66;03m# We're called as @dataclass without parens.[39;00m
+[0;32m-> 1230[0m [38;5;28;01mreturn[39;00m [43mwrap[49m[43m([49m[38;5;28;43mcls[39;49m[43m)[49m
+
+File [0;32m~/miniconda3/envs/py311/lib/python3.11/dataclasses.py:1220[0m, in [0;36mdataclass.<locals>.wrap[0;34m(cls)[0m
+[1;32m   1219[0m [38;5;28;01mdef[39;00m [38;5;21mwrap[39m([38;5;28mcls[39m):
+[0;32m-> 1220[0m     [38;5;28;01mreturn[39;00m [43m_process_class[49m[43m([49m[38;5;28;43mcls[39;49m[43m,[49m[43m [49m[43minit[49m[43m,[49m[43m [49m[38;5;28;43mrepr[39;49m[43m,[49m[43m [49m[43meq[49m[43m,[49m[43m [49m[43morder[49m[43m,[49m[43m [49m[43munsafe_hash[49m[43m,[49m
+[1;32m   1221[0m [43m                          [49m[43mfrozen[49m[43m,[49m[43m [49m[43mmatch_args[49m[43m,[49m[43m [49m[43mkw_only[49m[43m,[49m[43m [49m[43mslots[49m[43m,[49m
+[1;32m   1222[0m [43m                          [49m[43mweakref_slot[49m[43m)[49m
+
+File [0;32m~/miniconda3/envs/py311/lib/python3.11/dataclasses.py:958[0m, in [0;36m_process_class[0;34m(cls, init, repr, eq, order, unsafe_hash, frozen, match_args, kw_only, slots, weakref_slot)[0m
+[1;32m    955[0m         kw_only [38;5;241m=[39m [38;5;28;01mTrue[39;00m
+[1;32m    956[0m     [38;5;28;01melse[39;00m:
+[1;32m    957[0m         [38;5;66;03m# Otherwise it's a field of some type.[39;00m
+[0;32m--> 958[0m         cls_fields[38;5;241m.[39mappend([43m_get_field[49m[43m([49m[38;5;28;43mcls[39;49m[43m,[49m[43m [49m[43mname[49m[43m,[49m[43m [49m[38;5;28;43mtype[39;49m[43m,[49m[43m [49m[43mkw_only[49m[43m)[49m)
+[1;32m    960[0m [38;5;28;01mfor[39;00m f [38;5;129;01min[39;00m cls_fields:
+[1;32m    961[0m     fields[f[38;5;241m.[39mname] [38;5;241m=[39m f
+
+File [0;32m~/miniconda3/envs/py311/lib/python3.11/dataclasses.py:815[0m, in [0;36m_get_field[0;34m(cls, a_name, a_type, default_kw_only)[0m
+[1;32m    811[0m [38;5;66;03m# For real fields, disallow mutable defaults.  Use unhashable as a proxy[39;00m
+[1;32m    812[0m [38;5;66;03m# indicator for mutability.  Read the __hash__ attribute from the class,[39;00m
+[1;32m    813[0m [38;5;66;03m# not the instance.[39;00m
+[1;32m    814[0m [38;5;28;01mif[39;00m f[38;5;241m.[39m_field_type [38;5;129;01mis[39;00m _FIELD [38;5;129;01mand[39;00m f[38;5;241m.[39mdefault[38;5;241m.[39m[38;5;18m__class__[39m[38;5;241m.[39m[38;5;21m__hash__[39m [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[0;32m--> 815[0m     [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m([38;5;124mf[39m[38;5;124m'[39m[38;5;124mmutable default [39m[38;5;132;01m{[39;00m[38;5;28mtype[39m(f[38;5;241m.[39mdefault)[38;5;132;01m}[39;00m[38;5;124m for field [39m[38;5;124m'[39m
+[1;32m    816[0m                      [38;5;124mf[39m[38;5;124m'[39m[38;5;132;01m{[39;00mf[38;5;241m.[39mname[38;5;132;01m}[39;00m[38;5;124m is not allowed: use default_factory[39m[38;5;124m'[39m)
+[1;32m    818[0m [38;5;28;01mreturn[39;00m f
+
+[0;31mValueError[0m: mutable default <class 'list'> for field country is not allowed: use default_factory
+
