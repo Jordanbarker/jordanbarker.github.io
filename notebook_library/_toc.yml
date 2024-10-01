@@ -6,6 +6,7 @@ root: intro
 chapters:
 - file: python_fundamentals
 - file: oop
+- file: data_visualization
 - file: distributions
 - file: evaluation_metrics
 - file: time_series
