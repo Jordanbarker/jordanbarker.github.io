@@ -1,0 +1,17 @@
+name: cookbook_env
+dependencies:  
+- numpy
+- pandas
+- scikit-learn
+- scipy
+- statsmodels
+- lightgbm
+- stumpy
+- cvxpy
+- pymc
+- jupyter-book
+- seaborn
+- matplotlib
+channels:  
+- defaults  
+- conda-forge
