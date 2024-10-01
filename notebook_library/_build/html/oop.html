@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'oop';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Distributions" href="distributions.html" />
+    <link rel="next" title="Data Visualization" href="data_visualization.html" />
     <link rel="prev" title="Python Fundamentals" href="python_fundamentals.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -182,7 +182,7 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Object-Oriented Programming (OOP) in Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_visualization.html">Data Visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="evaluation_metrics.html">Evaluation Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series Forecasting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="statistical_tests.html">Statistical Tests (A/B Testing)</a></li>
@@ -496,7 +496,7 @@ document.write(`
 <span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">age</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">25</span>
-    <span class="n">country</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;United States&quot;</span><span class="p">,</span> <span class="s2">&quot;Australia&quot;</span><span class="p">]</span>
+    <span class="n">country</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;United States&quot;</span>
 
 <span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Alice&quot;</span><span class="p">)</span> <span class="c1"># Person(name=&#39;Alice&#39;, age=25, country=&#39;Unknown&#39;)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">person</span><span class="p">)</span>
@@ -504,45 +504,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="nd">@dataclass</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">age</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">25</span>
-
-<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/dataclasses.py:1230,</span> in <span class="ni">dataclass</span><span class="nt">(cls, init, repr, eq, order, unsafe_hash, frozen, match_args, kw_only, slots, weakref_slot)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1227</span>     <span class="k">return</span> <span class="n">wrap</span>
-<span class="g g-Whitespace">   </span><span class="mi">1229</span> <span class="c1"># We&#39;re called as @dataclass without parens.</span>
-<span class="ne">-&gt; </span><span class="mi">1230</span> <span class="k">return</span> <span class="n">wrap</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/dataclasses.py:1220,</span> in <span class="ni">dataclass.&lt;locals&gt;.wrap</span><span class="nt">(cls)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1219</span> <span class="k">def</span> <span class="nf">wrap</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1220</span>     <span class="k">return</span> <span class="n">_process_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">init</span><span class="p">,</span> <span class="nb">repr</span><span class="p">,</span> <span class="n">eq</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">unsafe_hash</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1221</span>                           <span class="n">frozen</span><span class="p">,</span> <span class="n">match_args</span><span class="p">,</span> <span class="n">kw_only</span><span class="p">,</span> <span class="n">slots</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1222</span>                           <span class="n">weakref_slot</span><span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/dataclasses.py:958,</span> in <span class="ni">_process_class</span><span class="nt">(cls, init, repr, eq, order, unsafe_hash, frozen, match_args, kw_only, slots, weakref_slot)</span>
-<span class="g g-Whitespace">    </span><span class="mi">955</span>         <span class="n">kw_only</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="g g-Whitespace">    </span><span class="mi">956</span>     <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">957</span>         <span class="c1"># Otherwise it&#39;s a field of some type.</span>
-<span class="ne">--&gt; </span><span class="mi">958</span>         <span class="n">cls_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_get_field</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">kw_only</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">960</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">cls_fields</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">961</span>     <span class="n">fields</span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span>
-
-<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/dataclasses.py:815,</span> in <span class="ni">_get_field</span><span class="nt">(cls, a_name, a_type, default_kw_only)</span>
-<span class="g g-Whitespace">    </span><span class="mi">811</span> <span class="c1"># For real fields, disallow mutable defaults.  Use unhashable as a proxy</span>
-<span class="g g-Whitespace">    </span><span class="mi">812</span> <span class="c1"># indicator for mutability.  Read the __hash__ attribute from the class,</span>
-<span class="g g-Whitespace">    </span><span class="mi">813</span> <span class="c1"># not the instance.</span>
-<span class="g g-Whitespace">    </span><span class="mi">814</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">_field_type</span> <span class="ow">is</span> <span class="n">_FIELD</span> <span class="ow">and</span> <span class="n">f</span><span class="o">.</span><span class="n">default</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="fm">__hash__</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">815</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;mutable default </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">default</span><span class="p">)</span><span class="si">}</span><span class="s1"> for field &#39;</span>
-<span class="g g-Whitespace">    </span><span class="mi">816</span>                      <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> is not allowed: use default_factory&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">818</span> <span class="k">return</span> <span class="n">f</span>
-
-<span class="ne">ValueError</span>: mutable default &lt;class &#39;list&#39;&gt; for field country is not allowed: use default_factory
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Person(name=&#39;Alice&#39;, age=25, country=&#39;United States&#39;)
 </pre></div>
 </div>
 </div>
@@ -574,7 +536,7 @@ document.write(`
 <h2>Protected and Private Variables<a class="headerlink" href="#protected-and-private-variables" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Dog</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>  <span class="c1"># Protected variable</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__age</span> <span class="o">=</span> <span class="n">age</span>  <span class="c1"># Private variable</span>
@@ -627,13 +589,13 @@ meow
 <p>Overriding occurs when a subclass provides a specific implementation of a method that is already defined in its superclass. This is a key part of inheritance and polymorphism.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Parent</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;Hello from Parent!&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;Hello!&quot;</span>
 
-<span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Parent</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Aussie</span><span class="p">(</span><span class="n">Person</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;Hello from Child!&quot;</span>  <span class="c1"># Overrides the parent method</span>
+        <span class="k">return</span> <span class="s2">&quot;G&#39;day mate!&quot;</span>  <span class="c1"># Overrides the parent method</span>
 </pre></div>
 </div>
 </div>
@@ -916,11 +878,11 @@ meow
       </div>
     </a>
     <a class="right-next"
-       href="distributions.html"
+       href="data_visualization.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Distributions</p>
+        <p class="prev-next-title">Data Visualization</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

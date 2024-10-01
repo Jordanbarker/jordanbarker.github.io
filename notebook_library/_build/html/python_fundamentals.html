@@ -62,7 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'python_fundamentals';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Distributions" href="distributions.html" />
+    <link rel="next" title="Object-Oriented Programming (OOP) in Python" href="oop.html" />
     <link rel="prev" title="Data Science Cookbook" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -183,13 +183,13 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Python Fundamentals <a class="anchor" id="chapter1"></a></a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="oop.html">Object-Oriented Programming (OOP) in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_visualization.html">Data Visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="evaluation_metrics.html">Evaluation Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series Forecasting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="statistical_tests.html">Statistical Tests (A/B Testing)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomoly Detection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optimization.html">Portfolio Optimization  <a name="Portfolio-Optimization"></a></a></li>
-
 </ul>
 
     </div>
@@ -813,8 +813,8 @@ Hello World
 [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 [1, 2, 3]
-[3, 9, 4, 1, 0, 2, 5, 6, 7, 8]
-[4, 0, 2, 6, 8]
+[1, 6, 0, 2, 4, 5, 8, 7, 9, 3]
+[6, 0, 2, 4, 8]
 </pre></div>
 </div>
 </div>
@@ -857,11 +857,11 @@ Hello World
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;x&#39;, &#39;q&#39;, &#39;u&#39;}
-{&#39;x&#39;, &#39;q&#39;, &#39;p&#39;, &#39;u&#39;}
-{&#39;q&#39;, &#39;p&#39;, &#39;u&#39;}
-{1, 2, 3, &#39;q&#39;, &#39;u&#39;, &#39;p&#39;}
-False
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;u&#39;, &#39;x&#39;, &#39;q&#39;}
+{&#39;u&#39;, &#39;x&#39;, &#39;q&#39;, &#39;p&#39;}
+{&#39;x&#39;, &#39;q&#39;, &#39;p&#39;}
+{1, 2, 3, &#39;q&#39;, &#39;p&#39;, &#39;x&#39;}
+True
 False
 set()
 {1, 2, 3, 4, 5} &amp; {3, 4, 5, 6, 7} == {3, 4, 5}
@@ -923,7 +923,7 @@ set()
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>In specified format: Wednesday, 14 Aug 2024
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>In specified format: Monday, 30 Sep 2024
 </pre></div>
 </div>
 </div>
@@ -943,7 +943,7 @@ set()
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6
 </pre></div>
 </div>
 </div>
@@ -963,7 +963,7 @@ set()
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hi!
-The time taken by print statement is 7.486343383789062e-05 seconds
+The time taken by print statement is 0.00019311904907226562 seconds
 </pre></div>
 </div>
 </div>
@@ -2134,7 +2134,7 @@ Display Precision: 6
 </table>
 </div></div><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-<span class="nn">/var/folders/tl/00b3nkg57wz5g7fsvwlb_76m0000gn/T/ipykernel_61955/308143118.py</span> in <span class="ni">?</span><span class="nt">()</span>
+<span class="nn">/var/folders/tl/00b3nkg57wz5g7fsvwlb_76m0000gn/T/ipykernel_98808/308143118.py</span> in <span class="ni">?</span><span class="nt">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="k">del</span> <span class="n">E</span><span class="p">[</span><span class="s1">&#39;pi&#39;</span><span class="p">]</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> 
 <span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># Adding an entire row</span>
@@ -6689,11 +6689,11 @@ The entries of Takes: [(123, &#39;CSE 6040&#39;, 4.0), (991, &#39;CSE 6040&#39;,
       </div>
     </a>
     <a class="right-next"
-       href="distributions.html"
+       href="oop.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Distributions</p>
+        <p class="prev-next-title">Object-Oriented Programming (OOP) in Python</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

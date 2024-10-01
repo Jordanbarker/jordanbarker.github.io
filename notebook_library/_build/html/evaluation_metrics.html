@@ -63,7 +63,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Time Series Forecasting" href="time_series.html" />
-    <link rel="prev" title="Distributions" href="distributions.html" />
+    <link rel="prev" title="Data Visualization" href="data_visualization.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -183,13 +183,13 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="oop.html">Object-Oriented Programming (OOP) in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_visualization.html">Data Visualization</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Evaluation Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series Forecasting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="statistical_tests.html">Statistical Tests (A/B Testing)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomoly Detection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optimization.html">Portfolio Optimization  <a name="Portfolio-Optimization"></a></a></li>
-
 </ul>
 
     </div>
@@ -440,6 +440,20 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[
 \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |Actual_i - Predicted_i|
+\]</div>
+<ul class="simple">
+<li><p><strong>Root Mean Squared Scaled Error (RMSSE)</strong>: Independent of the data scale. Equally penalizes positive/negative errors. <span class="math notranslate nohighlight">\(h\)</span> is the forecasting horizon (28 days in the m5 competition).</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\text{RMSSE} = \sqrt{ \frac{\frac{1}{h} \sum_{i=n+1}^{n+h} (Actual_i - Predicted_i)^2}{\frac{1}{n-1} \sum_{i=2}^{n} (Actual_i - Predicted_{i-1})^2}} 
+\]</div>
+<ul class="simple">
+<li><p><strong>Weighted RMSSE (WRMSSE)</strong>: where <span class="math notranslate nohighlight">\(w_i\)</span> is the weight and <span class="math notranslate nohighlight">\(RMSSE_i\)</span> is the score of the series in the competition.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\text{WRMSSE} = \sum_{i=1}^{n} |w_i * RMSSE_i|
 \]</div>
 <section id="percentage-error">
 <h3>Percentage Error<a class="headerlink" href="#percentage-error" title="Link to this heading">#</a></h3>
@@ -931,12 +945,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="distributions.html"
+       href="data_visualization.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Distributions</p>
+        <p class="prev-next-title">Data Visualization</p>
       </div>
     </a>
     <a class="right-next"
