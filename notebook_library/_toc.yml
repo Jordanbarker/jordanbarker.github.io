@@ -5,7 +5,7 @@ format: jb-book
 root: intro
 chapters:
 - file: python_fundamentals
-- file: oop
+- file: object_oriented_programming
 - file: data_visualization
 - file: distributions
 - file: evaluation_metrics
@@ -13,3 +13,4 @@ chapters:
 - file: statistical_tests
 - file: anomaly_detection
 - file: optimization
+- file: cookbook_meta
