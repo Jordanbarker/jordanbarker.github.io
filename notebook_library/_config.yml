@@ -5,10 +5,12 @@ title: Data Science Cookbook
 author: Jordan Barker
 logo: logo_with_text.png
 
-# Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
 execute:
-  execute_notebooks: force
+  execute_notebooks: auto
+
+exclude_patterns:
+  - "Still Cooking/*"
 
 # Define the name of the latex output file for PDF builds
 latex:
@@ -21,7 +23,7 @@ repository:
   path_to_book: notebook_library  # Optional path to your book, relative to the repository root
   branch: main  # Which branch of the repository should be used when creating links (optional)
 
-# Add GitHub buttons to your book
+# Add GitHub buttons
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
 html:
   use_issues_button: true
