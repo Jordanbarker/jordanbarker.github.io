@@ -183,13 +183,15 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a></li>
-<li class="toctree-l1"><a class="reference internal" href="oop.html">Object-Oriented Programming (OOP) in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming (OOP) in Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data_visualization.html">Data Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="evaluation_metrics.html">Evaluation Metrics</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Time Series Forecasting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="statistical_tests.html">Statistical Tests (A/B Testing)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomoly Detection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optimization.html">Portfolio Optimization  <a name="Portfolio-Optimization"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook_meta.html">Cookbook Meta</a></li>
 </ul>
 
     </div>
@@ -426,7 +428,12 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="time-series-forecasting">
 <h1>Time Series Forecasting<a class="headerlink" href="#time-series-forecasting" title="Link to this heading">#</a></h1>
 <p>Generate Data with linear trend with a cyclic pattern and random noise</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -474,11 +481,18 @@ document.write(`
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <img alt="_images/9508aa22067c7cd993064c785550837c5e1157ee2d7af12cff9e2464160322ba.png" src="_images/9508aa22067c7cd993064c785550837c5e1157ee2d7af12cff9e2464160322ba.png" />
 </div>
 </div>
-<div class="cell docutils container">
+<p>Also creating monthly data since ARIMA models are too compute intensive for daily.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resampling was a bit too naive and lost all of the noise in the dataset.</span>
 <span class="c1"># monthly_df = df.resample(&#39;ME&#39;).mean().iloc[1:-1] # Remove the first and last points for a pretty plot</span>
@@ -502,6 +516,7 @@ document.write(`
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <img alt="_images/66a06429e266a6dc49b00d675715a16b76a7cd2c36edc048e02176bb0bcd6958.png" src="_images/66a06429e266a6dc49b00d675715a16b76a7cd2c36edc048e02176bb0bcd6958.png" />
 </div>
@@ -546,7 +561,9 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Results of Dickey-Fuller Test:
-Test Statistic                   0.231933
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test Statistic                   0.231933
 p-value                          0.973997
 #Lags Used                      18.000000
 Number of Observations Used    780.000000
@@ -817,125 +834,36 @@ Simple exponential smoothing won't be able to capture any of the trends on the d
 </ul>
 <p>ARIMA(0,1,1) without constant = simple exponential smoothing</p>
 <p>I’m using monthly data here since daily data is impractical for statsmodel’s ARIMA to optimize.</p>
-<div class="cell docutils container">
+<div class="cell tag_remove-stderr tag_skip docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.tsa.statespace.sarimax</span> <span class="kn">import</span> <span class="n">SARIMAX</span>
 <span class="kn">from</span> <span class="nn">statsmodels.tools.sm_exceptions</span> <span class="kn">import</span> <span class="n">ConvergenceWarning</span>
 
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Non-invertible starting MA parameters found.&quot;</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Non-stationary starting autoregressive parameters found&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Non-invertible starting seasonal moving average&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">)</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">ConvergenceWarning</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">ARIMA_forecast</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">n_forecast</span><span class="p">):</span>
-    <span class="n">arima_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">fit_and_forecast</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">n_forecast</span><span class="p">):</span>
+    <span class="n">arima_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">arima_fit</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="n">n_forecast</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly_test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ARIMA_forecast</span><span class="p">(</span><span class="n">SARIMAX</span><span class="p">(</span><span class="n">monthly_train</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="n">monthly_test</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ARIMA order=(1, 1, 1)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ARIMA_forecast</span><span class="p">(</span><span class="n">SARIMAX</span><span class="p">(</span><span class="n">monthly_train</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="n">monthly_test</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ARIMA order=(12, 1, 1)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">fit_and_forecast</span><span class="p">(</span><span class="n">SARIMAX</span><span class="p">(</span><span class="n">monthly_train</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="n">monthly_test</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ARIMA order=(1, 1, 1)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">fit_and_forecast</span><span class="p">(</span><span class="n">SARIMAX</span><span class="p">(</span><span class="n">monthly_train</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="n">monthly_test</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ARIMA order=(12, 1, 1)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> This problem is unconstrained.
-/Users/jordanbarker/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/tsa/statespace/sarimax.py:966: UserWarning: Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.
-  warn(&#39;Non-stationary starting autoregressive parameters&#39;
- This problem is unconstrained.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RUNNING THE L-BFGS-B CODE
-
-           * * *
-
-Machine precision = 2.220D-16
- N =            3     M =           10
-
-At X0         0 variables are exactly at the bounds
-
-At iterate    0    f=  7.37238D-01    |proj g|=  3.77327D-02
-
-At iterate    5    f=  7.26192D-01    |proj g|=  5.50222D-03
-
-           * * *
-
-Tit   = total number of iterations
-Tnf   = total number of function evaluations
-Tnint = total number of segments explored during Cauchy searches
-Skip  = number of BFGS updates skipped
-Nact  = number of active bounds at final generalized Cauchy point
-Projg = norm of the final projected gradient
-F     = final function value
-
-           * * *
-
-   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
-    3      8     12      1     0     0   3.755D-06   7.261D-01
-  F =  0.72614923177470880     
-
-CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_&lt;=_PGTOL            
-RUNNING THE L-BFGS-B CODE
-
-           * * *
-
-Machine precision = 2.220D-16
- N =           14     M =           10
-
-At X0         0 variables are exactly at the bounds
-
-At iterate    0    f=  4.51644D+00    |proj g|=  5.58476D+01
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate    5    f= -2.50435D-02    |proj g|=  1.56493D+00
-
-At iterate   10    f= -1.59932D-01    |proj g|=  3.11245D-01
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   15    f= -2.33185D-01    |proj g|=  2.18497D-01
-
-At iterate   20    f= -2.58355D-01    |proj g|=  3.90389D-01
-
-At iterate   25    f= -2.93344D-01    |proj g|=  1.80107D-01
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   30    f= -2.99265D-01    |proj g|=  7.40563D-02
-
-At iterate   35    f= -3.06604D-01    |proj g|=  8.47228D-02
-
-At iterate   40    f= -3.10102D-01    |proj g|=  1.29823D-01
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   45    f= -3.12235D-01    |proj g|=  1.17621D-02
-
-At iterate   50    f= -3.12544D-01    |proj g|=  3.96839D-02
-
-           * * *
-
-Tit   = total number of iterations
-Tnf   = total number of function evaluations
-Tnint = total number of segments explored during Cauchy searches
-Skip  = number of BFGS updates skipped
-Nact  = number of active bounds at final generalized Cauchy point
-Projg = norm of the final projected gradient
-F     = final function value
-
-           * * *
-
-   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
-   14     50     66      1     0     0   3.968D-02  -3.125D-01
-  F = -0.31254356643665271     
-
-STOP: TOTAL NO. of ITERATIONS REACHED LIMIT                 
-</pre></div>
-</div>
 <img alt="_images/696ce84c2bfd70fd9e5633022db65e22b1a74f4e214bcb75b793b86f538e126d.png" src="_images/696ce84c2bfd70fd9e5633022db65e22b1a74f4e214bcb75b793b86f538e126d.png" />
 </div>
 </div>
-<div class="cell docutils container">
+<div class="cell tag_remove-stderr tag_skip docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">random_arima_search</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">random_arima_search</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
     <span class="n">best_aic</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
     <span class="n">best_order</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">best_seasonal_order</span> <span class="o">=</span> <span class="kc">None</span>
@@ -958,7 +886,7 @@ STOP: TOTAL NO. of ITERATIONS REACHED LIMIT
         
         <span class="k">try</span><span class="p">:</span>
             <span class="n">model</span> <span class="o">=</span> <span class="n">SARIMAX</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">seasonal_order</span><span class="o">=</span><span class="n">seasonal_order</span><span class="p">)</span>
-            <span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+            <span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="n">aic</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">aic</span>
             <span class="k">if</span> <span class="n">aic</span> <span class="o">&lt;</span> <span class="n">best_aic</span><span class="p">:</span>
                 <span class="n">best_aic</span> <span class="o">=</span> <span class="n">aic</span>
@@ -980,529 +908,194 @@ STOP: TOTAL NO. of ITERATIONS REACHED LIMIT
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly_test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ARIMA_forecast</span><span class="p">(</span><span class="n">best_model</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">monthly_test</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Best ARIMA order=</span><span class="si">{</span><span class="n">best_order</span><span class="si">}</span><span class="s1">, seasonal_order=</span><span class="si">{</span><span class="n">best_seasonal_order</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">fit_and_forecast</span><span class="p">(</span><span class="n">best_model</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">monthly_test</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Best ARIMA order=</span><span class="si">{</span><span class="n">best_order</span><span class="si">}</span><span class="s1">, seasonal_order=</span><span class="si">{</span><span class="n">best_seasonal_order</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RUNNING THE L-BFGS-B CODE
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">line</span> <span class="mi">42</span>
+<span class="g g-Whitespace">     </span><span class="mi">39</span>     <span class="k">return</span> <span class="n">best_model</span><span class="p">,</span> <span class="n">best_order</span><span class="p">,</span> <span class="n">best_seasonal_order</span>
+<span class="g g-Whitespace">     </span><span class="mi">41</span> <span class="c1"># Perform random search</span>
+<span class="ne">---&gt; </span><span class="mi">42</span> <span class="n">best_model</span><span class="p">,</span> <span class="n">best_order</span><span class="p">,</span> <span class="n">best_seasonal_order</span> <span class="o">=</span> <span class="n">random_arima_search</span><span class="p">(</span><span class="n">monthly_train</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">44</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">45</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly_test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test&#39;</span><span class="p">)</span>
 
-           * * *
+<span class="nn">Cell In[12], line 24,</span> in <span class="ni">random_arima_search</span><span class="nt">(train, n_trials)</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>     <span class="n">model</span> <span class="o">=</span> <span class="n">SARIMAX</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">seasonal_order</span><span class="o">=</span><span class="n">seasonal_order</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">24</span>     <span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span>     <span class="n">aic</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">aic</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span>     <span class="k">if</span> <span class="n">aic</span> <span class="o">&lt;</span> <span class="n">best_aic</span><span class="p">:</span>
 
-Machine precision = 2.220D-16
- N =            4     M =           10
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/tsa/statespace/mlemodel.py:704,</span> in <span class="ni">MLEModel.fit</span><span class="nt">(self, start_params, transformed, includes_fixed, cov_type, cov_kwds, method, maxiter, full_output, disp, callback, return_params, optim_score, optim_complex_step, optim_hessian, flags, low_memory, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">702</span>         <span class="n">flags</span><span class="p">[</span><span class="s1">&#39;hessian_method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">optim_hessian</span>
+<span class="g g-Whitespace">    </span><span class="mi">703</span>     <span class="n">fargs</span> <span class="o">=</span> <span class="p">(</span><span class="n">flags</span><span class="p">,)</span>
+<span class="ne">--&gt; </span><span class="mi">704</span>     <span class="n">mlefit</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">MLEModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">start_params</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">705</span>                                        <span class="n">fargs</span><span class="o">=</span><span class="n">fargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">706</span>                                        <span class="n">maxiter</span><span class="o">=</span><span class="n">maxiter</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">707</span>                                        <span class="n">full_output</span><span class="o">=</span><span class="n">full_output</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">708</span>                                        <span class="n">disp</span><span class="o">=</span><span class="n">disp</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">709</span>                                        <span class="n">skip_hessian</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">711</span> <span class="c1"># Just return the fitted parameters if requested</span>
+<span class="g g-Whitespace">    </span><span class="mi">712</span> <span class="k">if</span> <span class="n">return_params</span><span class="p">:</span>
 
-At X0         0 variables are exactly at the bounds
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/base/model.py:566,</span> in <span class="ni">LikelihoodModel.fit</span><span class="nt">(self, start_params, method, maxiter, full_output, disp, fargs, callback, retall, skip_hessian, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">563</span>     <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;use_t&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">565</span> <span class="n">optimizer</span> <span class="o">=</span> <span class="n">Optimizer</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">566</span> <span class="n">xopt</span><span class="p">,</span> <span class="n">retvals</span><span class="p">,</span> <span class="n">optim_settings</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">start_params</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">567</span>                                                <span class="n">fargs</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">568</span>                                                <span class="n">hessian</span><span class="o">=</span><span class="n">hess</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">569</span>                                                <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">570</span>                                                <span class="n">disp</span><span class="o">=</span><span class="n">disp</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">571</span>                                                <span class="n">maxiter</span><span class="o">=</span><span class="n">maxiter</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">572</span>                                                <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">573</span>                                                <span class="n">retall</span><span class="o">=</span><span class="n">retall</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">574</span>                                                <span class="n">full_output</span><span class="o">=</span><span class="n">full_output</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">575</span> <span class="c1"># Restore cov_type, cov_kwds and use_t</span>
+<span class="g g-Whitespace">    </span><span class="mi">576</span> <span class="n">optim_settings</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds</span><span class="p">)</span>
 
-At iterate    0    f= -1.57590D-01    |proj g|=  1.24954D+00
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/base/optimizer.py:242,</span> in <span class="ni">Optimizer._fit</span><span class="nt">(self, objective, gradient, start_params, fargs, kwargs, hessian, method, maxiter, full_output, disp, callback, retall)</span>
+<span class="g g-Whitespace">    </span><span class="mi">239</span>     <span class="n">fit_funcs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">extra_fit_funcs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">241</span> <span class="n">func</span> <span class="o">=</span> <span class="n">fit_funcs</span><span class="p">[</span><span class="n">method</span><span class="p">]</span>
+<span class="ne">--&gt; </span><span class="mi">242</span> <span class="n">xopt</span><span class="p">,</span> <span class="n">retvals</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">gradient</span><span class="p">,</span> <span class="n">start_params</span><span class="p">,</span> <span class="n">fargs</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">243</span>                      <span class="n">disp</span><span class="o">=</span><span class="n">disp</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="n">maxiter</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">244</span>                      <span class="n">retall</span><span class="o">=</span><span class="n">retall</span><span class="p">,</span> <span class="n">full_output</span><span class="o">=</span><span class="n">full_output</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">245</span>                      <span class="n">hess</span><span class="o">=</span><span class="n">hessian</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">247</span> <span class="n">optim_settings</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;optimizer&#39;</span><span class="p">:</span> <span class="n">method</span><span class="p">,</span> <span class="s1">&#39;start_params&#39;</span><span class="p">:</span> <span class="n">start_params</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">248</span>                   <span class="s1">&#39;maxiter&#39;</span><span class="p">:</span> <span class="n">maxiter</span><span class="p">,</span> <span class="s1">&#39;full_output&#39;</span><span class="p">:</span> <span class="n">full_output</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">249</span>                   <span class="s1">&#39;disp&#39;</span><span class="p">:</span> <span class="n">disp</span><span class="p">,</span> <span class="s1">&#39;fargs&#39;</span><span class="p">:</span> <span class="n">fargs</span><span class="p">,</span> <span class="s1">&#39;callback&#39;</span><span class="p">:</span> <span class="n">callback</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">250</span>                   <span class="s1">&#39;retall&#39;</span><span class="p">:</span> <span class="n">retall</span><span class="p">,</span> <span class="s2">&quot;extra_fit_funcs&quot;</span><span class="p">:</span> <span class="n">extra_fit_funcs</span><span class="p">}</span>
+<span class="g g-Whitespace">    </span><span class="mi">251</span> <span class="n">optim_settings</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/base/optimizer.py:659,</span> in <span class="ni">_fit_lbfgs</span><span class="nt">(f, score, start_params, fargs, kwargs, disp, maxiter, callback, retall, full_output, hess)</span>
+<span class="g g-Whitespace">    </span><span class="mi">656</span> <span class="k">elif</span> <span class="n">approx_grad</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">657</span>     <span class="n">func</span> <span class="o">=</span> <span class="n">f</span>
+<span class="ne">--&gt; </span><span class="mi">659</span> <span class="n">retvals</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fmin_l_bfgs_b</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">start_params</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="n">maxiter</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">660</span>                                  <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">fargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">661</span>                                  <span class="n">bounds</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="n">disp</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">662</span>                                  <span class="o">**</span><span class="n">extra_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">664</span> <span class="k">if</span> <span class="n">full_output</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">665</span>     <span class="n">xopt</span><span class="p">,</span> <span class="n">fopt</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">retvals</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/scipy/optimize/_lbfgsb_py.py:199,</span> in <span class="ni">fmin_l_bfgs_b</span><span class="nt">(func, x0, fprime, args, approx_grad, bounds, m, factr, pgtol, epsilon, iprint, maxfun, maxiter, disp, callback, maxls)</span>
+<span class="g g-Whitespace">    </span><span class="mi">187</span> <span class="n">callback</span> <span class="o">=</span> <span class="n">_wrap_callback</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">188</span> <span class="n">opts</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;disp&#39;</span><span class="p">:</span> <span class="n">disp</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">189</span>         <span class="s1">&#39;iprint&#39;</span><span class="p">:</span> <span class="n">iprint</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">190</span>         <span class="s1">&#39;maxcor&#39;</span><span class="p">:</span> <span class="n">m</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">196</span>         <span class="s1">&#39;callback&#39;</span><span class="p">:</span> <span class="n">callback</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">197</span>         <span class="s1">&#39;maxls&#39;</span><span class="p">:</span> <span class="n">maxls</span><span class="p">}</span>
+<span class="ne">--&gt; </span><span class="mi">199</span> <span class="n">res</span> <span class="o">=</span> <span class="n">_minimize_lbfgsb</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="n">jac</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">200</span>                        <span class="o">**</span><span class="n">opts</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">201</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;grad&#39;</span><span class="p">:</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;jac&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">202</span>      <span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">203</span>      <span class="s1">&#39;funcalls&#39;</span><span class="p">:</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;nfev&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">204</span>      <span class="s1">&#39;nit&#39;</span><span class="p">:</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;nit&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">205</span>      <span class="s1">&#39;warnflag&#39;</span><span class="p">:</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]}</span>
+<span class="g g-Whitespace">    </span><span class="mi">206</span> <span class="n">f</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;fun&#39;</span><span class="p">]</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/scipy/optimize/_lbfgsb_py.py:369,</span> in <span class="ni">_minimize_lbfgsb</span><span class="nt">(fun, x0, args, jac, bounds, disp, maxcor, ftol, gtol, eps, maxfun, maxiter, iprint, callback, maxls, finite_diff_rel_step, **unknown_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">363</span> <span class="n">task_str</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">364</span> <span class="k">if</span> <span class="n">task_str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;FG&#39;</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">365</span>     <span class="c1"># The minimization routine wants f and g at the current x.</span>
+<span class="g g-Whitespace">    </span><span class="mi">366</span>     <span class="c1"># Note that interruptions due to maxfun are postponed</span>
+<span class="g g-Whitespace">    </span><span class="mi">367</span>     <span class="c1"># until the completion of the current minimization iteration.</span>
+<span class="g g-Whitespace">    </span><span class="mi">368</span>     <span class="c1"># Overwrite f and g:</span>
+<span class="ne">--&gt; </span><span class="mi">369</span>     <span class="n">f</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="n">func_and_grad</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">370</span> <span class="k">elif</span> <span class="n">task_str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;NEW_X&#39;</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">371</span>     <span class="c1"># new iteration</span>
+<span class="g g-Whitespace">    </span><span class="mi">372</span>     <span class="n">n_iterations</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/scipy/optimize/_differentiable_functions.py:297,</span> in <span class="ni">ScalarFunction.fun_and_grad</span><span class="nt">(self, x)</span>
+<span class="g g-Whitespace">    </span><span class="mi">295</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_update_x_impl</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">296</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_fun</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">297</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_grad</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">298</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">g</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/scipy/optimize/_differentiable_functions.py:267,</span> in <span class="ni">ScalarFunction._update_grad</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">265</span> <span class="k">def</span> <span class="nf">_update_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">266</span>     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">g_updated</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">267</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_update_grad_impl</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">268</span>         <span class="bp">self</span><span class="o">.</span><span class="n">g_updated</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/scipy/optimize/_differentiable_functions.py:181,</span> in <span class="ni">ScalarFunction.__init__.&lt;locals&gt;.update_grad</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">179</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_fun</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">180</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngev</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="ne">--&gt; </span><span class="mi">181</span> <span class="bp">self</span><span class="o">.</span><span class="n">g</span> <span class="o">=</span> <span class="n">approx_derivative</span><span class="p">(</span><span class="n">fun_wrapped</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">f0</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">182</span>                            <span class="o">**</span><span class="n">finite_diff_options</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/scipy/optimize/_numdiff.py:519,</span> in <span class="ni">approx_derivative</span><span class="nt">(fun, x0, method, rel_step, abs_step, f0, bounds, sparsity, as_linear_operator, args, kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">516</span>     <span class="n">use_one_sided</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="g g-Whitespace">    </span><span class="mi">518</span> <span class="k">if</span> <span class="n">sparsity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">519</span>     <span class="k">return</span> <span class="n">_dense_difference</span><span class="p">(</span><span class="n">fun_wrapped</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">f0</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">520</span>                              <span class="n">use_one_sided</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">521</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">522</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">issparse</span><span class="p">(</span><span class="n">sparsity</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">sparsity</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/scipy/optimize/_numdiff.py:590,</span> in <span class="ni">_dense_difference</span><span class="nt">(fun, x0, f0, h, use_one_sided, method)</span>
+<span class="g g-Whitespace">    </span><span class="mi">588</span>     <span class="n">x</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">h_vecs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">589</span>     <span class="n">dx</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">x0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="c1"># Recompute dx as exactly representable number.</span>
+<span class="ne">--&gt; </span><span class="mi">590</span>     <span class="n">df</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">f0</span>
+<span class="g g-Whitespace">    </span><span class="mi">591</span> <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;3-point&#39;</span> <span class="ow">and</span> <span class="n">use_one_sided</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+<span class="g g-Whitespace">    </span><span class="mi">592</span>     <span class="n">x1</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">h_vecs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/scipy/optimize/_numdiff.py:470,</span> in <span class="ni">approx_derivative.&lt;locals&gt;.fun_wrapped</span><span class="nt">(x)</span>
+<span class="g g-Whitespace">    </span><span class="mi">467</span> <span class="k">if</span> <span class="n">xp</span><span class="o">.</span><span class="n">isdtype</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="s2">&quot;real floating&quot;</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">468</span>     <span class="n">x</span> <span class="o">=</span> <span class="n">xp</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x0</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">470</span> <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">fun</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">471</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">472</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;`fun` return value has &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">473</span>                        <span class="s2">&quot;more than 1 dimension.&quot;</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/scipy/optimize/_differentiable_functions.py:145,</span> in <span class="ni">ScalarFunction.__init__.&lt;locals&gt;.fun_wrapped</span><span class="nt">(x)</span>
+<span class="g g-Whitespace">    </span><span class="mi">141</span> <span class="bp">self</span><span class="o">.</span><span class="n">nfev</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="g g-Whitespace">    </span><span class="mi">142</span> <span class="c1"># Send a copy because the user may overwrite it.</span>
+<span class="g g-Whitespace">    </span><span class="mi">143</span> <span class="c1"># Overwriting results in undefined behaviour because</span>
+<span class="g g-Whitespace">    </span><span class="mi">144</span> <span class="c1"># fun(self.x) will change self.x, with the two no longer linked.</span>
+<span class="ne">--&gt; </span><span class="mi">145</span> <span class="n">fx</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">146</span> <span class="c1"># Make sure the function returns a true scalar</span>
+<span class="g g-Whitespace">    </span><span class="mi">147</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">fx</span><span class="p">):</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/base/model.py:534,</span> in <span class="ni">LikelihoodModel.fit.&lt;locals&gt;.f</span><span class="nt">(params, *args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">533</span> <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">534</span>     <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">loglike</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">/</span> <span class="n">nobs</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/tsa/statespace/mlemodel.py:939,</span> in <span class="ni">MLEModel.loglike</span><span class="nt">(self, params, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">936</span> <span class="k">if</span> <span class="n">complex_step</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">937</span>     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;inversion_method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">INVERT_UNIVARIATE</span> <span class="o">|</span> <span class="n">SOLVE_LU</span>
+<span class="ne">--&gt; </span><span class="mi">939</span> <span class="n">loglike</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">loglike</span><span class="p">(</span><span class="n">complex_step</span><span class="o">=</span><span class="n">complex_step</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">941</span> <span class="c1"># Koopman, Shephard, and Doornik recommend maximizing the average</span>
+<span class="g g-Whitespace">    </span><span class="mi">942</span> <span class="c1"># likelihood to avoid scale issues, but the averaging is done</span>
+<span class="g g-Whitespace">    </span><span class="mi">943</span> <span class="c1"># automatically in the base model `fit` method</span>
+<span class="g g-Whitespace">    </span><span class="mi">944</span> <span class="k">return</span> <span class="n">loglike</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/tsa/statespace/kalman_filter.py:1001,</span> in <span class="ni">KalmanFilter.loglike</span><span class="nt">(self, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">985</span><span class="w"> </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">986</span><span class="sd"> Calculate the loglikelihood associated with the statespace model.</span>
+<span class="g g-Whitespace">    </span><span class="mi">987</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">    </span><span class="mi">997</span><span class="sd">     The joint loglikelihood.</span>
+<span class="g g-Whitespace">    </span><span class="mi">998</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">999</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;conserve_memory&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1000</span>                   <span class="n">MEMORY_CONSERVE</span> <span class="o">^</span> <span class="n">MEMORY_NO_LIKELIHOOD</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1001</span> <span class="n">kfilter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1002</span> <span class="n">loglikelihood_burn</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;loglikelihood_burn&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1003</span>                                 <span class="bp">self</span><span class="o">.</span><span class="n">loglikelihood_burn</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1004</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;conserve_memory&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">MEMORY_NO_LIKELIHOOD</span><span class="p">):</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/tsa/statespace/kalman_filter.py:924,</span> in <span class="ni">KalmanFilter._filter</span><span class="nt">(self, filter_method, inversion_method, stability_method, conserve_memory, filter_timing, tolerance, loglikelihood_burn, complex_step)</span>
+<span class="g g-Whitespace">    </span><span class="mi">921</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_state</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span> <span class="n">complex_step</span><span class="o">=</span><span class="n">complex_step</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">923</span> <span class="c1"># Run the filter</span>
+<span class="ne">--&gt; </span><span class="mi">924</span> <span class="n">kfilter</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">926</span> <span class="k">return</span> <span class="n">kfilter</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> This problem is unconstrained.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate    5    f= -1.88688D-01    |proj g|=  1.04777D-01
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   10    f= -1.92870D-01    |proj g|=  5.08632D-02
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   15    f= -1.93023D-01    |proj g|=  2.71388D-04
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           * * *
-
-Tit   = total number of iterations
-Tnf   = total number of function evaluations
-Tnint = total number of segments explored during Cauchy searches
-Skip  = number of BFGS updates skipped
-Nact  = number of active bounds at final generalized Cauchy point
-Projg = norm of the final projected gradient
-F     = final function value
-
-           * * *
-
-   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
-    4     18     21      1     0     0   5.204D-05  -1.930D-01
-  F = -0.19302311567996946     
-
-CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH             
-Tested ARIMA(1, 1, 0)x(2, 1, 0, 24) - AIC:-84.2650492950254
-RUNNING THE L-BFGS-B CODE
-
-           * * *
-
-Machine precision = 2.220D-16
- N =            3     M =           10
-
-At X0         0 variables are exactly at the bounds
-
-At iterate    0    f=  6.78880D-01    |proj g|=  6.32550D-01
-
-At iterate    5    f=  4.62995D-01    |proj g|=  9.91376D-02
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> This problem is unconstrained.
-/Users/jordanbarker/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/tsa/statespace/sarimax.py:966: UserWarning: Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.
-  warn(&#39;Non-stationary starting autoregressive parameters&#39;
- This problem is unconstrained.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   10    f=  4.61155D-01    |proj g|=  2.07957D-05
-
-           * * *
-
-Tit   = total number of iterations
-Tnf   = total number of function evaluations
-Tnint = total number of segments explored during Cauchy searches
-Skip  = number of BFGS updates skipped
-Nact  = number of active bounds at final generalized Cauchy point
-Projg = norm of the final projected gradient
-F     = final function value
-
-           * * *
-
-   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
-    3     11     14      1     0     0   4.965D-07   4.612D-01
-  F =  0.46115523053247826     
-
-CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_&lt;=_PGTOL            
-Tested ARIMA(1, 1, 0)x(0, 0, 1, 12) - AIC:226.4322001945246
-RUNNING THE L-BFGS-B CODE
-
-           * * *
-
-Machine precision = 2.220D-16
- N =            6     M =           10
-
-At X0         0 variables are exactly at the bounds
-
-At iterate    0    f=  5.18814D-01    |proj g|=  6.42332D-01
-
-At iterate    5    f=  3.15732D-01    |proj g|=  6.11094D-02
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   10    f=  3.13566D-01    |proj g|=  8.04555D-03
-
-At iterate   15    f=  3.13148D-01    |proj g|=  1.26678D-02
-
-At iterate   20    f=  3.12759D-01    |proj g|=  2.67854D-04
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           * * *
-
-Tit   = total number of iterations
-Tnf   = total number of function evaluations
-Tnint = total number of segments explored during Cauchy searches
-Skip  = number of BFGS updates skipped
-Nact  = number of active bounds at final generalized Cauchy point
-Projg = norm of the final projected gradient
-F     = final function value
-
-           * * *
-
-   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
-    6     23     30      1     0     0   6.304D-06   3.128D-01
-  F =  0.31275909734649260     
-
-CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_&lt;=_PGTOL            
-Tested ARIMA(2, 1, 1)x(0, 0, 2, 12) - AIC:161.49884853162345
-RUNNING THE L-BFGS-B CODE
-
-           * * *
-
-Machine precision = 2.220D-16
- N =            7     M =           10
-
-At X0         0 variables are exactly at the bounds
-
-At iterate    0    f= -1.31442D-01    |proj g|=  4.34091D-01
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/jordanbarker/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/tsa/statespace/sarimax.py:966: UserWarning: Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.
-  warn(&#39;Non-stationary starting autoregressive parameters&#39;
- This problem is unconstrained.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate    5    f= -3.02720D-01    |proj g|=  1.45989D-01
-
-At iterate   10    f= -3.74968D-01    |proj g|=  4.76289D-02
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   15    f= -3.80280D-01    |proj g|=  2.07218D-03
-
-At iterate   20    f= -3.80355D-01    |proj g|=  3.78706D-02
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   25    f= -3.83176D-01    |proj g|=  2.81557D-01
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   30    f= -3.84590D-01    |proj g|=  2.29455D-02
-
-At iterate   35    f= -3.87499D-01    |proj g|=  5.03659D-02
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   40    f= -3.93689D-01    |proj g|=  5.72446D-02
-
-At iterate   45    f= -3.95219D-01    |proj g|=  1.15585D-02
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           * * *
-
-Tit   = total number of iterations
-Tnf   = total number of function evaluations
-Tnint = total number of segments explored during Cauchy searches
-Skip  = number of BFGS updates skipped
-Nact  = number of active bounds at final generalized Cauchy point
-Projg = norm of the final projected gradient
-F     = final function value
-
-           * * *
-
-   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
-    7     49     69      1     0     0   4.728D-03  -3.954D-01
-  F = -0.39538164474392229     
-
-CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH             
-Tested ARIMA(1, 1, 2)x(1, 1, 2, 12) - AIC:-174.99242618759484
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RUNNING THE L-BFGS-B CODE
-
-           * * *
-
-Machine precision = 2.220D-16
- N =            7     M =           10
-
-At X0         0 variables are exactly at the bounds
-
-At iterate    0    f= -4.70244D-02    |proj g|=  7.67609D-01
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> This problem is unconstrained.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate    5    f= -2.45970D-01    |proj g|=  1.16061D-01
-
-At iterate   10    f= -2.88905D-01    |proj g|=  1.50791D-01
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   15    f= -3.28445D-01    |proj g|=  1.09111D-01
-
-At iterate   20    f= -3.75669D-01    |proj g|=  1.25264D-01
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   25    f= -3.80466D-01    |proj g|=  8.21838D-02
-
-At iterate   30    f= -3.80753D-01    |proj g|=  2.16469D-02
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   35    f= -3.83888D-01    |proj g|=  1.27120D-02
-
-At iterate   40    f= -3.85492D-01    |proj g|=  6.27708D-02
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           * * *
-
-Tit   = total number of iterations
-Tnf   = total number of function evaluations
-Tnint = total number of segments explored during Cauchy searches
-Skip  = number of BFGS updates skipped
-Nact  = number of active bounds at final generalized Cauchy point
-Projg = norm of the final projected gradient
-F     = final function value
-
-           * * *
-
-   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
-    7     43     61      1     0     0   1.087D-02  -3.858D-01
-  F = -0.38578529815857188     
-
-CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH             
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(2, 0, 2)x(0, 1, 2, 12) - AIC:-170.40537251979737
-RUNNING THE L-BFGS-B CODE
-
-           * * *
-
-Machine precision = 2.220D-16
- N =            4     M =           10
-
-At X0         0 variables are exactly at the bounds
-
-At iterate    0    f=  8.17816D-01    |proj g|=  5.85495D-01
-
-At iterate    5    f=  7.30425D-01    |proj g|=  6.83581D-02
-
-At iterate   10    f=  7.23200D-01    |proj g|=  8.65084D-04
-
-At iterate   15    f=  7.23135D-01    |proj g|=  2.58695D-02
-
-At iterate   20    f=  7.22497D-01    |proj g|=  2.14010D-03
-
-           * * *
-
-Tit   = total number of iterations
-Tnf   = total number of function evaluations
-Tnint = total number of segments explored during Cauchy searches
-Skip  = number of BFGS updates skipped
-Nact  = number of active bounds at final generalized Cauchy point
-Projg = norm of the final projected gradient
-F     = final function value
-
-           * * *
-
-   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
-    4     24     27      1     0     0   1.055D-05   7.225D-01
-  F =  0.72249463973465677     
-
-CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH             
-Tested ARIMA(1, 0, 2)x(0, 0, 0, 24) - AIC:353.35243779316596
-RUNNING THE L-BFGS-B CODE
-
-           * * *
-
-Machine precision = 2.220D-16
- N =            8     M =           10
-
-At X0         0 variables are exactly at the bounds
-
-At iterate    0    f=  8.17816D-01    |proj g|=  9.81479D-01
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> This problem is unconstrained.
-/Users/jordanbarker/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/tsa/statespace/sarimax.py:997: UserWarning: Non-stationary starting seasonal autoregressive Using zeros as starting parameters.
-  warn(&#39;Non-stationary starting seasonal autoregressive&#39;
-/Users/jordanbarker/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/tsa/statespace/sarimax.py:1009: UserWarning: Non-invertible starting seasonal moving average Using zeros as starting parameters.
-  warn(&#39;Non-invertible starting seasonal moving average&#39;
- This problem is unconstrained.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate    5    f=  6.94230D-02    |proj g|=  2.04402D-01
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   10    f= -1.72533D-01    |proj g|=  2.47930D-02
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   15    f= -1.82166D-01    |proj g|=  7.61295D-02
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   20    f= -1.83492D-01    |proj g|=  1.04515D-02
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   25    f= -1.83892D-01    |proj g|=  3.43450D-02
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   30    f= -1.86162D-01    |proj g|=  1.00699D-01
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   35    f= -1.98925D-01    |proj g|=  2.42037D-02
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   40    f= -2.01856D-01    |proj g|=  3.99039D-02
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           * * *
-
-Tit   = total number of iterations
-Tnf   = total number of function evaluations
-Tnint = total number of segments explored during Cauchy searches
-Skip  = number of BFGS updates skipped
-Nact  = number of active bounds at final generalized Cauchy point
-Projg = norm of the final projected gradient
-F     = final function value
-
-           * * *
-
-   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
-    8     42     63      1     0     0   6.852D-02  -2.020D-01
-  F = -0.20202183479333941     
-
-CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH             
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(1, 0, 2)x(2, 0, 2, 24) - AIC:-80.56643703121624
-RUNNING THE L-BFGS-B CODE
-
-           * * *
-
-Machine precision = 2.220D-16
- N =            3     M =           10
-
-At X0         0 variables are exactly at the bounds
-
-At iterate    0    f= -7.20100D-02    |proj g|=  2.33587D-02
-
-At iterate    5    f= -7.20211D-02    |proj g|=  5.99437D-05
-
-           * * *
-
-Tit   = total number of iterations
-Tnf   = total number of function evaluations
-Tnint = total number of segments explored during Cauchy searches
-Skip  = number of BFGS updates skipped
-Nact  = number of active bounds at final generalized Cauchy point
-Projg = norm of the final projected gradient
-F     = final function value
-
-           * * *
-
-   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
-    3      6      9      1     0     0   8.523D-05  -7.202D-02
-  F =  -7.2021075190935813E-002
-
-CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH             
-Tested ARIMA(2, 1, 0)x(0, 1, 0, 12) - AIC:-28.42607394126732
-RUNNING THE L-BFGS-B CODE
-
-           * * *
-
-Machine precision = 2.220D-16
- N =            5     M =           10
-
-At X0         0 variables are exactly at the bounds
-
-At iterate    0    f=  1.40394D+00    |proj g|=  3.06203D+00
-
-At iterate    5    f=  4.90394D-01    |proj g|=  3.37278D-01
-
-At iterate   10    f=  4.56901D-01    |proj g|=  7.38933D-02
-
-At iterate   15    f=  4.37209D-01    |proj g|=  1.97177D-03
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> This problem is unconstrained.
- This problem is unconstrained.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   20    f=  4.37202D-01    |proj g|=  7.07996D-05
-
-At iterate   25    f=  4.37199D-01    |proj g|=  1.31688D-03
-
-At iterate   30    f=  4.37195D-01    |proj g|=  1.20884D-04
-
-           * * *
-
-Tit   = total number of iterations
-Tnf   = total number of function evaluations
-Tnint = total number of segments explored during Cauchy searches
-Skip  = number of BFGS updates skipped
-Nact  = number of active bounds at final generalized Cauchy point
-Projg = norm of the final projected gradient
-F     = final function value
-
-           * * *
-
-   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
-    5     32     45      1     0     0   2.195D-06   4.372D-01
-  F =  0.43719483632628442     
-
-CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_&lt;=_PGTOL            
-Tested ARIMA(1, 0, 2)x(0, 0, 1, 12) - AIC:218.97913176396395
-RUNNING THE L-BFGS-B CODE
-
-           * * *
-
-Machine precision = 2.220D-16
- N =            3     M =           10
-
-At X0         0 variables are exactly at the bounds
-
-At iterate    0    f= -9.48964D-02    |proj g|=  3.01239D-01
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> This problem is unconstrained.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate    5    f= -1.05098D-01    |proj g|=  3.82109D-01
-
-At iterate   10    f= -1.50031D-01    |proj g|=  1.59475D-01
-
-At iterate   15    f= -1.52155D-01    |proj g|=  4.63288D-03
-
-           * * *
-
-Tit   = total number of iterations
-Tnf   = total number of function evaluations
-Tnint = total number of segments explored during Cauchy searches
-Skip  = number of BFGS updates skipped
-Nact  = number of active bounds at final generalized Cauchy point
-Projg = norm of the final projected gradient
-F     = final function value
-
-           * * *
-
-   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
-    3     18     27      1     0     0   1.655D-05  -1.522D-01
-  F = -0.15215698647315759     
-
-CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH             
-Tested ARIMA(0, 1, 0)x(1, 1, 1, 12) - AIC:-66.73103953416933
-
-Best Model: ARIMA(1, 1, 2)x(1, 1, 2, 12) - AIC:-174.99242618759484
-RUNNING THE L-BFGS-B CODE
-
-           * * *
-
-Machine precision = 2.220D-16
- N =            7     M =           10
-
-At X0         0 variables are exactly at the bounds
-
-At iterate    0    f= -1.31442D-01    |proj g|=  4.34091D-01
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/jordanbarker/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/tsa/statespace/sarimax.py:966: UserWarning: Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.
-  warn(&#39;Non-stationary starting autoregressive parameters&#39;
- This problem is unconstrained.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate    5    f= -3.02720D-01    |proj g|=  1.45989D-01
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   10    f= -3.74968D-01    |proj g|=  4.76289D-02
-
-At iterate   15    f= -3.80280D-01    |proj g|=  2.07218D-03
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   20    f= -3.80355D-01    |proj g|=  3.78706D-02
-
-At iterate   25    f= -3.83176D-01    |proj g|=  2.81557D-01
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   30    f= -3.84590D-01    |proj g|=  2.29455D-02
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   35    f= -3.87499D-01    |proj g|=  5.03659D-02
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>At iterate   40    f= -3.93689D-01    |proj g|=  5.72446D-02
-
-At iterate   45    f= -3.95219D-01    |proj g|=  1.15585D-02
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           * * *
-
-Tit   = total number of iterations
-Tnf   = total number of function evaluations
-Tnint = total number of segments explored during Cauchy searches
-Skip  = number of BFGS updates skipped
-Nact  = number of active bounds at final generalized Cauchy point
-Projg = norm of the final projected gradient
-F     = final function value
-
-           * * *
-
-   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
-    7     49     69      1     0     0   4.728D-03  -3.954D-01
-  F = -0.39538164474392229     
-
-CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH             
-</pre></div>
-</div>
-<img alt="_images/e4a04e251d6fb3672bb7c6e19548ca5ff842bad0017d259f3e8119f6175eec93.png" src="_images/e4a04e251d6fb3672bb7c6e19548ca5ff842bad0017d259f3e8119f6175eec93.png" />
 </div>
 </div>
 </section>
@@ -1513,13 +1106,13 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 <p class="admonition-title">Warning</p>
 <p>Tree based models cannot make predictions outside of the training data. Below we see the result of this by finding that the model won’t predict a value higher than what was previously observed.</p>
 </div>
-<p><img alt="image.png" src="attachment:image.png" /></p>
 <figure class="align-default" id="lightgbm-extrapolation">
 <a class="reference internal image-reference" href="../images/lightgbm_extrapolation.png"><img alt="../images/lightgbm_extrapolation.png" src="../images/lightgbm_extrapolation.png" style="height: 150px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">The model will never output 6+ since it hasn’t seen that!</span><a class="headerlink" href="#lightgbm-extrapolation" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">The model will never output a value greater than 6 because it hasn’t seen that in the training set!</span><a class="headerlink" href="#lightgbm-extrapolation" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
+<p>Define some helper functions to load holidays and generate date characteristics.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">load_holidays</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
@@ -1536,7 +1129,6 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
     <span class="k">return</span> <span class="n">holiday_df</span>
    
 <span class="k">def</span> <span class="nf">add_date_features</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># Create a copy of the DataFrame to avoid modifying the original slice</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ds&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ds&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;day_of_week&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ds&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">dayofweek</span>
@@ -1545,13 +1137,8 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;is_month_end&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ds&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">is_month_end</span>
     <span class="n">holiday_df</span> <span class="o">=</span> <span class="n">load_holidays</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">df</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">holiday_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;ds&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">prep_series_for_gbm</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+
+<span class="k">def</span> <span class="nf">prep_series_for_gbm</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Takes a pandas series (train/test) and outputs X, y&#39;&#39;&#39;</span>
     <span class="n">lgb_df</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
     <span class="n">lgb_df</span> <span class="o">=</span> <span class="n">lgb_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="s1">&#39;y&#39;</span><span class="p">})</span>
@@ -1563,7 +1150,6 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 
 <span class="c1"># for lag in range(1, 5):</span>
 <span class="c1">#     lgb_train[f&#39;t_{lag}&#39;] = lgb_train[&#39;y&#39;].shift(lag)</span>
-
 <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">prep_series_for_gbm</span><span class="p">(</span><span class="n">train</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1594,19 +1180,8 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 <span class="n">grid_search</span> <span class="o">=</span> <span class="n">HalvingRandomSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">gbm</span><span class="p">,</span> <span class="n">param_distributions</span><span class="o">=</span><span class="n">param_grid</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;neg_mean_squared_error&#39;</span><span class="p">)</span>
 <span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best parameters found by grid search are:&quot;</span><span class="p">,</span> <span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best parameters found by grid search are: {&#39;verbose&#39;: -1, &#39;num_leaves&#39;: 22, &#39;min_gain_to_split&#39;: 0.04000751181054642, &#39;metric&#39;: &#39;l2&#39;, &#39;learning_rate&#39;: 0.32649723960265437, &#39;lambda_l2&#39;: 0.14109833714391806, &#39;lambda_l1&#39;: 0.3789101145948801, &#39;feature_fraction&#39;: 0.2595543261757013, &#39;boosting_type&#39;: &#39;gbdt&#39;, &#39;bagging_fraction&#39;: 0.30693869805641594}
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span> <span class="c1">#{&#39;verbose&#39;: -1, &#39;num_leaves&#39;: 55, &#39;min_gain_to_split&#39;: 0.06764624350073846, &#39;metric&#39;: &#39;l2&#39;, &#39;learning_rate&#39;: 0.32486093534861593, &#39;lambda_l2&#39;: 0.35299651007555277, &#39;lambda_l1&#39;: 0.10706850623011366, &#39;feature_fraction&#39;: 0.8261402761937192, &#39;boosting_type&#39;: &#39;gbdt&#39;, &#39;bagging_fraction&#39;: 0.843250629681239}</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span>
 <span class="n">gbm</span> <span class="o">=</span> <span class="n">lgb</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">lgb</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">))</span>
 
 <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">prep_series_for_gbm</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
@@ -1621,7 +1196,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0b607901fe1381c9cd4a079067da6ae81826f07165dcb633a29e3506ca041c83.png" src="_images/0b607901fe1381c9cd4a079067da6ae81826f07165dcb633a29e3506ca041c83.png" />
+<img alt="_images/73215e5111ba56853032585f223fd17cf7af6a0609e5f71f8322187513908672.png" src="_images/73215e5111ba56853032585f223fd17cf7af6a0609e5f71f8322187513908672.png" />
 </div>
 </div>
 <p>Detrending the training data</p>
@@ -1657,7 +1232,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c9aa554723167e5c60cdef58c06aa0ef2b9252a63415fe412534adafbeb8d9e6.png" src="_images/c9aa554723167e5c60cdef58c06aa0ef2b9252a63415fe412534adafbeb8d9e6.png" />
+<img alt="_images/259d6f3dee5ab8048a9294f74f1a1abd3fba31c0e87a02cd99c36ae059a86c1b.png" src="_images/259d6f3dee5ab8048a9294f74f1a1abd3fba31c0e87a02cd99c36ae059a86c1b.png" />
 </div>
 </div>
 <p>If you also take away the noise, you’ll see that LightGBM did a pretty great job filtering it out.</p>
@@ -1672,11 +1247,16 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/aa1ec097421641ad734574def166da47710083a4a3c6ab432096bfbf0c5482c3.png" src="_images/aa1ec097421641ad734574def166da47710083a4a3c6ab432096bfbf0c5482c3.png" />
+<img alt="_images/9d6393fcbed726b0fcea698d23ca2b6f85af9e133fa2caa3d87d523b377f565d.png" src="_images/9d6393fcbed726b0fcea698d23ca2b6f85af9e133fa2caa3d87d523b377f565d.png" />
 </div>
 </div>
-<p>Recursive predictions</p>
-<div class="cell docutils container">
+<p>Recursive predictions. TODO</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># params = grid_search.best_params_ #{&#39;verbose&#39;: -1, &#39;num_leaves&#39;: 55, &#39;min_gain_to_split&#39;: 0.06764624350073846, &#39;metric&#39;: &#39;l2&#39;, &#39;learning_rate&#39;: 0.32486093534861593, &#39;lambda_l2&#39;: 0.35299651007555277, &#39;lambda_l1&#39;: 0.10706850623011366, &#39;feature_fraction&#39;: 0.8261402761937192, &#39;boosting_type&#39;: &#39;gbdt&#39;, &#39;bagging_fraction&#39;: 0.843250629681239}</span>
 <span class="c1"># gbm = lgb.train(params, lgb.Dataset(X, y))</span>
@@ -1715,6 +1295,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 </section>
@@ -1942,7 +1523,7 @@ The nearest neighbor subsequence to this discord is 1.4067575559258207 units awa
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/47019f3cba1eb2fb93b943240632db4fa046083a6b9ca66468a84c30c2e6332d.png" src="_images/47019f3cba1eb2fb93b943240632db4fa046083a6b9ca66468a84c30c2e6332d.png" />
+<img alt="_images/b29d61f1d23f4d94bb5cc3ecbb269ac4ac572754a85a99f8d83569462a297b90.png" src="_images/b29d61f1d23f4d94bb5cc3ecbb269ac4ac572754a85a99f8d83569462a297b90.png" />
 </div>
 </div>
 </section>
@@ -1954,27 +1535,59 @@ The nearest neighbor subsequence to this discord is 1.4067575559258207 units awa
 <h2>Ljung-Box Test<a class="headerlink" href="#ljung-box-test" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://www.statsmodels.org/stable/generated/statsmodels.stats.diagnostic.acorr_ljungbox.html">Ljung-Box test of autocorrelation in residuals</a> is commonly applied to the residuals of a time series model, such as ARIMA or other time series models, to test whether they are independent (i.e., no autocorrelation remains in the residuals).</p>
 <p>A p-value is greater than 0.05 implies that no significant autocorrelation remains in the residuals, and the model is a good fit from the perspective of autocorrelation.</p>
+<p>acorr_ljungbox outputs:</p>
+<ul class="simple">
+<li><p>lb_stat: The Ljung-Box test statistic.</p></li>
+<li><p>lb_pvalue: The p-value associated with the test statistic. A small p-value indicates that significant autocorrelation exists at the tested lags.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ljung_box_result</span> <span class="o">=</span> <span class="n">acorr_ljungbox</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">365</span><span class="p">],</span> <span class="n">return_df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">acorr_ljungbox outputs:</span>
-<span class="sd">- lb_stat: The Ljung-Box test statistic.</span>
-<span class="sd">- lb_pvalue: The p-value associated with the test statistic. A small p-value indicates that significant autocorrelation exists at the tested lags.</span>
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ljung_box_result</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acorr_ljungbox</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">365</span><span class="p">],</span> <span class="n">return_df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>          lb_stat  lb_pvalue
-7     5004.563971        0.0
-14    9648.760599        0.0
-365  43432.463826        0.0
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>lb_stat</th>
+      <th>lb_pvalue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>7</th>
+      <td>5004.563971</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>9648.760599</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>365</th>
+      <td>43432.463826</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 <section id="references">

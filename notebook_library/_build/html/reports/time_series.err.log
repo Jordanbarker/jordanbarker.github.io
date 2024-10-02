@@ -37,8 +37,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-['def random_arima_search(train, n_trials=10):', '    best_aic = np.inf', '    best_order = None', '    best_seasonal_order = None', '    best_model = None']
+['def random_arima_search(train, n_trials=5):', '    best_aic = np.inf', '    best_order = None', '    best_seasonal_order = None', '    best_model = None']
 ...
-["plt.plot(monthly_train, label='Train')", "plt.plot(monthly_test, label='Test')", "plt.plot(monthly_test.index, ARIMA_forecast(best_model, len(monthly_test)), label=f'Best ARIMA order={best_order}, seasonal_order={best_seasonal_order}')", 'plt.legend()', 'plt.show()']
+["plt.plot(monthly_train, label='Train')", "plt.plot(monthly_test, label='Test')", "plt.plot(monthly_test.index, fit_and_forecast(best_model, len(monthly_test)), label=f'Best ARIMA order={best_order}, seasonal_order={best_seasonal_order}')", 'plt.legend()', 'plt.show()']
 -------------------
 
