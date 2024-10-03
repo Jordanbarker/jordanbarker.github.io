@@ -1,16 +1,23 @@
 # Table of contents
 # Learn more at https://jupyterbook.org/customize/toc.html
 
+# At some point I'll add sub-topics so leaving this here as a reminder on how to do it.
+# chapters:
+# - file: notebooks/main_topic1  # Main topic 1
+#   sections:
+#     - file: notebooks/sub_topic1/sub_topic1  # Sub-topic under Main Topic 1
+#     - file: notebooks/sub_topic2/sub_topic2  # Another sub-topic under Main Topic 1
+
 format: jb-book
 root: intro
 chapters:
-- file: python_fundamentals
-- file: object_oriented_programming
-- file: data_visualization
-- file: distributions
-- file: evaluation_metrics
-- file: time_series
-- file: statistical_tests
-- file: anomaly_detection
-- file: optimization
-- file: cookbook_meta
+- file: Notebooks/python_fundamentals
+- file: Notebooks/object_oriented_programming
+- file: Notebooks/data_visualization
+- file: Notebooks/distributions
+- file: Notebooks/evaluation_metrics
+- file: Notebooks/time_series
+- file: Notebooks/statistical_tests
+- file: Notebooks/anomaly_detection
+- file: Notebooks/optimization
+- file: Notebooks/cookbook_meta
