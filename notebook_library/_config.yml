@@ -10,7 +10,7 @@ execute:
   execute_notebooks: auto
 
 exclude_patterns:
-  - "Still Cooking/*"
+  - "Notebooks/Still Cooking/*"
 
 # Define the name of the latex output file for PDF builds
 latex:

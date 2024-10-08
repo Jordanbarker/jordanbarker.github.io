@@ -12,8 +12,11 @@ format: jb-book
 root: intro
 chapters:
 - file: Notebooks/python_fundamentals
-- file: Notebooks/object_oriented_programming
-- file: Notebooks/data_visualization
+  sections:
+  - file: Notebooks/numpy
+  - file: Notebooks/pandas
+  - file: Notebooks/object_oriented_programming
+- file: Notebooks/visualizations
 - file: Notebooks/distributions
 - file: Notebooks/evaluation_metrics
 - file: Notebooks/time_series

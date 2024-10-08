@@ -182,7 +182,11 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy <a class="anchor" id="Numpy"></a></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas.html">Pandas</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming (OOP) in Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data_visualization.html">Data Visualization</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Distributions</a></li>
@@ -390,8 +394,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discrete-distributions">Discrete Distributions <a name="discrete-distributions"></a></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bernoulli-distribution">Bernoulli Distribution <a name="bernoulli-distribution"></a></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binomial-distribution">Binomial Distribution <a name="binomial-distribution"></a></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-distribution">Geometric Distribution <a name="geometric-distribution"></a></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#negative-binomial-distribution">Negative Binomial Distribution <a name="negative-binomial-distribution"></a></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-distribution">Geometric Distribution <a name="geometric-distribution"></a></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#poisson-distribution">Poisson Distribution <a name="poisson-distribution"></a></a></li>
 </ul>
 </li>
@@ -515,33 +519,6 @@ document.write(`
 </div>
 </div>
 </section>
-<section id="geometric-distribution">
-<h3>Geometric Distribution <a name="geometric-distribution"></a><a class="headerlink" href="#geometric-distribution" title="Link to this heading">#</a></h3>
-<p>Number of Bernoulli trials until success.</p>
-<p>Example: Finding the probability that a customer will have to call a certain number of times before their issue is resolved.</p>
-<p>Properties:</p>
-<ul class="simple">
-<li><p>Mean: <span class="math notranslate nohighlight">\( \frac{1}{p} \)</span></p></li>
-<li><p>Variance: <span class="math notranslate nohighlight">\(\frac{q}{p^2} \)</span></p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1"># probability of getting a &quot;success&quot; (heads)</span>
-<span class="n">simulations</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">geometric</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">num_simulations</span><span class="p">)</span>
-
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">simulations</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="n">discrete</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Number of Trials Until First Success&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Geometric Distribution&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/66e266167a525b9a19a9ae1f13611534ab5f68c1827ffa31e6102bc0449b9aaa.png" src="../_images/66e266167a525b9a19a9ae1f13611534ab5f68c1827ffa31e6102bc0449b9aaa.png" />
-</div>
-</div>
-</section>
 <section id="negative-binomial-distribution">
 <h3>Negative Binomial Distribution <a name="negative-binomial-distribution"></a><a class="headerlink" href="#negative-binomial-distribution" title="Link to this heading">#</a></h3>
 <p>Modeling the number of failed attempts before achieving a specified number of successes in a process.</p>
@@ -568,7 +545,34 @@ Properties:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/93bd98878391ec7ec827eec1ed041647f8f6892e7a66d6fc92387f2b5469f69d.png" src="../_images/93bd98878391ec7ec827eec1ed041647f8f6892e7a66d6fc92387f2b5469f69d.png" />
+<img alt="../_images/f5013904a673f475a13aae7bd279d17e4b5acba64f0979f6d1df255f35a60fd6.png" src="../_images/f5013904a673f475a13aae7bd279d17e4b5acba64f0979f6d1df255f35a60fd6.png" />
+</div>
+</div>
+</section>
+<section id="geometric-distribution">
+<h3>Geometric Distribution <a name="geometric-distribution"></a><a class="headerlink" href="#geometric-distribution" title="Link to this heading">#</a></h3>
+<p>Number of Bernoulli trials until a success. This is a special case of the negative binomial distribution looking for the number of trials until the first success.</p>
+<p>Example: Finding the probability that a customer will have to call a certain number of times before their issue is resolved.</p>
+<p>Properties:</p>
+<ul class="simple">
+<li><p>Mean: <span class="math notranslate nohighlight">\( \frac{1}{p} \)</span></p></li>
+<li><p>Variance: <span class="math notranslate nohighlight">\(\frac{q}{p^2} \)</span></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1"># probability of getting a &quot;success&quot; (heads)</span>
+<span class="n">simulations</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">geometric</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">num_simulations</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">simulations</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="n">discrete</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Number of Trials Until First Success&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Geometric Distribution&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5083e7c3983768130040efdb4d6dc4d73ca678d0f4e1c05fa59fdfd0ba2368f3.png" src="../_images/5083e7c3983768130040efdb4d6dc4d73ca678d0f4e1c05fa59fdfd0ba2368f3.png" />
 </div>
 </div>
 </section>
@@ -598,7 +602,7 @@ Properties:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/300b79b7d2038dfaf5c1cca6cc2db8b1e6e9cc8501924442fc9b44ae5856318e.png" src="../_images/300b79b7d2038dfaf5c1cca6cc2db8b1e6e9cc8501924442fc9b44ae5856318e.png" />
+<img alt="../_images/408b89e7511097dc417ddd8d1dfffcfa79540c9060772f23bab0f459dc55b0c6.png" src="../_images/408b89e7511097dc417ddd8d1dfffcfa79540c9060772f23bab0f459dc55b0c6.png" />
 </div>
 </div>
 </section>
@@ -622,7 +626,7 @@ Properties:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/77b93b7dbb302e07802ef9962491ad899e529a0478590728a52d81fb05340877.png" src="../_images/77b93b7dbb302e07802ef9962491ad899e529a0478590728a52d81fb05340877.png" />
+<img alt="../_images/b0343df48108511de75f148d224889f5452c47cbd9fea3bcafa43c6f565eb2bb.png" src="../_images/b0343df48108511de75f148d224889f5452c47cbd9fea3bcafa43c6f565eb2bb.png" />
 </div>
 </div>
 </section>
@@ -649,7 +653,7 @@ Properties:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b1ff92022cf6230b73f6f371367df4358130da7b509ad147f0d306c5175f3207.png" src="../_images/b1ff92022cf6230b73f6f371367df4358130da7b509ad147f0d306c5175f3207.png" />
+<img alt="../_images/f30a8afa21be9e353ad8ed08d076e7ae39f9c17578e5ae5d55b39a76f9712277.png" src="../_images/f30a8afa21be9e353ad8ed08d076e7ae39f9c17578e5ae5d55b39a76f9712277.png" />
 </div>
 </div>
 </section>
@@ -687,7 +691,7 @@ Properties:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7c0297ebd9d9b3862b974bdad1af830cce0c88020c09c30b905e216130c59c9f.png" src="../_images/7c0297ebd9d9b3862b974bdad1af830cce0c88020c09c30b905e216130c59c9f.png" />
+<img alt="../_images/b4ad0ba7fc969ee9b018d1e9e90c0779a31cc46294198745d3019aaa96944007.png" src="../_images/b4ad0ba7fc969ee9b018d1e9e90c0779a31cc46294198745d3019aaa96944007.png" />
 </div>
 </div>
 </section>
@@ -709,7 +713,7 @@ Properties:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e77e02dc7d9bdb66913352f78c8fcaf2cbe59f1444cd6a5580fb285103eb6346.png" src="../_images/e77e02dc7d9bdb66913352f78c8fcaf2cbe59f1444cd6a5580fb285103eb6346.png" />
+<img alt="../_images/af7caadd6019acb74f6a6309ecf4d81e5e56ddcd9eafd1fa97ad1045095bb54a.png" src="../_images/af7caadd6019acb74f6a6309ecf4d81e5e56ddcd9eafd1fa97ad1045095bb54a.png" />
 </div>
 </div>
 </section>
@@ -731,7 +735,7 @@ Properties:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5fcfe6990121da4517e1f337f6e23fa2426e7c0dd6554fbc3698c829b965eea1.png" src="../_images/5fcfe6990121da4517e1f337f6e23fa2426e7c0dd6554fbc3698c829b965eea1.png" />
+<img alt="../_images/83e41aa5191adf9e71b8c26e9dfd960e44aa0c38c7802d8253512cb53da552d0.png" src="../_images/83e41aa5191adf9e71b8c26e9dfd960e44aa0c38c7802d8253512cb53da552d0.png" />
 </div>
 </div>
 </section>
@@ -761,13 +765,14 @@ Properties:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d799768b91ce844b254b5145595e25ffee38e5542ffd13ba4d96c97010359f01.png" src="../_images/d799768b91ce844b254b5145595e25ffee38e5542ffd13ba4d96c97010359f01.png" />
+<img alt="../_images/34d1cf40eb018599554e0680f2c374dbe08eaa5cec8b643062e83739554315ab.png" src="../_images/34d1cf40eb018599554e0680f2c374dbe08eaa5cec8b643062e83739554315ab.png" />
 </div>
 </div>
 </section>
 <section id="beta-distribution">
 <h3>Beta Distribution <a name="beta-distribution"></a><a class="headerlink" href="#beta-distribution" title="Link to this heading">#</a></h3>
-<p>Example adapted from <a class="reference external" href="https://www.johndcook.com/blog/2011/09/27/bayesian-amazon/">John Cook’s “A Bayesian view of Amazon Resellers”</a>.</p>
+<p>The beta distribution is the <a class="reference external" href="https://en.wikipedia.org/wiki/Conjugate_prior">conjugate prior</a> probability distribution for the bernoulli, binomial, and negative binomial distributions which makes it uniquely useful in Bayesian statistics.</p>
+<p>Here is an example adapted from John Cook’s <a class="reference external" href="https://www.johndcook.com/blog/2011/09/27/bayesian-amazon/">“A Bayesian view of Amazon Resellers”</a>.</p>
 <p>We want to choose the best seller given the following ratings:</p>
 <ul class="simple">
 <li><p>100% positive out of 10 reviews</p></li>
@@ -813,7 +818,8 @@ Beta(971, 31) -&gt; Mean: 0.969, Variance: 0.000, Skewness: -0.342, Kurtosis: 0.
 <img alt="../_images/a9a24cfbd40177f9fa8590bec303380cf6726dd10e28e626016fd8baf44e9b27.png" src="../_images/a9a24cfbd40177f9fa8590bec303380cf6726dd10e28e626016fd8baf44e9b27.png" />
 </div>
 </div>
-<p>The probability <span class="math notranslate nohighlight">\(P(X &gt; Y)\)</span> for <span class="math notranslate nohighlight">\(X \sim \text{Beta}(\alpha_1, \beta_1)\)</span> and <span class="math notranslate nohighlight">\(Y \sim \text{Beta}(\alpha_2, \beta_2)\)</span> is found with:</p>
+<p>Then to compare them, we find the probability that a sample from one Beta distribution is greater than a sample from the other Beta distribution.</p>
+<p><span class="math notranslate nohighlight">\(P(X &gt; Y)\)</span> for <span class="math notranslate nohighlight">\(X \sim \text{Beta}(\alpha_1, \beta_1)\)</span> and <span class="math notranslate nohighlight">\(Y \sim \text{Beta}(\alpha_2, \beta_2)\)</span> is:</p>
 <p><span class="math notranslate nohighlight">\( P(X &gt; Y) = \int_0^1 \text{BetaCDF}(y; \alpha_1, \beta_1) \cdot \text{BetaPDF}(y; \alpha_2, \beta_2) \, dy \)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -826,32 +832,31 @@ Beta(971, 31) -&gt; Mean: 0.969, Variance: 0.000, Skewness: -0.342, Kurtosis: 0.
     <span class="k">return</span> <span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">alpha1</span><span class="p">,</span> <span class="n">beta1</span><span class="p">)</span> <span class="o">*</span> <span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">alpha2</span><span class="p">,</span> <span class="n">beta2</span><span class="p">)</span>
 
 <span class="n">result</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">quad</span><span class="p">(</span><span class="n">integrand</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># Compute the integral</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The probability that a sample from Beta(</span><span class="si">{</span><span class="n">alpha1</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">beta1</span><span class="si">}</span><span class="s2">) is greater than a sample from Beta(</span><span class="si">{</span><span class="n">alpha2</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">beta2</span><span class="si">}</span><span class="s2">) is </span><span class="si">{</span><span class="n">result</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The probability that a sample from Beta(</span><span class="si">{</span><span class="n">alpha1</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">beta1</span><span class="si">}</span><span class="s2">)</span><span class="se">\n</span><span class="s2"> is greater than a sample from Beta(</span><span class="si">{</span><span class="n">alpha2</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">beta2</span><span class="si">}</span><span class="s2">) is </span><span class="si">{</span><span class="n">result</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The probability that a sample from Beta(99, 3) is greater than a sample from Beta(971, 31) is 0.403
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The probability that a sample from Beta(99, 3)
+ is greater than a sample from Beta(971, 31) is 0.403
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
 </div>
 </div>
-</div>
+<p>We can also find an approximate estimate my sampling from the distributions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Or we can estimate the probability with random variables</span>
-<span class="n">size</span> <span class="o">=</span> <span class="mi">100000</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">size</span> <span class="o">=</span> <span class="mi">100000</span>
 <span class="n">b1</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">alpha1</span><span class="p">,</span> <span class="n">beta1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
 <span class="n">b2</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">alpha2</span><span class="p">,</span> <span class="n">beta2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
 <span class="n">result</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">b1</span><span class="p">[</span><span class="n">b1</span><span class="o">&lt;</span><span class="n">b2</span><span class="p">])</span> <span class="o">/</span> <span class="n">size</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The probability that a sample from Beta(</span><span class="si">{</span><span class="n">alpha1</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">beta1</span><span class="si">}</span><span class="s2">) is greater than a sample from Beta(</span><span class="si">{</span><span class="n">alpha2</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">beta2</span><span class="si">}</span><span class="s2">) is </span><span class="si">{</span><span class="n">result</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The probability that a sample from Beta(</span><span class="si">{</span><span class="n">alpha1</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">beta1</span><span class="si">}</span><span class="s2">)</span><span class="se">\n</span><span class="s2"> is greater than a sample from Beta(</span><span class="si">{</span><span class="n">alpha2</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">beta2</span><span class="si">}</span><span class="s2">) is </span><span class="si">{</span><span class="n">result</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The probability that a sample from Beta(99, 3) is greater than a sample from Beta(971, 31) is 0.406
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The probability that a sample from Beta(99, 3)
+ is greater than a sample from Beta(971, 31) is 0.403
 </pre></div>
 </div>
 </div>
@@ -886,7 +891,7 @@ Beta(971, 31) -&gt; Mean: 0.969, Variance: 0.000, Skewness: -0.342, Kurtosis: 0.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a1cf92b04570ab550e245c91a20ea942b025fe0508dc7c816bcf4ba9a0fa5738.png" src="../_images/a1cf92b04570ab550e245c91a20ea942b025fe0508dc7c816bcf4ba9a0fa5738.png" />
+<img alt="../_images/068171b7b6de4ce7f7355c12f70fdd8481dae11d858810eac7856401a9222809.png" src="../_images/068171b7b6de4ce7f7355c12f70fdd8481dae11d858810eac7856401a9222809.png" />
 </div>
 </div>
 </section>
@@ -917,7 +922,7 @@ Beta(971, 31) -&gt; Mean: 0.969, Variance: 0.000, Skewness: -0.342, Kurtosis: 0.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4ffac23214d8c61d7db754cb66e759c6ffee2b9559e5847cab799d40433b9647.png" src="../_images/4ffac23214d8c61d7db754cb66e759c6ffee2b9559e5847cab799d40433b9647.png" />
+<img alt="../_images/67cf06a6684b60eb6b3570bb39917f9a187338eda1e8ca2aa16b343de7094e7a.png" src="../_images/67cf06a6684b60eb6b3570bb39917f9a187338eda1e8ca2aa16b343de7094e7a.png" />
 </div>
 </div>
 </section>
@@ -991,8 +996,8 @@ Beta(971, 31) -&gt; Mean: 0.969, Variance: 0.000, Skewness: -0.342, Kurtosis: 0.
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discrete-distributions">Discrete Distributions <a name="discrete-distributions"></a></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bernoulli-distribution">Bernoulli Distribution <a name="bernoulli-distribution"></a></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binomial-distribution">Binomial Distribution <a name="binomial-distribution"></a></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-distribution">Geometric Distribution <a name="geometric-distribution"></a></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#negative-binomial-distribution">Negative Binomial Distribution <a name="negative-binomial-distribution"></a></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-distribution">Geometric Distribution <a name="geometric-distribution"></a></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#poisson-distribution">Poisson Distribution <a name="poisson-distribution"></a></a></li>
 </ul>
 </li>

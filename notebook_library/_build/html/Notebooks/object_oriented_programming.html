@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Data Visualization" href="data_visualization.html" />
-    <link rel="prev" title="Python Fundamentals" href="python_fundamentals.html" />
+    <link rel="prev" title="Pandas" href="pandas.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,7 +180,11 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy <a class="anchor" id="Numpy"></a></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas.html">Pandas</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Object-Oriented Programming (OOP) in Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data_visualization.html">Data Visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
@@ -385,27 +389,37 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decorators">Decorators</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-getter-setter-deleter-methods">Properties (Getter / Setter / Deleter Methods)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#encapsulation">Encapsulation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decorators">Decorators</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-getter-setter-deleter-methods">Properties (Getter / Setter / Deleter Methods)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-decorators">Custom decorators</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#abstraction">Abstraction</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataclass">Dataclass</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-and-class-methods">Static and Class Methods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#protected-and-private-variables">Protected and Private Variables</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#protected-and-private-variables">Protected and Private Variables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inheritance">Inheritance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inheritance">Inheritance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-overriding">Method Overriding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#super"><code class="docutils literal notranslate"><span class="pre">super()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-and-multiple-inheritance">Single and Multiple Inheritance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-resolution-order-mro">Method Resolution Order (MRO)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mixin">Mixin</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polymorphism">Polymorphism</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#method-overriding">Method Overriding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Method Overriding</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dunder-magic-methods">Dunder (Magic) Methods</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#composition">Composition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class-vs-instance-variables">Class vs. Instance Variables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inheritance-types">Inheritance Types</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solid-principles">SOLID Principles</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-responsibility-principle">Single Responsibility Principle</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#open-closed-principle">Open/Closed Principle</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#liskov-substitution-principle">Liskov Substitution Principle</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interface-segregation-principle">Interface Segregation Principle</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dependency-inversion-principle">Dependency Inversion Principle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-responsibility">Single Responsibility</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#open-closed">Open/Closed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#liskov-substitution">Liskov Substitution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interface-segregation">Interface Segregation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dependency-inversion">Dependency Inversion</a></li>
 </ul>
 </li>
 </ul>
@@ -421,10 +435,16 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="object-oriented-programming-oop-in-python">
 <h1>Object-Oriented Programming (OOP) in Python<a class="headerlink" href="#object-oriented-programming-oop-in-python" title="Link to this heading">#</a></h1>
+<p>Why? Modularity, reusability, scalability.</p>
+<section id="encapsulation">
+<h2>Encapsulation<a class="headerlink" href="#encapsulation" title="Link to this heading">#</a></h2>
+<p>Information hiding. Only the necessary parts are exposed.</p>
 <section id="decorators">
-<h2>Decorators<a class="headerlink" href="#decorators" title="Link to this heading">#</a></h2>
+<h3>Decorators<a class="headerlink" href="#decorators" title="Link to this heading">#</a></h3>
+<p>Decorators allow you to modify the behavior of functions or methods.</p>
 <section id="properties-getter-setter-deleter-methods">
-<h3>Properties (Getter / Setter / Deleter Methods)<a class="headerlink" href="#properties-getter-setter-deleter-methods" title="Link to this heading">#</a></h3>
+<h4>Properties (Getter / Setter / Deleter Methods)<a class="headerlink" href="#properties-getter-setter-deleter-methods" title="Link to this heading">#</a></h4>
+<p>Use these to control how variables are accessed, set, and deleted.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Circle</span><span class="p">:</span>
@@ -460,9 +480,38 @@ document.write(`
 </div>
 </div>
 </section>
+<section id="custom-decorators">
+<h4>Custom decorators<a class="headerlink" href="#custom-decorators" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">log_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Calling function &#39;</span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&#39; with arguments </span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">kwargs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Function &#39;</span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&#39; returned </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="k">return</span> <span class="n">wrapper</span>
+
+<span class="nd">@log_decorator</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="n">sum_result</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Calling function &#39;add&#39; with arguments (3, 5) and {}
+Function &#39;add&#39; returned 8
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
 <section id="abstraction">
 <h3>Abstraction<a class="headerlink" href="#abstraction" title="Link to this heading">#</a></h3>
-<p>Abstraction is the concept of hiding the complex implementation details and exposing only the necessary parts. In Python, this can be implemented through abstract base classes (<code class="docutils literal notranslate"><span class="pre">ABC</span></code>).</p>
+<p>Implementation hiding. In Python, this can be implemented through abstract base classes (<code class="docutils literal notranslate"><span class="pre">ABC</span></code>).</p>
 <p>Abstract classes cannot be instantiated, and any subclass of the abstract class must implement the abstract methods.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -533,9 +582,8 @@ document.write(`
 </div>
 </div>
 </section>
-</section>
 <section id="protected-and-private-variables">
-<h2>Protected and Private Variables<a class="headerlink" href="#protected-and-private-variables" title="Link to this heading">#</a></h2>
+<h3>Protected and Private Variables<a class="headerlink" href="#protected-and-private-variables" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Dog</span><span class="p">:</span>
@@ -547,21 +595,145 @@ document.write(`
 </div>
 </div>
 </section>
+</section>
 <section id="inheritance">
 <h2>Inheritance<a class="headerlink" href="#inheritance" title="Link to this heading">#</a></h2>
+<section id="method-overriding">
+<h3>Method Overriding<a class="headerlink" href="#method-overriding" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Animal</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Parent</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
+        <span class="k">return</span> <span class="s1">&#39;Hello&#39;</span>
 
-<span class="k">class</span> <span class="nc">Dog</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;bark&quot;</span>
+<span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Parent</span><span class="p">):</span>
+    <span class="c1"># def __init__(self):</span>
+    <span class="c1">#     pass</span>
+    <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># Overrides the parent method</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Suh&quot;</span>
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="super">
+<h3><code class="docutils literal notranslate"><span class="pre">super()</span></code><a class="headerlink" href="#super" title="Link to this heading">#</a></h3>
+<p>Allows you to call methods from a parent class. <code class="docutils literal notranslate"><span class="pre">super()</span></code> must be used inside a method of the class</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+    
+    <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;My name is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.&quot;</span>
+
+<span class="k">class</span> <span class="nc">Employee</span><span class="p">(</span><span class="n">Person</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
+    
+    <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Extend the parent class&#39;s method, keeping its functionality</span>
+        <span class="n">base_speak</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">speak</span><span class="p">()</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_speak</span><span class="si">}</span><span class="s2"> I work as a </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="si">}</span><span class="s2">.&quot;</span>
+
+<span class="c1"># Create an instance of Employee and call the speak method</span>
+<span class="n">employee</span> <span class="o">=</span> <span class="n">Employee</span><span class="p">(</span><span class="s1">&#39;Alice&#39;</span><span class="p">,</span> <span class="s1">&#39;Data Scientist&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">employee</span><span class="o">.</span><span class="n">speak</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>My name is Alice. I work as a Data Scientist.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="single-and-multiple-inheritance">
+<h3>Single and Multiple Inheritance<a class="headerlink" href="#single-and-multiple-inheritance" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">B</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>  <span class="c1"># Multiple inheritance</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="method-resolution-order-mro">
+<h3>Method Resolution Order (MRO)<a class="headerlink" href="#method-resolution-order-mro" title="Link to this heading">#</a></h3>
+<p>MRO determines the order in which base classes are searched when executing a method. Python uses the C3 linearization algorithm to compute the MRO, ensuring a consistent and predictable order.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Method in A&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Method in B&quot;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">method</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Method in C&quot;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">method</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">D</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Method in D&quot;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">method</span><span class="p">()</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">D</span><span class="p">()</span>
+<span class="n">d</span><span class="o">.</span><span class="n">method</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">mro</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Method in D
+Method in B
+Method in C
+Method in A
+[&lt;class &#39;__main__.D&#39;&gt;, &lt;class &#39;__main__.B&#39;&gt;, &lt;class &#39;__main__.C&#39;&gt;, &lt;class &#39;__main__.A&#39;&gt;, &lt;class &#39;object&#39;&gt;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mixin">
+<h3>Mixin<a class="headerlink" href="#mixin" title="Link to this heading">#</a></h3>
+<p>Add functionality to other classes, without being intended for independent use.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LoggingMixin</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Log: </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="n">LoggingMixin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">do_something</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Doing something...&quot;</span><span class="p">)</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+<span class="n">obj</span><span class="o">.</span><span class="n">do_something</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Log: Doing something...
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="polymorphism">
 <h2>Polymorphism<a class="headerlink" href="#polymorphism" title="Link to this heading">#</a></h2>
@@ -579,15 +751,21 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bark
-meow
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">class</span> <span class="nc">Cat</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;meow&quot;</span>
+
+<span class="ne">NameError</span>: name &#39;Animal&#39; is not defined
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="method-overriding">
-<h2>Method Overriding<a class="headerlink" href="#method-overriding" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h2>Method Overriding<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p>Overriding occurs when a subclass provides a specific implementation of a method that is already defined in its superclass. This is a key part of inheritance and polymorphism.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -605,7 +783,8 @@ meow
 </section>
 <section id="dunder-magic-methods">
 <h2>Dunder (Magic) Methods<a class="headerlink" href="#dunder-magic-methods" title="Link to this heading">#</a></h2>
-<p>Magic methods (aka dunder because they begin and end with double underscores, e.g., <code class="docutils literal notranslate"><span class="pre">__init__</span></code>, <code class="docutils literal notranslate"><span class="pre">__str__</span></code>) allow you to define special behaviors for built-in operations.</p>
+<p>Magic methods allow you to define special behaviors for built-in operations.</p>
+<p>They are called dunder methods because they begin and end with double underscores, e.g., <code class="docutils literal notranslate"><span class="pre">__init__</span></code>, <code class="docutils literal notranslate"><span class="pre">__str__</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Book</span><span class="p">:</span>
@@ -663,31 +842,10 @@ meow
 </div>
 </div>
 </section>
-<section id="inheritance-types">
-<h2>Inheritance Types<a class="headerlink" href="#inheritance-types" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Single Inheritance: A subclass inherits from one superclass.</p></li>
-<li><p>Multiple Inheritance: A subclass can inherit from more than one superclass in Python. This adds flexibility but requires careful design to avoid complexity.</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
-    <span class="k">pass</span>
-
-<span class="k">class</span> <span class="nc">B</span><span class="p">:</span>
-    <span class="k">pass</span>
-
-<span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>  <span class="c1"># Multiple inheritance</span>
-    <span class="k">pass</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
 <section id="solid-principles">
 <h2>SOLID Principles<a class="headerlink" href="#solid-principles" title="Link to this heading">#</a></h2>
-<section id="single-responsibility-principle">
-<h3>Single Responsibility Principle<a class="headerlink" href="#single-responsibility-principle" title="Link to this heading">#</a></h3>
+<section id="single-responsibility">
+<h3>Single Responsibility<a class="headerlink" href="#single-responsibility" title="Link to this heading">#</a></h3>
 <p>A class should have only one job or responsibility.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -703,8 +861,8 @@ meow
 </div>
 </div>
 </section>
-<section id="open-closed-principle">
-<h3>Open/Closed Principle<a class="headerlink" href="#open-closed-principle" title="Link to this heading">#</a></h3>
+<section id="open-closed">
+<h3>Open/Closed<a class="headerlink" href="#open-closed" title="Link to this heading">#</a></h3>
 <p>Software entities (classes, modules, functions, etc.) should be open for extension but closed for modification.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -731,8 +889,8 @@ meow
 </div>
 </div>
 </section>
-<section id="liskov-substitution-principle">
-<h3>Liskov Substitution Principle<a class="headerlink" href="#liskov-substitution-principle" title="Link to this heading">#</a></h3>
+<section id="liskov-substitution">
+<h3>Liskov Substitution<a class="headerlink" href="#liskov-substitution" title="Link to this heading">#</a></h3>
 <p>Subtypes must be substitutable for their base types without affecting the correctness of the program.</p>
 <p>If you have a base class <code class="docutils literal notranslate"><span class="pre">Bird</span></code> with a method <code class="docutils literal notranslate"><span class="pre">fly</span></code>, any subclass of <code class="docutils literal notranslate"><span class="pre">Bird</span></code> should be able to fly as well. Otherwise, it would violate LSP.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">Penguin</span></code> class violates LSP because it cannot fly, even though it’s a subclass of <code class="docutils literal notranslate"><span class="pre">Bird</span></code>. A better design would be to rethink the hierarchy or separate the flying behavior into another class.</p>
@@ -753,8 +911,8 @@ meow
 </div>
 </div>
 </section>
-<section id="interface-segregation-principle">
-<h3>Interface Segregation Principle<a class="headerlink" href="#interface-segregation-principle" title="Link to this heading">#</a></h3>
+<section id="interface-segregation">
+<h3>Interface Segregation<a class="headerlink" href="#interface-segregation" title="Link to this heading">#</a></h3>
 <p>Clients should not be forced to depend on interfaces they do not use.</p>
 <p>Example: If you have an interface <code class="docutils literal notranslate"><span class="pre">Worker</span></code> with methods <code class="docutils literal notranslate"><span class="pre">work()</span></code> and <code class="docutils literal notranslate"><span class="pre">eat()</span></code>, classes that don’t need both methods will be forced to implement them, even if it doesn’t make sense.</p>
 <div class="cell docutils container">
@@ -795,8 +953,8 @@ meow
 </div>
 </div>
 </section>
-<section id="dependency-inversion-principle">
-<h3>Dependency Inversion Principle<a class="headerlink" href="#dependency-inversion-principle" title="Link to this heading">#</a></h3>
+<section id="dependency-inversion">
+<h3>Dependency Inversion<a class="headerlink" href="#dependency-inversion" title="Link to this heading">#</a></h3>
 <p>High-level modules should not depend on low-level modules. Both should depend on abstractions. Also, abstractions should not depend on details; details should depend on abstractions.</p>
 <p>Example: Without DIP, a high-level class like <code class="docutils literal notranslate"><span class="pre">OrderProcessing</span></code> might directly depend on a specific payment processor implementation:</p>
 <div class="cell docutils container">
@@ -871,12 +1029,12 @@ meow
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="python_fundamentals.html"
+       href="pandas.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Python Fundamentals <a class="anchor" id="chapter1"></a></p>
+        <p class="prev-next-title">Pandas</p>
       </div>
     </a>
     <a class="right-next"
@@ -904,27 +1062,37 @@ meow
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decorators">Decorators</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-getter-setter-deleter-methods">Properties (Getter / Setter / Deleter Methods)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#encapsulation">Encapsulation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decorators">Decorators</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-getter-setter-deleter-methods">Properties (Getter / Setter / Deleter Methods)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-decorators">Custom decorators</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#abstraction">Abstraction</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataclass">Dataclass</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-and-class-methods">Static and Class Methods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#protected-and-private-variables">Protected and Private Variables</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#protected-and-private-variables">Protected and Private Variables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inheritance">Inheritance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inheritance">Inheritance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-overriding">Method Overriding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#super"><code class="docutils literal notranslate"><span class="pre">super()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-and-multiple-inheritance">Single and Multiple Inheritance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-resolution-order-mro">Method Resolution Order (MRO)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mixin">Mixin</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polymorphism">Polymorphism</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#method-overriding">Method Overriding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Method Overriding</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dunder-magic-methods">Dunder (Magic) Methods</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#composition">Composition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class-vs-instance-variables">Class vs. Instance Variables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inheritance-types">Inheritance Types</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solid-principles">SOLID Principles</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-responsibility-principle">Single Responsibility Principle</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#open-closed-principle">Open/Closed Principle</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#liskov-substitution-principle">Liskov Substitution Principle</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interface-segregation-principle">Interface Segregation Principle</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dependency-inversion-principle">Dependency Inversion Principle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-responsibility">Single Responsibility</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#open-closed">Open/Closed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#liskov-substitution">Liskov Substitution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interface-segregation">Interface Segregation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dependency-inversion">Dependency Inversion</a></li>
 </ul>
 </li>
 </ul>

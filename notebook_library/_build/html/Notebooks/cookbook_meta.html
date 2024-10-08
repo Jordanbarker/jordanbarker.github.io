@@ -179,12 +179,16 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a></li>
-<li class="toctree-l1"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming (OOP) in Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data_visualization.html">Data Visualization</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy <a class="anchor" id="Numpy"></a></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas.html">Pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming (OOP) in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="visualizations.html">Visualizations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="evaluation_metrics.html">Evaluation Metrics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series Forecasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="evaluation_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series</a></li>
 <li class="toctree-l1"><a class="reference internal" href="statistical_tests.html">Statistical Tests (A/B Testing)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomoly Detection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optimization.html">Portfolio Optimization  <a name="Portfolio-Optimization"></a></a></li>
@@ -399,7 +403,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="cookbook-meta">
 <h1>Cookbook Meta<a class="headerlink" href="#cookbook-meta" title="Link to this heading">#</a></h1>
-<p>This notebook holds some notes around the cookbook itself.</p>
+<p>This notebook holds some notes around building the cookbook itself. It is built with <a class="reference external" href="https://jupyterbook.org/en/stable/intro.html">Jupyter Book</a> so huge thank you to them for their create work!</p>
 <section id="execution-statistics-nb-exec-table">
 <h2>Execution statistics <code class="docutils literal notranslate"><span class="pre">nb-exec-table</span></code><a class="headerlink" href="#execution-statistics-nb-exec-table" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -412,52 +416,64 @@ document.write(`
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="xref doc reference internal" href="data_visualization.html"><span class="doc">Notebooks/data_visualization</span></a></p></td>
-<td><p>2024-10-03 17:39</p></td>
+<tr class="row-even"><td><p><a class="xref doc reference internal" href="dimensionality_reduction.html"><span class="doc">Notebooks/dimensionality_reduction</span></a></p></td>
+<td><p>2024-10-08 08:02</p></td>
 <td><p>auto</p></td>
-<td><p>2.85</p></td>
+<td><p>1.47</p></td>
 <td><p>✅</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="xref doc reference internal" href="dimensionality_reduction.html"><span class="doc">Notebooks/dimensionality_reduction</span></a></p></td>
-<td><p>2024-10-03 17:39</p></td>
+<tr class="row-odd"><td><p><a class="xref doc reference internal" href="distributions.html"><span class="doc">Notebooks/distributions</span></a></p></td>
+<td><p>2024-10-08 08:02</p></td>
 <td><p>auto</p></td>
-<td><p>1.64</p></td>
+<td><p>4.16</p></td>
 <td><p>✅</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="xref doc reference internal" href="distributions.html"><span class="doc">Notebooks/distributions</span></a></p></td>
-<td><p>2024-10-03 17:40</p></td>
+<tr class="row-even"><td><p><a class="xref doc reference internal" href="evaluation_metrics.html"><span class="doc">Notebooks/evaluation_metrics</span></a></p></td>
+<td><p>2024-10-08 08:07</p></td>
 <td><p>auto</p></td>
-<td><p>4.22</p></td>
+<td><p>2.99</p></td>
 <td><p>✅</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="xref doc reference internal" href="evaluation_metrics.html"><span class="doc">Notebooks/evaluation_metrics</span></a></p></td>
-<td><p>2024-10-03 17:40</p></td>
+<tr class="row-odd"><td><p><a class="xref doc reference internal" href="numpy.html"><span class="doc">Notebooks/numpy</span></a></p></td>
+<td><p>2024-10-08 08:02</p></td>
 <td><p>auto</p></td>
-<td><p>2.87</p></td>
+<td><p>1.18</p></td>
 <td><p>✅</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="xref doc reference internal" href="object_oriented_programming.html"><span class="doc">Notebooks/object_oriented_programming</span></a></p></td>
-<td><p>2024-10-03 17:40</p></td>
+<td><p>2024-10-08 08:02</p></td>
 <td><p>auto</p></td>
-<td><p>0.9</p></td>
-<td><p>✅</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="xref doc reference internal" href="python_fundamentals.html"><span class="doc">Notebooks/python_fundamentals</span></a></p></td>
-<td><p>2024-10-03 17:40</p></td>
-<td><p>auto</p></td>
-<td><p>1.62</p></td>
+<td><p>1.05</p></td>
 <td><p><abbr title="CellExecutionError">❌</abbr></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="xref doc reference internal" href="statistical_tests.html"><span class="doc">Notebooks/statistical_tests</span></a></p></td>
-<td><p>2024-10-03 17:40</p></td>
+<tr class="row-odd"><td><p><a class="xref doc reference internal" href="pandas.html"><span class="doc">Notebooks/pandas</span></a></p></td>
+<td><p>2024-10-08 08:02</p></td>
 <td><p>auto</p></td>
-<td><p>11.85</p></td>
+<td><p>1.54</p></td>
 <td><p>✅</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="xref doc reference internal" href="time_series.html"><span class="doc">Notebooks/time_series</span></a></p></td>
-<td><p>2024-10-03 17:40</p></td>
+<tr class="row-even"><td><p><a class="xref doc reference internal" href="python_fundamentals.html"><span class="doc">Notebooks/python_fundamentals</span></a></p></td>
+<td><p>2024-10-08 08:07</p></td>
 <td><p>auto</p></td>
-<td><p>26.51</p></td>
+<td><p>1.61</p></td>
+<td><p><abbr title="CellExecutionError">❌</abbr></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="xref doc reference internal" href="statistical_tests.html"><span class="doc">Notebooks/statistical_tests</span></a></p></td>
+<td><p>2024-10-08 08:02</p></td>
+<td><p>auto</p></td>
+<td><p>12.55</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="xref doc reference internal" href="time_series.html"><span class="doc">Notebooks/time_series</span></a></p></td>
+<td><p>2024-10-08 08:08</p></td>
+<td><p>auto</p></td>
+<td><p>40.92</p></td>
+<td><p><abbr title="CellTimeoutError">❌</abbr></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="xref doc reference internal" href="visualizations.html"><span class="doc">Notebooks/visualizations</span></a></p></td>
+<td><p>2024-10-08 08:08</p></td>
+<td><p>auto</p></td>
+<td><p>2.81</p></td>
 <td><p>✅</p></td>
 </tr>
 </tbody>
