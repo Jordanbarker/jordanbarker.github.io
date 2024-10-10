@@ -16,11 +16,11 @@ chapters:
   - file: Notebooks/numpy
   - file: Notebooks/pandas
   - file: Notebooks/object_oriented_programming
-- file: Notebooks/visualizations
+- file: Notebooks/anomaly_detection
 - file: Notebooks/distributions
 - file: Notebooks/evaluation_metrics
-- file: Notebooks/time_series
-- file: Notebooks/statistical_tests
-- file: Notebooks/anomaly_detection
 - file: Notebooks/optimization
+- file: Notebooks/statistical_tests
+- file: Notebooks/time_series
+- file: Notebooks/visualizations
 - file: Notebooks/cookbook_meta
