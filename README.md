@@ -1,7 +1,7 @@
 # About
-Creating a library to store some of my commonly referenced notes.
+A website to host some of my commonly referenced notes on data science and machine learning. Also using it to showcase some personal projects.
 
-# Technical details
+## Technical details
 The notebook library is created using [Jupyter Book](https://jupyterbook.org/en/stable/intro.html).
 
 There is an environment file to create a conda environment with all the necessary libraries:
@@ -14,7 +14,7 @@ Use the `--all` modifier when creating a new page so that the other pages refere
 > jupyter-book build --all notebook_library/
 
 
-## nbconvert 
+### nbconvert (old method) 
 Before learning about Jupyter Book, this was done using nbconvert. Here are the original steps:
 
 To convert ipynb to html I'm using a custom nbconvert template. I created a python script to convert all notebook files:
@@ -28,7 +28,6 @@ Was using custom_classic but this is going to take some work to cleanup
 
 Test locally with: 'live-server' or 'python -m http.server 8000'
 
-# Future ideas
-* Notebook on Clustering
-* Increase performance by only loading in the required icons https://fontawesome.com/docs/web/dig-deeper/performance
-* Finish CNN Classifier
+## Future ideas
+* Clustering
+* Integrate [Plausible Analytics](https://jupyterbook.org/en/stable/advanced/html.html#use-plausible-analytics)
