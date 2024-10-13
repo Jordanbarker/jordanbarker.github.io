@@ -12,6 +12,6 @@ dependencies:
 - jupyter-book
 - seaborn
 - matplotlib
+- loguru
 channels:  
-- defaults  
 - conda-forge
