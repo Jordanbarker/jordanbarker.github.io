@@ -186,6 +186,7 @@
 <li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy <a class="anchor" id="Numpy"></a></a></li>
 <li class="toctree-l2"><a class="reference internal" href="pandas.html">Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming (OOP) in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomoly Detection</a></li>
@@ -565,7 +566,9 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Results of Dickey-Fuller Test:
-Test Statistic                   0.231933
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test Statistic                   0.231933
 p-value                          0.973997
 #Lags Used                      18.000000
 Number of Observations Used    780.000000
@@ -576,7 +579,9 @@ dtype: float64
 
 With differencing:
 Results of Dickey-Fuller Test:
-Test Statistic                  -4.108587
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test Statistic                  -4.108587
 p-value                          0.000937
 #Lags Used                      21.000000
 Number of Observations Used    776.000000
@@ -917,22 +922,20 @@ Simple exponential smoothing won't be able to capture any of the trends on the d
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(1, 1, 2)x(2, 0, 0, 24) - AIC:-58.95883170484569
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(1, 1, 2)x(1, 0, 2, 24) - AIC:-97.95187211657904
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(0, 1, 0)x(1, 0, 1, 24) - AIC:-8.414565526877016
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(1, 1, 1)x(0, 0, 2, 12) - AIC:124.33967817136102
+Tested ARIMA(0, 0, 2)x(1, 1, 0, 12) - AIC:-114.33662732729485
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(0, 1, 0)x(2, 1, 2, 12) - AIC:-68.0904432466381
-Tested ARIMA(0, 0, 0)x(0, 1, 0, 12) - AIC:-59.63538284230974
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(0, 1, 2)x(1, 1, 0, 12) - AIC:-130.3046234922781
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(1, 1, 1)x(1, 0, 0, 24) - AIC:-32.734208173999946
+Tested ARIMA(1, 0, 0)x(1, 1, 1, 12) - AIC:-120.59615414117985
 
-Best Model: ARIMA(0, 1, 2)x(1, 1, 0, 12) - AIC:-130.3046234922781
+Best Model: ARIMA(1, 0, 0)x(1, 1, 1, 12) - AIC:-120.59615414117985
 </pre></div>
 </div>
-<img alt="../_images/62c46fe97e0474802ab808e1d7e70b271743b62ea83c0dd31f751a3951cc5c23.png" src="../_images/62c46fe97e0474802ab808e1d7e70b271743b62ea83c0dd31f751a3951cc5c23.png" />
+<img alt="../_images/e8ae8735a6da7228685b50855923fcd1977c8381bb3e80fd3c8d2fc138950285.png" src="../_images/e8ae8735a6da7228685b50855923fcd1977c8381bb3e80fd3c8d2fc138950285.png" />
 </div>
 </div>
 </section>
@@ -1033,7 +1036,7 @@ Best Model: ARIMA(0, 1, 2)x(1, 1, 0, 12) - AIC:-130.3046234922781
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/853171fb7c1a5b986922d2c759cf07cb6836a16d4e2d907ff7a071c2aa8f44c2.png" src="../_images/853171fb7c1a5b986922d2c759cf07cb6836a16d4e2d907ff7a071c2aa8f44c2.png" />
+<img alt="../_images/f17ed5f4cbc3081bc2670cbf315a0288e5460d6d8f6f6a1b5fdd5d40cb0d7596.png" src="../_images/f17ed5f4cbc3081bc2670cbf315a0288e5460d6d8f6f6a1b5fdd5d40cb0d7596.png" />
 </div>
 </div>
 <p>Detrending the training data</p>
@@ -1069,7 +1072,7 @@ Best Model: ARIMA(0, 1, 2)x(1, 1, 0, 12) - AIC:-130.3046234922781
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/195925dc3dd0ec72ae4a55b1d5d3eaea3b8226faac4c5c5fe75adb87b93f908b.png" src="../_images/195925dc3dd0ec72ae4a55b1d5d3eaea3b8226faac4c5c5fe75adb87b93f908b.png" />
+<img alt="../_images/a2267e1352c8272cc3f53141e864d3577c8b387295a66ee519dc53a04d510be0.png" src="../_images/a2267e1352c8272cc3f53141e864d3577c8b387295a66ee519dc53a04d510be0.png" />
 </div>
 </div>
 <p>If you also take away the noise, you’ll see that LightGBM did a pretty great job filtering it out.</p>
@@ -1084,7 +1087,7 @@ Best Model: ARIMA(0, 1, 2)x(1, 1, 0, 12) - AIC:-130.3046234922781
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f80a854bb212d2a7b531b4fcdedf5912b3dd4b0134a3c980a7fc8b30b3ec4479.png" src="../_images/f80a854bb212d2a7b531b4fcdedf5912b3dd4b0134a3c980a7fc8b30b3ec4479.png" />
+<img alt="../_images/d8a3e1ad8c97613d2dc4b0f2b0a12f5f14f02ad087dfc9d830f53603a9e111ae.png" src="../_images/d8a3e1ad8c97613d2dc4b0f2b0a12f5f14f02ad087dfc9d830f53603a9e111ae.png" />
 </div>
 </div>
 <p>Recursive predictions. TODO</p>
@@ -1360,7 +1363,7 @@ The nearest neighbor subsequence to this discord is 1.4067575559258207 units awa
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/78418c29718a250f37d7d6fc78c4864f7f4bc0fa40a69b9e63bea51d81734c59.png" src="../_images/78418c29718a250f37d7d6fc78c4864f7f4bc0fa40a69b9e63bea51d81734c59.png" />
+<img alt="../_images/88a7e3dd879eebf9ba771fda3be5e31c4da339247678e5fef94f0b05a7d6991f.png" src="../_images/88a7e3dd879eebf9ba771fda3be5e31c4da339247678e5fef94f0b05a7d6991f.png" />
 </div>
 </div>
 </section>

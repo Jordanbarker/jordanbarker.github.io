@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Cookbook Meta &#8212; Data Science Cookbook</title>
+    <title>Logging &#8212; Data Science Cookbook</title>
   
   
   
@@ -57,10 +57,11 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'Notebooks/cookbook_meta';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Notebooks/logging';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Visualizations" href="visualizations.html" />
+    <link rel="next" title="Anomoly Detection" href="anomaly_detection.html" />
+    <link rel="prev" title="Object-Oriented Programming (OOP) in Python" href="object_oriented_programming.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -179,11 +180,11 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy <a class="anchor" id="Numpy"></a></a></li>
 <li class="toctree-l2"><a class="reference internal" href="pandas.html">Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming (OOP) in Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Logging</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomoly Detection</a></li>
@@ -193,7 +194,7 @@
 <li class="toctree-l1"><a class="reference internal" href="statistical_tests.html">Statistical Tests (A/B Testing)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series</a></li>
 <li class="toctree-l1"><a class="reference internal" href="visualizations.html">Visualizations</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Cookbook Meta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook_meta.html">Cookbook Meta</a></li>
 </ul>
 
     </div>
@@ -265,7 +266,7 @@
       
       
       
-      <li><a href="https://github.com/Jordanbarker/jordanbarker.github.io/issues/new?title=Issue%20on%20page%20%2FNotebooks/cookbook_meta.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/Jordanbarker/jordanbarker.github.io/issues/new?title=Issue%20on%20page%20%2FNotebooks/logging.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -295,7 +296,7 @@
       
       
       
-      <li><a href="../_sources/Notebooks/cookbook_meta.ipynb" target="_blank"
+      <li><a href="../_sources/Notebooks/logging.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -379,7 +380,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Cookbook Meta</h1>
+    <h1>Logging</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -389,8 +390,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#execution-statistics-nb-exec-table">Execution statistics <code class="docutils literal notranslate"><span class="pre">nb-exec-table</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tags">Tags</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logging-to-a-file">Logging to a File</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-decoratoring">Function Decoratoring:</a></li>
 </ul>
             </nav>
         </div>
@@ -402,99 +404,69 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="cookbook-meta">
-<h1>Cookbook Meta<a class="headerlink" href="#cookbook-meta" title="Link to this heading">#</a></h1>
-<p>This notebook holds some notes around building the cookbook itself. It is built with <a class="reference external" href="https://jupyterbook.org/en/stable/intro.html">Jupyter Book</a> so huge thank you to them for their create work!</p>
-<section id="execution-statistics-nb-exec-table">
-<h2>Execution statistics <code class="docutils literal notranslate"><span class="pre">nb-exec-table</span></code><a class="headerlink" href="#execution-statistics-nb-exec-table" title="Link to this heading">#</a></h2>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Document</p></th>
-<th class="head"><p>Modified</p></th>
-<th class="head"><p>Method</p></th>
-<th class="head"><p>Run Time (s)</p></th>
-<th class="head"><p>Status</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><a class="xref doc reference internal" href="distributions.html"><span class="doc">Notebooks/distributions</span></a></p></td>
-<td><p>2024-10-09 20:04</p></td>
-<td><p>auto</p></td>
-<td><p>4.18</p></td>
-<td><p>✅</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="xref doc reference internal" href="evaluation_metrics.html"><span class="doc">Notebooks/evaluation_metrics</span></a></p></td>
-<td><p>2024-10-09 20:04</p></td>
-<td><p>auto</p></td>
-<td><p>2.92</p></td>
-<td><p>✅</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="xref doc reference internal" href="logging.html"><span class="doc">Notebooks/logging</span></a></p></td>
-<td><p>2024-10-13 08:35</p></td>
-<td><p>auto</p></td>
-<td><p>0.99</p></td>
-<td><p>✅</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="xref doc reference internal" href="numpy.html"><span class="doc">Notebooks/numpy</span></a></p></td>
-<td><p>2024-10-09 20:04</p></td>
-<td><p>auto</p></td>
-<td><p>1.15</p></td>
-<td><p>✅</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="xref doc reference internal" href="object_oriented_programming.html"><span class="doc">Notebooks/object_oriented_programming</span></a></p></td>
-<td><p>2024-10-09 20:04</p></td>
-<td><p>auto</p></td>
-<td><p>0.91</p></td>
-<td><p><abbr title="CellExecutionError">❌</abbr></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="xref doc reference internal" href="pandas.html"><span class="doc">Notebooks/pandas</span></a></p></td>
-<td><p>2024-10-09 20:04</p></td>
-<td><p>auto</p></td>
-<td><p>1.45</p></td>
-<td><p>✅</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="xref doc reference internal" href="python_fundamentals.html"><span class="doc">Notebooks/python_fundamentals</span></a></p></td>
-<td><p>2024-10-13 08:35</p></td>
-<td><p>auto</p></td>
-<td><p>1.48</p></td>
-<td><p><abbr title="CellExecutionError">❌</abbr></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="xref doc reference internal" href="statistical_tests.html"><span class="doc">Notebooks/statistical_tests</span></a></p></td>
-<td><p>2024-10-09 20:04</p></td>
-<td><p>auto</p></td>
-<td><p>12.11</p></td>
-<td><p>✅</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="xref doc reference internal" href="time_series.html"><span class="doc">Notebooks/time_series</span></a></p></td>
-<td><p>2024-10-13 08:36</p></td>
-<td><p>auto</p></td>
-<td><p>31.82</p></td>
-<td><p>✅</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="xref doc reference internal" href="visualizations.html"><span class="doc">Notebooks/visualizations</span></a></p></td>
-<td><p>2024-10-09 20:05</p></td>
-<td><p>auto</p></td>
-<td><p>2.82</p></td>
-<td><p>✅</p></td>
-</tr>
-</tbody>
-</table>
+  <section class="tex2jax_ignore mathjax_ignore" id="logging">
+<h1>Logging<a class="headerlink" href="#logging" title="Link to this heading">#</a></h1>
+<p>Loguru is a library that simplifies logging and has useful features.</p>
+<p>Log levels:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">debug</span></code>: Detailed information useful during development</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">info</span></code>: High level operation of the code</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">warning</span></code>: Might be an issue</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">error</span></code>: Problem that needs attention</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">critical</span></code>: Fatal error</p></li>
+</ul>
+<section id="example">
+<h2>Example:<a class="headerlink" href="#example" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="k">def</span> <span class="nf">fit_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using params: </span><span class="si">{</span><span class="n">params</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Starting training.&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;learning_rate param not specified, using 3e-4.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;fit&#39;</span><span class="p">):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The model provided does not have a fit() method.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 </section>
-<section id="tags">
-<h2>Tags<a class="headerlink" href="#tags" title="Link to this heading">#</a></h2>
-<p>You can add tags to notebook cells to control various display options.</p>
+<section id="logging-to-a-file">
+<h2>Logging to a File<a class="headerlink" href="#logging-to-a-file" title="Link to this heading">#</a></h2>
+<p>By default, Loguru will output to the console (stdout). The <code class="docutils literal notranslate"><span class="pre">logger.add()</span></code> method is use to save logs to a file.</p>
+<p><code class="docutils literal notranslate"><span class="pre">logger.add(&quot;file.log&quot;)</span></code>: Save log data to “file.log” path. Parameters of note:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">remove-input</span></code>: Hide the code input but display the output of the cell.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">remove-output</span></code>: Display the code input but hide the output of the cell.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">remove-cell</span></code>: Completely exclude the cell (both input and output) from the final built book.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">hide-input</span></code>: Hide the code input but allow users to toggle it open if needed. The output remains visible.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">hide-output</span></code>: Hide the output but keep the code visible. Users can toggle the output if they want to see it.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">remove-stderr</span></code>: Hide any error or warning messages (stderr) from the output.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">skip</span></code>: Skip the execution of the cell entirely. The content of the cell will remain in the notebook, but it won’t be executed when you rebuild the book.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">no-execute</span></code>: Do not execute this cell when building the book, but include its content (code and/or output) in the final build.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">output-scroll</span></code>: Add scrollbars to long outputs so they don’t take up too much space in the final book.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">retention</span></code> pamameter controls how long we keep logs. E.g. <code class="docutils literal notranslate"><span class="pre">retention=&quot;1</span> <span class="pre">HOUR&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rotation</span></code>: Rotates log file when it exceeds a certain size. E.g. <code class="docutils literal notranslate"><span class="pre">rotation=&quot;10</span> <span class="pre">MB&quot;</span></code></p></li>
 </ul>
+</section>
+<section id="function-decoratoring">
+<h2>Function Decoratoring:<a class="headerlink" href="#function-decoratoring" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">&#64;logger.catch</span></code> allows us to automatically log the function’s entry, exit, and exceptions. Parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">reraise</span></code>: If set to True, the decorator will re-raise the exception after logging it. This allows the program to continue handling the error as it normally would.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">level</span></code>: Specify the log level (e.g., “DEBUG”, “ERROR”, etc.) at which the exception should be logged.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">onerror</span></code>: Provide a fallback function to execute when an exception occurs.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="nd">@logger</span><span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">onerror</span><span class="o">=</span><span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;An error occurred, but we are moving on.&quot;</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">run_error</span><span class="p">():</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span>
+
+<span class="c1"># run_error()  # This will raise ZeroDivisionError and log it</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 
@@ -529,13 +501,22 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="visualizations.html"
+       href="object_oriented_programming.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Visualizations</p>
+        <p class="prev-next-title">Object-Oriented Programming (OOP) in Python</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="anomaly_detection.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Anomoly Detection</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -553,8 +534,9 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#execution-statistics-nb-exec-table">Execution statistics <code class="docutils literal notranslate"><span class="pre">nb-exec-table</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tags">Tags</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logging-to-a-file">Logging to a File</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-decoratoring">Function Decoratoring:</a></li>
 </ul>
   </nav></div>
 
