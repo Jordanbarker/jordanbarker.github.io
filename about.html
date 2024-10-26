@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Jordan Barker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
 <style>
     :root {
         --sans-serif: -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
@@ -16,17 +24,27 @@
     }
     body {
         margin: 0;
-        padding-top: 0;
+        padding-top: 0px;
         justify-content: center;
         font-family: var(--sans-serif);
-        /* font-family: var(--serif); */
+    }
+    main {
+        line-height: 3em;
+        margin-top: 100px;
+        max-width: 85%;
+        margin-left: auto;
+        margin-right: auto;
     }
     h1 {
         font-size: 4vw;
         margin-top: 0;
     }
+    h2 {
+        font-size: 3.8vw;
+        margin-top: 0;
+    }
     h3 {
-        font-size: 4vw;
+        font-size: 3.5vw;
         font-weight: 700;
         margin-top: 2vh;
         margin-bottom: 0; 
@@ -41,39 +59,19 @@
         font-size: 3vw;
         width: 50%;
         line-height: 1.1;
-        /* animation-name: slideInLeft;  */
         animation-duration: 1s;
         animation-timing-function: ease-in;
         color: rgb(34, 34, 34);
     }
     p {
-        font-size: 3vw;
+        font-size: 2.5vw;
         margin-top: 2vh;
         margin-bottom: 0;
         padding-top: 0vh;
     }
-    .top-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        align-items: center;
-        background: linear-gradient(-45deg, #000428 0%, #004e92 100%);
-        padding: 0;
-        margin: 0;
-        color: white;
-        height: 100vh;
-        width: 100%;
-    }
-    .timeline-container {
-        max-width: 85%;
-        margin-left: auto;
-        margin-right: auto;
-    }
     .timeline-event {
         display: flex; 
         align-items: flex-start;
-        /* height: 250vh; */
     }
     .timeline-text {
         width: 75%;
@@ -94,13 +92,12 @@
     .entered {
         position: fixed;
         right: 1000vw;
-        /* background-color: #75e200; */
-        /* color: rgb(0, 0, 0); */
     }
 
     @media (max-width: 1000px) {
-        .timeline-container {
-            max-width: 95%;
+        main {
+            max-width: 90%;
+            line-height: 2.5em;
         }
         p {
             font-size: 5vw;
@@ -108,31 +105,55 @@
         h1 {
             font-size: 8vw;
         }
+        h2 {
+            font-size: 6vw;
+        }
         h3 {
-            font-size: 7vw;
+            font-size: 5.5vw;
         }
         h4 {
             font-size: 4vw;
         }
         article {
-            font-size: 5vw;
+            font-size: 4vw;
         }
     }
 </style>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Jordan Barker</title>
-</head>
+
 
 <body>
-    <div class="top-container">
-        <h1>About Me</h1>
-        <p>A brief timeline of my career and educational background.</p>
-    </div>
-    
+    <body>
+        <header>
+            <div class="header_container">
+                <nav>
+                    <ul>
+                        <li class="name"><a href="./index.html">Jordan Barker</a></li>
+                        <div class="header_links">
+                            <li><a href="./about.html">About</a></li>
+                            <li><a href="https://www.linkedin.com/in/barkerjordan/">LinkedIn</a></li>
+                            <li><a href="https://github.com/Jordanbarker">GitHub</a></li>
+                            <li><a href="./notebook_library/_build/html/intro.html">Data Science Cookbook</a></li>
+                        </div>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+
     <main>
+        <h1>About Me</h1>
+        
+        <p>
+            I am a lifelong learner who loves problem solving. 
+            I'm extremely thankful for my career as a data scientist where I get to utilize my skillset to solve challenging problems. 
+        </p>
+        <p>
+            Luckily, the field is constantly evolving which keeps things interesting!
+        </p>
+        <br>
+        <h2>Career and Education Timeline</h2>
+
         <div class="timeline-container">
             
             <div id="generac-era" class="timeline-event">
