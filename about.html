@@ -9,11 +9,6 @@
 </head>
 
 <style>
-    :root {
-        --sans-serif: -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
-        --serif: "Source Serif Pro", Iowan Old Style, Apple Garamond, Palatino Linotype, Times New Roman, "Droid Serif", Times, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
-        --code: SFMono-Regular, Menlo, Consolas, Monaco, "Liberation Mono", "Courier New", monospace;
-    }
     @keyframes slideInLeft {
         from {
             transform: translateX(-100vw);
@@ -26,7 +21,6 @@
         margin: 0;
         padding-top: 0px;
         justify-content: center;
-        font-family: var(--sans-serif);
     }
     main {
         line-height: 3em;
@@ -36,27 +30,28 @@
         margin-right: auto;
     }
     h1 {
-        font-size: 4vw;
+        font-size: 48px;
         margin-top: 0;
     }
     h2 {
-        font-size: 3.8vw;
+        font-size: 40px;
         margin-top: 0;
     }
     h3 {
-        font-size: 3.5vw;
+        font-size: 30px;
         font-weight: 700;
         margin-top: 2vh;
         margin-bottom: 0; 
     }
     h4 {
+        font-size: 20px;
         padding-bottom: 0vh;
         margin: 0px;
         font-weight: 400;
         color: rgb(136, 136, 136);
     }
     article {
-        font-size: 3vw;
+        font-size: 18px;
         width: 50%;
         line-height: 1.1;
         animation-duration: 1s;
@@ -64,7 +59,8 @@
         color: rgb(34, 34, 34);
     }
     p {
-        font-size: 2.5vw;
+        font-size: 18px;
+        line-height: 1.8em;
         margin-top: 2vh;
         margin-bottom: 0;
         padding-top: 0vh;
@@ -89,33 +85,21 @@
         text-align: center;
         position: sticky;
     }
+    #generac-logo {
+        transform: translateY(-33.33%);
+        width: 60%;
+        height: auto;
+        /* clip-path: inset(33.33% 0 33.33% 0); */
+    }
     .entered {
         position: fixed;
         right: 1000vw;
     }
 
-    @media (max-width: 1000px) {
+    @media (max-width: 700px) {
         main {
             max-width: 90%;
             line-height: 2.5em;
-        }
-        p {
-            font-size: 5vw;
-        }
-        h1 {
-            font-size: 8vw;
-        }
-        h2 {
-            font-size: 6vw;
-        }
-        h3 {
-            font-size: 5.5vw;
-        }
-        h4 {
-            font-size: 4vw;
-        }
-        article {
-            font-size: 4vw;
         }
     }
 </style>
@@ -124,7 +108,7 @@
 
 <body>
     <body>
-        
+
         <header>
             <div class="header_container">
                 <nav>
@@ -169,7 +153,7 @@
                     <br><br>
                 </article>
                 <figure class="timeline-image">
-                    <img id="generac-logo" class="logo" src="./Assets/generac-power-systems-vector-logo.svg" alt="Generac Logo" style="max-width: 65%;">
+                    <img id="generac-logo" class="logo" src="./Assets/generac-power-systems-vector-logo.svg" alt="Generac Logo">
                 </figure>
             </div>
             <div id="epic-era" class="timeline-event">
