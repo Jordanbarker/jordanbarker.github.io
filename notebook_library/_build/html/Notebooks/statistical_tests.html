@@ -63,7 +63,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Time Series" href="time_series.html" />
-    <link rel="prev" title="Portfolio Optimization" href="optimization.html" />
+    <link rel="prev" title="Optimization" href="optimization.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -186,15 +186,17 @@
 <li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy <a class="anchor" id="Numpy"></a></a></li>
 <li class="toctree-l2"><a class="reference internal" href="pandas.html">Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming (OOP) in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomoly Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomaly Detection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="evaluation_metrics.html">Metrics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optimization.html">Portfolio Optimization  <a name="Portfolio-Optimization"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html">Optimization</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Statistical Tests (A/B Testing)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series</a></li>
-<li class="toctree-l1"><a class="reference internal" href="visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualizations.html">Matplotlib settings:</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="cookbook_meta.html">Cookbook Meta</a></li>
 </ul>
 
@@ -392,13 +394,17 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-assess-statistical-significance">Steps to Assess Statistical Significance: <a name="assess-significance"></a></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-size-and-statstical-power">Sample Size and Statstical Power: <a name="Sample-Size-and-Statstical-Power"></a></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#margin-of-error-moe">Margin of Error (MoE)  <a name="Margin of Error"></a></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-size-and-statistical-power">Sample Size and Statistical Power: <a name="Sample-Size-and-Statstical-Power"></a> <br/></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#margin-of-error-moe">Margin of Error (MoE)  <a name="Margin of Error"></a></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-proportion-moe">Sample Proportion MoE</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-mean-moe">Sample Mean MoE</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-intervals-ci">Confidence Intervals (CI)  <a name="Confidence Intervals"></a></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-statstical-tests">Common Statstical Tests <a name="common-statistical-tests"></a></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#t-tests-compare-the-means-of-two-groups"><strong>T-tests</strong>: Compare the means of two groups. <a name="t-tests"></a></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#z-tests-t-tests-compare-the-means-of-two-groups"><strong>Z-tests / T-tests</strong>: Compare the means of two groups. <a name="t-tests"></a></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wilcoxon-signed-rank-test-non-parametric-test-to-compare-the-means-of-two-groups"><strong>Wilcoxon Signed-Rank Test</strong>: Non-parametric test to compare the means of two groups. <a name="Wilcoxon-Signed-Rank"></a></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anova-analysis-of-variance-compare-the-means-of-three-or-more-groups"><strong>ANOVA (Analysis of Variance)</strong>: Compare the means of three or more groups. <a name="anova-analysis-of-variance"></a></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-squared-tests-test-the-relationship-between-categorical-variables"><strong>Chi-squared Tests</strong>: Test the relationship between categorical variables. <a name="chi-squared-tests"></a></a></li>
@@ -410,7 +416,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#t-tests-independent-two-sample">T-Tests: Independent (Two-sample)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#welch-s-t-test-for-unequal-variance">Welch’s t-test for unequal variance</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#t-tests-paired-dependent">T-Tests: Paired (Dependent)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bonferroni-correction">Bonferroni correction</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wilcoxon-signed-rank-test">Wilcoxon Signed-Rank Test</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-square-goodness-of-fit">Chi-square Goodness of Fit</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-squared-independence-fisher-s-exact-test-g-test">Chi-squared Independence / Fisher’s Exact Test / G-Test</a></li>
@@ -418,6 +423,12 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#g-test-goodness-of-fit">G-Test (Goodness-of-Fit):</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-way-anova">One-way ANOVA</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-test">Permutation Test</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#p-value-correction-for-multiple-tests">P-Value Correction for Multiple Tests</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bonferroni-correction">Bonferroni correction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#false-discovery-rate-fdr">False discovery rate (FDR)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-tests-example">Multiple Tests Example</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-testing">Sequential Testing</a><ul class="nav section-nav flex-column">
@@ -431,7 +442,10 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kullbackleibler-divergence">Kullback–Leibler divergence <a name="Kullback–Leibler"></a></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpson-s-paradox">Simpson’s Paradox <a name="Simpsons-Paradox"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpson-s-paradox">Simpson’s Paradox</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
@@ -451,18 +465,24 @@ document.write(`
 <ol class="arabic simple">
 <li><p>Formulate Hypotheses:</p>
 <ul class="simple">
-<li><p>Null Hypothesis (H0): there is no effect, and any observed results are due to random chance.</p></li>
-<li><p>Alternative Hypothesis (H1 or Ha): there is a real effect or difference.</p></li>
+<li><p>Null Hypothesis (<span class="math notranslate nohighlight">\(H_0\)</span>): There is no effect, and any observed results are due to random chance.</p></li>
+<li><p>Alternative Hypothesis (<span class="math notranslate nohighlight">\(H_a\)</span>): There is a real effect or difference.</p></li>
 </ul>
 </li>
-<li><p>Choose Significance Level (α): The probability of rejecting the null hypothesis when it is true (Type I error). Commonly 0.05.</p></li>
+<li><p>Choose Significance Level (<span class="math notranslate nohighlight">\(α\)</span>): The probability of rejecting the null hypothesis when it is true (Type I error). Commonly 0.05.</p></li>
 <li><p>Select Statistical Test: Common tests include t-tests, chi-square tests, ANOVA, and regression analysis.</p></li>
-<li><p>Calculate Test Statistic and P-value</p></li>
+<li><p>Calculate Test Statistic and P-value.</p></li>
 </ol>
-<section id="sample-size-and-statstical-power">
-<h3>Sample Size and Statstical Power: <a name="Sample-Size-and-Statstical-Power"></a><a class="headerlink" href="#sample-size-and-statstical-power" title="Link to this heading">#</a></h3>
-<br>
-Significance Level (α) and Power (1-β)
+<p><strong>Note</strong>:
+In a business context, it’s also important to clarify the purpose and value of the experiment. Is it worth running a test?
+Define metrics:</p>
+<ul class="simple">
+<li><p>Success metrics that quantify a desired change.</p></li>
+<li><p>Tracking metrics help explain the movement in the success metrics.</p></li>
+<li><p>Guardrail metrics that you do not want to harm.</p></li>
+</ul>
+<section id="sample-size-and-statistical-power">
+<h3>Sample Size and Statistical Power: <a name="Sample-Size-and-Statstical-Power"></a> <br><a class="headerlink" href="#sample-size-and-statistical-power" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p></p></th>
@@ -472,24 +492,29 @@ Significance Level (α) and Power (1-β)
 </thead>
 <tbody>
 <tr class="row-even"><td><p><strong>Test Rejects <span class="math notranslate nohighlight">\(H_0\)</span></strong></p></td>
-<td><p>α</p></td>
-<td><p>1-β</p></td>
+<td><p>Significance Level  (<span class="math notranslate nohighlight">\(α\)</span>)</p></td>
+<td><p>Power (<span class="math notranslate nohighlight">\(1-β\)</span>)</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Test Accepts <span class="math notranslate nohighlight">\(H_0\)</span></strong></p></td>
-<td><p>1-α</p></td>
-<td><p>β</p></td>
+<td><p><span class="math notranslate nohighlight">\(1-α\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(β\)</span></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <p>Where</p>
 <ul class="simple">
-<li><p>β = probability of a Type II error, known as a “false negative”</p></li>
-<li><p>1 − β = probability of a “true positive”, i.e., correctly rejecting the null hypothesis. “1 − β” is also known as the power of the test.</p></li>
-<li><p>α = probability of a Type I error, known as a “false positive”</p></li>
-<li><p>1 − α = probability of a “true negative”, i.e., correctly not rejecting the null hypothesis</p></li>
+<li><p><span class="math notranslate nohighlight">\(β\)</span> = probability of a Type II error, known as a “false negative”</p></li>
+<li><p><span class="math notranslate nohighlight">\(1 − β\)</span> = probability of a “true positive”, i.e., correctly rejecting the null hypothesis. The <strong>power</strong> of the test.</p></li>
+<li><p><span class="math notranslate nohighlight">\(α\)</span> = probability of a Type I error, known as a “false positive”</p></li>
+<li><p><span class="math notranslate nohighlight">\(1 − α\)</span> = probability of a “true negative”, i.e., correctly not rejecting the null hypothesis</p></li>
 </ul>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -501,37 +526,53 @@ Significance Level (α) and Power (1-β)
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 <span class="n">critical_value</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Power of a Statistical Test&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Probability Density&#39;</span><span class="p">)</span>
+
+
 <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">power</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axs</span><span class="p">,</span> <span class="n">betas</span><span class="p">,</span> <span class="n">powers</span><span class="p">):</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Distribution under $H_0$&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">power</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Distribution under $H_1$&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">where</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="n">critical_value</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="n">critical_value</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Type I error (α)&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">power</span><span class="p">),</span> <span class="n">where</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">critical_value</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="o">-</span><span class="n">critical_value</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Type II error (β)&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">critical_value</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Critical Value for α&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="o">-</span><span class="n">critical_value</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Distribution under $H_0$&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">power</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Distribution under $H_1$&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">where</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="n">critical_value</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="n">critical_value</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Type I error (α)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">power</span><span class="p">),</span> <span class="n">where</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">critical_value</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="o">-</span><span class="n">critical_value</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Type II error (β)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">critical_value</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Critical Value for α&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="o">-</span><span class="n">critical_value</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">alpha/2$&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">alpha/2$&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="s1">&#39;$1-</span><span class="se">\\</span><span class="s1">alpha$&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;Power</span><span class="se">\n</span><span class="s1">$(1-</span><span class="se">\\</span><span class="s1">beta)$&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;Power</span><span class="se">\n</span><span class="s1">$(1-</span><span class="se">\\</span><span class="s1">beta)$&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">beta$&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Test Statistic&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Probability Density&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Power of a Statistical Test</span><span class="se">\n</span><span class="s1">(β=</span><span class="si">{</span><span class="n">beta</span><span class="si">}</span><span class="s1">, Power=</span><span class="si">{</span><span class="n">power</span><span class="si">:</span><span class="s1">.02f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;β=</span><span class="si">{</span><span class="n">beta</span><span class="si">}</span><span class="s1">, Power=</span><span class="si">{</span><span class="n">power</span><span class="si">:</span><span class="s1">.02f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/22292bc6a97764d40b14fee5614c3a6de7338b5e30cb914701a8ddbf62b9d6f2.png" src="../_images/22292bc6a97764d40b14fee5614c3a6de7338b5e30cb914701a8ddbf62b9d6f2.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">betas</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">]</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;scipy&#39;
+</pre></div>
+</div>
 </div>
 </div>
 </section>
 <section id="margin-of-error-moe">
 <h3>Margin of Error (MoE)  <a name="Margin of Error"></a><a class="headerlink" href="#margin-of-error-moe" title="Link to this heading">#</a></h3>
 <p>Expresses the sampling error in a survey’s results. It is a range within which the true population parameter is expected to lie, with a certain level of confidence. Used for many things including sample size determination.</p>
-<p>Sample proportion MoE:</p>
+<section id="sample-proportion-moe">
+<h4>Sample Proportion MoE<a class="headerlink" href="#sample-proportion-moe" title="Link to this heading">#</a></h4>
 <div class="math notranslate nohighlight">
 \[\text{MoE} = z \times \sqrt{\frac{p(1-p)}{n}}\]</div>
 <p>Where:</p>
@@ -540,7 +581,9 @@ Significance Level (α) and Power (1-β)
 <li><p>p is the sample proportion.</p></li>
 <li><p>n is the sample size.</p></li>
 </ul>
-<p>Sample mean MoE:</p>
+</section>
+<section id="sample-mean-moe">
+<h4>Sample Mean MoE<a class="headerlink" href="#sample-mean-moe" title="Link to this heading">#</a></h4>
 <div class="math notranslate nohighlight">
 \[ \text{MoE} = t \times \frac{s}{\sqrt{n}} \]</div>
 <p>Where:</p>
@@ -551,7 +594,7 @@ Significance Level (α) and Power (1-β)
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.40</span><span class="p">,</span> <span class="mf">0.60</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 <span class="n">mean</span> <span class="o">=</span> <span class="mf">0.50</span>
@@ -576,9 +619,10 @@ Significance Level (α) and Power (1-β)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/0578c6fc636b127d479199286c21b54d5c42c317c70881e9df6739f12c1dc783.png" src="../_images/0578c6fc636b127d479199286c21b54d5c42c317c70881e9df6739f12c1dc783.png" />
+<img alt="../_images/5ddd2e38941b5263dd05be18d648a52d08a5d15799e76c8a38d7e75f257e7286.png" src="../_images/5ddd2e38941b5263dd05be18d648a52d08a5d15799e76c8a38d7e75f257e7286.png" />
 </div>
 </div>
+</section>
 </section>
 <section id="confidence-intervals-ci">
 <h3>Confidence Intervals (CI)  <a name="Confidence Intervals"></a><a class="headerlink" href="#confidence-intervals-ci" title="Link to this heading">#</a></h3>
@@ -589,9 +633,10 @@ True Interpretation: “If we were to take many samples and construct a confiden
 </section>
 <section id="common-statstical-tests">
 <h2>Common Statstical Tests <a name="common-statistical-tests"></a><a class="headerlink" href="#common-statstical-tests" title="Link to this heading">#</a></h2>
-<section id="t-tests-compare-the-means-of-two-groups">
-<h3><strong>T-tests</strong>: Compare the means of two groups. <a name="t-tests"></a><a class="headerlink" href="#t-tests-compare-the-means-of-two-groups" title="Link to this heading">#</a></h3>
-<p><strong>Assumptions</strong>: Normal distribution of data, equal variances between groups, and independence of observations.<br>
+<section id="z-tests-t-tests-compare-the-means-of-two-groups">
+<h3><strong>Z-tests / T-tests</strong>: Compare the means of two groups. <a name="t-tests"></a><a class="headerlink" href="#z-tests-t-tests-compare-the-means-of-two-groups" title="Link to this heading">#</a></h3>
+<p><strong>When to use a Z-test vs. T-test?</strong>: Generally, Z-Tests are used when the sample size is large (<span class="math notranslate nohighlight">\(n &gt; 30\)</span>). <br>
+<strong>Assumptions</strong>: Normal distribution of data, equal variances between groups, and independence of observations.<br>
 <strong>Types</strong>: <br>
 - One-sample T-Test: Compares the means of the sample data to the population (e.g., Sample from a factory process). <br>
 - Independent (Two-sample) T-test: Compares the means of two independent groups (e.g., comparing the heights of men and women). <br>
@@ -666,12 +711,12 @@ True Interpretation: “If we were to take many samples and construct a confiden
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-statistic: -4.2099
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-statistic: -4.5353
 P-value: 0.0000
 Fail to reject the null hypothesis - sample mean is not significantly different from the population mean.
 </pre></div>
 </div>
-<img alt="../_images/093919d7d10e7d50f19e9b20385cc27187b0ede9bd271176e5e7f96a5f544876.png" src="../_images/093919d7d10e7d50f19e9b20385cc27187b0ede9bd271176e5e7f96a5f544876.png" />
+<img alt="../_images/53642716d9d09421bc61e6e47cbe3ccb621dfc729ec04518275270d7e0cbc07a.png" src="../_images/53642716d9d09421bc61e6e47cbe3ccb621dfc729ec04518275270d7e0cbc07a.png" />
 </div>
 </div>
 </section>
@@ -707,15 +752,15 @@ Fail to reject the null hypothesis - sample mean is not significantly different 
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-Test Assuming Equal Variance:
-	T-statistic: -3.9042
-	P-value: 0.0001
+	T-statistic: -2.5844
+	P-value: 0.0098
 
 Welch&#39;s T-Test for Unequal Variance:
-	T-statistic: -3.9042
-	P-value: 0.0001
+	T-statistic: -2.5844
+	P-value: 0.0098
 </pre></div>
 </div>
-<img alt="../_images/87633343bccb03a35c6448571510fa9a0e63ecf0f6e224e94fdfff975b19f7c4.png" src="../_images/87633343bccb03a35c6448571510fa9a0e63ecf0f6e224e94fdfff975b19f7c4.png" />
+<img alt="../_images/4f69ffb33bf4f4f568bcaf51dd9a979562c0a0b71150de74b7dcd374874d1455.png" src="../_images/4f69ffb33bf4f4f568bcaf51dd9a979562c0a0b71150de74b7dcd374874d1455.png" />
 </div>
 </div>
 </section>
@@ -749,15 +794,15 @@ Welch&#39;s T-Test for Unequal Variance:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-Test Assuming Equal Variance:
-	T-statistic: -2.5354
-	P-value: 0.0113
+	T-statistic: -0.9467
+	P-value: 0.3439
 
 Welch&#39;s T-Test for Unequal Variance:
-	T-statistic: -2.5354
-	P-value: 0.0114
+	T-statistic: -0.9467
+	P-value: 0.3440
 </pre></div>
 </div>
-<img alt="../_images/e24885de75f2e2bffd1abd31a6ea29ac0742e8e9a5a2d4f38378cf1e3f5feea6.png" src="../_images/e24885de75f2e2bffd1abd31a6ea29ac0742e8e9a5a2d4f38378cf1e3f5feea6.png" />
+<img alt="../_images/07ada48279bbd450f987c94b69a38f55b55d9225a293f9c88ddbcdd1a53281f9.png" src="../_images/07ada48279bbd450f987c94b69a38f55b55d9225a293f9c88ddbcdd1a53281f9.png" />
 </div>
 </div>
 </section>
@@ -794,15 +839,15 @@ Welch&#39;s T-Test for Unequal Variance:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Independent T-Test:
-	T-statistic: -2.3873
-	P-value: 0.0171
+	T-statistic: -2.7633
+	P-value: 0.0058
 
 Paired T-Test:
-	T-statistic: -2.3723
-	P-value: 0.0179
+	T-statistic: -2.8488
+	P-value: 0.0045
 </pre></div>
 </div>
-<img alt="../_images/c5f8dd904149fb441c009676508ad02a88aadde2cc6ee60bff0ffbafe07b120a.png" src="../_images/c5f8dd904149fb441c009676508ad02a88aadde2cc6ee60bff0ffbafe07b120a.png" />
+<img alt="../_images/f484a7331a6c059a1578a2981e19b1cfd2b1612522aabff1bb4f36ccecf48785.png" src="../_images/f484a7331a6c059a1578a2981e19b1cfd2b1612522aabff1bb4f36ccecf48785.png" />
 </div>
 </div>
 <p>Simulate null hypothesis and observe falsely rejecting the null hypothesis at a given p-value probability, regardless of sample size</p>
@@ -846,78 +891,22 @@ Paired T-Test:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Independent ______________________________________________________
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 951, Accepted: 49
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 961, Accepted: 39
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 950, Accepted: 50
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 942, Accepted: 58
+Sample Size: 10      Reject: 943, Accepted: 57
+Sample Size: 100     Reject: 955, Accepted: 45
+Sample Size: 1000    Reject: 950, Accepted: 50
+Sample Size: 10000   Reject: 943, Accepted: 57
 
 Paired ______________________________________________________
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 957, Accepted: 43
-Sample Size: 100     Reject: 939, Accepted: 61
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 945, Accepted: 55
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 935, Accepted: 65
+Sample Size: 10      Reject: 952, Accepted: 48
+Sample Size: 100     Reject: 948, Accepted: 52
+Sample Size: 1000    Reject: 942, Accepted: 58
+Sample Size: 10000   Reject: 932, Accepted: 68
 
 Welch ______________________________________________________
-Sample Size: 10      Reject: 955, Accepted: 45
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 955, Accepted: 45
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 956, Accepted: 44
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 960, Accepted: 40
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="bonferroni-correction">
-<h3>Bonferroni correction<a class="headerlink" href="#bonferroni-correction" title="Link to this heading">#</a></h3>
-<p>When multiple hypothesis tests are conducted, the Bonferroni correction can help to maintain the overall false positive error rate at a desired level.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_size</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">n_tests</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">data1</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span>
-<span class="n">data2</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span>
-<span class="n">data3</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span>
-<span class="n">t_stat1</span><span class="p">,</span> <span class="n">p_val1</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">)</span>
-<span class="n">t_stat2</span><span class="p">,</span> <span class="n">p_val2</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data3</span><span class="p">)</span>
-<span class="n">t_stat3</span><span class="p">,</span> <span class="n">p_val3</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">data2</span><span class="p">,</span> <span class="n">data3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Original p-values: </span><span class="si">{</span><span class="n">p_val1</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">p_val2</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">p_val3</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="c1"># Bonferroni correction</span>
-<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span>
-<span class="n">bonferroni_alpha</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">/</span> <span class="n">n_tests</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bonferroni corrected alpha: </span><span class="si">{</span><span class="n">bonferroni_alpha</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="n">adjusted_p_val1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">p_val1</span> <span class="o">*</span> <span class="n">n_tests</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">adjusted_p_val2</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">p_val2</span> <span class="o">*</span> <span class="n">n_tests</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">adjusted_p_val3</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">p_val3</span> <span class="o">*</span> <span class="n">n_tests</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adjusted p-values: </span><span class="si">{</span><span class="n">adjusted_p_val1</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">adjusted_p_val2</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">adjusted_p_val3</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original p-values: 0.0042, 0.3461, 0.0531
-Bonferroni corrected alpha: 0.0167
-Adjusted p-values: 0.0125, 1.0000, 0.1593
+Sample Size: 10      Reject: 954, Accepted: 46
+Sample Size: 100     Reject: 952, Accepted: 48
+Sample Size: 1000    Reject: 953, Accepted: 47
+Sample Size: 10000   Reject: 949, Accepted: 51
 </pre></div>
 </div>
 </div>
@@ -1267,11 +1256,91 @@ P-value: 0.000044
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Observed difference in means: -0.0112
-P-value from permutation test: 0.9390
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Observed difference in means: 0.0508
+P-value from permutation test: 0.7319
 </pre></div>
 </div>
-<img alt="../_images/b8dd97f7a80f5499f896b50d76378a5b47d4fde8193149030cd1e01c7fd19782.png" src="../_images/b8dd97f7a80f5499f896b50d76378a5b47d4fde8193149030cd1e01c7fd19782.png" />
+<img alt="../_images/8aeb5294395685cb8c83c4875132535e49cbe496524f990838a17081aef5f8b5.png" src="../_images/8aeb5294395685cb8c83c4875132535e49cbe496524f990838a17081aef5f8b5.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="p-value-correction-for-multiple-tests">
+<h2>P-Value Correction for Multiple Tests<a class="headerlink" href="#p-value-correction-for-multiple-tests" title="Link to this heading">#</a></h2>
+<p>Family-wise error rate (FWER) is the probability of rejecting the null hypothesis when it is actually true while performing multiple hypotheses tests.</p>
+<section id="bonferroni-correction">
+<h3>Bonferroni correction<a class="headerlink" href="#bonferroni-correction" title="Link to this heading">#</a></h3>
+<p>When multiple hypothesis tests are conducted, the Bonferroni correction can help to maintain the overall false positive error rate at a desired level.</p>
+<p>The Bonferroni correction can be conservative if the test statistics are positively correlated.</p>
+</section>
+<section id="false-discovery-rate-fdr">
+<h3>False discovery rate (FDR)<a class="headerlink" href="#false-discovery-rate-fdr" title="Link to this heading">#</a></h3>
+<p>Estimates the proportion of false discoveries among a set of hypothesis tests.</p>
+<p>Less conservative than the Bonferroni correction, because it takes into account the distribution of p-values in the data.</p>
+<p>There are several methods available on <a class="reference external" href="https://www.statsmodels.org/stable/generated/statsmodels.stats.multitest.multipletests.html">statsmodels</a>. I run these two below:</p>
+<ul class="simple">
+<li><p>Benjamini–Hochberg: Proven for independent test statistics, and has been shown to be robust to violations of the independence assumption.</p></li>
+<li><p>Benjamini–Yekutieli: A more conservative extension that controls for correlated tests.</p></li>
+</ul>
+<p><a class="reference external" href="https://www.mv.helsinki.fi/home/mjxpirin/HDS_course/material/HDS2_FDR.html">Matti Pirinen</a> has great lecture notes online that dive deeper into the details of False Discovery Rates by
+that dives deeper into .</p>
+</section>
+<section id="multiple-tests-example">
+<h3>Multiple Tests Example<a class="headerlink" href="#multiple-tests-example" title="Link to this heading">#</a></h3>
+<p>Three independent two-sample t-tests are performed comparing random data for three groups</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.stats.multitest</span> <span class="kn">import</span> <span class="n">multipletests</span>
+
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">sample_size</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">n_tests</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">data1</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span>
+<span class="n">data2</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span>
+<span class="n">data3</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span>
+<span class="n">t_stat1</span><span class="p">,</span> <span class="n">p_val1</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">)</span>
+<span class="n">t_stat2</span><span class="p">,</span> <span class="n">p_val2</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data3</span><span class="p">)</span>
+<span class="n">t_stat3</span><span class="p">,</span> <span class="n">p_val3</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">data2</span><span class="p">,</span> <span class="n">data3</span><span class="p">)</span>
+<span class="n">p_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">p_val1</span><span class="p">,</span> <span class="n">p_val2</span><span class="p">,</span> <span class="n">p_val3</span><span class="p">]</span>
+<span class="c1"># print(f&quot;Original p-values: {p_val1:.4f}, {p_val2:.4f}, {p_val3:.4f}&quot;)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Bonferroni Correction Results:&quot;</span><span class="p">)</span>
+<span class="n">rejected</span><span class="p">,</span> <span class="n">pvals_corrected</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">multipletests</span><span class="p">(</span><span class="n">p_values</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bonferroni&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">orig_p</span><span class="p">,</span> <span class="n">adj_p</span><span class="p">,</span> <span class="n">rej</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">p_values</span><span class="p">,</span> <span class="n">pvals_corrected</span><span class="p">,</span> <span class="n">rejected</span><span class="p">),</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;Rejected&#39;</span> <span class="k">if</span> <span class="n">rej</span> <span class="k">else</span> <span class="s1">&#39;Not rejected&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: Original p = </span><span class="si">{</span><span class="n">orig_p</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, Adjusted p = </span><span class="si">{</span><span class="n">adj_p</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">FDR with Benjamini-Hochberg Procedure:&quot;</span><span class="p">)</span>
+<span class="n">rejected</span><span class="p">,</span> <span class="n">pvals_corrected</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">multipletests</span><span class="p">(</span><span class="n">p_values</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;fdr_bh&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">orig_p</span><span class="p">,</span> <span class="n">adj_p</span><span class="p">,</span> <span class="n">rej</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">p_values</span><span class="p">,</span> <span class="n">pvals_corrected</span><span class="p">,</span> <span class="n">rejected</span><span class="p">),</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;Rejected&#39;</span> <span class="k">if</span> <span class="n">rej</span> <span class="k">else</span> <span class="s1">&#39;Not rejected&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: Original p = </span><span class="si">{</span><span class="n">orig_p</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, Adjusted p = </span><span class="si">{</span><span class="n">adj_p</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">FDR with Benjamini–Yekutieli Procedure):&quot;</span><span class="p">)</span>
+<span class="n">rejected</span><span class="p">,</span> <span class="n">pvals_corrected</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">multipletests</span><span class="p">(</span><span class="n">p_values</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;fdr_by&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">orig_p</span><span class="p">,</span> <span class="n">adj_p</span><span class="p">,</span> <span class="n">rej</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">p_values</span><span class="p">,</span> <span class="n">pvals_corrected</span><span class="p">,</span> <span class="n">rejected</span><span class="p">),</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;Rejected&#39;</span> <span class="k">if</span> <span class="n">rej</span> <span class="k">else</span> <span class="s1">&#39;Not rejected&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: Original p = </span><span class="si">{</span><span class="n">orig_p</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, Adjusted p = </span><span class="si">{</span><span class="n">adj_p</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bonferroni Correction Results:
+Test 1: Original p = 0.1624, Adjusted p = 0.4872, Not rejected
+Test 2: Original p = 0.7913, Adjusted p = 1.0000, Not rejected
+Test 3: Original p = 0.2552, Adjusted p = 0.7656, Not rejected
+
+FDR with Benjamini-Hochberg Procedure:
+Test 1: Original p = 0.1624, Adjusted p = 0.3828, Not rejected
+Test 2: Original p = 0.7913, Adjusted p = 0.7913, Not rejected
+Test 3: Original p = 0.2552, Adjusted p = 0.3828, Not rejected
+
+FDR with Benjamini–Yekutieli Procedure):
+Test 1: Original p = 0.1624, Adjusted p = 0.7018, Not rejected
+Test 2: Original p = 0.7913, Adjusted p = 1.0000, Not rejected
+Test 3: Original p = 0.2552, Adjusted p = 0.7018, Not rejected
+</pre></div>
+</div>
 </div>
 </div>
 </section>
@@ -1357,24 +1426,16 @@ Decision at 100.0% data: Reject H0
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Initializing NUTS using jitter+adapt_diag...
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Multiprocess sampling (4 chains in 4 jobs)
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NUTS: [p_A, p_B]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 5_000 draw iterations (4_000 + 20_000 draws total) took 1 seconds.
+Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
+NUTS: [p_A, p_B]
+Sampling 4 chains for 1_000 tune and 5_000 draw iterations (4_000 + 20_000 draws total) took 2 seconds.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Probability that B is better than A: 0.91
 </pre></div>
 </div>
-<img alt="../_images/87b903b7bbe3173b2e1c066651a4728742f81df2c83340c41a3999a37dce40da.png" src="../_images/87b903b7bbe3173b2e1c066651a4728742f81df2c83340c41a3999a37dce40da.png" />
+<img alt="../_images/9d4cfb78f8fe23623303771068d00980c17c27c8209b86e65e893ddf3791f49a.png" src="../_images/9d4cfb78f8fe23623303771068d00980c17c27c8209b86e65e893ddf3791f49a.png" />
 </div>
 </div>
 <p>Example from <a class="reference external" href="https://nbviewer.org/github/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/blob/master/Chapter1_Introduction/Ch1_Introduction_PyMC2.ipynb">Probabilistic Programming and Bayesian Methods for Hackers</a></p>
@@ -1405,7 +1466,7 @@ Decision at 100.0% data: Reject H0
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9c25a00fee3a5fc45789015243bab3aaf67a11f1241770af55b5455806a8ef92.png" src="../_images/9c25a00fee3a5fc45789015243bab3aaf67a11f1241770af55b5455806a8ef92.png" />
+<img alt="../_images/2bc460f2b26de42a1b8f283bb30a98b1a0c685ff24e7b1f8212585e9dbb2081c.png" src="../_images/2bc460f2b26de42a1b8f283bb30a98b1a0c685ff24e7b1f8212585e9dbb2081c.png" />
 </div>
 </div>
 </section>
@@ -1436,28 +1497,10 @@ Decision at 100.0% data: Reject H0
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shapiro-Wilk: p-value = 0.8553
-Kolmogorov-Smirnov: p-value = 0.9348
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shapiro-Wilk: p-value = 0.7103
+Kolmogorov-Smirnov: p-value = 0.9342
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">stats</span><span class="o">.</span><span class="n">probplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="n">plt</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Q-Q plot against Normal Distribution&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">stats</span><span class="o">.</span><span class="n">probplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">lognorm</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="mf">0.7</span><span class="p">),</span> <span class="n">plot</span><span class="o">=</span><span class="n">plt</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Q-Q plot against Log-normal Distribution&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span> 
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/c150e5ee6fb0c7f3a4735cd311b146185f8c39f607993233eb90a3cd8fba6838.png" src="../_images/c150e5ee6fb0c7f3a4735cd311b146185f8c39f607993233eb90a3cd8fba6838.png" />
 </div>
 </div>
 </section>
@@ -1497,38 +1540,40 @@ Kolmogorov-Smirnov: p-value = 0.9348
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kullback-Leibler Divergence: 0.2479
-Kullback-Leibler Divergence (histogram method): 0.1044
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kullback-Leibler Divergence: 0.2700
+Kullback-Leibler Divergence (histogram method): 0.1049
 </pre></div>
 </div>
-<img alt="../_images/828dd767c12c5974d04323f3371d508f97a8fd2ef04c8a37c138e32cdd2d1038.png" src="../_images/828dd767c12c5974d04323f3371d508f97a8fd2ef04c8a37c138e32cdd2d1038.png" />
+<img alt="../_images/06f90a0b655a40884e184d3588390ce74d0dc80116e61914591c722df2c53dc9.png" src="../_images/06f90a0b655a40884e184d3588390ce74d0dc80116e61914591c722df2c53dc9.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="simpson-s-paradox">
-<h2>Simpson’s Paradox <a name="Simpsons-Paradox"></a><a class="headerlink" href="#simpson-s-paradox" title="Link to this heading">#</a></h2>
+<h2><a class="reference external" href="https://en.wikipedia.org/wiki/Simpson's_paradox">Simpson’s Paradox</a><a class="headerlink" href="#simpson-s-paradox" title="Link to this heading">#</a></h2>
+<p>Describes a situation where a trend appears in groups of data, but changes when the groups are combined.</p>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h3>
 <p>We run an experiment on two days. The first day we apply the treatment to 1% of users and the next day to 50% of users.</p>
 <p>The treatment has a better success rate on both days, but when we average the result, it is worse overall due to to weighted averaging.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">success_list</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">failure_list</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">def</span> <span class="nf">run_experiment</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">num_simulations</span><span class="p">):</span>
-    <span class="n">simulations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">num_simulations</span><span class="p">)</span>
-    <span class="n">successes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">simulations</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">failures</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">simulations</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_experiment</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">num_simulations</span><span class="p">):</span>
+    <span class="n">successes</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">num_simulations</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">failures</span> <span class="o">=</span> <span class="n">num_simulations</span> <span class="o">-</span> <span class="n">successes</span>
     <span class="n">success_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">successes</span><span class="p">)</span>
     <span class="n">failure_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">failures</span><span class="p">)</span>
 
+<span class="n">success_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">failure_list</span> <span class="o">=</span> <span class="p">[]</span>
+
 <span class="c1"># Day 1: 1% Treatment</span>
-<span class="n">run_experiment</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
-<span class="n">run_experiment</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="mi">9500</span><span class="p">)</span>
+<span class="n">run_experiment</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.62</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">run_experiment</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.57</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="mi">9500</span><span class="p">)</span>
 
 <span class="c1"># Day 2: 50% Treatment</span>
-<span class="n">run_experiment</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
-<span class="n">run_experiment</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+<span class="n">run_experiment</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+<span class="n">run_experiment</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.45</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
     <span class="s2">&quot;Treatment or Control&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Treatment&quot;</span><span class="p">,</span> <span class="s2">&quot;Control&quot;</span><span class="p">,</span> <span class="s2">&quot;Treatment&quot;</span><span class="p">,</span> <span class="s2">&quot;Control&quot;</span><span class="p">],</span>
@@ -1537,12 +1582,9 @@ Kullback-Leibler Divergence (histogram method): 0.1044
     <span class="s2">&quot;Failure&quot;</span><span class="p">:</span> <span class="n">failure_list</span>
 <span class="p">})</span>
 
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Success&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Success&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Failure&#39;</span><span class="p">]))</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Success&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Success&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Failure&#39;</span><span class="p">]))</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Daily Results:&quot;</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Weighted Average Results:&quot;</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;Day of Test&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Treatment or Control&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1580,37 +1622,50 @@ Kullback-Leibler Divergence (histogram method): 0.1044
       <th>0</th>
       <td>Treatment</td>
       <td>Day 1</td>
-      <td>241</td>
-      <td>259</td>
-      <td>48.0</td>
+      <td>304</td>
+      <td>196</td>
+      <td>61.0</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Control</td>
       <td>Day 1</td>
-      <td>5311</td>
-      <td>4189</td>
-      <td>56.0</td>
+      <td>5556</td>
+      <td>3944</td>
+      <td>58.0</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Treatment</td>
       <td>Day 2</td>
-      <td>2995</td>
-      <td>2005</td>
-      <td>60.0</td>
+      <td>2502</td>
+      <td>2498</td>
+      <td>50.0</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Control</td>
       <td>Day 2</td>
-      <td>2759</td>
-      <td>2241</td>
-      <td>55.0</td>
+      <td>2259</td>
+      <td>2741</td>
+      <td>45.0</td>
     </tr>
   </tbody>
 </table>
-</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Weighted Average Results:
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Weighted Average Results:&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;Day of Test&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">grouped_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Treatment or Control&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">grouped_df</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">grouped_df</span><span class="p">[</span><span class="s1">&#39;Success&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">grouped_df</span><span class="p">[</span><span class="s1">&#39;Success&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">grouped_df</span><span class="p">[</span><span class="s1">&#39;Failure&#39;</span><span class="p">]))</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">grouped_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Weighted Average Results:
 </pre></div>
 </div>
 <div class="output text_html"><div>
@@ -1645,20 +1700,21 @@ Kullback-Leibler Divergence (histogram method): 0.1044
   <tbody>
     <tr>
       <th>Control</th>
-      <td>4035.0</td>
-      <td>3215.0</td>
-      <td>55.5</td>
+      <td>7815</td>
+      <td>6685</td>
+      <td>54.0</td>
     </tr>
     <tr>
       <th>Treatment</th>
-      <td>1618.0</td>
-      <td>1132.0</td>
-      <td>54.0</td>
+      <td>2806</td>
+      <td>2694</td>
+      <td>51.0</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
+</section>
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
@@ -1705,7 +1761,7 @@ Kullback-Leibler Divergence (histogram method): 0.1044
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Portfolio Optimization  <a name="Portfolio-Optimization"></a></p>
+        <p class="prev-next-title">Optimization</p>
       </div>
     </a>
     <a class="right-next"
@@ -1734,13 +1790,17 @@ Kullback-Leibler Divergence (histogram method): 0.1044
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-assess-statistical-significance">Steps to Assess Statistical Significance: <a name="assess-significance"></a></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-size-and-statstical-power">Sample Size and Statstical Power: <a name="Sample-Size-and-Statstical-Power"></a></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#margin-of-error-moe">Margin of Error (MoE)  <a name="Margin of Error"></a></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-size-and-statistical-power">Sample Size and Statistical Power: <a name="Sample-Size-and-Statstical-Power"></a> <br/></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#margin-of-error-moe">Margin of Error (MoE)  <a name="Margin of Error"></a></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-proportion-moe">Sample Proportion MoE</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-mean-moe">Sample Mean MoE</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-intervals-ci">Confidence Intervals (CI)  <a name="Confidence Intervals"></a></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-statstical-tests">Common Statstical Tests <a name="common-statistical-tests"></a></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#t-tests-compare-the-means-of-two-groups"><strong>T-tests</strong>: Compare the means of two groups. <a name="t-tests"></a></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#z-tests-t-tests-compare-the-means-of-two-groups"><strong>Z-tests / T-tests</strong>: Compare the means of two groups. <a name="t-tests"></a></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wilcoxon-signed-rank-test-non-parametric-test-to-compare-the-means-of-two-groups"><strong>Wilcoxon Signed-Rank Test</strong>: Non-parametric test to compare the means of two groups. <a name="Wilcoxon-Signed-Rank"></a></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anova-analysis-of-variance-compare-the-means-of-three-or-more-groups"><strong>ANOVA (Analysis of Variance)</strong>: Compare the means of three or more groups. <a name="anova-analysis-of-variance"></a></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-squared-tests-test-the-relationship-between-categorical-variables"><strong>Chi-squared Tests</strong>: Test the relationship between categorical variables. <a name="chi-squared-tests"></a></a></li>
@@ -1752,7 +1812,6 @@ Kullback-Leibler Divergence (histogram method): 0.1044
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#t-tests-independent-two-sample">T-Tests: Independent (Two-sample)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#welch-s-t-test-for-unequal-variance">Welch’s t-test for unequal variance</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#t-tests-paired-dependent">T-Tests: Paired (Dependent)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bonferroni-correction">Bonferroni correction</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wilcoxon-signed-rank-test">Wilcoxon Signed-Rank Test</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-square-goodness-of-fit">Chi-square Goodness of Fit</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-squared-independence-fisher-s-exact-test-g-test">Chi-squared Independence / Fisher’s Exact Test / G-Test</a></li>
@@ -1760,6 +1819,12 @@ Kullback-Leibler Divergence (histogram method): 0.1044
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#g-test-goodness-of-fit">G-Test (Goodness-of-Fit):</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-way-anova">One-way ANOVA</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-test">Permutation Test</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#p-value-correction-for-multiple-tests">P-Value Correction for Multiple Tests</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bonferroni-correction">Bonferroni correction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#false-discovery-rate-fdr">False discovery rate (FDR)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-tests-example">Multiple Tests Example</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-testing">Sequential Testing</a><ul class="nav section-nav flex-column">
@@ -1773,7 +1838,10 @@ Kullback-Leibler Divergence (histogram method): 0.1044
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kullbackleibler-divergence">Kullback–Leibler divergence <a name="Kullback–Leibler"></a></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpson-s-paradox">Simpson’s Paradox <a name="Simpsons-Paradox"></a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpson-s-paradox">Simpson’s Paradox</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>

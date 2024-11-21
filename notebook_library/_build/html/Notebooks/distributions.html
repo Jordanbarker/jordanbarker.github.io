@@ -63,7 +63,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Metrics" href="evaluation_metrics.html" />
-    <link rel="prev" title="Anomoly Detection" href="anomaly_detection.html" />
+    <link rel="prev" title="Anomaly Detection" href="anomaly_detection.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -186,15 +186,17 @@
 <li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy <a class="anchor" id="Numpy"></a></a></li>
 <li class="toctree-l2"><a class="reference internal" href="pandas.html">Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming (OOP) in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomoly Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomaly Detection</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="evaluation_metrics.html">Metrics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optimization.html">Portfolio Optimization  <a name="Portfolio-Optimization"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html">Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="statistical_tests.html">Statistical Tests (A/B Testing)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series</a></li>
-<li class="toctree-l1"><a class="reference internal" href="visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualizations.html">Matplotlib settings:</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="cookbook_meta.html">Cookbook Meta</a></li>
 </ul>
 
@@ -446,7 +448,8 @@ document.write(`
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
@@ -467,10 +470,18 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successes: 7058, Failures: 2942
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;scipy&#39;
 </pre></div>
 </div>
-<img alt="../_images/9dde8d38f569cd7cccd01d71a5d19c0614d87adbe8f90b568cebca988e45c093.png" src="../_images/9dde8d38f569cd7cccd01d71a5d19c0614d87adbe8f90b568cebca988e45c093.png" />
 </div>
 </div>
 </section>
@@ -515,7 +526,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1b0c657195c961076078cd11b3e0742a4a4379071b7af220fdbc7f0208aeeee8.png" src="../_images/1b0c657195c961076078cd11b3e0742a4a4379071b7af220fdbc7f0208aeeee8.png" />
+<img alt="../_images/48d3040920436f5971413d39bfd278bafe146a212ffec32f0102f1c876d8f138.png" src="../_images/48d3040920436f5971413d39bfd278bafe146a212ffec32f0102f1c876d8f138.png" />
 </div>
 </div>
 </section>
@@ -544,9 +555,6 @@ Properties:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/f5013904a673f475a13aae7bd279d17e4b5acba64f0979f6d1df255f35a60fd6.png" src="../_images/f5013904a673f475a13aae7bd279d17e4b5acba64f0979f6d1df255f35a60fd6.png" />
-</div>
 </div>
 </section>
 <section id="geometric-distribution">
@@ -572,7 +580,7 @@ Properties:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5083e7c3983768130040efdb4d6dc4d73ca678d0f4e1c05fa59fdfd0ba2368f3.png" src="../_images/5083e7c3983768130040efdb4d6dc4d73ca678d0f4e1c05fa59fdfd0ba2368f3.png" />
+<img alt="../_images/abdc973853f28b8cea29e3f3ff66849b4be7f844a10f66bf1932f0d418c60399.png" src="../_images/abdc973853f28b8cea29e3f3ff66849b4be7f844a10f66bf1932f0d418c60399.png" />
 </div>
 </div>
 </section>
@@ -602,7 +610,7 @@ Properties:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/408b89e7511097dc417ddd8d1dfffcfa79540c9060772f23bab0f459dc55b0c6.png" src="../_images/408b89e7511097dc417ddd8d1dfffcfa79540c9060772f23bab0f459dc55b0c6.png" />
+<img alt="../_images/e6ca4a60a371fcc234ba2f071fa3592963f8c0f2bca19b981a73496f33fc0a86.png" src="../_images/e6ca4a60a371fcc234ba2f071fa3592963f8c0f2bca19b981a73496f33fc0a86.png" />
 </div>
 </div>
 </section>
@@ -612,6 +620,7 @@ Properties:</p>
 <section id="normal-distribution">
 <h3>Normal Distribution <a name="normal-distribution"></a><a class="headerlink" href="#normal-distribution" title="Link to this heading">#</a></h3>
 <p>Example: Modeling the distribution of scores on standardized tests such as the SAT.</p>
+<p><a class="reference external" href="https://magic-with-latents.github.io/latent/posts/ddpms/part2/">All you need to know about Gaussian distribution</a> is a great dive into the topic.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># mean</span>
@@ -626,7 +635,7 @@ Properties:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b0343df48108511de75f148d224889f5452c47cbd9fea3bcafa43c6f565eb2bb.png" src="../_images/b0343df48108511de75f148d224889f5452c47cbd9fea3bcafa43c6f565eb2bb.png" />
+<img alt="../_images/2f386df5f2a88dfa8db3b8bd8702cd18042550ab655e560b6c98b9a6461e9d1d.png" src="../_images/2f386df5f2a88dfa8db3b8bd8702cd18042550ab655e560b6c98b9a6461e9d1d.png" />
 </div>
 </div>
 </section>
@@ -653,7 +662,7 @@ Properties:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f30a8afa21be9e353ad8ed08d076e7ae39f9c17578e5ae5d55b39a76f9712277.png" src="../_images/f30a8afa21be9e353ad8ed08d076e7ae39f9c17578e5ae5d55b39a76f9712277.png" />
+<img alt="../_images/08bf000a1877f733289223774b127f364bab7f76c4e570067b8347b553a1cc17.png" src="../_images/08bf000a1877f733289223774b127f364bab7f76c4e570067b8347b553a1cc17.png" />
 </div>
 </div>
 </section>
@@ -691,7 +700,7 @@ Properties:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b4ad0ba7fc969ee9b018d1e9e90c0779a31cc46294198745d3019aaa96944007.png" src="../_images/b4ad0ba7fc969ee9b018d1e9e90c0779a31cc46294198745d3019aaa96944007.png" />
+<img alt="../_images/a70ffe04c18fa9deb8b136dbb5a3ad500c045e4ddd60cba23e55f40afc4c9b27.png" src="../_images/a70ffe04c18fa9deb8b136dbb5a3ad500c045e4ddd60cba23e55f40afc4c9b27.png" />
 </div>
 </div>
 </section>
@@ -713,7 +722,7 @@ Properties:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/af7caadd6019acb74f6a6309ecf4d81e5e56ddcd9eafd1fa97ad1045095bb54a.png" src="../_images/af7caadd6019acb74f6a6309ecf4d81e5e56ddcd9eafd1fa97ad1045095bb54a.png" />
+<img alt="../_images/7f2c76353b89db2d9ad05c1883633e9afd03c5a5a7c00bfc931a25f7ae6a0f5c.png" src="../_images/7f2c76353b89db2d9ad05c1883633e9afd03c5a5a7c00bfc931a25f7ae6a0f5c.png" />
 </div>
 </div>
 </section>
@@ -735,7 +744,7 @@ Properties:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/83e41aa5191adf9e71b8c26e9dfd960e44aa0c38c7802d8253512cb53da552d0.png" src="../_images/83e41aa5191adf9e71b8c26e9dfd960e44aa0c38c7802d8253512cb53da552d0.png" />
+<img alt="../_images/c4de26cfcbd44a595dd0daae3131eb9abb12d0b709f3c9f9729d9c353f0be56f.png" src="../_images/c4de26cfcbd44a595dd0daae3131eb9abb12d0b709f3c9f9729d9c353f0be56f.png" />
 </div>
 </div>
 </section>
@@ -765,7 +774,7 @@ Properties:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/34d1cf40eb018599554e0680f2c374dbe08eaa5cec8b643062e83739554315ab.png" src="../_images/34d1cf40eb018599554e0680f2c374dbe08eaa5cec8b643062e83739554315ab.png" />
+<img alt="../_images/a28cbc50ef48658a1c66376d6b5ee5f3c9f44f763eda1a83c67edb02425d367e.png" src="../_images/a28cbc50ef48658a1c66376d6b5ee5f3c9f44f763eda1a83c67edb02425d367e.png" />
 </div>
 </div>
 </section>
@@ -812,10 +821,10 @@ Properties:</p>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Beta(11, 1) -&gt; Mean: 0.917, Variance: 0.006, Skewness: -1.553, Kurtosis: 2.977
 Beta(99, 3) -&gt; Mean: 0.971, Variance: 0.000, Skewness: -1.087, Kurtosis: 1.699
-Beta(971, 31) -&gt; Mean: 0.969, Variance: 0.000, Skewness: -0.342, Kurtosis: 0.169
+Beta(971, 31) -&gt; Mean: 0.969, Variance: 0.000, Skewness: -0.342, Kurtosis: 2.734
 </pre></div>
 </div>
-<img alt="../_images/a9a24cfbd40177f9fa8590bec303380cf6726dd10e28e626016fd8baf44e9b27.png" src="../_images/a9a24cfbd40177f9fa8590bec303380cf6726dd10e28e626016fd8baf44e9b27.png" />
+<img alt="../_images/2ca620bdd0e0a4a40f67363f86a4a8b9c476c8eaa2fe611ff25ec8200dc22096.png" src="../_images/2ca620bdd0e0a4a40f67363f86a4a8b9c476c8eaa2fe611ff25ec8200dc22096.png" />
 </div>
 </div>
 <p>Then to compare them, we find the probability that a sample from one Beta distribution is greater than a sample from the other Beta distribution.</p>
@@ -837,8 +846,7 @@ Beta(971, 31) -&gt; Mean: 0.969, Variance: 0.000, Skewness: -0.342, Kurtosis: 0.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The probability that a sample from Beta(99, 3)
- is greater than a sample from Beta(971, 31) is 0.403
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The probability that a sample from Beta(99, 3) is greater than a sample from Beta(971, 31) is 0.403
 </pre></div>
 </div>
 </div>
@@ -855,12 +863,12 @@ Beta(971, 31) -&gt; Mean: 0.969, Variance: 0.000, Skewness: -0.342, Kurtosis: 0.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The probability that a sample from Beta(99, 3)
- is greater than a sample from Beta(971, 31) is 0.402
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The probability that a sample from Beta(99, 3) is greater than a sample from Beta(971, 31) is 0.404
 </pre></div>
 </div>
 </div>
 </div>
+<p>Alternatively, a sorting algorithm was proposed in <a class="reference external" href="https://nbviewer.org/github/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/blob/master/Chapter4_TheGreatestTheoremNeverTold/Ch4_LawOfLargeNumbers_PyMC_current.ipynb">Ch. 4 of Bayesian Methods for Hackers</a>.</p>
 </section>
 </section>
 <section id="central-limit-theorem">
@@ -891,7 +899,7 @@ Beta(971, 31) -&gt; Mean: 0.969, Variance: 0.000, Skewness: -0.342, Kurtosis: 0.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/068171b7b6de4ce7f7355c12f70fdd8481dae11d858810eac7856401a9222809.png" src="../_images/068171b7b6de4ce7f7355c12f70fdd8481dae11d858810eac7856401a9222809.png" />
+<img alt="../_images/1c9a478259314ca3f92f322f906ea76827e9d52b59f4a87cb7dee15a82b77765.png" src="../_images/1c9a478259314ca3f92f322f906ea76827e9d52b59f4a87cb7dee15a82b77765.png" />
 </div>
 </div>
 </section>
@@ -899,7 +907,8 @@ Beta(971, 31) -&gt; Mean: 0.969, Variance: 0.000, Skewness: -0.342, Kurtosis: 0.
 <h2>Statistical Tests for Determining Distribution <a name="test-distributions"></a><a class="headerlink" href="#statistical-tests-for-determining-distribution" title="Link to this heading">#</a></h2>
 <section id="quantile-quantile-plots-qq-plots">
 <h3>Quantile-Quantile Plots (QQ plots) <a name="qq-plot"></a><a class="headerlink" href="#quantile-quantile-plots-qq-plots" title="Link to this heading">#</a></h3>
-<p><a class="reference external" href="https://www.youtube.com/watch?v=okjYjClSjOg">StatQuest - Quantile-Quantile Plots (QQ plots), Clearly Explained!!!</a></p>
+<p>Graphically compares two distributions.
+Recommended overview: <a class="reference external" href="https://www.youtube.com/watch?v=okjYjClSjOg">StatQuest - Quantile-Quantile Plots (QQ plots), Clearly Explained!!!</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">num_simulations</span><span class="p">)</span>
@@ -909,12 +918,12 @@ Beta(971, 31) -&gt; Mean: 0.969, Variance: 0.000, Skewness: -0.342, Kurtosis: 0.
 <span class="c1"># Exponential Q-Q plot</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 1 row, 2 columns, 1st plot</span>
 <span class="n">stats</span><span class="o">.</span><span class="n">probplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">expon</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="n">plt</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Q-Q plot against Exponential Distribution&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Q-Q Plot Comparing Log-Normal Data Versus a Exponential Distribution&#39;</span><span class="p">)</span>
 
 <span class="c1"># Log-normal Q-Q plot</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># 1 row, 2 columns, 2nd plot</span>
 <span class="n">stats</span><span class="o">.</span><span class="n">probplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">lognorm</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="mf">0.7</span><span class="p">),</span> <span class="n">plot</span><span class="o">=</span><span class="n">plt</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Q-Q plot against Log-normal Distribution&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Q-Q Plot Comparing Log-Normal Data Versus a Log-normal Distribution&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span> 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -922,7 +931,7 @@ Beta(971, 31) -&gt; Mean: 0.969, Variance: 0.000, Skewness: -0.342, Kurtosis: 0.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/67cf06a6684b60eb6b3570bb39917f9a187338eda1e8ca2aa16b343de7094e7a.png" src="../_images/67cf06a6684b60eb6b3570bb39917f9a187338eda1e8ca2aa16b343de7094e7a.png" />
+<img alt="../_images/48d0b566853a681de097837283e45ece604dba87c2fb47aad594f86595d02b33.png" src="../_images/48d0b566853a681de097837283e45ece604dba87c2fb47aad594f86595d02b33.png" />
 </div>
 </div>
 </section>
@@ -965,7 +974,7 @@ Beta(971, 31) -&gt; Mean: 0.969, Variance: 0.000, Skewness: -0.342, Kurtosis: 0.
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Anomoly Detection</p>
+        <p class="prev-next-title">Anomaly Detection</p>
       </div>
     </a>
     <a class="right-next"

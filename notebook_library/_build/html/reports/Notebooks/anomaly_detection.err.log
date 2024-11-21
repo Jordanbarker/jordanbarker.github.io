@@ -1,0 +1,68 @@
+Traceback (most recent call last):
+  File "/Users/jordanbarker/miniconda3/lib/python3.11/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/Users/jordanbarker/miniconda3/lib/python3.11/site-packages/nbclient/client.py", line 1314, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jordanbarker/miniconda3/lib/python3.11/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jordanbarker/miniconda3/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/jordanbarker/miniconda3/lib/python3.11/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/Users/jordanbarker/miniconda3/lib/python3.11/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/Users/jordanbarker/miniconda3/lib/python3.11/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.ensemble import IsolationForest
+from sklearn.inspection import DecisionBoundaryDisplay
+from sklearn.cluster import DBSCAN
+from sklearn.preprocessing import StandardScaler
+from scipy import stats
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+
+plt.rcParams['figure.figsize'] = (10, 4)
+rng = np.random.default_rng(seed=42)
+
+mean = 10
+std_dev = 2
+outliers = [15, 18, 20, 21]
+for observation in outliers:
+    z = (observation - mean) / std_dev # Find z-score
+    probability = stats.norm.cdf(z)
+    print(f"The probability of observing a value less than or equal to {observation} is {probability:.6f}")
+    
+x = np.append(rng.normal(mean, std_dev, 100), outliers)
+df = pd.DataFrame({'x': x})
+df['y'] = rng.normal(mean, std_dev, len(df['x']))
+
+fig, axs = plt.subplots(1, 2)
+sns.boxplot(x, width=.2, ax=axs[0])
+axs[0].set_title('Box Plot of the Data')
+sns.histplot(x, bins=30, kde=False, ax=axs[1])
+axs[1].set_title('Histogram of the Data')
+plt.tight_layout()
+plt.show()
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+Cell [0;32mIn[1], line 5[0m
+[1;32m      3[0m [38;5;28;01mimport[39;00m [38;5;21;01mseaborn[39;00m [38;5;28;01mas[39;00m [38;5;21;01msns[39;00m
+[1;32m      4[0m [38;5;28;01mimport[39;00m [38;5;21;01mmatplotlib[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpyplot[39;00m [38;5;28;01mas[39;00m [38;5;21;01mplt[39;00m
+[0;32m----> 5[0m [38;5;28;01mfrom[39;00m [38;5;21;01msklearn[39;00m[38;5;21;01m.[39;00m[38;5;21;01mensemble[39;00m [38;5;28;01mimport[39;00m IsolationForest
+[1;32m      6[0m [38;5;28;01mfrom[39;00m [38;5;21;01msklearn[39;00m[38;5;21;01m.[39;00m[38;5;21;01minspection[39;00m [38;5;28;01mimport[39;00m DecisionBoundaryDisplay
+[1;32m      7[0m [38;5;28;01mfrom[39;00m [38;5;21;01msklearn[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcluster[39;00m [38;5;28;01mimport[39;00m DBSCAN
+
+[0;31mModuleNotFoundError[0m: No module named 'sklearn'
+

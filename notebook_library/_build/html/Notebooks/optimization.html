@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Portfolio Optimization &#8212; Data Science Cookbook</title>
+    <title>Optimization &#8212; Data Science Cookbook</title>
   
   
   
@@ -186,15 +186,17 @@
 <li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy <a class="anchor" id="Numpy"></a></a></li>
 <li class="toctree-l2"><a class="reference internal" href="pandas.html">Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming (OOP) in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomoly Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomaly Detection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="evaluation_metrics.html">Metrics</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Portfolio Optimization  <a name="Portfolio-Optimization"></a></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="statistical_tests.html">Statistical Tests (A/B Testing)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series</a></li>
-<li class="toctree-l1"><a class="reference internal" href="visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualizations.html">Matplotlib settings:</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="cookbook_meta.html">Cookbook Meta</a></li>
 </ul>
 
@@ -381,7 +383,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Portfolio Optimization  <a name="Portfolio-Optimization"></a></h1>
+    <h1>Optimization</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -391,6 +393,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#network-flow">Network Flow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portfolio-optimization">Portfolio Optimization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
@@ -403,8 +407,139 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="portfolio-optimization">
-<h1>Portfolio Optimization  <a name="Portfolio-Optimization"></a><a class="headerlink" href="#portfolio-optimization" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="optimization">
+<h1>Optimization<a class="headerlink" href="#optimization" title="Link to this heading">#</a></h1>
+<section id="network-flow">
+<h2>Network Flow<a class="headerlink" href="#network-flow" title="Link to this heading">#</a></h2>
+<p>Optimize how to send goods from a source node to a destination node through a network while minimizing transportation costs. Each edge in the network has a capacity limit and a cost per unit flow. The goal is to determine the optimal flow through the network that meets demand at the destination without exceeding capacities.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">cvxpy</span> <span class="k">as</span> <span class="nn">cp</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+
+<span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="s1">&#39;intermediate_1&#39;</span><span class="p">,</span> <span class="s1">&#39;intermediate_2&#39;</span><span class="p">,</span> <span class="s1">&#39;intermediate_3&#39;</span><span class="p">,</span> <span class="s1">&#39;destination&#39;</span><span class="p">]</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="s1">&#39;intermediate_1&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="s1">&#39;intermediate_2&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;intermediate_1&#39;</span><span class="p">,</span> <span class="s1">&#39;intermediate_2&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;intermediate_1&#39;</span><span class="p">,</span> <span class="s1">&#39;intermediate_3&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;intermediate_2&#39;</span><span class="p">,</span> <span class="s1">&#39;intermediate_3&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;intermediate_2&#39;</span><span class="p">,</span> <span class="s1">&#39;destination&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;intermediate_3&#39;</span><span class="p">,</span> <span class="s1">&#39;destination&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="n">limits</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="s1">&#39;intermediate_1&#39;</span><span class="p">):</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="s1">&#39;intermediate_2&#39;</span><span class="p">):</span> <span class="mi">80</span><span class="p">,</span>
+    <span class="p">(</span><span class="s1">&#39;intermediate_1&#39;</span><span class="p">,</span> <span class="s1">&#39;intermediate_2&#39;</span><span class="p">):</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="p">(</span><span class="s1">&#39;intermediate_1&#39;</span><span class="p">,</span> <span class="s1">&#39;intermediate_3&#39;</span><span class="p">):</span> <span class="mi">70</span><span class="p">,</span>
+    <span class="p">(</span><span class="s1">&#39;intermediate_2&#39;</span><span class="p">,</span> <span class="s1">&#39;intermediate_3&#39;</span><span class="p">):</span> <span class="mi">60</span><span class="p">,</span>
+    <span class="p">(</span><span class="s1">&#39;intermediate_2&#39;</span><span class="p">,</span> <span class="s1">&#39;destination&#39;</span><span class="p">):</span> <span class="mi">40</span><span class="p">,</span>
+    <span class="p">(</span><span class="s1">&#39;intermediate_3&#39;</span><span class="p">,</span> <span class="s1">&#39;destination&#39;</span><span class="p">):</span> <span class="mi">90</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">costs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="s1">&#39;intermediate_1&#39;</span><span class="p">):</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="s1">&#39;intermediate_2&#39;</span><span class="p">):</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="p">(</span><span class="s1">&#39;intermediate_1&#39;</span><span class="p">,</span> <span class="s1">&#39;intermediate_2&#39;</span><span class="p">):</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">(</span><span class="s1">&#39;intermediate_1&#39;</span><span class="p">,</span> <span class="s1">&#39;intermediate_3&#39;</span><span class="p">):</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="p">(</span><span class="s1">&#39;intermediate_2&#39;</span><span class="p">,</span> <span class="s1">&#39;intermediate_3&#39;</span><span class="p">):</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="p">(</span><span class="s1">&#39;intermediate_2&#39;</span><span class="p">,</span> <span class="s1">&#39;destination&#39;</span><span class="p">):</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="p">(</span><span class="s1">&#39;intermediate_3&#39;</span><span class="p">,</span> <span class="s1">&#39;destination&#39;</span><span class="p">):</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># Demand at each node (positive for demand, negative for supply)</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span>  <span class="c1"># Supply of 100 units</span>
+    <span class="s1">&#39;intermediate_1&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">&#39;intermediate_2&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">&#39;intermediate_3&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">&#39;destination&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>   <span class="c1"># Demand of 100 units</span>
+<span class="p">}</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+    <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">19</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">arrowstyle</span><span class="o">=</span><span class="s1">&#39;-&gt;&#39;</span><span class="p">,</span> <span class="n">arrowsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">font_weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">edge_labels</span> <span class="o">=</span> <span class="p">{</span><span class="n">edge</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Limit:</span><span class="si">{</span><span class="n">limits</span><span class="p">[</span><span class="n">edge</span><span class="p">]</span><span class="si">}</span><span class="s2">, Cost:</span><span class="si">{</span><span class="n">costs</span><span class="p">[</span><span class="n">edge</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">}</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="n">edge_labels</span><span class="p">,</span> <span class="n">font_color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Network Graph with Limits and Costs&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d4b74a1e9300c9d421471544c37e97f3df13e667d3865eb0158020d5cdddd8f3.png" src="../_images/d4b74a1e9300c9d421471544c37e97f3df13e667d3865eb0158020d5cdddd8f3.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create variables for flows on each edge</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+    <span class="n">flow</span><span class="p">[</span><span class="n">edge</span><span class="p">]</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">nonneg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Objective: Minimize total transportation cost</span>
+<span class="n">total_cost</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span>
+    <span class="n">costs</span><span class="p">[</span><span class="n">edge</span><span class="p">]</span> <span class="o">*</span> <span class="n">flow</span><span class="p">[</span><span class="n">edge</span><span class="p">]</span> <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span>
+<span class="p">])</span>
+<span class="n">objective</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">Minimize</span><span class="p">(</span><span class="n">total_cost</span><span class="p">)</span>
+
+<span class="n">constraints</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+    <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flow</span><span class="p">[</span><span class="n">edge</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">limits</span><span class="p">[</span><span class="n">edge</span><span class="p">])</span>
+
+<span class="c1"># Flow conservation at each node</span>
+<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+    <span class="n">inflow</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span>
+        <span class="n">flow</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)]</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="n">edges</span> <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="n">node</span>
+    <span class="p">])</span>
+    <span class="n">outflow</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span>
+        <span class="n">flow</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)]</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="n">edges</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">node</span>
+    <span class="p">])</span>
+    <span class="c1"># Net flow equals demand</span>
+    <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inflow</span> <span class="o">-</span> <span class="n">outflow</span> <span class="o">==</span> <span class="n">demand</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+<span class="c1"># Solve the problem</span>
+<span class="n">problem</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">constraints</span><span class="p">)</span>
+<span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Minimum total transportation cost: $</span><span class="si">{</span><span class="n">problem</span><span class="o">.</span><span class="n">value</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Optimal flow on each edge:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+    <span class="n">flow_value</span> <span class="o">=</span> <span class="n">flow</span><span class="p">[</span><span class="n">edge</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="n">flow</span><span class="p">[</span><span class="n">edge</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Flow from </span><span class="si">{</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">flow_value</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> units&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Minimum total transportation cost: $620.00
+
+Optimal flow on each edge:
+Flow from source to intermediate_1: 100.00 units
+Flow from source to intermediate_2: 0.00 units
+Flow from intermediate_1 to intermediate_2: 41.43 units
+Flow from intermediate_1 to intermediate_3: 58.57 units
+Flow from intermediate_2 to intermediate_3: 31.43 units
+Flow from intermediate_2 to destination: 10.00 units
+Flow from intermediate_3 to destination: 90.00 units
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="portfolio-optimization">
+<h2>Portfolio Optimization<a class="headerlink" href="#portfolio-optimization" title="Link to this heading">#</a></h2>
 <p>Portfolio optimization has two competing objectives: high return and low risk.</p>
 <p><strong>Variables</strong>:</p>
 <ul class="simple">
@@ -422,13 +557,7 @@ document.write(`
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">cvxpy</span> <span class="k">as</span> <span class="nn">cp</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="n">expected_returns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">])</span>  <span class="c1"># [Bonds, VTI, International, Small-Cap]</span>
-<span class="c1"># volatilities = np.array([0.05, 0.15, 0.20, 0.25])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expected_returns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">])</span>  <span class="c1"># [Bonds, VTI, International, Small-Cap]</span>
 <span class="n">weights</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">expected_returns</span><span class="p">))</span>
 <span class="n">risk_aversion</span> <span class="o">=</span> <span class="mf">0.0</span>
 
@@ -450,7 +579,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-2.14111410e-28, -2.14378344e-28,  1.00000000e+00, -2.13978135e-28])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-2.14111410e-28, -2.14377958e-28,  1.00000000e+00, -2.13978135e-28])
 </pre></div>
 </div>
 </div>
@@ -486,8 +615,8 @@ document.write(`
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">results</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">c</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;YlGnBu&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sdp</span><span class="p">,</span> <span class="n">rp</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Maximum Sharpe ratio&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sdp_min</span><span class="p">,</span> <span class="n">rp_min</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Minimum volatility&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sdp</span><span class="p">,</span> <span class="n">rp</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:orange&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Maximum Sharpe ratio&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sdp_min</span><span class="p">,</span> <span class="n">rp_min</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Minimum volatility&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Efficient Frontier&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Volatility (Standard Deviation)&#39;</span><span class="p">)</span>
@@ -499,12 +628,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/86ef18b2eade044efa3d8687e5d9478bb7dda9ac35d4a70d51439b3a99991028.png" src="../_images/86ef18b2eade044efa3d8687e5d9478bb7dda9ac35d4a70d51439b3a99991028.png" />
+<img alt="../_images/0ee4a67b76b79b3d5227dcb0d42ae401fb809eac8c28731f3c5142b2baa11ea2.png" src="../_images/0ee4a67b76b79b3d5227dcb0d42ae401fb809eac8c28731f3c5142b2baa11ea2.png" />
 </div>
 </div>
+</section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p><a class="reference external" href="https://www.cvxpy.org/examples/index.html">CVXPY Examples</a></p></li>
 <li><p><a class="reference external" href="https://github.com/jon77lee/JLee_LinearOptimizationBook">Jon Lee: A First Course in Linear Optimization</a></p></li>
 </ul>
 </section>
@@ -574,6 +705,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#network-flow">Network Flow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portfolio-optimization">Portfolio Optimization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>

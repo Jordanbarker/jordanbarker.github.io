@@ -184,15 +184,17 @@
 <li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy <a class="anchor" id="Numpy"></a></a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming (OOP) in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomoly Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomaly Detection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="evaluation_metrics.html">Metrics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optimization.html">Portfolio Optimization  <a name="Portfolio-Optimization"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html">Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="statistical_tests.html">Statistical Tests (A/B Testing)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series</a></li>
-<li class="toctree-l1"><a class="reference internal" href="visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualizations.html">Matplotlib settings:</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="cookbook_meta.html">Cookbook Meta</a></li>
 </ul>
 
@@ -409,9 +411,16 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types">Data Types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datetime">Datetime <a class="anchor" id="Datetime"></a></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apply">Apply</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#date-features">Date Features</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pd-offsets"><code class="docutils literal notranslate"><span class="pre">pd.offsets</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#holidays">Holidays</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduce-memory-usage">Reduce Memory Usage</a></li>
 </ul>
             </nav>
         </div>
@@ -434,7 +443,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pandas version: 2.2.1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pandas version: 2.1.1
 </pre></div>
 </div>
 </div>
@@ -1036,6 +1045,14 @@ dtype: int64
   </thead>
   <tbody>
     <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Jim</td>
+      <td>90000</td>
+      <td>1</td>
+      <td>1111.05</td>
+    </tr>
+    <tr>
       <th>4</th>
       <td>5</td>
       <td>Max</td>
@@ -1050,14 +1067,6 @@ dtype: int64
       <td>60000</td>
       <td>2</td>
       <td>740.70</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>Henry</td>
-      <td>80000</td>
-      <td>2</td>
-      <td>987.60</td>
     </tr>
   </tbody>
 </table>
@@ -2301,9 +2310,510 @@ dropdf.drop([0,1]
 </table>
 </div></div></div>
 </div>
+<section id="datetime">
+<h3>Datetime <a class="anchor" id="Datetime"></a><a class="headerlink" href="#datetime" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.to_datetime.html?highlight=to_datetime">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.to_datetime.html?highlight=to_datetime</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">2016</span><span class="p">],</span>
+    <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="s1">&#39;day&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">date_df</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">date_df</span><span class="p">)</span>
+<span class="n">date_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>month</th>
+      <th>day</th>
+      <th>datetime</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2015</td>
+      <td>2</td>
+      <td>4</td>
+      <td>2015-02-04</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2016</td>
+      <td>3</td>
+      <td>5</td>
+      <td>2016-03-05</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date_df</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">date_df</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+<span class="n">date_df</span><span class="p">[</span><span class="s1">&#39;Month&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">date_df</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span>
+<span class="n">date_df</span><span class="p">[</span><span class="s1">&#39;Day&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">date_df</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day</span>
+<span class="n">date_df</span><span class="p">[</span><span class="s1">&#39;Day Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">date_df</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day_name</span><span class="p">()</span>
+<span class="n">date_df</span><span class="p">[</span><span class="s1">&#39;Month Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">date_df</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month_name</span><span class="p">()</span>
+<span class="n">date_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>month</th>
+      <th>day</th>
+      <th>datetime</th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Day</th>
+      <th>Day Name</th>
+      <th>Month Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2015</td>
+      <td>2</td>
+      <td>4</td>
+      <td>2015-02-04</td>
+      <td>2015</td>
+      <td>2</td>
+      <td>4</td>
+      <td>Wednesday</td>
+      <td>February</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2016</td>
+      <td>3</td>
+      <td>5</td>
+      <td>2016-03-05</td>
+      <td>2016</td>
+      <td>3</td>
+      <td>5</td>
+      <td>Saturday</td>
+      <td>March</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date_df</span><span class="p">[</span><span class="n">date_df</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2015-12-12&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>month</th>
+      <th>day</th>
+      <th>datetime</th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Day</th>
+      <th>Day Name</th>
+      <th>Month Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>2016</td>
+      <td>3</td>
+      <td>5</td>
+      <td>2016-03-05</td>
+      <td>2016</td>
+      <td>3</td>
+      <td>5</td>
+      <td>Saturday</td>
+      <td>March</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date_df</span><span class="p">[</span><span class="n">date_df</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="s1">&#39;2015-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2015-07-01&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>month</th>
+      <th>day</th>
+      <th>datetime</th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Day</th>
+      <th>Day Name</th>
+      <th>Month Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2015</td>
+      <td>2</td>
+      <td>4</td>
+      <td>2015-02-04</td>
+      <td>2015</td>
+      <td>2</td>
+      <td>4</td>
+      <td>Wednesday</td>
+      <td>February</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
 <section id="apply">
 <h3><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.apply.html">Apply</a><a class="headerlink" href="#apply" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;above_average_salary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;salary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;salary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">employee_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>salary</th>
+      <th>departmentId</th>
+      <th>bonus</th>
+      <th>above_average_salary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Joe</td>
+      <td>70000</td>
+      <td>1</td>
+      <td>864.15</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Jim</td>
+      <td>90000</td>
+      <td>1</td>
+      <td>1111.05</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Henry</td>
+      <td>80000</td>
+      <td>2</td>
+      <td>987.60</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Sam</td>
+      <td>60000</td>
+      <td>2</td>
+      <td>740.70</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Max</td>
+      <td>90000</td>
+      <td>1</td>
+      <td>1111.05</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 </section>
+</section>
+<section id="date-features">
+<h2>Date Features<a class="headerlink" href="#date-features" title="Link to this heading">#</a></h2>
+<section id="pd-offsets">
+<h3><code class="docutils literal notranslate"><span class="pre">pd.offsets</span></code><a class="headerlink" href="#pd-offsets" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2023-01-06&#39;</span><span class="p">)</span>  <span class="c1"># Friday</span>
+<span class="n">new_date</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">months</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># Timestamp(&#39;2023-04-06&#39;)</span>
+
+<span class="n">next_day</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">Day</span><span class="p">()</span> <span class="c1"># 2023-01-07  # Saturday</span>
+<span class="n">next_business_day</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">BusinessDay</span><span class="p">()</span> <span class="c1"># 2023-01-09  # Monday</span>
+
+<span class="n">next_week</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">Week</span><span class="p">(</span><span class="n">weekday</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 2023-01-09 Move to next Monday (weekday must be 0&lt;=day&lt;=6)</span>
+
+<span class="n">month_start</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">MonthBegin</span><span class="p">()</span> <span class="c1"># 2023-02-01</span>
+<span class="n">month_end</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">MonthEnd</span><span class="p">()</span> <span class="c1"># 2023-01-31&#39;</span>
+
+<span class="n">year_start</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">YearBegin</span><span class="p">()</span> <span class="c1"># 2024-01-01</span>
+<span class="n">year_end</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">YearEnd</span><span class="p">()</span> <span class="c1"># 2023-12-31</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="holidays">
+<h3>Holidays<a class="headerlink" href="#holidays" title="Link to this heading">#</a></h3>
+<p>Panda’s holiday methods live here and are a great jumping off point:
+<a class="github reference external" href="https://github.com/pandas-dev/pandas/blob/main/pandas/tseries/holiday.py">pandas-dev/pandas</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pandas.tseries.holiday</span> <span class="kn">import</span> <span class="n">Holiday</span><span class="p">,</span> <span class="n">AbstractHolidayCalendar</span><span class="p">,</span> <span class="n">MO</span><span class="p">,</span> <span class="n">nearest_workday</span>
+
+<span class="k">class</span> <span class="nc">CanadaHolidayCalendar</span><span class="p">(</span><span class="n">AbstractHolidayCalendar</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;https://www.statutoryholidays.com/&#39;&#39;&#39;</span>
+    <span class="n">rules</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s2">&quot;New Year&#39;s Day&quot;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">observance</span><span class="o">=</span><span class="n">nearest_workday</span><span class="p">),</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s2">&quot;Family Day&quot;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">weekday</span><span class="o">=</span><span class="n">MO</span><span class="p">(</span><span class="mi">3</span><span class="p">))),</span>
+        <span class="n">pd</span><span class="o">.</span><span class="n">tseries</span><span class="o">.</span><span class="n">holiday</span><span class="o">.</span><span class="n">GoodFriday</span><span class="p">,</span>
+        <span class="n">pd</span><span class="o">.</span><span class="n">tseries</span><span class="o">.</span><span class="n">holiday</span><span class="o">.</span><span class="n">EasterMonday</span><span class="p">,</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;Victoria Day&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">weekday</span><span class="o">=</span><span class="n">MO</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))),</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;Saint-Jean-Baptiste Day&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">24</span><span class="p">),</span>  <span class="c1"># Quebec only</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;Canada Day&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">observance</span><span class="o">=</span><span class="n">nearest_workday</span><span class="p">),</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;Civic Holiday&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>  <span class="c1"># Excluding Quebec</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;Labour Day&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">weekday</span><span class="o">=</span><span class="n">MO</span><span class="p">(</span><span class="mi">1</span><span class="p">))),</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;National Day for Truth and Reconciliation&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">30</span><span class="p">),</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;Thanksgiving Day&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">weekday</span><span class="o">=</span><span class="n">MO</span><span class="p">(</span><span class="mi">2</span><span class="p">))),</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;Remembrance Day&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">observance</span><span class="o">=</span><span class="n">nearest_workday</span><span class="p">),</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;Christmas Day&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">25</span><span class="p">),</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;Boxing Day&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">26</span><span class="p">),</span>
+    <span class="p">]</span>
+
+<span class="n">ca_holidays</span> <span class="o">=</span> <span class="n">CanadaHolidayCalendar</span><span class="p">()</span><span class="o">.</span><span class="n">holidays</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s1">&#39;2024-01-01&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;2024-12-31&#39;</span><span class="p">,</span> <span class="n">return_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ca_holiday_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ca_holidays</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Holiday&#39;</span><span class="p">])</span>
+<span class="n">ca_holiday_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Holiday</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2024-01-01</th>
+      <td>New Year's Day</td>
+    </tr>
+    <tr>
+      <th>2024-02-19</th>
+      <td>Family Day</td>
+    </tr>
+    <tr>
+      <th>2024-03-29</th>
+      <td>Good Friday</td>
+    </tr>
+    <tr>
+      <th>2024-04-01</th>
+      <td>Easter Monday</td>
+    </tr>
+    <tr>
+      <th>2024-05-20</th>
+      <td>Victoria Day</td>
+    </tr>
+    <tr>
+      <th>2024-06-24</th>
+      <td>Saint-Jean-Baptiste Day</td>
+    </tr>
+    <tr>
+      <th>2024-07-01</th>
+      <td>Canada Day</td>
+    </tr>
+    <tr>
+      <th>2024-08-05</th>
+      <td>Civic Holiday</td>
+    </tr>
+    <tr>
+      <th>2024-09-02</th>
+      <td>Labour Day</td>
+    </tr>
+    <tr>
+      <th>2024-09-30</th>
+      <td>National Day for Truth and Reconciliation</td>
+    </tr>
+    <tr>
+      <th>2024-10-14</th>
+      <td>Thanksgiving Day</td>
+    </tr>
+    <tr>
+      <th>2024-11-11</th>
+      <td>Remembrance Day</td>
+    </tr>
+    <tr>
+      <th>2024-12-25</th>
+      <td>Christmas Day</td>
+    </tr>
+    <tr>
+      <th>2024-12-26</th>
+      <td>Boxing Day</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="reduce-memory-usage">
+<h2>Reduce Memory Usage<a class="headerlink" href="#reduce-memory-usage" title="Link to this heading">#</a></h2>
+<p>Credit to <a class="reference external" href="https://github.com/matthiasanderer">Matthias</a> for this from his second place <a class="reference external" href="https://github.com/matthiasanderer/m5-accuracy-competition/blob/main/m5-simple-fe-evaluation.ipynb">submission</a> in the m5 forecasting competition.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+
+<span class="k">def</span> <span class="nf">reduce_mem_usage</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">numerics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;int16&#39;</span><span class="p">,</span> <span class="s1">&#39;int32&#39;</span><span class="p">,</span> <span class="s1">&#39;int64&#39;</span><span class="p">,</span> <span class="s1">&#39;float16&#39;</span><span class="p">,</span> <span class="s1">&#39;float32&#39;</span><span class="p">,</span> <span class="s1">&#39;float64&#39;</span><span class="p">]</span>
+    <span class="n">start_mem</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">memory_usage</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">2</span>    
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">col_type</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtypes</span>
+        <span class="k">if</span> <span class="n">col_type</span> <span class="ow">in</span> <span class="n">numerics</span><span class="p">:</span>
+            <span class="n">c_min</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+            <span class="n">c_max</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">col_type</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;int&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">c_min</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span><span class="o">.</span><span class="n">min</span> <span class="ow">and</span> <span class="n">c_max</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
+                    <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">c_min</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span><span class="o">.</span><span class="n">min</span> <span class="ow">and</span> <span class="n">c_max</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
+                       <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">c_min</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">min</span> <span class="ow">and</span> <span class="n">c_max</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
+                    <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">c_min</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span><span class="o">.</span><span class="n">min</span> <span class="ow">and</span> <span class="n">c_max</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
+                    <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>  
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">c_min</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span><span class="o">.</span><span class="n">min</span> <span class="ow">and</span> <span class="n">c_max</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
+                    <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">c_min</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">min</span> <span class="ow">and</span> <span class="n">c_max</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
+                    <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>    
+    <span class="n">end_mem</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">memory_usage</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mem. usage decreased to </span><span class="si">{:5.2f}</span><span class="s1"> Mb (</span><span class="si">{:.1f}% r</span><span class="s1">eduction)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">end_mem</span><span class="p">,</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">start_mem</span> <span class="o">-</span> <span class="n">end_mem</span><span class="p">)</span> <span class="o">/</span> <span class="n">start_mem</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 
@@ -2391,9 +2901,16 @@ dropdf.drop([0,1]
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types">Data Types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datetime">Datetime <a class="anchor" id="Datetime"></a></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apply">Apply</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#date-features">Date Features</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pd-offsets"><code class="docutils literal notranslate"><span class="pre">pd.offsets</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#holidays">Holidays</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduce-memory-usage">Reduce Memory Usage</a></li>
 </ul>
   </nav></div>
 
