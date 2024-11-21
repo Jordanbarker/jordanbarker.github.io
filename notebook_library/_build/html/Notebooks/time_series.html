@@ -492,18 +492,7 @@ document.write(`
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">statsmodels.tsa.api</span> <span class="kn">import</span> <span class="n">ExponentialSmoothing</span><span class="p">,</span> <span class="n">SimpleExpSmoothing</span><span class="p">,</span> <span class="n">Holt</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">statsmodels.tsa.arima.model</span> <span class="kn">import</span> <span class="n">ARIMA</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;scipy&#39;
-</pre></div>
-</div>
+<img alt="../_images/a43d14b18d4e60bbdcebf40f7d4d39cd703e3d20d55bae29159575c80013caee.png" src="../_images/a43d14b18d4e60bbdcebf40f7d4d39cd703e3d20d55bae29159575c80013caee.png" />
 </div>
 </div>
 <p>Also creating monthly data since ARIMA models are too compute intensive for daily.</p>
@@ -538,7 +527,7 @@ document.write(`
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/ad49d4ca3cfd94b4a7482357584decdc1dffa79365b930ef6bb6799bb97b65fa.png" src="../_images/ad49d4ca3cfd94b4a7482357584decdc1dffa79365b930ef6bb6799bb97b65fa.png" />
+<img alt="../_images/af4485c4949f7d918eff1f2c5bc47e29c490af5e7573ba82e0e32dc2aaa1cf38.png" src="../_images/af4485c4949f7d918eff1f2c5bc47e29c490af5e7573ba82e0e32dc2aaa1cf38.png" />
 </div>
 </div>
 <section id="stationary">
@@ -870,7 +859,7 @@ Simple exponential smoothing won't be able to capture any of the trends on the d
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a850438103db4203cc212b4c446f28be7cad9e64ccbfd6a629c5f1633101d2c1.png" src="../_images/a850438103db4203cc212b4c446f28be7cad9e64ccbfd6a629c5f1633101d2c1.png" />
+<img alt="../_images/696ce84c2bfd70fd9e5633022db65e22b1a74f4e214bcb75b793b86f538e126d.png" src="../_images/696ce84c2bfd70fd9e5633022db65e22b1a74f4e214bcb75b793b86f538e126d.png" />
 </div>
 </div>
 <div class="cell tag_remove-stderr tag_skip docutils container">
@@ -927,16 +916,24 @@ Simple exponential smoothing won't be able to capture any of the trends on the d
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(2, 1, 2)x(2, 0, 2, 24) - AIC:-38.7060
-Tested ARIMA(2, 1, 1)x(1, 1, 0, 24) - AIC:-71.1161
-Tested ARIMA(1, 0, 1)x(1, 1, 1, 24) - AIC:-102.4444
-Tested ARIMA(1, 0, 2)x(2, 1, 1, 24) - AIC:-97.8666
-Tested ARIMA(1, 0, 0)x(1, 0, 2, 24) - AIC:73.6084
-
-Best Model: ARIMA(1, 0, 1)x(1, 1, 1, 24) - AIC:-102.44442816058579
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(0, 1, 1)x(2, 0, 0, 24) - AIC: -43.3167
 </pre></div>
 </div>
-<img alt="../_images/33ee7ae9b7976e8761b2c3e2288c7aea9669ff042ef41aa5060861f739649530.png" src="../_images/33ee7ae9b7976e8761b2c3e2288c7aea9669ff042ef41aa5060861f739649530.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(0, 0, 1)x(2, 1, 0, 24) - AIC: -37.5877
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(0, 1, 0)x(2, 0, 2, 12) - AIC: -46.5559
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(1, 1, 1)x(0, 1, 0, 12) - AIC: -72.7288
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(2, 1, 1)x(1, 0, 1, 12) - AIC: -153.8631
+
+Best Model: ARIMA(2, 1, 1)x(1, 0, 1, 12) - AIC:-153.86307651026456
+</pre></div>
+</div>
+<img alt="../_images/de5da6442877eed0d6cb941398af05db19de9ca2c017c3e929d7099e8b64c2ed.png" src="../_images/de5da6442877eed0d6cb941398af05db19de9ca2c017c3e929d7099e8b64c2ed.png" />
 </div>
 </div>
 </section>
@@ -1037,7 +1034,7 @@ Best Model: ARIMA(1, 0, 1)x(1, 1, 1, 24) - AIC:-102.44442816058579
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3dcd0ece55b30c41b09ef6c8399790c1c72821fedc329b883bb98ba9492d318b.png" src="../_images/3dcd0ece55b30c41b09ef6c8399790c1c72821fedc329b883bb98ba9492d318b.png" />
+<img alt="../_images/9b491bdafe574640988ebddb8c0d5b046b004a31632c3b8b0e51148a4cc8823e.png" src="../_images/9b491bdafe574640988ebddb8c0d5b046b004a31632c3b8b0e51148a4cc8823e.png" />
 </div>
 </div>
 <p>Detrending the training data</p>
@@ -1073,7 +1070,7 @@ Best Model: ARIMA(1, 0, 1)x(1, 1, 1, 24) - AIC:-102.44442816058579
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/564960b338c3714ffe4317b4d457eb4c04f7cf323f650f55381dfb62b3f091b0.png" src="../_images/564960b338c3714ffe4317b4d457eb4c04f7cf323f650f55381dfb62b3f091b0.png" />
+<img alt="../_images/a0fdbe5e9a3a1ab1b37038a5eec8b2925caaa8d102965c4f4c0a32550dae8403.png" src="../_images/a0fdbe5e9a3a1ab1b37038a5eec8b2925caaa8d102965c4f4c0a32550dae8403.png" />
 </div>
 </div>
 <p>If you also take away the noise, you’ll see that LightGBM did a pretty great job filtering it out.</p>
@@ -1088,7 +1085,7 @@ Best Model: ARIMA(1, 0, 1)x(1, 1, 1, 24) - AIC:-102.44442816058579
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d44f6daa773c18e2b5c4a70bd91f6189f7645ea9c08d26968ee13b2bb85da223.png" src="../_images/d44f6daa773c18e2b5c4a70bd91f6189f7645ea9c08d26968ee13b2bb85da223.png" />
+<img alt="../_images/72ba7bf425784d51351edbd157fd006fac6dafd8959340052abce8b9901c0d25.png" src="../_images/72ba7bf425784d51351edbd157fd006fac6dafd8959340052abce8b9901c0d25.png" />
 </div>
 </div>
 <p>Recursive predictions. TODO</p>
@@ -1364,7 +1361,7 @@ The nearest neighbor subsequence to this discord is 1.4067575559258207 units awa
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b29d61f1d23f4d94bb5cc3ecbb269ac4ac572754a85a99f8d83569462a297b90.png" src="../_images/b29d61f1d23f4d94bb5cc3ecbb269ac4ac572754a85a99f8d83569462a297b90.png" />
+<img alt="../_images/83f0ca5db0eec8fc90c33c6fce0f0ac0c70f262fda12ba61238bcdff9055b5ab.png" src="../_images/83f0ca5db0eec8fc90c33c6fce0f0ac0c70f262fda12ba61238bcdff9055b5ab.png" />
 </div>
 </div>
 </section>

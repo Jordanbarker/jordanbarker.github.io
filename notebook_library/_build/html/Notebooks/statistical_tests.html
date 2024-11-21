@@ -63,7 +63,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Time Series" href="time_series.html" />
-    <link rel="prev" title="Optimization" href="optimization.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="scaling.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -553,18 +553,7 @@ Define metrics:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">betas</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">]</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;scipy&#39;
-</pre></div>
-</div>
+<img alt="../_images/9f04161d7973f88498ab570afba33d4f3014c30aef414dfbfb841da25b3deb45.png" src="../_images/9f04161d7973f88498ab570afba33d4f3014c30aef414dfbfb841da25b3deb45.png" />
 </div>
 </div>
 </section>
@@ -711,12 +700,12 @@ True Interpretation: “If we were to take many samples and construct a confiden
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-statistic: -4.5353
-P-value: 0.0000
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-statistic: -1.7791
+P-value: 0.0755
 Fail to reject the null hypothesis - sample mean is not significantly different from the population mean.
 </pre></div>
 </div>
-<img alt="../_images/53642716d9d09421bc61e6e47cbe3ccb621dfc729ec04518275270d7e0cbc07a.png" src="../_images/53642716d9d09421bc61e6e47cbe3ccb621dfc729ec04518275270d7e0cbc07a.png" />
+<img alt="../_images/d81c08f5e3ee9aae7cd3e0223505f1d9e929f9ca485d1c663ca2df6856f1b88f.png" src="../_images/d81c08f5e3ee9aae7cd3e0223505f1d9e929f9ca485d1c663ca2df6856f1b88f.png" />
 </div>
 </div>
 </section>
@@ -752,15 +741,15 @@ Fail to reject the null hypothesis - sample mean is not significantly different 
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-Test Assuming Equal Variance:
-	T-statistic: -2.5844
-	P-value: 0.0098
+	T-statistic: -1.9623
+	P-value: 0.0499
 
 Welch&#39;s T-Test for Unequal Variance:
-	T-statistic: -2.5844
-	P-value: 0.0098
+	T-statistic: -1.9623
+	P-value: 0.0499
 </pre></div>
 </div>
-<img alt="../_images/4f69ffb33bf4f4f568bcaf51dd9a979562c0a0b71150de74b7dcd374874d1455.png" src="../_images/4f69ffb33bf4f4f568bcaf51dd9a979562c0a0b71150de74b7dcd374874d1455.png" />
+<img alt="../_images/7bd0238e04f453afad1af61a0d1e8cc77ba77ea04b69b54a739ad01c55780292.png" src="../_images/7bd0238e04f453afad1af61a0d1e8cc77ba77ea04b69b54a739ad01c55780292.png" />
 </div>
 </div>
 </section>
@@ -794,15 +783,15 @@ Welch&#39;s T-Test for Unequal Variance:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-Test Assuming Equal Variance:
-	T-statistic: -0.9467
-	P-value: 0.3439
+	T-statistic: -4.1804
+	P-value: 0.0000
 
 Welch&#39;s T-Test for Unequal Variance:
-	T-statistic: -0.9467
-	P-value: 0.3440
+	T-statistic: -4.1804
+	P-value: 0.0000
 </pre></div>
 </div>
-<img alt="../_images/07ada48279bbd450f987c94b69a38f55b55d9225a293f9c88ddbcdd1a53281f9.png" src="../_images/07ada48279bbd450f987c94b69a38f55b55d9225a293f9c88ddbcdd1a53281f9.png" />
+<img alt="../_images/1e10e98644afbb51021ecfe083db70fa1a43c2b7b19a7bcf3693c45311641ec5.png" src="../_images/1e10e98644afbb51021ecfe083db70fa1a43c2b7b19a7bcf3693c45311641ec5.png" />
 </div>
 </div>
 </section>
@@ -839,15 +828,15 @@ Welch&#39;s T-Test for Unequal Variance:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Independent T-Test:
-	T-statistic: -2.7633
-	P-value: 0.0058
+	T-statistic: -1.1099
+	P-value: 0.2672
 
 Paired T-Test:
-	T-statistic: -2.8488
-	P-value: 0.0045
+	T-statistic: -1.0903
+	P-value: 0.2758
 </pre></div>
 </div>
-<img alt="../_images/f484a7331a6c059a1578a2981e19b1cfd2b1612522aabff1bb4f36ccecf48785.png" src="../_images/f484a7331a6c059a1578a2981e19b1cfd2b1612522aabff1bb4f36ccecf48785.png" />
+<img alt="../_images/c3e1d5b83b29da79caba49a4c3a179f655c45c4440e206e8aea268ed29e86669.png" src="../_images/c3e1d5b83b29da79caba49a4c3a179f655c45c4440e206e8aea268ed29e86669.png" />
 </div>
 </div>
 <p>Simulate null hypothesis and observe falsely rejecting the null hypothesis at a given p-value probability, regardless of sample size</p>
@@ -891,22 +880,44 @@ Paired T-Test:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Independent ______________________________________________________
-Sample Size: 10      Reject: 943, Accepted: 57
-Sample Size: 100     Reject: 955, Accepted: 45
-Sample Size: 1000    Reject: 950, Accepted: 50
-Sample Size: 10000   Reject: 943, Accepted: 57
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 955, Accepted: 45
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 957, Accepted: 43
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 955, Accepted: 45
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 949, Accepted: 51
 
 Paired ______________________________________________________
-Sample Size: 10      Reject: 952, Accepted: 48
-Sample Size: 100     Reject: 948, Accepted: 52
-Sample Size: 1000    Reject: 942, Accepted: 58
-Sample Size: 10000   Reject: 932, Accepted: 68
+Sample Size: 10      Reject: 957, Accepted: 43
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 952, Accepted: 48
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 958, Accepted: 42
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 959, Accepted: 41
 
 Welch ______________________________________________________
-Sample Size: 10      Reject: 954, Accepted: 46
-Sample Size: 100     Reject: 952, Accepted: 48
-Sample Size: 1000    Reject: 953, Accepted: 47
-Sample Size: 10000   Reject: 949, Accepted: 51
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 940, Accepted: 60
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 953, Accepted: 47
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 942, Accepted: 58
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 946, Accepted: 54
 </pre></div>
 </div>
 </div>
@@ -1256,11 +1267,11 @@ P-value: 0.000044
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Observed difference in means: 0.0508
-P-value from permutation test: 0.7319
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Observed difference in means: 0.0725
+P-value from permutation test: 0.6107
 </pre></div>
 </div>
-<img alt="../_images/8aeb5294395685cb8c83c4875132535e49cbe496524f990838a17081aef5f8b5.png" src="../_images/8aeb5294395685cb8c83c4875132535e49cbe496524f990838a17081aef5f8b5.png" />
+<img alt="../_images/1d75d74676c9a3b248dea477ce5ee636cfe61e256705ce5fc80f0549dbdb048b.png" src="../_images/1d75d74676c9a3b248dea477ce5ee636cfe61e256705ce5fc80f0549dbdb048b.png" />
 </div>
 </div>
 </section>
@@ -1326,19 +1337,19 @@ that dives deeper into .</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bonferroni Correction Results:
-Test 1: Original p = 0.1624, Adjusted p = 0.4872, Not rejected
-Test 2: Original p = 0.7913, Adjusted p = 1.0000, Not rejected
-Test 3: Original p = 0.2552, Adjusted p = 0.7656, Not rejected
+Test 1: Original p = 0.0350, Adjusted p = 0.1051, Not rejected
+Test 2: Original p = 0.1736, Adjusted p = 0.5207, Not rejected
+Test 3: Original p = 0.4489, Adjusted p = 1.0000, Not rejected
 
 FDR with Benjamini-Hochberg Procedure:
-Test 1: Original p = 0.1624, Adjusted p = 0.3828, Not rejected
-Test 2: Original p = 0.7913, Adjusted p = 0.7913, Not rejected
-Test 3: Original p = 0.2552, Adjusted p = 0.3828, Not rejected
+Test 1: Original p = 0.0350, Adjusted p = 0.1051, Not rejected
+Test 2: Original p = 0.1736, Adjusted p = 0.2604, Not rejected
+Test 3: Original p = 0.4489, Adjusted p = 0.4489, Not rejected
 
 FDR with Benjamini–Yekutieli Procedure):
-Test 1: Original p = 0.1624, Adjusted p = 0.7018, Not rejected
-Test 2: Original p = 0.7913, Adjusted p = 1.0000, Not rejected
-Test 3: Original p = 0.2552, Adjusted p = 0.7018, Not rejected
+Test 1: Original p = 0.0350, Adjusted p = 0.1926, Not rejected
+Test 2: Original p = 0.1736, Adjusted p = 0.4774, Not rejected
+Test 3: Original p = 0.4489, Adjusted p = 0.8229, Not rejected
 </pre></div>
 </div>
 </div>
@@ -1426,16 +1437,24 @@ Decision at 100.0% data: Reject H0
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
-Initializing NUTS using jitter+adapt_diag...
-Multiprocess sampling (4 chains in 4 jobs)
-NUTS: [p_A, p_B]
-Sampling 4 chains for 1_000 tune and 5_000 draw iterations (4_000 + 20_000 draws total) took 2 seconds.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Initializing NUTS using jitter+adapt_diag...
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Multiprocess sampling (4 chains in 4 jobs)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NUTS: [p_A, p_B]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 5_000 draw iterations (4_000 + 20_000 draws total) took 2 seconds.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Probability that B is better than A: 0.91
 </pre></div>
 </div>
-<img alt="../_images/9d4cfb78f8fe23623303771068d00980c17c27c8209b86e65e893ddf3791f49a.png" src="../_images/9d4cfb78f8fe23623303771068d00980c17c27c8209b86e65e893ddf3791f49a.png" />
+<img alt="../_images/c349ef0a05b2abfc4457b101b841a5934c243313a998f66fac62e66768ae59ef.png" src="../_images/c349ef0a05b2abfc4457b101b841a5934c243313a998f66fac62e66768ae59ef.png" />
 </div>
 </div>
 <p>Example from <a class="reference external" href="https://nbviewer.org/github/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/blob/master/Chapter1_Introduction/Ch1_Introduction_PyMC2.ipynb">Probabilistic Programming and Bayesian Methods for Hackers</a></p>
@@ -1466,7 +1485,7 @@ Sampling 4 chains for 1_000 tune and 5_000 draw iterations (4_000 + 20_000 draws
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2bc460f2b26de42a1b8f283bb30a98b1a0c685ff24e7b1f8212585e9dbb2081c.png" src="../_images/2bc460f2b26de42a1b8f283bb30a98b1a0c685ff24e7b1f8212585e9dbb2081c.png" />
+<img alt="../_images/3324b4e7eb7296df7ec63188a30f317798dedffe96f7f4b81755ff7388e4a69e.png" src="../_images/3324b4e7eb7296df7ec63188a30f317798dedffe96f7f4b81755ff7388e4a69e.png" />
 </div>
 </div>
 </section>
@@ -1497,8 +1516,8 @@ Sampling 4 chains for 1_000 tune and 5_000 draw iterations (4_000 + 20_000 draws
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shapiro-Wilk: p-value = 0.7103
-Kolmogorov-Smirnov: p-value = 0.9342
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shapiro-Wilk: p-value = 0.8820
+Kolmogorov-Smirnov: p-value = 0.9736
 </pre></div>
 </div>
 </div>
@@ -1540,11 +1559,11 @@ Kolmogorov-Smirnov: p-value = 0.9342
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kullback-Leibler Divergence: 0.2700
-Kullback-Leibler Divergence (histogram method): 0.1049
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kullback-Leibler Divergence: 0.2590
+Kullback-Leibler Divergence (histogram method): 0.0881
 </pre></div>
 </div>
-<img alt="../_images/06f90a0b655a40884e184d3588390ce74d0dc80116e61914591c722df2c53dc9.png" src="../_images/06f90a0b655a40884e184d3588390ce74d0dc80116e61914591c722df2c53dc9.png" />
+<img alt="../_images/8d8d95c6e52f770e42c9e38ee759ad87152e26eab7d0f10489d7fbfc8b98a20d.png" src="../_images/8d8d95c6e52f770e42c9e38ee759ad87152e26eab7d0f10489d7fbfc8b98a20d.png" />
 </div>
 </div>
 </section>
@@ -1622,32 +1641,32 @@ Kullback-Leibler Divergence (histogram method): 0.1049
       <th>0</th>
       <td>Treatment</td>
       <td>Day 1</td>
-      <td>304</td>
-      <td>196</td>
-      <td>61.0</td>
+      <td>315</td>
+      <td>185</td>
+      <td>63.0</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Control</td>
       <td>Day 1</td>
-      <td>5556</td>
-      <td>3944</td>
+      <td>5482</td>
+      <td>4018</td>
       <td>58.0</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Treatment</td>
       <td>Day 2</td>
-      <td>2502</td>
-      <td>2498</td>
+      <td>2504</td>
+      <td>2496</td>
       <td>50.0</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Control</td>
       <td>Day 2</td>
-      <td>2259</td>
-      <td>2741</td>
+      <td>2251</td>
+      <td>2749</td>
       <td>45.0</td>
     </tr>
   </tbody>
@@ -1700,14 +1719,14 @@ Kullback-Leibler Divergence (histogram method): 0.1049
   <tbody>
     <tr>
       <th>Control</th>
-      <td>7815</td>
-      <td>6685</td>
-      <td>54.0</td>
+      <td>7733</td>
+      <td>6767</td>
+      <td>53.0</td>
     </tr>
     <tr>
       <th>Treatment</th>
-      <td>2806</td>
-      <td>2694</td>
+      <td>2819</td>
+      <td>2681</td>
       <td>51.0</td>
     </tr>
   </tbody>
@@ -1756,12 +1775,12 @@ Kullback-Leibler Divergence (histogram method): 0.1049
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="optimization.html"
+       href="scaling.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Optimization</p>
+        <p class="prev-next-title">&lt;no title&gt;</p>
       </div>
     </a>
     <a class="right-next"

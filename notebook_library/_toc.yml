@@ -21,6 +21,7 @@ chapters:
 - file: Notebooks/distributions
 - file: Notebooks/evaluation_metrics
 - file: Notebooks/optimization
+- file: Notebooks/scaling
 - file: Notebooks/statistical_tests
 - file: Notebooks/time_series
 - file: Notebooks/visualizations
