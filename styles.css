@@ -7,17 +7,18 @@
   width: 85%;
   margin: 0 auto;
 }
-
 .header_links {
   display: flex;
   flex-direction: row;
   align-items: right;
   justify-content: right;
 }
-
 header {
-  background-color: #333;
-  color: #fff;
+  /* background-color: #f5f5f5; */
+  background-color: rgb(255 255 255 / 85%);
+  border-bottom: .05rem solid #8d8d8d;
+  -webkit-backdrop-filter: blur(10px); /* Fixes blur for Safari */
+  backdrop-filter: blur(10px);
   padding: 15px 0px 15px 0px;
   position: fixed; 
   width: 100%; 
@@ -43,10 +44,6 @@ body {
   line-height: 1.6em;
 
 }
-nav ul {
-  padding: 0;
-  line-height: 10px;
-}
 .name {
   font-size: 1.7em;
   font-weight: 600;
@@ -55,16 +52,22 @@ nav ul {
   margin-right: auto;
 }
 .header_links {
-  margin-top: -10px;
+  margin-top: -35px;
   font-size: 1.3em;
+}
+
+nav ul {
+  line-height: 10px;
+  padding: 0; 
+  margin: 0; 
 }
 nav ul li {
   align-items: center;
-  display: inline-block;
+  display: inline-flex; 
   vertical-align: middle;
 }
 nav ul li a {
-  color: #fff;
+  color: #333;
   border-radius: 5px;
   text-decoration: none;
   transition: background-color 0.3s ease;
@@ -72,9 +75,9 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  color: #ffffff;
-  border-radius: 5px;
-  background-color: #555;
+  text-shadow: rgb(210, 210, 210) 1px 0 1px;
+  /* text-shadow: #333 1px 1px; */
+  /* text-shadow: 4px 4px 8px 4px; */
 }
 
 .card {
@@ -133,26 +136,25 @@ nav ul li a:hover {
     margin-right: 0px;
     width: 100%;
     text-align: left;
-    /* padding-left: 10px; */
   }
   /* Show the hamburger menu icon */
   .menu-icon {
     display: block;
     cursor: pointer;
-    color: #fff;
+    color: #333;
     font-size: 44px;
-    padding: 20px;
+    padding: 15px;
     position: absolute;
-    right: 20px;
+    right: 45px;
     top: 0px;
   }
   .header_links {
     display: none;
     flex-direction: column;
-    background-color: #333;
+    background-color: #eeeeee;
     position: absolute;
     font-size: 1.5em;
-    top: 70px; /* based on header height */
+    top: 100px; /* based on header height */
     right: 0;
     width: 100vw;
     height: 100vh;
