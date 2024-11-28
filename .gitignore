@@ -1,3 +1,4 @@
+.DS_Store
 .ipynb_checkpoints/
 lightning_logs/
 Jupyter_Notebooks/Leetcode.ipynb
