@@ -62,7 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'Notebooks/time_series';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Matplotlib settings:" href="visualizations.html" />
+    <link rel="next" title="Visualizations" href="visualizations.html" />
     <link rel="prev" title="Statistical Tests (A/B Testing)" href="statistical_tests.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -195,8 +195,7 @@
 <li class="toctree-l1"><a class="reference internal" href="optimization.html">Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="statistical_tests.html">Statistical Tests (A/B Testing)</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Time Series</a></li>
-<li class="toctree-l1"><a class="reference internal" href="visualizations.html">Matplotlib settings:</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="visualizations.html">Visualizations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cookbook_meta.html">Cookbook Meta</a></li>
 </ul>
 
@@ -570,7 +569,9 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Results of Dickey-Fuller Test:
-Test Statistic                   0.231933
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test Statistic                   0.231933
 p-value                          0.973997
 #Lags Used                      18.000000
 Number of Observations Used    780.000000
@@ -916,24 +917,24 @@ Simple exponential smoothing won't be able to capture any of the trends on the d
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(0, 1, 1)x(2, 0, 0, 24) - AIC: -43.3167
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(2, 0, 2)x(0, 1, 1, 12) - AIC: -171.3879
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(0, 0, 1)x(2, 1, 0, 24) - AIC: -37.5877
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(0, 0, 1)x(1, 1, 0, 24) - AIC: -39.1881
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(0, 1, 0)x(2, 0, 2, 12) - AIC: -46.5559
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(2, 1, 2)x(1, 1, 0, 12) - AIC: -130.6648
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(1, 1, 1)x(0, 1, 0, 12) - AIC: -72.7288
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(0, 0, 1)x(1, 1, 0, 12) - AIC: -107.6529
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(2, 1, 1)x(1, 0, 1, 12) - AIC: -153.8631
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(1, 0, 2)x(1, 0, 1, 24) - AIC: -77.8247
 
-Best Model: ARIMA(2, 1, 1)x(1, 0, 1, 12) - AIC:-153.86307651026456
+Best Model: ARIMA(2, 0, 2)x(0, 1, 1, 12) - AIC:-171.38785750365582
 </pre></div>
 </div>
-<img alt="../_images/de5da6442877eed0d6cb941398af05db19de9ca2c017c3e929d7099e8b64c2ed.png" src="../_images/de5da6442877eed0d6cb941398af05db19de9ca2c017c3e929d7099e8b64c2ed.png" />
+<img alt="../_images/fe40df6ff4117860bd3ecdb82b26733fae00e6342b70033ab01d71a2f77f3a25.png" src="../_images/fe40df6ff4117860bd3ecdb82b26733fae00e6342b70033ab01d71a2f77f3a25.png" />
 </div>
 </div>
 </section>
@@ -1034,7 +1035,7 @@ Best Model: ARIMA(2, 1, 1)x(1, 0, 1, 12) - AIC:-153.86307651026456
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9b491bdafe574640988ebddb8c0d5b046b004a31632c3b8b0e51148a4cc8823e.png" src="../_images/9b491bdafe574640988ebddb8c0d5b046b004a31632c3b8b0e51148a4cc8823e.png" />
+<img alt="../_images/6f0cd997abb3d8c677b4ab30dbc609813662e6fdb5e11a15c45eb7fd759df5fd.png" src="../_images/6f0cd997abb3d8c677b4ab30dbc609813662e6fdb5e11a15c45eb7fd759df5fd.png" />
 </div>
 </div>
 <p>Detrending the training data</p>
@@ -1070,7 +1071,7 @@ Best Model: ARIMA(2, 1, 1)x(1, 0, 1, 12) - AIC:-153.86307651026456
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a0fdbe5e9a3a1ab1b37038a5eec8b2925caaa8d102965c4f4c0a32550dae8403.png" src="../_images/a0fdbe5e9a3a1ab1b37038a5eec8b2925caaa8d102965c4f4c0a32550dae8403.png" />
+<img alt="../_images/8ada8a36817465f2ecb04df26cc945f74efae2c7c5a527f665734cb9e1bccf67.png" src="../_images/8ada8a36817465f2ecb04df26cc945f74efae2c7c5a527f665734cb9e1bccf67.png" />
 </div>
 </div>
 <p>If you also take away the noise, you’ll see that LightGBM did a pretty great job filtering it out.</p>
@@ -1085,7 +1086,7 @@ Best Model: ARIMA(2, 1, 1)x(1, 0, 1, 12) - AIC:-153.86307651026456
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/72ba7bf425784d51351edbd157fd006fac6dafd8959340052abce8b9901c0d25.png" src="../_images/72ba7bf425784d51351edbd157fd006fac6dafd8959340052abce8b9901c0d25.png" />
+<img alt="../_images/aa987a6587b8ae0c0455081498748bbbab18d5a034baf019b1ade8e01b017198.png" src="../_images/aa987a6587b8ae0c0455081498748bbbab18d5a034baf019b1ade8e01b017198.png" />
 </div>
 </div>
 <p>Recursive predictions. TODO</p>
@@ -1361,7 +1362,7 @@ The nearest neighbor subsequence to this discord is 1.4067575559258207 units awa
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/83f0ca5db0eec8fc90c33c6fce0f0ac0c70f262fda12ba61238bcdff9055b5ab.png" src="../_images/83f0ca5db0eec8fc90c33c6fce0f0ac0c70f262fda12ba61238bcdff9055b5ab.png" />
+<img alt="../_images/393cb23ef117a925ce6ee3ed6c10543c28797fa2a4c739d47c4a819f29e621b3.png" src="../_images/393cb23ef117a925ce6ee3ed6c10543c28797fa2a4c739d47c4a819f29e621b3.png" />
 </div>
 </div>
 </section>
@@ -1484,7 +1485,7 @@ The nearest neighbor subsequence to this discord is 1.4067575559258207 units awa
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Matplotlib settings:</p>
+        <p class="prev-next-title">Visualizations</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

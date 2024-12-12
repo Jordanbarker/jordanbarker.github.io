@@ -195,8 +195,7 @@
 <li class="toctree-l1"><a class="reference internal" href="optimization.html">Optimization</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Statistical Tests (A/B Testing)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series</a></li>
-<li class="toctree-l1"><a class="reference internal" href="visualizations.html">Matplotlib settings:</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="visualizations.html">Visualizations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cookbook_meta.html">Cookbook Meta</a></li>
 </ul>
 
@@ -700,12 +699,12 @@ True Interpretation: “If we were to take many samples and construct a confiden
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-statistic: -1.7791
-P-value: 0.0755
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-statistic: -2.6383
+P-value: 0.0085
 Fail to reject the null hypothesis - sample mean is not significantly different from the population mean.
 </pre></div>
 </div>
-<img alt="../_images/d81c08f5e3ee9aae7cd3e0223505f1d9e929f9ca485d1c663ca2df6856f1b88f.png" src="../_images/d81c08f5e3ee9aae7cd3e0223505f1d9e929f9ca485d1c663ca2df6856f1b88f.png" />
+<img alt="../_images/748ec8a258b49b006652590dddfcb5c675cd5f035d48b48849753d7a79fec36a.png" src="../_images/748ec8a258b49b006652590dddfcb5c675cd5f035d48b48849753d7a79fec36a.png" />
 </div>
 </div>
 </section>
@@ -741,15 +740,15 @@ Fail to reject the null hypothesis - sample mean is not significantly different 
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-Test Assuming Equal Variance:
-	T-statistic: -1.9623
-	P-value: 0.0499
+	T-statistic: -2.0253
+	P-value: 0.0430
 
 Welch&#39;s T-Test for Unequal Variance:
-	T-statistic: -1.9623
-	P-value: 0.0499
+	T-statistic: -2.0253
+	P-value: 0.0430
 </pre></div>
 </div>
-<img alt="../_images/7bd0238e04f453afad1af61a0d1e8cc77ba77ea04b69b54a739ad01c55780292.png" src="../_images/7bd0238e04f453afad1af61a0d1e8cc77ba77ea04b69b54a739ad01c55780292.png" />
+<img alt="../_images/91adebe064c09837e8535cda34ca58751ea8e5098d7f12f646dd4ad20e37622c.png" src="../_images/91adebe064c09837e8535cda34ca58751ea8e5098d7f12f646dd4ad20e37622c.png" />
 </div>
 </div>
 </section>
@@ -783,15 +782,15 @@ Welch&#39;s T-Test for Unequal Variance:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-Test Assuming Equal Variance:
-	T-statistic: -4.1804
-	P-value: 0.0000
+	T-statistic: -1.2320
+	P-value: 0.2181
 
 Welch&#39;s T-Test for Unequal Variance:
-	T-statistic: -4.1804
-	P-value: 0.0000
+	T-statistic: -1.2320
+	P-value: 0.2182
 </pre></div>
 </div>
-<img alt="../_images/1e10e98644afbb51021ecfe083db70fa1a43c2b7b19a7bcf3693c45311641ec5.png" src="../_images/1e10e98644afbb51021ecfe083db70fa1a43c2b7b19a7bcf3693c45311641ec5.png" />
+<img alt="../_images/133f3eecfd692d06de3e637845ec7bd1dd6e479c95c3609590ae8908d21c8c59.png" src="../_images/133f3eecfd692d06de3e637845ec7bd1dd6e479c95c3609590ae8908d21c8c59.png" />
 </div>
 </div>
 </section>
@@ -828,15 +827,15 @@ Welch&#39;s T-Test for Unequal Variance:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Independent T-Test:
-	T-statistic: -1.1099
-	P-value: 0.2672
+	T-statistic: -0.5849
+	P-value: 0.5587
 
 Paired T-Test:
-	T-statistic: -1.0903
-	P-value: 0.2758
+	T-statistic: -0.5706
+	P-value: 0.5684
 </pre></div>
 </div>
-<img alt="../_images/c3e1d5b83b29da79caba49a4c3a179f655c45c4440e206e8aea268ed29e86669.png" src="../_images/c3e1d5b83b29da79caba49a4c3a179f655c45c4440e206e8aea268ed29e86669.png" />
+<img alt="../_images/aeb281d84c09cd871a9813101760a8d63e5611b8b1059a7c415a8519b56a74fc.png" src="../_images/aeb281d84c09cd871a9813101760a8d63e5611b8b1059a7c415a8519b56a74fc.png" />
 </div>
 </div>
 <p>Simulate null hypothesis and observe falsely rejecting the null hypothesis at a given p-value probability, regardless of sample size</p>
@@ -882,30 +881,18 @@ Paired T-Test:
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Independent ______________________________________________________
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 955, Accepted: 45
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 946, Accepted: 54
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 957, Accepted: 43
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 959, Accepted: 41
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 955, Accepted: 45
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 949, Accepted: 51
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 949, Accepted: 51
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 940, Accepted: 60
 
 Paired ______________________________________________________
-Sample Size: 10      Reject: 957, Accepted: 43
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 952, Accepted: 48
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 958, Accepted: 42
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 959, Accepted: 41
-
-Welch ______________________________________________________
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 940, Accepted: 60
@@ -914,10 +901,24 @@ Welch ______________________________________________________
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 953, Accepted: 47
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 942, Accepted: 58
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 953, Accepted: 47
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 946, Accepted: 54
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 947, Accepted: 53
+
+Welch ______________________________________________________
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 954, Accepted: 46
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 938, Accepted: 62
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 940, Accepted: 60
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 948, Accepted: 52
 </pre></div>
 </div>
 </div>
@@ -1267,11 +1268,11 @@ P-value: 0.000044
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Observed difference in means: 0.0725
-P-value from permutation test: 0.6107
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Observed difference in means: 0.2097
+P-value from permutation test: 0.1883
 </pre></div>
 </div>
-<img alt="../_images/1d75d74676c9a3b248dea477ce5ee636cfe61e256705ce5fc80f0549dbdb048b.png" src="../_images/1d75d74676c9a3b248dea477ce5ee636cfe61e256705ce5fc80f0549dbdb048b.png" />
+<img alt="../_images/bdeaf5955e4e082a42875beb12f173864a19dd445231ba083325e8641d56d9bc.png" src="../_images/bdeaf5955e4e082a42875beb12f173864a19dd445231ba083325e8641d56d9bc.png" />
 </div>
 </div>
 </section>
@@ -1337,19 +1338,19 @@ that dives deeper into .</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bonferroni Correction Results:
-Test 1: Original p = 0.0350, Adjusted p = 0.1051, Not rejected
-Test 2: Original p = 0.1736, Adjusted p = 0.5207, Not rejected
-Test 3: Original p = 0.4489, Adjusted p = 1.0000, Not rejected
+Test 1: Original p = 0.6474, Adjusted p = 1.0000, Not rejected
+Test 2: Original p = 0.8547, Adjusted p = 1.0000, Not rejected
+Test 3: Original p = 0.7839, Adjusted p = 1.0000, Not rejected
 
 FDR with Benjamini-Hochberg Procedure:
-Test 1: Original p = 0.0350, Adjusted p = 0.1051, Not rejected
-Test 2: Original p = 0.1736, Adjusted p = 0.2604, Not rejected
-Test 3: Original p = 0.4489, Adjusted p = 0.4489, Not rejected
+Test 1: Original p = 0.6474, Adjusted p = 0.8547, Not rejected
+Test 2: Original p = 0.8547, Adjusted p = 0.8547, Not rejected
+Test 3: Original p = 0.7839, Adjusted p = 0.8547, Not rejected
 
 FDR with Benjamini–Yekutieli Procedure):
-Test 1: Original p = 0.0350, Adjusted p = 0.1926, Not rejected
-Test 2: Original p = 0.1736, Adjusted p = 0.4774, Not rejected
-Test 3: Original p = 0.4489, Adjusted p = 0.8229, Not rejected
+Test 1: Original p = 0.6474, Adjusted p = 1.0000, Not rejected
+Test 2: Original p = 0.8547, Adjusted p = 1.0000, Not rejected
+Test 3: Original p = 0.7839, Adjusted p = 1.0000, Not rejected
 </pre></div>
 </div>
 </div>
@@ -1454,7 +1455,7 @@ Decision at 100.0% data: Reject H0
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Probability that B is better than A: 0.91
 </pre></div>
 </div>
-<img alt="../_images/c349ef0a05b2abfc4457b101b841a5934c243313a998f66fac62e66768ae59ef.png" src="../_images/c349ef0a05b2abfc4457b101b841a5934c243313a998f66fac62e66768ae59ef.png" />
+<img alt="../_images/9dedd7c4991dcdf1a67f3af32542de697a6ec00133b33e182a0f313de2d18905.png" src="../_images/9dedd7c4991dcdf1a67f3af32542de697a6ec00133b33e182a0f313de2d18905.png" />
 </div>
 </div>
 <p>Example from <a class="reference external" href="https://nbviewer.org/github/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/blob/master/Chapter1_Introduction/Ch1_Introduction_PyMC2.ipynb">Probabilistic Programming and Bayesian Methods for Hackers</a></p>
@@ -1485,7 +1486,7 @@ Decision at 100.0% data: Reject H0
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3324b4e7eb7296df7ec63188a30f317798dedffe96f7f4b81755ff7388e4a69e.png" src="../_images/3324b4e7eb7296df7ec63188a30f317798dedffe96f7f4b81755ff7388e4a69e.png" />
+<img alt="../_images/97b4c208facc4ad98fb1d4e49a077948d5d59aa6af9cbc986f5187087c5d35bc.png" src="../_images/97b4c208facc4ad98fb1d4e49a077948d5d59aa6af9cbc986f5187087c5d35bc.png" />
 </div>
 </div>
 </section>
@@ -1516,8 +1517,8 @@ Decision at 100.0% data: Reject H0
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shapiro-Wilk: p-value = 0.8820
-Kolmogorov-Smirnov: p-value = 0.9736
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shapiro-Wilk: p-value = 0.5955
+Kolmogorov-Smirnov: p-value = 0.7186
 </pre></div>
 </div>
 </div>
@@ -1559,11 +1560,11 @@ Kolmogorov-Smirnov: p-value = 0.9736
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kullback-Leibler Divergence: 0.2590
-Kullback-Leibler Divergence (histogram method): 0.0881
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kullback-Leibler Divergence: 0.2627
+Kullback-Leibler Divergence (histogram method): 0.1163
 </pre></div>
 </div>
-<img alt="../_images/8d8d95c6e52f770e42c9e38ee759ad87152e26eab7d0f10489d7fbfc8b98a20d.png" src="../_images/8d8d95c6e52f770e42c9e38ee759ad87152e26eab7d0f10489d7fbfc8b98a20d.png" />
+<img alt="../_images/80acfdbc4cf7940b8f826016ec1bf30269443c39a1480f24137e6fdf7abf0804.png" src="../_images/80acfdbc4cf7940b8f826016ec1bf30269443c39a1480f24137e6fdf7abf0804.png" />
 </div>
 </div>
 </section>
@@ -1641,32 +1642,32 @@ Kullback-Leibler Divergence (histogram method): 0.0881
       <th>0</th>
       <td>Treatment</td>
       <td>Day 1</td>
-      <td>315</td>
-      <td>185</td>
+      <td>313</td>
+      <td>187</td>
       <td>63.0</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Control</td>
       <td>Day 1</td>
-      <td>5482</td>
-      <td>4018</td>
-      <td>58.0</td>
+      <td>5456</td>
+      <td>4044</td>
+      <td>57.0</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Treatment</td>
       <td>Day 2</td>
-      <td>2504</td>
-      <td>2496</td>
-      <td>50.0</td>
+      <td>2467</td>
+      <td>2533</td>
+      <td>49.0</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Control</td>
       <td>Day 2</td>
-      <td>2251</td>
-      <td>2749</td>
+      <td>2232</td>
+      <td>2768</td>
       <td>45.0</td>
     </tr>
   </tbody>
@@ -1719,14 +1720,14 @@ Kullback-Leibler Divergence (histogram method): 0.0881
   <tbody>
     <tr>
       <th>Control</th>
-      <td>7733</td>
-      <td>6767</td>
+      <td>7688</td>
+      <td>6812</td>
       <td>53.0</td>
     </tr>
     <tr>
       <th>Treatment</th>
-      <td>2819</td>
-      <td>2681</td>
+      <td>2780</td>
+      <td>2720</td>
       <td>51.0</td>
     </tr>
   </tbody>

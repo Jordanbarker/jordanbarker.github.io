@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Matplotlib settings: &#8212; Data Science Cookbook</title>
+    <title>Visualizations &#8212; Data Science Cookbook</title>
   
   
   
@@ -193,8 +193,7 @@
 <li class="toctree-l1"><a class="reference internal" href="optimization.html">Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="statistical_tests.html">Statistical Tests (A/B Testing)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Matplotlib settings:</a></li>
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Visualizations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cookbook_meta.html">Cookbook Meta</a></li>
 </ul>
 
@@ -381,7 +380,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Matplotlib settings:</h1>
+    <h1>Visualizations</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -391,11 +390,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Matplotlib settings:</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subplots">Subplots</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib-settings">Matplotlib settings:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subplots">Subplots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plt-versus-ax"><code class="docutils literal notranslate"><span class="pre">plt</span></code> versus <code class="docutils literal notranslate"><span class="pre">ax</span></code>:</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizations">Visualizations</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestalt-s-six-principles-of-visual-perception">Gestalt’s Six Principles of Visual Perception</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perceptual-grouping">Perceptual grouping</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#proximity">Proximity</a></li>
@@ -410,9 +409,6 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-examples">Plot examples</a></li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -423,8 +419,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="matplotlib-settings">
-<h1>Matplotlib settings:<a class="headerlink" href="#matplotlib-settings" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="visualizations">
+<h1>Visualizations<a class="headerlink" href="#visualizations" title="Link to this heading">#</a></h1>
+<section id="matplotlib-settings">
+<h2>Matplotlib settings:<a class="headerlink" href="#matplotlib-settings" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">plt.rcParams</span></code> controls the default styles and behaviors of plots. There are <a class="reference external" href="https://matplotlib.org/stable/api/matplotlib_configuration_api.html#matplotlib.RcParams">a lot of options</a>.</p>
 <p>The common ones are:</p>
 <ul class="simple">
@@ -513,7 +511,7 @@ document.write(`
 </div>
 </div>
 <section id="subplots">
-<h2>Subplots<a class="headerlink" href="#subplots" title="Link to this heading">#</a></h2>
+<h3>Subplots<a class="headerlink" href="#subplots" title="Link to this heading">#</a></h3>
 <p>When you create a grid of subplots using <code class="docutils literal notranslate"><span class="pre">plt.subplots(rows,</span> <span class="pre">cols)</span></code>, Matplotlib returns an array of Axes objects that can be accessed with <code class="docutils literal notranslate"><span class="pre">axs[row,</span> <span class="pre">column]</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -525,53 +523,45 @@ document.write(`
     <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">columns</span><span class="p">):</span>
         <span class="n">axs</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;ax[</span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
         <span class="n">axs</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/04f12bd8a3c8ef715ef08d430d5cab552ad7a3543e59995615871af6f164b019.png" src="../_images/04f12bd8a3c8ef715ef08d430d5cab552ad7a3543e59995615871af6f164b019.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># 2 rows, 3 columns</span>
-<span class="n">axs</span> <span class="o">=</span> <span class="n">axs</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">axs</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Subplot </span><span class="si">{</span><span class="n">row</span><span class="o">*</span><span class="n">columns</span><span class="o">+</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axs</span><span class="p">):</span>
-    <span class="n">row</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">//</span> <span class="mi">3</span>
-    <span class="n">col</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">%</span> <span class="mi">3</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;ax[</span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Main Title for the Figure&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/04f12bd8a3c8ef715ef08d430d5cab552ad7a3543e59995615871af6f164b019.png" src="../_images/04f12bd8a3c8ef715ef08d430d5cab552ad7a3543e59995615871af6f164b019.png" />
+<img alt="../_images/3b93747766d0a832cf8d1891b669addecb30a0346c610755450c483ff2d01fdb.png" src="../_images/3b93747766d0a832cf8d1891b669addecb30a0346c610755450c483ff2d01fdb.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">sharex=True</span></code> allows the subplots to use the same x-axis.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ax.set()</span></code> can be used to set multiple properties at once.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="p">:</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">50</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/703ed296de0f11b3984f6af609c4135dc6f604f3f33ba62467973a12edc0af1c.png" src="../_images/703ed296de0f11b3984f6af609c4135dc6f604f3f33ba62467973a12edc0af1c.png" />
+<img alt="../_images/974df7c245ff5edd27cbd6ad099ce732d89b79c1b462e07132fb04c4db5a169c.png" src="../_images/974df7c245ff5edd27cbd6ad099ce732d89b79c1b462e07132fb04c4db5a169c.png" />
 </div>
 </div>
 </section>
+<section id="plt-versus-ax">
+<h3><code class="docutils literal notranslate"><span class="pre">plt</span></code> versus <code class="docutils literal notranslate"><span class="pre">ax</span></code>:<a class="headerlink" href="#plt-versus-ax" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">plt.xlabel()</span></code> → <code class="docutils literal notranslate"><span class="pre">ax.set_xlabel()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plt.ylabel()</span></code> → <code class="docutils literal notranslate"><span class="pre">ax.set_ylabel()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plt.xlim()</span></code> → <code class="docutils literal notranslate"><span class="pre">ax.set_xlim()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plt.ylim()</span></code> → <code class="docutils literal notranslate"><span class="pre">ax.set_ylim()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plt.title()</span></code> → <code class="docutils literal notranslate"><span class="pre">ax.set_title()</span></code></p></li>
+</ul>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="visualizations">
-<h1>Visualizations<a class="headerlink" href="#visualizations" title="Link to this heading">#</a></h1>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>A lot of these examples come from Cole Nussbaumer Knaflic’s great book:
-Storytelling with Data: A Data Visualization Guide for Business Professionals</p>
-</div>
+</section>
 <section id="gestalt-s-six-principles-of-visual-perception">
 <h2>Gestalt’s Six Principles of Visual Perception<a class="headerlink" href="#gestalt-s-six-principles-of-visual-perception" title="Link to this heading">#</a></h2>
 <p>Define how people interact with and create order out of visual stimuli.</p>
@@ -722,6 +712,11 @@ Storytelling with Data: A Data Visualization Guide for Business Professionals</p
 </section>
 <section id="plot-examples">
 <h2>Plot examples<a class="headerlink" href="#plot-examples" title="Link to this heading">#</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>A lot of these examples come from Cole Nussbaumer Knaflic’s great book:
+Storytelling with Data: A Data Visualization Guide for Business Professionals</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">companies</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Company D&#39;</span><span class="p">,</span> <span class="s1">&#39;Our Company&#39;</span><span class="p">,</span> <span class="s1">&#39;Company A&#39;</span><span class="p">,</span> <span class="s1">&#39;Company C&#39;</span><span class="p">,</span> <span class="s1">&#39;Company F&#39;</span><span class="p">,</span> <span class="s1">&#39;Company E&#39;</span><span class="p">,</span> <span class="s1">&#39;All Others&#39;</span><span class="p">]</span>
@@ -1079,11 +1074,11 @@ Storytelling with Data: A Data Visualization Guide for Business Professionals</p
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Matplotlib settings:</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subplots">Subplots</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib-settings">Matplotlib settings:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subplots">Subplots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plt-versus-ax"><code class="docutils literal notranslate"><span class="pre">plt</span></code> versus <code class="docutils literal notranslate"><span class="pre">ax</span></code>:</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizations">Visualizations</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestalt-s-six-principles-of-visual-perception">Gestalt’s Six Principles of Visual Perception</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perceptual-grouping">Perceptual grouping</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#proximity">Proximity</a></li>
@@ -1098,9 +1093,6 @@ Storytelling with Data: A Data Visualization Guide for Business Professionals</p
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-examples">Plot examples</a></li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>
