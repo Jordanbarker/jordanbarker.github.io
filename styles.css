@@ -54,6 +54,7 @@ body {
 .header_links {
   margin-top: -35px;
   font-size: 1.3em;
+  font-weight: 500;
 }
 
 nav ul {
@@ -75,9 +76,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  text-shadow: rgb(210, 210, 210) 1px 0 1px;
-  /* text-shadow: #333 1px 1px; */
-  /* text-shadow: 4px 4px 8px 4px; */
+  color: #616161;
 }
 
 .card {
@@ -173,8 +172,4 @@ nav ul li a:hover {
     text-align: right;
     display: block;
   }
-  .header_links li a:hover {
-    background-color: #555;
-  }
-  
 }
