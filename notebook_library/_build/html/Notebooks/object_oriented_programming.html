@@ -181,7 +181,7 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy <a class="anchor" id="Numpy"></a></a></li>
+<li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pandas.html">Pandas</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Object-Oriented Programming (OOP) in Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
@@ -191,6 +191,7 @@
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="evaluation_metrics.html">Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optimization.html">Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scaling.html">Scaling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="statistical_tests.html">Statistical Tests (A/B Testing)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series</a></li>
 <li class="toctree-l1"><a class="reference internal" href="visualizations.html">Visualizations</a></li>
@@ -452,6 +453,9 @@ document.write(`
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_radius</span> <span class="o">=</span> <span class="n">radius</span>
 
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;Circle(radius=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="si">}</span><span class="s1">)&#39;</span>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">radius</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_radius</span>
@@ -468,14 +472,17 @@ document.write(`
 
 <span class="n">circle</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 
+<span class="nb">print</span><span class="p">(</span><span class="n">circle</span><span class="p">)</span>  <span class="c1"># </span>
 <span class="nb">print</span><span class="p">(</span><span class="n">circle</span><span class="o">.</span><span class="n">radius</span><span class="p">)</span>  <span class="c1"># Accessing the method</span>
+
 <span class="n">circle</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># Invokes the setter</span>
 <span class="k">del</span> <span class="n">circle</span><span class="o">.</span><span class="n">radius</span>  <span class="c1"># Invokes the deleter</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Circle(radius=5)
+5
 </pre></div>
 </div>
 </div>
@@ -599,19 +606,32 @@ Function &#39;add&#39; returned 8
 </section>
 <section id="inheritance">
 <h2>Inheritance<a class="headerlink" href="#inheritance" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;foo&#39;</span>
+
+<span class="k">class</span> <span class="nc">Inheritor</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;bar&quot;</span>
+    
+<span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">),</span> <span class="s2">&quot;Base class should have &#39;foo&#39; method.&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
 <section id="method-overriding">
 <h3>Method Overriding<a class="headerlink" href="#method-overriding" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Parent</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;Hello&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;foo&#39;</span>
 
-<span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Parent</span><span class="p">):</span>
-    <span class="c1"># def __init__(self):</span>
-    <span class="c1">#     pass</span>
-    <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># Overrides the parent method</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Suh&quot;</span>
+<span class="k">class</span> <span class="nc">Overrider</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># Overrides the parent method</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;foo from BaseOverrider&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -808,6 +828,8 @@ Meow
 </div>
 </div>
 </div>
+<p>Full list of methods is nicely summarized here:
+<a class="reference external" href="https://www.pythonmorsels.com/every-dunder-method/">https://www.pythonmorsels.com/every-dunder-method/</a></p>
 </section>
 <section id="composition">
 <h2>Composition<a class="headerlink" href="#composition" title="Link to this heading">#</a></h2>

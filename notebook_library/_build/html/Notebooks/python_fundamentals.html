@@ -183,7 +183,7 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Python Fundamentals <a class="anchor" id="chapter1"></a></a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy <a class="anchor" id="Numpy"></a></a></li>
+<li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pandas.html">Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming (OOP) in Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
@@ -193,6 +193,7 @@
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="evaluation_metrics.html">Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optimization.html">Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scaling.html">Scaling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="statistical_tests.html">Statistical Tests (A/B Testing)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series</a></li>
 <li class="toctree-l1"><a class="reference internal" href="visualizations.html">Visualizations</a></li>
@@ -412,6 +413,7 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pip">Pip</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regular-expressions">Regular Expressions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
 </ul>
             </nav>
         </div>
@@ -547,15 +549,15 @@ Hello World
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">word</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span> <span class="c1">#check if all char are alphanumeric </span>
-<span class="n">word</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()</span> <span class="c1">#check if all char in the string are alphabetic</span>
-<span class="n">word</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="c1">#test if string contains digits</span>
-<span class="n">word</span><span class="o">.</span><span class="n">istitle</span><span class="p">()</span> <span class="c1">#test if string contains title words</span>
-<span class="n">word</span><span class="o">.</span><span class="n">isupper</span><span class="p">()</span> <span class="c1">#test if string contains upper case</span>
-<span class="n">word</span><span class="o">.</span><span class="n">islower</span><span class="p">()</span> <span class="c1">#test if string contains lower case</span>
-<span class="n">word</span><span class="o">.</span><span class="n">isspace</span><span class="p">()</span> <span class="c1">#test if string contains spaces</span>
-<span class="n">word</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">)</span> <span class="c1">#test if string endswith a d</span>
-<span class="n">word</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">)</span> <span class="c1">#test if string startswith H</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">word</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span> <span class="c1"># check if all char are alphanumeric </span>
+<span class="n">word</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()</span> <span class="c1"># check if all char in the string are alphabetic</span>
+<span class="n">word</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="c1"># test if string contains digits</span>
+<span class="n">word</span><span class="o">.</span><span class="n">istitle</span><span class="p">()</span> <span class="c1"># test if string contains title words</span>
+<span class="n">word</span><span class="o">.</span><span class="n">isupper</span><span class="p">()</span> <span class="c1"># test if string contains upper case</span>
+<span class="n">word</span><span class="o">.</span><span class="n">islower</span><span class="p">()</span> <span class="c1"># test if string contains lower case</span>
+<span class="n">word</span><span class="o">.</span><span class="n">isspace</span><span class="p">()</span> <span class="c1"># test if string contains spaces</span>
+<span class="n">word</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">)</span> <span class="c1"># test if string endswith a d</span>
+<span class="n">word</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">)</span> <span class="c1"># test if string startswith H</span>
 </pre></div>
 </div>
 </div>
@@ -571,15 +573,15 @@ Hello World
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># range() function defaults to 0 as a starting value</span>
-<span class="k">for</span> <span class="n">N</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="c1"># print all on same line</span>
-<span class="nb">print</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="c1"># print all on same line</span>
 
+<span class="nb">print</span><span class="p">()</span>
 <span class="n">start</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">end</span> <span class="o">=</span> <span class="mi">11</span>
 <span class="n">inc</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="k">for</span> <span class="n">N</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">inc</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="c1"># print all on same line</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">inc</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="c1"># print all on same line</span>
 </pre></div>
 </div>
 </div>
@@ -590,14 +592,13 @@ Hello World
 </div>
 </div>
 </div>
+<p>List comprehension</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)])</span>
 
 <span class="c1"># Select only even values</span>
-<span class="n">h</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">h</span> <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -661,20 +662,17 @@ Hello World
 <p>enumerate</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="p">[{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">296</span><span class="p">,</span> <span class="mi">925</span><span class="p">,</span> <span class="mi">415</span><span class="p">},</span> <span class="p">{</span><span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1318</span><span class="p">,</span> <span class="mi">701</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">851</span><span class="p">,</span> <span class="mi">797</span><span class="p">},</span> <span class="p">{</span><span class="mi">522</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1115</span><span class="p">},</span> <span class="p">{</span><span class="mi">267</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1023</span><span class="p">},</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1384</span><span class="p">,</span> <span class="mi">297</span><span class="p">,</span> <span class="mi">749</span><span class="p">,</span> <span class="mi">406</span><span class="p">,</span> <span class="mi">1271</span><span class="p">,</span> <span class="mi">985</span><span class="p">,</span> <span class="mi">1404</span><span class="p">},</span> <span class="p">{</span><span class="mi">569</span><span class="p">,</span> <span class="mi">676</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1359</span><span class="p">}]</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n_i</span> <span class="ow">in</span> <span class="nb">enumerate</span> <span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">n_i</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">12</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 {0, 296, 925, 415}
-1 {1}
-2 {2, 851, 1318, 797, 12, 701}
-3 {522, 3, 1115}
-4 {267, 4, 1023}
-5 {5, 1384, 297, 749, 406, 1271, 985, 1404}
-6 {569, 676, 6, 1359}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 25
+1 63
+2 145
+3 12
 </pre></div>
 </div>
 </div>
@@ -795,8 +793,8 @@ Hello World
 [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 [1, 2, 3]
-[8, 2, 5, 4, 1, 7, 0, 6, 9, 3]
-[8, 2, 4, 0, 6]
+[0, 2, 7, 8, 3, 4, 6, 5, 9, 1]
+[0, 2, 8, 4, 6]
 </pre></div>
 </div>
 </div>
@@ -839,10 +837,10 @@ Hello World
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;q&#39;, &#39;u&#39;, &#39;x&#39;}
-{&#39;q&#39;, &#39;u&#39;, &#39;p&#39;, &#39;x&#39;}
-{&#39;u&#39;, &#39;p&#39;, &#39;x&#39;}
-{1, &#39;u&#39;, 2, 3, &#39;p&#39;, &#39;x&#39;}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;q&#39;, &#39;x&#39;, &#39;u&#39;}
+{&#39;q&#39;, &#39;x&#39;, &#39;p&#39;, &#39;u&#39;}
+{&#39;x&#39;, &#39;p&#39;, &#39;u&#39;}
+{&#39;x&#39;, 1, 2, 3, &#39;u&#39;, &#39;p&#39;}
 True
 False
 set()
@@ -915,7 +913,7 @@ set()
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Today: Tuesday, 10 Dec 2024
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Today: Tuesday, 07 Jan 2025
 </pre></div>
 </div>
 </div>
@@ -935,7 +933,7 @@ set()
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9
 </pre></div>
 </div>
 </div>
@@ -955,7 +953,7 @@ set()
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hi!
-The time taken by print statement is 3.0040740966796875e-05 seconds
+The time taken by print statement is 2.6941299438476562e-05 seconds
 </pre></div>
 </div>
 </div>
@@ -1238,6 +1236,10 @@ Vuduc
 </div>
 </div>
 </section>
+<section id="further-reading">
+<h2>Further Reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://www.pythonmorsels.com/time-complexities/">https://www.pythonmorsels.com/time-complexities/</a></p>
+</section>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -1286,7 +1288,7 @@ Vuduc
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Numpy <a class="anchor" id="Numpy"></a></p>
+        <p class="prev-next-title">Numpy</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1326,6 +1328,7 @@ Vuduc
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pip">Pip</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regular-expressions">Regular Expressions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
 </ul>
   </nav></div>
 

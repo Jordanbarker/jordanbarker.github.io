@@ -63,7 +63,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Time Series" href="time_series.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="scaling.html" />
+    <link rel="prev" title="Scaling" href="scaling.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -183,7 +183,7 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy <a class="anchor" id="Numpy"></a></a></li>
+<li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pandas.html">Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming (OOP) in Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
@@ -193,6 +193,7 @@
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="evaluation_metrics.html">Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optimization.html">Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scaling.html">Scaling</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Statistical Tests (A/B Testing)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series</a></li>
 <li class="toctree-l1"><a class="reference internal" href="visualizations.html">Visualizations</a></li>
@@ -394,6 +395,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-assess-statistical-significance">Steps to Assess Statistical Significance: <a name="assess-significance"></a></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-size-and-statistical-power">Sample Size and Statistical Power: <a name="Sample-Size-and-Statstical-Power"></a> <br/></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-size-and-minimum-detectable-effect">Sample Size and Minimum Detectable Effect</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#margin-of-error-moe">Margin of Error (MoE)  <a name="Margin of Error"></a></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-proportion-moe">Sample Proportion MoE</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-mean-moe">Sample Mean MoE</a></li>
@@ -503,10 +505,10 @@ Define metrics:</p>
 </div>
 <p>Where</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(β\)</span> = probability of a Type II error, known as a “false negative”</p></li>
-<li><p><span class="math notranslate nohighlight">\(1 − β\)</span> = probability of a “true positive”, i.e., correctly rejecting the null hypothesis. The <strong>power</strong> of the test.</p></li>
 <li><p><span class="math notranslate nohighlight">\(α\)</span> = probability of a Type I error, known as a “false positive”</p></li>
+<li><p><span class="math notranslate nohighlight">\(β\)</span> = probability of a Type II error, known as a “false negative”</p></li>
 <li><p><span class="math notranslate nohighlight">\(1 − α\)</span> = probability of a “true negative”, i.e., correctly not rejecting the null hypothesis</p></li>
+<li><p><span class="math notranslate nohighlight">\(1 − β\)</span> = probability of a “true positive”, i.e., correctly rejecting the null hypothesis. The <strong>power</strong> of the test.</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -553,6 +555,59 @@ Define metrics:</p>
 </details>
 <div class="cell_output docutils container">
 <img alt="../_images/9f04161d7973f88498ab570afba33d4f3014c30aef414dfbfb841da25b3deb45.png" src="../_images/9f04161d7973f88498ab570afba33d4f3014c30aef414dfbfb841da25b3deb45.png" />
+</div>
+</div>
+</section>
+<section id="sample-size-and-minimum-detectable-effect">
+<h3>Sample Size and Minimum Detectable Effect<a class="headerlink" href="#sample-size-and-minimum-detectable-effect" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://sample-size.net/sample-size-proportions/">sample-size.net</a> has a robust calculator for this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p0</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># Baseline conversion rate</span>
+<span class="n">p1</span> <span class="o">=</span> <span class="mf">0.2</span>  <span class="c1"># Target conversion rate</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span>  <span class="c1"># Significance level</span>
+<span class="n">power</span> <span class="o">=</span> <span class="mf">.8</span>  <span class="c1"># Power</span>
+
+<span class="c1"># Z-scores for significance level and power</span>
+<span class="n">z_alpha</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># Two-tailed test</span>
+<span class="n">z_beta</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">power</span><span class="p">)</span>
+
+<span class="c1"># Variance for baseline and target rates</span>
+<span class="n">var_p0</span> <span class="o">=</span> <span class="n">p0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p0</span><span class="p">)</span>
+<span class="n">var_p1</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p1</span><span class="p">)</span>
+<span class="n">pooled_proportion</span> <span class="o">=</span> <span class="n">p0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p1</span><span class="p">)</span>
+
+<span class="c1"># Minimum Detectable Effect (MDE)</span>
+<span class="n">mde</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">-</span> <span class="n">p0</span>
+
+<span class="c1"># Sample size formula</span>
+<span class="n">n</span> <span class="o">=</span> <span class="p">((</span><span class="n">z_alpha</span> <span class="o">+</span> <span class="n">z_beta</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">var_p0</span> <span class="o">+</span> <span class="n">var_p1</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">mde</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">sample_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># Round up to the nearest whole number</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Required sample size per group: </span><span class="si">{</span><span class="n">sample_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total required sample size: </span><span class="si">{</span><span class="n">sample_size</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Required sample size per group: 197.0
+Total required sample size: 394.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The standard normal deviate for α = Zα = </span><span class="si">{</span><span class="n">z_alpha</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The standard normal deviate for β = Zβ = </span><span class="si">{</span><span class="n">z_beta</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The standard normal deviate for α = Zα = 1.9600
+The standard normal deviate for β = Zβ = 0.8416
+</pre></div>
+</div>
 </div>
 </div>
 </section>
@@ -617,6 +672,64 @@ Define metrics:</p>
 <p>CI is a range of values that are likely to contain the true population parameter (e.g. mean) with a level of confidence. The confidence level represents the proportion of times that the CI would contain the true parameter if the same population were sampled multiple times.</p>
 <p>Misrepresentation: “There is a 95% probability that the true parameter lies within this interval.” <br>
 True Interpretation: “If we were to take many samples and construct a confidence interval from each sample, we expect 95% of those intervals to contain the true parameter. For any given interval, the true parameter either is in the interval or it isn’t.”</p>
+<p>Great overview on the topic: <a class="reference external" href="https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_confidence_intervals/bs704_confidence_intervals_print.html">Confidence Intervals by Lisa Sullivan, PhD</a></p>
+<p>Confidence Interval for One Sample:</p>
+<div class="math notranslate nohighlight">
+\[ \text{One Sample Confidence Interval} = \text{Sample Mean} \pm MoE \]</div>
+<p>Example: Estimate the average test score of students in a school based on a random sample.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_size</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">sample_mean</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="n">sample_std_dev</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">z</span> <span class="o">=</span> <span class="mf">1.96</span>  <span class="c1"># Z value for 95% confidence is 1.96</span>
+<span class="n">MoE</span> <span class="o">=</span> <span class="n">z</span> <span class="o">*</span> <span class="n">sample_std_dev</span> <span class="o">/</span> <span class="n">sample_size</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Confidence interval: (</span><span class="si">{</span><span class="n">sample_mean</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">MoE</span><span class="si">:</span><span class="s2">0.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">sample_mean</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MoE</span><span class="si">:</span><span class="s2">0.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Interpretation: we are 95% confident that the true mean is between </span><span class="si">{</span><span class="n">sample_mean</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">MoE</span><span class="si">:</span><span class="s2">0.2f</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">sample_mean</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MoE</span><span class="si">:</span><span class="s2">0.2f</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Confidence interval: (79.22, 80.78)
+Interpretation: we are 95% confident that the true mean is between 79.22 and 80.78.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Confidence Interval for Two Independent Samples:</p>
+<div class="math notranslate nohighlight">
+\[ \text{Standard Error (SE)} = \sqrt{\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2}}  \]</div>
+<div class="math notranslate nohighlight">
+\[ \text{Margin of Error (MoE)} = z * SE \]</div>
+<div class="math notranslate nohighlight">
+\[ \text{Two Sample Confidence Interval} = \bar{x_1} - \bar{x_2} \pm MoE \]</div>
+<p>Example: Compare the average test scores of students from two different schools.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_1</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">mean_2</span> <span class="o">=</span> <span class="mi">85</span>
+<span class="n">std_dev_1</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">std_dev_2</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">sample_size_1</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">sample_size_2</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="n">z</span> <span class="o">=</span> <span class="mf">1.96</span>  <span class="c1"># Z value for 95% confidence is 1.96</span>
+<span class="n">standard_error</span> <span class="o">=</span> <span class="p">((</span><span class="n">std_dev_1</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">sample_size_1</span><span class="p">)</span> <span class="o">+</span> \
+                  <span class="p">(</span><span class="n">std_dev_2</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">sample_size_2</span><span class="p">))</span><span class="o">**</span><span class="mf">0.5</span>
+<span class="n">MoE</span> <span class="o">=</span> <span class="n">z</span> <span class="o">*</span> <span class="n">standard_error</span>
+<span class="n">mean_diff</span> <span class="o">=</span> <span class="n">mean_1</span> <span class="o">-</span> <span class="n">mean_2</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Confidence interval: (</span><span class="si">{</span><span class="n">mean_diff</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">MoE</span><span class="si">:</span><span class="s2">0.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">mean_diff</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MoE</span><span class="si">:</span><span class="s2">0.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Interpretation: We are 95% confident that the true difference between the population means lies between </span><span class="si">{</span><span class="n">mean_diff</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">MoE</span><span class="si">:</span><span class="s2">0.2f</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">mean_diff</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MoE</span><span class="si">:</span><span class="s2">0.2f</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Confidence interval: (5.50, 24.50)
+Interpretation: We are 95% confident that the true difference between the population means lies between 5.50 and 24.50.
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="common-statstical-tests">
@@ -653,7 +766,7 @@ True Interpretation: “If we were to take many samples and construct a confiden
 - Homogeneity: Test if samples came from the same population.</p>
 <p><strong>Fisher’s Exact Test</strong>: Test relationship between categorical variables for small sample sizes or small expected frequencies<a name="fishers-exact-test"></a>
 <strong>Assumptions</strong>: Assumes a sufficient sample size (expected frequencies in each cell should be at least 5) and independence of observations. <br></p>
-<p><strong>G-test (Likelihood Ratio Test)</strong>: Increasingly being used over chi-squared tests due to better accuracy and interpretability in some cases <a name="g-test"></a></p>
+<p><strong>G-test (Likelihood Ratio Test)</strong>: Increasingly being used over chi-squared tests due to better accuracy and interpretability in some cases, but note that it is unreliable if the sample sizes are small. <a name="g-test"></a></p>
 </section>
 <section id="regression-analysis-model-the-relationship-between-a-dependent-variable-and-one-or-more-independent-variables">
 <h3><strong>Regression Analysis</strong>: Model the relationship between a dependent variable and one or more independent variables. <a name="regression-analysis"></a><a class="headerlink" href="#regression-analysis-model-the-relationship-between-a-dependent-variable-and-one-or-more-independent-variables" title="Link to this heading">#</a></h3>
@@ -699,12 +812,12 @@ True Interpretation: “If we were to take many samples and construct a confiden
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-statistic: -2.6383
-P-value: 0.0085
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-statistic: -3.5604
+P-value: 0.0004
 Fail to reject the null hypothesis - sample mean is not significantly different from the population mean.
 </pre></div>
 </div>
-<img alt="../_images/748ec8a258b49b006652590dddfcb5c675cd5f035d48b48849753d7a79fec36a.png" src="../_images/748ec8a258b49b006652590dddfcb5c675cd5f035d48b48849753d7a79fec36a.png" />
+<img alt="../_images/1eeb50ef85fadde953c2631ef385b3931a6fe6f6f21ccd68aeb2394c352cd7e6.png" src="../_images/1eeb50ef85fadde953c2631ef385b3931a6fe6f6f21ccd68aeb2394c352cd7e6.png" />
 </div>
 </div>
 </section>
@@ -740,15 +853,15 @@ Fail to reject the null hypothesis - sample mean is not significantly different 
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-Test Assuming Equal Variance:
-	T-statistic: -2.0253
-	P-value: 0.0430
+	T-statistic: -1.8214
+	P-value: 0.0687
 
 Welch&#39;s T-Test for Unequal Variance:
-	T-statistic: -2.0253
-	P-value: 0.0430
+	T-statistic: -1.8214
+	P-value: 0.0687
 </pre></div>
 </div>
-<img alt="../_images/91adebe064c09837e8535cda34ca58751ea8e5098d7f12f646dd4ad20e37622c.png" src="../_images/91adebe064c09837e8535cda34ca58751ea8e5098d7f12f646dd4ad20e37622c.png" />
+<img alt="../_images/8c875d3196c5c5672f075cbc852fa29f5976497d420c5486ea7e4d15dc6b0cf3.png" src="../_images/8c875d3196c5c5672f075cbc852fa29f5976497d420c5486ea7e4d15dc6b0cf3.png" />
 </div>
 </div>
 </section>
@@ -782,15 +895,15 @@ Welch&#39;s T-Test for Unequal Variance:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-Test Assuming Equal Variance:
-	T-statistic: -1.2320
-	P-value: 0.2181
+	T-statistic: -1.4854
+	P-value: 0.1376
 
 Welch&#39;s T-Test for Unequal Variance:
-	T-statistic: -1.2320
-	P-value: 0.2182
+	T-statistic: -1.4854
+	P-value: 0.1377
 </pre></div>
 </div>
-<img alt="../_images/133f3eecfd692d06de3e637845ec7bd1dd6e479c95c3609590ae8908d21c8c59.png" src="../_images/133f3eecfd692d06de3e637845ec7bd1dd6e479c95c3609590ae8908d21c8c59.png" />
+<img alt="../_images/907c998b62436b5d938eaf2cf48db56da9ba4787762461e21bdba486a458faf4.png" src="../_images/907c998b62436b5d938eaf2cf48db56da9ba4787762461e21bdba486a458faf4.png" />
 </div>
 </div>
 </section>
@@ -827,15 +940,15 @@ Welch&#39;s T-Test for Unequal Variance:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Independent T-Test:
-	T-statistic: -0.5849
-	P-value: 0.5587
+	T-statistic: -4.0844
+	P-value: 0.0000
 
 Paired T-Test:
-	T-statistic: -0.5706
-	P-value: 0.5684
+	T-statistic: -4.1218
+	P-value: 0.0000
 </pre></div>
 </div>
-<img alt="../_images/aeb281d84c09cd871a9813101760a8d63e5611b8b1059a7c415a8519b56a74fc.png" src="../_images/aeb281d84c09cd871a9813101760a8d63e5611b8b1059a7c415a8519b56a74fc.png" />
+<img alt="../_images/34e254b8435da51033983b6542dda58ce92a3695da06a314e3d7d98e5fa6cd74.png" src="../_images/34e254b8435da51033983b6542dda58ce92a3695da06a314e3d7d98e5fa6cd74.png" />
 </div>
 </div>
 <p>Simulate null hypothesis and observe falsely rejecting the null hypothesis at a given p-value probability, regardless of sample size</p>
@@ -881,44 +994,43 @@ Paired T-Test:
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Independent ______________________________________________________
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 946, Accepted: 54
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 953, Accepted: 47
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 959, Accepted: 41
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 952, Accepted: 48
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 949, Accepted: 51
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 940, Accepted: 60
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 954, Accepted: 46
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 944, Accepted: 56
 
 Paired ______________________________________________________
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 940, Accepted: 60
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 950, Accepted: 50
+Sample Size: 100     Reject: 950, Accepted: 50
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 953, Accepted: 47
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 951, Accepted: 49
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 953, Accepted: 47
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 947, Accepted: 53
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 951, Accepted: 49
 
 Welch ______________________________________________________
+Sample Size: 10      Reject: 942, Accepted: 58
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 954, Accepted: 46
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 951, Accepted: 49
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 938, Accepted: 62
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 939, Accepted: 61
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 940, Accepted: 60
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 948, Accepted: 52
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 939, Accepted: 61
 </pre></div>
 </div>
 </div>
@@ -1268,11 +1380,11 @@ P-value: 0.000044
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Observed difference in means: 0.2097
-P-value from permutation test: 0.1883
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Observed difference in means: -0.1413
+P-value from permutation test: 0.5423
 </pre></div>
 </div>
-<img alt="../_images/bdeaf5955e4e082a42875beb12f173864a19dd445231ba083325e8641d56d9bc.png" src="../_images/bdeaf5955e4e082a42875beb12f173864a19dd445231ba083325e8641d56d9bc.png" />
+<img alt="../_images/44fe563d7573b673a30bbca6e145dff4af7250b4a3d9d84957250e6b8b1c4399.png" src="../_images/44fe563d7573b673a30bbca6e145dff4af7250b4a3d9d84957250e6b8b1c4399.png" />
 </div>
 </div>
 </section>
@@ -1338,19 +1450,19 @@ that dives deeper into .</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bonferroni Correction Results:
-Test 1: Original p = 0.6474, Adjusted p = 1.0000, Not rejected
-Test 2: Original p = 0.8547, Adjusted p = 1.0000, Not rejected
-Test 3: Original p = 0.7839, Adjusted p = 1.0000, Not rejected
+Test 1: Original p = 0.8916, Adjusted p = 1.0000, Not rejected
+Test 2: Original p = 0.5670, Adjusted p = 1.0000, Not rejected
+Test 3: Original p = 0.5117, Adjusted p = 1.0000, Not rejected
 
 FDR with Benjamini-Hochberg Procedure:
-Test 1: Original p = 0.6474, Adjusted p = 0.8547, Not rejected
-Test 2: Original p = 0.8547, Adjusted p = 0.8547, Not rejected
-Test 3: Original p = 0.7839, Adjusted p = 0.8547, Not rejected
+Test 1: Original p = 0.8916, Adjusted p = 0.8916, Not rejected
+Test 2: Original p = 0.5670, Adjusted p = 0.8505, Not rejected
+Test 3: Original p = 0.5117, Adjusted p = 0.8505, Not rejected
 
 FDR with Benjamini–Yekutieli Procedure):
-Test 1: Original p = 0.6474, Adjusted p = 1.0000, Not rejected
-Test 2: Original p = 0.8547, Adjusted p = 1.0000, Not rejected
-Test 3: Original p = 0.7839, Adjusted p = 1.0000, Not rejected
+Test 1: Original p = 0.8916, Adjusted p = 1.0000, Not rejected
+Test 2: Original p = 0.5670, Adjusted p = 1.0000, Not rejected
+Test 3: Original p = 0.5117, Adjusted p = 1.0000, Not rejected
 </pre></div>
 </div>
 </div>
@@ -1455,7 +1567,7 @@ Decision at 100.0% data: Reject H0
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Probability that B is better than A: 0.91
 </pre></div>
 </div>
-<img alt="../_images/9dedd7c4991dcdf1a67f3af32542de697a6ec00133b33e182a0f313de2d18905.png" src="../_images/9dedd7c4991dcdf1a67f3af32542de697a6ec00133b33e182a0f313de2d18905.png" />
+<img alt="../_images/53cd38e31ecd353c265ab738b99a5e82e8a255c076e1f2e1d70da0d5e04b866a.png" src="../_images/53cd38e31ecd353c265ab738b99a5e82e8a255c076e1f2e1d70da0d5e04b866a.png" />
 </div>
 </div>
 <p>Example from <a class="reference external" href="https://nbviewer.org/github/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/blob/master/Chapter1_Introduction/Ch1_Introduction_PyMC2.ipynb">Probabilistic Programming and Bayesian Methods for Hackers</a></p>
@@ -1486,7 +1598,7 @@ Decision at 100.0% data: Reject H0
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/97b4c208facc4ad98fb1d4e49a077948d5d59aa6af9cbc986f5187087c5d35bc.png" src="../_images/97b4c208facc4ad98fb1d4e49a077948d5d59aa6af9cbc986f5187087c5d35bc.png" />
+<img alt="../_images/5b3d6bee5dfa359d2487196958db9879ac23e8019098c4bd4191eca0ac2bf693.png" src="../_images/5b3d6bee5dfa359d2487196958db9879ac23e8019098c4bd4191eca0ac2bf693.png" />
 </div>
 </div>
 </section>
@@ -1517,8 +1629,8 @@ Decision at 100.0% data: Reject H0
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shapiro-Wilk: p-value = 0.5955
-Kolmogorov-Smirnov: p-value = 0.7186
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shapiro-Wilk: p-value = 0.5006
+Kolmogorov-Smirnov: p-value = 0.7740
 </pre></div>
 </div>
 </div>
@@ -1560,11 +1672,11 @@ Kolmogorov-Smirnov: p-value = 0.7186
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kullback-Leibler Divergence: 0.2627
-Kullback-Leibler Divergence (histogram method): 0.1163
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kullback-Leibler Divergence: 0.2616
+Kullback-Leibler Divergence (histogram method): 0.0976
 </pre></div>
 </div>
-<img alt="../_images/80acfdbc4cf7940b8f826016ec1bf30269443c39a1480f24137e6fdf7abf0804.png" src="../_images/80acfdbc4cf7940b8f826016ec1bf30269443c39a1480f24137e6fdf7abf0804.png" />
+<img alt="../_images/9f0fad0b116b589e3c441610623bcc2d7d1ae04db483412137c926ff0fe438e1.png" src="../_images/9f0fad0b116b589e3c441610623bcc2d7d1ae04db483412137c926ff0fe438e1.png" />
 </div>
 </div>
 </section>
@@ -1642,32 +1754,32 @@ Kullback-Leibler Divergence (histogram method): 0.1163
       <th>0</th>
       <td>Treatment</td>
       <td>Day 1</td>
-      <td>313</td>
-      <td>187</td>
-      <td>63.0</td>
+      <td>305</td>
+      <td>195</td>
+      <td>61.0</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Control</td>
       <td>Day 1</td>
-      <td>5456</td>
-      <td>4044</td>
+      <td>5411</td>
+      <td>4089</td>
       <td>57.0</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Treatment</td>
       <td>Day 2</td>
-      <td>2467</td>
-      <td>2533</td>
-      <td>49.0</td>
+      <td>2479</td>
+      <td>2521</td>
+      <td>50.0</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Control</td>
       <td>Day 2</td>
-      <td>2232</td>
-      <td>2768</td>
+      <td>2245</td>
+      <td>2755</td>
       <td>45.0</td>
     </tr>
   </tbody>
@@ -1720,14 +1832,14 @@ Kullback-Leibler Divergence (histogram method): 0.1163
   <tbody>
     <tr>
       <th>Control</th>
-      <td>7688</td>
-      <td>6812</td>
+      <td>7656</td>
+      <td>6844</td>
       <td>53.0</td>
     </tr>
     <tr>
       <th>Treatment</th>
-      <td>2780</td>
-      <td>2720</td>
+      <td>2784</td>
+      <td>2716</td>
       <td>51.0</td>
     </tr>
   </tbody>
@@ -1781,7 +1893,7 @@ Kullback-Leibler Divergence (histogram method): 0.1163
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">&lt;no title&gt;</p>
+        <p class="prev-next-title">Scaling</p>
       </div>
     </a>
     <a class="right-next"
@@ -1811,6 +1923,7 @@ Kullback-Leibler Divergence (histogram method): 0.1163
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-assess-statistical-significance">Steps to Assess Statistical Significance: <a name="assess-significance"></a></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-size-and-statistical-power">Sample Size and Statistical Power: <a name="Sample-Size-and-Statstical-Power"></a> <br/></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-size-and-minimum-detectable-effect">Sample Size and Minimum Detectable Effect</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#margin-of-error-moe">Margin of Error (MoE)  <a name="Margin of Error"></a></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-proportion-moe">Sample Proportion MoE</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-mean-moe">Sample Mean MoE</a></li>
