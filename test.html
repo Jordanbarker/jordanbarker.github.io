@@ -1,191 +1,433 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Predictions for the RAGBRAI Guess the Route contest.">
+    <meta name="keywords" content="RAGBRAI, Guess the Route contest, cycling, Iowa, bike ride, contest, data science, analytics">
+    <meta name="author" content="Jordan Barker">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <title>test</title>
+</head>
+
 <style>
-    @keyframes slideInLeft {
-        from {
-            transform: translateX(-10vw);
-        }
-        to {
-            transform: translateX(0);
-        }
-    }
-    /* .header {
-        padding: 10px 10px;
-        background: #c6c6c6;
-    }
-    .sticky {
-        position: fixed;
-        top: 0;
-        width: 100%;
-    } */
-    body {
-        margin: 0;
-        padding-top: 0;
-        justify-content: center;
-        font-family: Helvetica, sans-serif;
-    }
-    h1 {
-        margin-top: 0;
-        /* animation-name: slideInLeft;  */
-        animation-duration: 1s;
-        animation-timing-function: ease-in;
-    }
-    /* main {
-    } */
-    article {
-        font-size: 4vw;
-        width: 50%;
-        line-height: 1.1;
-    }
-    /* h3 {
-        padding: 0px;
-        margin: 0px;
-        padding-top: 1vh;
-        padding-bottom: 1vh;
-    } */
-    h4 {
-        padding-top: 1vh;
-        padding-bottom: 0vh;
-        margin: 0px;
-        font-style: italic;
-        font-weight: normal;
-    }
-    p {
-        padding-top: 0vh;
-    }
-    .top-container {
-        background: linear-gradient(-45deg, #000428 0%, #004e92 100%);
-        padding: 40vh;
-        color: white;
-        height: 100vh;
-        margin: 0;
-        text-align: center;
-    }
-    .timeline-container {
+    main {
+        line-height: 1.6em;
+        margin-top: 50px;
         max-width: 80%;
         margin-left: auto;
         margin-right: auto;
     }
-    .timeline-event {
-        display: flex; 
-        align-items: flex-start;
-        height: 150vh;
+    section img {
+        display: block; /* Makes the image block-level for centering */
+        margin: 20px auto; /* Centers the image horizontally */
+        max-width: 100%; /* Ensures the image doesn’t overflow the container */
+        height: auto; /* Maintains aspect ratio */
+        border: 2px solid #ddd; /* Adds a border for styling */
+        border-radius: 10px; /*  Adds rounded corners */
     }
-    .timeline-text {
+    main li {
+        line-height: 1.5em;
+        margin-bottom: .5em; 
+    }
+
+    .small-image {
+        width: 500px;
+        height: auto;
+    }
+    .med-image {
+        width: 800px;
+        height: auto;
+    }
+    .large-image {
+        width: 1100px;
+        height: auto;
+    }
+
+    .image-container {
+    text-align: center;
+        margin: 20px auto;
+        width: fit-content;
+    }
+    .image-container h2 {
+        margin: -10px 0;
+        font-size: 24px;
+    }
+
+    .image-container figure {
+        margin: 0; 
+    }
+
+    .image-container figcaption {
+        margin-top: -10px;
+        font-size: 16px; 
+        color: rgb(103, 103, 103);
+    }
+
+    table {
         width: 50%;
-        max-width: 50%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 16px;
+        font-family: Arial, sans-serif;
+        text-align: left;
     }
-    .timeline-image {
-        width: 50%;
-        max-width: 50%;
-        position: sticky;
-        top: 30vh;
-        text-align: center;
+    thead tr {
+        background-color: #f2f2f2;
     }
+    th, td {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+    }
+    tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+    
 </style>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Jordan Barker</title>
-</head>
-
 <body>
-    <div class="top-container">
-        <h1>About Me</h1>
-        <p>I struggle with writing CSS/HTML</p>
-    </div>
-
-    <!-- <div class="header" id="myHeader">
-        <h2>My Career Timeline</h2>
-    </div> -->
-
-    <main>
-        <div class="timeline-container">
-            
-            <div class="timeline-event">
-                <article class="timeline-text">
-                    <div class='text'><h3>Epic Systems Corporation</h3></div>
-                    <div class='text'><h4>January 2019 - May 2024</h4></div>
-                    <div class='text'><p>Partner with major healthcare organizations</p></div>
-                </article>
-                <figure class="timeline-image"><img src="./Assets/Epic_systems_logo.svg" alt="Epic Systems Logo" style="max-width: 100%;"></figure>
-            </div>
-    
-            <div class="timeline-event">
-                <article class="timeline-text">
-                    <div class='text'><h3>LinkedIn</h3></div>
-                    <div class='text'><h4>January 2024 - May 2024</h4></div>
-                    <div class='text'><p>Practicum project with LinkedIn.</p></div>
-                </article>
-                <figure class="timeline-image"><img src="./Assets/linkedin-logo.svg" alt="LinkedIn Logo" style="width: 65%; filter: invert(24%) sepia(81%) saturate(5493%) hue-rotate(187deg) brightness(99%) contrast(101%);"></figure>
-                <!-- SVG coloring tool -->
-                <!-- https://codepen.io/sosuke/pen/Pjoqqp -->
-            </div>
-    
-            <div class="timeline-event">
-                <article class="timeline-text">
-                    <div class='text'><h3>Union Pacific Railroad</h3></div>
-                    <div class='text'><h4>May 2018 - August 2018</h4></div>
-                    <div class='text'><p>Built a TensorFlow model to predict train faults.</p></div>
-                </article>
-                <figure class="timeline-image"><img src="./Assets/Union_pacific_railroad_logo.svg" alt="Union Pacific Logo" style="width: 70%;"></figure>
-            </div>
-    
-            <div class="timeline-event">
-                <article class="timeline-text">
-                    <div class='text'><h3>Iowa Department of Transportation</h3></div>
-                    <div class='text'><h4>August 2016 - January 2018</h4></div>
-                    <div class='text'><p>Migrated data to a new asset management system</p></div>
-                </article>
-                <figure class="timeline-image"><img src="./Assets/Iowa_DOT_stacked_logo.jpg" alt="Iowa DOT Logo" style="width: 100%;"></figure>
-            </div>
-            
-            <div class="timeline-event">
-                <article class="timeline-text">
-                    <div class='text'><h3>Georgia Institute of Technology</h3></div>
-                    <div class='text'><h4>August 2020 - May 2024</h4></div>
-                    <div class='text'><p>Master's of Science, Analytics</p></div>
-                </article>
-                <figure class="timeline-image"><img src="./Assets/Georgia_Tech_logo.svg" alt="Georgia Tech Logo" style="width: 80%;"></figure>
-            </div>
-            
-            <div class="timeline-event">
-                <article class="timeline-text">
-                    <div class='text'><h3>Iowa State University</h3></div>
-                    <div class='text'><h4>August 2014 - December 2018</h4></div>
-                    <div class='text'><p>Bachelor's of Science, Management Information Systems</p></div>
-                </article>
-                <figure class="timeline-image"><img src="./Assets/Iowa_State_logo.svg" alt="Iowa State Logo" style="width: 80%;"></figure>
-            </div>
-    
+    <header>
+        <div class="header_container">
+            <nav>
+                <input type="checkbox" id="menu-toggle">
+                <label for="menu-toggle" class="menu-icon">&#8801;</label>
+                <ul class="menu">
+                    <li class="name"><a href="./index.html">Jordan Barker</a></li>
+                    <div class="header_links">
+                        <li><a href="./about.html">About</a></li>
+                        <li><a href="./notebook_library/_build/html/intro.html">Data Science Cookbook</a></li>
+                        <li>
+                            <a href="https://github.com/Jordanbarker" target="_blank" rel="noopener noreferrer">
+                                <img src="./Assets/github-mark.svg" alt="GitHub" style="width: 25px; height: 25px;">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/in/barkerjordan/" target="_blank" rel="noopener noreferrer">
+                                <img src="./Assets/linkedin_icon_black.svg" alt="LinkedIn" style="width: 25px; height: 25px;">
+                            </a>
+                        </li>
+                    </div>
+                </ul>
+            </nav>
         </div>
+    </header>
+    <main>
+        <section id="intro">
+            <h1>RAGBRAI LII Guess the Route Prediction</h1>
+            <p>RAGBRAI (Register's Annual Great Bicycle Ride Across Iowa) is a week-long cycling event that spans the state of Iowa from west to east, 
+                starting at the Missouri River (or the Big Sioux River if it starts north of Sioux City) and ending at the Mississippi River. 
+                Established in 1973, it is the oldest, largest, and longest recreational bicycle touring event in the world, 
+                drawing thousands of participants each year to experience Iowa's small towns, scenic landscapes, and local culture.
+            </p>
+            <p>
+                Each year, a contest is held to guess the route prior to the announcement party. 
+                Applicants submit their predictions for the eight overnight towns. 
+            </p>
+            <p>
+                While we were biking across Iowa during RAGBRAI in 2024, a friend challenged me to use data science to predict the route for RAGBRAI LII in 2025. 
+                Challenge accepted. 
+            </p>
+            <h2>Table of Contents</h2>
+                <ul>
+                    <li><a href="#RAGBRAI-LII">RAGBRAI LII Details</a></li>
+                    <li><a href="#past-routes">Past Routes Analysis</a></li>
+                    <li><a href="#finding-routes">Finding Possible Routes</a></li>
+                    <li><a href="#scoring">Scoring and Ranking Routes</a></li>
+                    <li><a href="#final-pick">Final Route Selection</a></li>
+                    <li><a href="#Appendix">Appendix</a></li>
+                    <!-- <li><a href="#data-and-tools">Data and Tools</a></li> -->
+                </ul>
+        </section>
+
+        <!-- RAGBRAI LII DETAILS -->
+        <section id="RAGBRAI-LII">
+            <h2>RAGBRAI LII Details</h2>
+            <p>
+                Honor Flight Network has been announced to be the Community Fund recipient for RAGBRAI LII. 
+                This might influence the route as Honor Flight has 
+                <a href="https://www.honorflight.org/hub-by-county/" target="_blank">several hubs</a>
+                in Iowa:
+            </p>
+            <ul>
+                <li>Fort Dodge</li>
+                <li>Cedar Rapids</li>
+                <li>Waterloo</li>
+                <li>Davenport</li>
+                <li>Dubuque</li>
+            </ul>
+            <p>
+                Davenport and Dubuque are past ending towns, but Davenport was visited just two years ago, in 2023, 
+                so it's unlikely to be revisited so soon. That leaves Dubuque as the prime candidate as the end town.
+            </p>
+            <p>They have also released the logo, which may (or may not) hint at the route with the dotted line in the background.</p>
+            <div class="image-container">
+                <figure>
+                    <img src="./Assets/ragbrai_images/ragbrai_lii.jpg" alt="RAGBRAI LII" class="small-image">
+                    <figcaption>RAGBRAI LII Logo</figcaption>
+                </figure>
+            </div>
+            <!-- <img src="./Assets/ragbrai_images/ragbrai_lii.jpg" alt="RAGBRAI LII" style="width: 500px; height: auto;"> -->
+        </section>
+
+        <!-- PAST ROUTES ANALYSIS -->
+        <section id="past-routes">
+            <h2>Past Routes Analysis</h2>
+            <p>
+                A great way to predict the future is to understand the past decisions made by the route planning team. 
+                To do this, I scraped past route data from 
+                <a href="https://ragbrai.com/routemaps/past-overnight-towns-grid/" target="_blank">RAGBRAI's website</a>.
+            </p>
+            <!-- <p>Understanding how often that towns are visited offers insights into the planning patterns for future routes.</p> -->
+            <p>
+                RAGBRAI had its 50th anniversary in 2023, so many of the best towns to visit have already been chosen, especially the start and end towns. 
+                The race has also grown substantially over the years. In the last five RAGBRAI routes, 
+                only 12.5% of towns chosen had a population under 3k, so I used this as a lower bound for selecting host towns.
+            </p>
+            <p>
+                In the last 15 years, just two routes featured new starting towns that had not been visited before, and no new ending towns were chosen. 
+                The towns in the middle of the route vary a lot more than that start and end.
+            </p>
+            <p> The plot below shows how different days of the route vary in terms of revisiting towns, and the number of unique towns visited for each day.</p>
+            <img src="./Assets/ragbrai_images/town_visits.png" alt="Town Visit Statistics" class="large-image">
+            <p>Here are the towns that have started and ended the route in the past. The number after the name represents the number of times that town has been visited. </p>
+            <img src="./Assets/ragbrai_images/start_end_towns.png" alt="Start and End Towns" class="med-image">
+            <p>
+                Next, I looked at the distances traveled. I calculated the distance between towns using the 
+                <a href="https://en.wikipedia.org/wiki/Haversine_formula" target="_blank">haversine formula</a>.
+                An outlier here was in 2017, bikings went from Waukon to Lansing. The towns are only 14 miles apart, but the actual bike path they rode was 45 miles.
+            </p>
+            <img src="./Assets/ragbrai_images/distances_traveled.png" alt="Town Visit Statistics" class="small-image">
+            <p>
+                Another way to analyze distance traveled is in terms of latitudes and longitudes. 
+                I used <a href="https://jordanbarker.github.io/notebook_library/_build/html/Notebooks/anomaly_detection.html#interquartile-range-iqr" target="_blank">IQR ranges</a>
+                to limit the search for towns on a given route. 
+            </p>
+            <ul>
+                <li>\( \text{Low Threshold} = \text{Q}1 - 1.5 * \text{IQR} \)</li>
+                <li>\( \text{High Threshold} = \text{Q}3 + 1.5 * \text{IQR} \)</li>
+            </ul>
+            <p>
+                For example, the longitude change was constrained between 0.087<span>&#176;</span> westward and 1.594<span>&#176;</span> eastward. 
+                Ames, with a longitude of -93.61<span>&#176;</span>, can realistically connect to Marshalltown (-92.94<span>&#176;</span>) under the defined range, but Cedar Rapids (-91.74<span>&#176;</span>) falls outside these constraints.
+            </p>
+            <p>
+                My current approach treats latitude and longitude as independent, but a nice improvement would be to make them conditional. 
+                The further you go in one direction the more limited you should be in the other.
+            </p>
+            <p>Here is what the histograms of latitude and longitude traveled look like with the IQR thresholds:</p>
+            <img src="./Assets/ragbrai_images/latlon_histograms.png" alt="Latitude and Longitude Traveled Histograms" class="large-image">
+            <p>
+                Since Dubuque is the primarly end town candidate, I looked at past routes to there. 
+                Dubuque has been the ending town four times before. It's central location makes it accesible from nearly any starting point.
+            </p>
+            <img src="./Assets/ragbrai_images/past_routes_dubuque.png" alt="Past Routes to Dubuque" class="med-image">
+            <h3>Outlier Routes</h3>
+            <p>While analyzing the data behind RAGBRAI routes, some routes naturally popped up as unique and warranted further investigation:</p>
+            <ul>
+                <li>
+                    <b>RAGBRAI 1973</b>: The first ride across Iowa, finishing on a Friday instead of Saturday which made the rides significantly longer each day. 
+                    Given its unique schedule and mileage, this route was excluded from the analyses to keep consistency with newer routes.
+                </li>
+                <li>
+                    <b>RAGBRAI 2019</b>: Initially, I assumed that each day's route would move eastward, but the 2019 route proved this wasn't always the case. 
+                    In 2019, RAGBRAI went to Burlington and then Keokuk, effectively backtracking 0.278<span>&#176;</span> west.
+                </li>
+                <li>
+                    <b>RAGBRAI 2022</b>: The 2022 route included a significant 105-mile ride from Emmetsburg, as a tribute to RAGBRAI co-founder John Karras. 
+                    This route also had riders backtrack from Pocahontas to Emmetsburg.
+                </li>
+            </ul>
+        </section>
+
+        <!-- FINDING POSSIBLE ROUTES -->
+        <section id="finding-routes">
+            <h2>Finding Possible Routes</h2>
+            <p>
+                I used the past routes analysis to make requirements for finding possible routes.
+                Here are the route constraints that I used to construct routes: 
+            </p>
+            <ul>
+                <li>Town population must be greater than 3k people.</li>
+                <li>Longitude must be within the bounds of the historic minimum and maximums.</li>
+                <li>Distance between towns must be between 15 and 80 miles.</li>
+                <li>Longitude change must be between 0.087<span>&#176;</span> westward and 1.594<span>&#176;</span> eastward.</li>
+                <li>Latitude change must be between 0.945<span>&#176;</span> northward and 0.811<span>&#176;</span> southward.</li>
+            </ul>
+            <p>This resulted in hundreds of thousands of possible routes. Next, I needed a way to sort though these routes to find the most likely ones.</p>
+        </section>
+
+        <!-- SCORING AND RANKING ROUTES -->
+        <section id="scoring">
+            <h2>Scoring and Ranking Routes</h2>
+            <p>
+                To narrow down the list of possible routes, I created a scoring system that balances the frequency of a town's past visits with the time elapsed since its last inclusion. 
+                The logic is simple: towns frequently chosen as stops are more likely to appear again, and towns not visited for many years have a higher chance of reappearing. 
+                This system naturally excludes towns visited in the previous year (score of zero) and gives less importance towns that were rarely visited, even if they were visited long ago.
+            </p>
+            <p>The likelihood of a town being chosen is defined by two factors:</p>
+            <ol>
+                <li>How many times has the town been visited in the past. This is raised to the power of 1.5 to give more weight to frequently visited towns.</li>
+                <li>The number of years that have passed since the town was last visited.</li>
+            </ol>
+            <p>
+            This weighting ensures that both frequency and recency are accounted for in predicting its likelihood of being chosen.
+            </p>
+            <p>
+                The town score for a given day is calculated as:
+                $$ \text{Town Score}_{\text{ (Day)}} = \text{Visit Count}^{1.5} \cdot \text{Years Since Last Visit} $$
+            </p>
+            <p>
+                Where \( \text{Visit Count} \) refers to the number of times a town has hosted an overnight stop, 
+                and \( \text{Years Since Last Visit}\) indicates how long it has been since the town was last part of the route.
+            </p>
+            <p>
+                The scatterplots below visualizes how towns are scored. The left plot shows how scores change with visit frequency and recency.
+                The right plot visualizes how these scores play out look on real towns.
+            </p>
+            <img src="./Assets/ragbrai_images/scoring.png" alt="Day of Route Scoring" class="large-image">
+            <p>
+                The total route score, calculated as the sum of town scores across all seven days, 
+                helps prioritize routes that align with historical patterns while accommodating RAGBRAI's preference for variety.
+                $$ \text{Route Score} = \sum_{\text{Day}=1}^{8} \text{Town Score}_{\text{ (Day)}} $$
+            </p>
+            <p>
+                By scoring and summing up towns in this way, 
+                I can rank potential routes based on their alignment with historical trends and likelihood of selection.
+            </p>
+            <!-- <img src="./Assets/ragbrai_images/top_routes_10000.png" alt="Top 10000 Routes "> -->
+            <img src="./Assets/ragbrai_images/top_routes_heatmap.png" alt="Top 100000 Routes" class="med-image">
+        </section>
+        <section id="final-pick">
+            <h2>Final Route Selection</h2>
+            <p>There were a few </p>
+            <ol>
+                <li>Start: </li>
+                <li>Sunday: </li>
+                <li>Monday: </li>
+                <li>Tuesday: </li>
+                <li>Wednesday: </li>
+                <li>Thursday: Waterloo</li>
+                <li>Friday: Manchester</li>
+                <li>End: Dubuque</li>
+            </ol>
+
+            <img src="./Assets/ragbrai_images/top_routes.png" alt="Top Routes" class="med-image">
+        </section>
+
+        <!-- APPENDIX -->
+        <section id="Appendix">
+            <h2>Appendix</h2>
+            <p>This section details some of the work that went into earlier versions of the project, but didn't get used in the final product.</p>
+            <h3>Graph Approach</h3>
+            <p>A more robust method of finding routes would involve the use of graph theory similar to how Google Maps helps you get from point A to B.</p>
+            <p>
+                I downloaded graph data from OpenStreetMap using OSMnx. A graph is composed of nodes and Edges. 
+                Nodes are points on the map such as towns or road intersections. 
+                Edges are the connections between nodes, representing the road segments. 
+                Each edge contains additional metadata, such as road type, and length.
+            </p>
+            <p>Here is an example graph where nodes are colored orange and edges are the white roads:</p>
+            <img src="./Assets/ragbrai_images/kirkwood.png" alt="Kirkwood Graph" class="small-image">
+            <h4>Custom Path Weights</h4>
+            <p>
+                Not all roads are equal when planning a RAGBRAI route. To account for this, I added custom weights to the edges in my graph.
+            </p>
+            <p>Roads are classified by their <a href="https://wiki.openstreetmap.org/wiki/Key:highway" target="_blank">highway type</a>, 
+                and I assigned the following penalties to discourage paths on busier roads:
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Highway Type</th>
+                        <th>Penalty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>primary</td>
+                        <td>20x</td>
+                    </tr>
+                    <tr>
+                        <td>trunk</td>
+                        <td>15x</td>
+                    </tr>
+                    <tr>
+                        <td>motorway</td>
+                        <td>12x</td>
+                    </tr>
+                    <tr>
+                        <td>primary_link</td>
+                        <td>10x</td>
+                    </tr>
+                    <tr>
+                        <td>trunk_link</td>
+                        <td>10x</td>
+                    </tr>
+                    <tr>
+                        <td>motorway_link</td>
+                        <td>10x</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h4>Paths Between Towns</h4>
+            <p>
+                Finding the path between towns on a graph is a computationally expensive task. 
+                To reduce the number of possible paths to calculate, I first narrowed down the list of towns based on the constraints mentioned in the main project.
+                After the list of towns was narrowed down, I used the graph path as a second check for valid towns.                   
+            </p>
+            <p>
+                For example starting in Sioux Center, the first round of filtering returns about 20 candidate towns. 
+                Then after calculating a path from Sioux Center to each candidate town we can perform another round of filtering to see if the path is between typical route distances (~35-85 miles).
+                The map below shows this two stage filtering, where the orange lines are only valid in the first round, and the green lines are valid for both filters. 
+            </p>
+            <img src="./Assets/ragbrai_images/route_filtering.png" alt="Route Filtering from Graph Path" class="large-image">
+            <h4>Computational Challenges and Pivot</h4>
+            <p>
+                I kicked off the program and let it run overnight to find all possible routes with the starting point of Sioux Center. 
+                After a full day of running, I only had routes for the first few days. 
+                The issue was a combinatorial explosion in possible routes.
+            </p>
+            <p>
+                After a several iterations of code optimization, it was still taking way too long to run. 
+                I estimated it would take over a year to finish at this rate. So I pivoted and scratched this part of the project. Maybe next year!
+            </p>
+            <h3>Route Clustering</h3>
+            <p>
+                Clustering is a useful tool for data analysis. I explored clustering routes based on their latitude and longitude to compare routes based on their distance from eachother. 
+                The dendogram shows how similar different routes are to eachother. Patterns appear such as nearby years being far away from eachother and the closest routes can be found.    
+            </p>
+            <img src="./Assets/ragbrai_images/dendogram.png" alt="Dendogram of Routes" class="large-image">
+            <p>Routes 12 and 51 have the lowest average haversine distance as found by the dendogram. On a map, it's clear to see why as they visited several of the same towns.</p>
+            <img src="./Assets/ragbrai_images/closest_routes.png" alt="Closest Routes" class="med-image">
+            <p>
+                I also tried a few different clustering groups to find patterns in the years, but I found a lot of variation. 
+                I still thought it was interesting to see the natural seperation of northern and southern routes.  
+            </p>
+            <img src="./Assets/ragbrai_images/clustered_routes.png" alt="Clustering Routes" class="med-image">
+        </section>
+
+        <!-- DATA AND TOOLS -->
+        <h3>Data and Tools</h3>
+        <p>Huge thank you to the following resource providers for making this project possible:</p>
+        <ul>
+            <li><a href="https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-1-states-provinces/" target="_blank">Natural Earth</a> 
+                has boundary files for Iowa available to download for free.</li>
+            <li><a href="https://osmnx.readthedocs.io/en/stable/" target="_blank">OSMnx</a> 
+                offers a great interface for pulling map data from OpenStreetMap. 
+                One line of code was all it takes to get the roads and cities in Iowa:<br>
+                <code>G = ox.graph_from_place("Iowa", network_type="drive")</code>
+            </li>
+            <li>The Python package <a href="https://pypi.org/project/wptools/" target="_blank">wptools</a> 
+                made pulling wikipedia information automatically. I pulled the population information and county for each town in the dataset.</li>
+        </ul>
+        <p>
+            My code repository can be found on <a href="https://github.com/Jordanbarker/RAGBRAI-Guess-The-Route" target="_blank">GitHub</a>.
+        </p>
     </main>
 </body>
-
-<script>
-    enterView({
-        selector: '.block-b',
-        offset: 0.5,
-        enter: function(el) {el.classList.add('entered');},
-        progress: function(el, progress) {
-            var p = el.querySelector('.progress')
-            p.innerText = progress.toFixed(2);
-        },
-        exit: function(el) {el.classList.remove('entered');}
-    });
-
-    // window.onscroll = function() {myFunction()};
-
-    // var header = document.getElementById("myHeader");
-    // var sticky = header.offsetTop;
-
-    // function myFunction() {
-    //     if (window.pageYOffset > sticky) {
-    //         header.classList.add("sticky");
-    //     } else {
-    //         header.classList.remove("sticky");
-    //     }
-    // }
-
-</script>
+</html>
