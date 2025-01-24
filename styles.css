@@ -122,11 +122,14 @@ nav ul li a:hover {
   height: 60%; 
 } 
 @media (max-width: 800px) {
+  .header_container {
+    width: 90%;
+  }
   .card {
     width: 100%;
   }
   .body_container {
-    width: 85%;
+    width: 90%;
   }
   .name {
     padding-left: 0px;
@@ -168,7 +171,7 @@ nav ul li a:hover {
     flex-direction: column;
   }
   .header_links li a {
-    padding: 20px 40px 20px;
+    padding: 20px 60px 20px;
     text-align: right;
     display: block;
   }
