@@ -14,11 +14,15 @@
 
 <style>
     main {
-        line-height: 1.8em;
-        margin-top: 50px;
+        line-height: 1.6em;
+        margin-top: 35px;
         max-width: 80%;
         margin-left: auto;
         margin-right: auto;
+    }
+    main li {
+        line-height: 1.5em;
+        margin-bottom: .5em; 
     }
     section img {
         display: block; /* Makes the image block-level for centering */
@@ -28,7 +32,10 @@
         border: 2px solid #ddd; /* Adds a border for styling */
         border-radius: 10px; /*  Adds rounded corners */
     }
-
+    .equation-container {
+        overflow-x: auto; /* Enable horizontal scrolling if needed */
+        white-space: nowrap; /* Prevent the equation from wrapping awkwardly */
+    }
     .small-image {
         width: 500px;
         height: auto;
@@ -51,11 +58,9 @@
         margin: -10px 0;
         font-size: 24px;
     }
-
     .image-container figure {
         margin: 0; 
     }
-
     .image-container figcaption {
         margin-top: -10px;
         font-size: 16px; 
@@ -83,7 +88,11 @@
     tbody tr:hover {
         background-color: #f1f1f1;
     }
-    
+    @media (max-width: 700px) {
+        main {
+            max-width: 90%;
+        }
+    }
 </style>
 
 <body>
@@ -100,11 +109,13 @@
                         <li>
                             <a href="https://github.com/Jordanbarker" target="_blank" rel="noopener noreferrer">
                                 <img src="./Assets/github-mark.svg" alt="GitHub" style="width: 25px; height: 25px;">
+                                <span class="icon-text">GitHub</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.linkedin.com/in/barkerjordan/" target="_blank" rel="noopener noreferrer">
                                 <img src="./Assets/linkedin_icon_black.svg" alt="LinkedIn" style="width: 25px; height: 25px;">
+                                <span class="icon-text">LinkedIn</span>
                             </a>
                         </li>
                     </div>
@@ -123,7 +134,10 @@
             <p>
                 Each year, a contest is held to guess the route prior to the announcement party. 
                 Applicants submit their predictions for the eight overnight towns. 
-                <!-- The prizes are small, winners get some merch and <b>bragging rights.</b> -->
+            </p>
+            <p>
+                While we were biking across Iowa during RAGBRAI in 2024, a friend challenged me to use data science to predict the route for RAGBRAI LII in 2025. 
+                Challenge accepted. 
             </p>
             <h2>Table of Contents</h2>
                 <ul>
@@ -178,11 +192,11 @@
             <!-- <p>Understanding how often that towns are visited offers insights into the planning patterns for future routes.</p> -->
             <p>
                 RAGBRAI had its 50th anniversary in 2023, so many of the best towns to visit have already been chosen, especially the start and end towns. 
-                The race has also grown substantially over the years. In the most recent 5 RAGBRAI routes, 
+                The race has also grown substantially over the years. In the last five RAGBRAI routes, 
                 only 12.5% of towns chosen had a population under 3k, so I used this as a lower bound for selecting host towns.
             </p>
             <p>
-                In the last 15 years, just 2 routes featured new starting towns that had not been visited before, and no new ending towns were chosen. 
+                In the last 15 years, just two routes featured new starting towns that had not been visited before, and no new ending towns were chosen. 
                 The towns in the middle of the route vary a lot more than that start and end.
             </p>
             <p> The plot below shows how different days of the route vary in terms of revisiting towns, and the number of unique towns visited for each day.</p>
@@ -190,9 +204,9 @@
             <p>Here are the towns that have started and ended the route in the past. The number after the name represents the number of times that town has been visited. </p>
             <img src="./Assets/ragbrai_images/start_end_towns.png" alt="Start and End Towns" class="med-image">
             <p>
-                Next, I looked at the distances traveled. I calculated the distance between towns directly using the 
+                Next, I looked at the distances traveled. I calculated the distance between towns using the 
                 <a href="https://en.wikipedia.org/wiki/Haversine_formula" target="_blank">haversine formula</a>.
-                An outlier here was the Waukon to Lansing route in 2017 where the towns were only 14 miles apart, but the actual bike path they rode was 44.8 miles.
+                An outlier here was in 2017, bikings went from Waukon to Lansing. The towns are only 14 miles apart, but the actual bike path they rode was 45 miles.
             </p>
             <img src="./Assets/ragbrai_images/distances_traveled.png" alt="Town Visit Statistics" class="small-image">
             <p>
@@ -201,8 +215,8 @@
                 to limit the search for towns on a given route. 
             </p>
             <ul>
-                <li>\( \text{Low Threshold} = \text{Q}1 - 1.5 * \text{IQR} \)</li>
-                <li>\( \text{High Threshold} = \text{Q}3 + 1.5 * \text{IQR} \)</li>
+                <li><div class="equation-container">\( \text{Low Threshold} = \text{Q}1 - 1.5 * \text{IQR} \)</div></li>
+                <li><div class="equation-container">\( \text{High Threshold} = \text{Q}3 + 1.5 * \text{IQR} \)</div></li>
             </ul>
             <p>
                 For example, the longitude change was constrained between 0.087<span>&#176;</span> westward and 1.594<span>&#176;</span> eastward. 
@@ -248,8 +262,8 @@
                 <li>Town population must be greater than 3k people.</li>
                 <li>Longitude must be within the bounds of the historic minimum and maximums.</li>
                 <li>Distance between towns must be between 15 and 80 miles.</li>
-                <li>Longitude change must be between 0.087<span>&#176;</span> westward and 1.594<span>&#176;</span> eastward</li>
-                <li>Latitude change must be between 0.945<span>&#176;</span> northward and 0.811<span>&#176;</span> southward</li>
+                <li>Longitude change must be between 0.087<span>&#176;</span> westward and 1.594<span>&#176;</span> eastward.</li>
+                <li>Latitude change must be between 0.945<span>&#176;</span> northward and 0.811<span>&#176;</span> southward.</li>
             </ul>
             <p>This resulted in hundreds of thousands of possible routes. Next, I needed a way to sort though these routes to find the most likely ones.</p>
         </section>
@@ -257,26 +271,23 @@
         <!-- SCORING AND RANKING ROUTES -->
         <section id="scoring">
             <h2>Scoring and Ranking Routes</h2>
-            <p>The likelihood of a town being chosen is defined by two criteria:</p>
-            <ol>
-                <li>How many times has the town been visited in the past.</li>
-                <li>How many years has it been since the town was last visited.</li>
-            </ol>
             <p>
                 To narrow down the list of possible routes, I created a scoring system that balances the frequency of a town's past visits with the time elapsed since its last inclusion. 
                 The logic is simple: towns frequently chosen as stops are more likely to appear again, and towns not visited for many years have a higher chance of reappearing. 
                 This system naturally excludes towns visited in the previous year (score of zero) and gives less importance towns that were rarely visited, even if they were visited long ago.
             </p>
+            <p>The likelihood of a town being chosen is defined by two factors:</p>
+            <ol>
+                <li>How many times has the town been visited in the past. This is raised to the power of 1.5 to give more weight to frequently visited towns.</li>
+                <li>The number of years that have passed since the town was last visited.</li>
+            </ol>
             <p>
-                The score for a town on a given day is calculated as the product of two factors: 
-                    (1) the town's total visit count raised to the power of 1.5 to give more weight to frequently visited towns, and 
-                    (2) the number of years since its last visit. 
-                        This weighting ensures that both frequency and recency are accounted for in predicting its likelihood of being chosen.
+            This weighting ensures that both frequency and recency are accounted for in predicting its likelihood of being chosen.
             </p>
-            <p>
-                The town score for a given day is calculated as:
+            <p>The town score for a given day is calculated as:</p>
+            <div class="equation-container">
                 $$ \text{Town Score}_{\text{ (Day)}} = \text{Visit Count}^{1.5} \cdot \text{Years Since Last Visit} $$
-            </p>
+            </div>
             <p>
                 Where \( \text{Visit Count} \) refers to the number of times a town has hosted an overnight stop, 
                 and \( \text{Years Since Last Visit}\) indicates how long it has been since the town was last part of the route.
@@ -289,18 +300,17 @@
             <p>
                 The total route score, calculated as the sum of town scores across all seven days, 
                 helps prioritize routes that align with historical patterns while accommodating RAGBRAI's preference for variety.
-                $$ \text{Route Score} = \sum_{\text{Day}=1}^{8} \text{Town Score}_{\text{ (Day)}} $$
             </p>
+            <div class="equation-container">$$ \text{Route Score} = \sum_{\text{Day}=1}^{8} \text{Town Score}_{\text{ (Day)}} $$</div>
             <p>
                 By scoring and summing up towns in this way, 
                 I can rank potential routes based on their alignment with historical trends and likelihood of selection.
             </p>
-            <!-- <img src="./Assets/ragbrai_images/top_routes_10000.png" alt="Top 10000 Routes "> -->
             <img src="./Assets/ragbrai_images/top_routes_heatmap.png" alt="Top 100000 Routes" class="med-image">
         </section>
         <section id="final-pick">
             <h2>Final Route Selection</h2>
-            <p>There were a few </p>
+            <p>Several of the top scored routes looked plausible to be chosen so picking just one </p>
             <ol>
                 <li>Start: </li>
                 <li>Sunday: </li>
@@ -327,6 +337,7 @@
                 Edges are the connections between nodes, representing the road segments. 
                 Each edge contains additional metadata, such as road type, and length.
             </p>
+            <p>Here is an example graph where nodes are colored orange and edges are the white roads:</p>
             <img src="./Assets/ragbrai_images/kirkwood.png" alt="Kirkwood Graph" class="small-image">
             <h4>Custom Path Weights</h4>
             <p>
