@@ -371,15 +371,14 @@
             </table>
             <h4>Paths Between Towns</h4>
             <p>
-                Finding the path between overnight towns is a computationally expensive task. 
-                To reduce the number of possible paths to explore, 
-                I narrowed down the list of towns based on some heuristics gathered from past routes.
+                Finding the path between towns on a graph is a computationally expensive task. 
+                To reduce the number of possible paths to calculate, I first narrowed down the list of towns based on the constraints mentioned in the main project.
+                After the list of towns was narrowed down, I used the graph path as a second check for valid towns.                   
             </p>
             <p>
-                For example starting in Sioux Center, 
-                we would narrow down the list of towns to those which are within historic limits of latitude and longitude traveled in a day as well as the haversine distance between the center of the towns. 
-                This gets us a list of 20 candidate towns. 
-                We can then calculate a path from Sioux Center to each candidate town to see if the path is greater than 35 miles and less than 85 miles.
+                For example starting in Sioux Center, the first round of filtering returns about 20 candidate towns. 
+                Then after calculating a path from Sioux Center to each candidate town we can perform another round of filtering to see if the path is between typical route distances (~35-85 miles).
+                The map below shows this two stage filtering, where the orange lines are only valid in the first round, and the green lines are valid for both filters. 
             </p>
             <img src="./Assets/ragbrai_images/route_filtering.png" alt="Route Filtering from Graph Path" class="large-image">
             <h4>Computational Challenges and Pivot</h4>
@@ -390,38 +389,40 @@
             </p>
             <p>
                 After a several iterations of code optimization, it was still taking way too long to run. 
-                I estimated it would take over a year to finish at this rate. 
-                Below is an image of the 30k routes generated and I only made it to Tuesday.
-            </p>
-            <p>
-                So I pivoted. I didn't really care to find all possible routes, but rather the most likely ones. 
-                To find those, I increased the route requirements significantly. 
-                This way, I still capture the majority of routes, and I can more readily interpret the results.
+                I estimated it would take over a year to finish at this rate. So I pivoted and scratched this part of the project. Maybe next year!
             </p>
             <h3>Route Clustering</h3>
+            <p>
+                Clustering is a useful tool for data analysis. I explored clustering routes based on their latitude and longitude to compare routes based on their distance from eachother. 
+                The dendogram shows how similar different routes are to eachother. Patterns appear such as nearby years being far away from eachother and the closest routes can be found.    
+            </p>
             <img src="./Assets/ragbrai_images/dendogram.png" alt="Dendogram of Routes" class="large-image">
-            <img src="./Assets/ragbrai_images/clustered_routes.png" alt="Clustering Routes" class="med-image">
+            <p>Routes 12 and 51 have the lowest average haversine distance as found by the dendogram. On a map, it's clear to see why as they visited several of the same towns.</p>
             <img src="./Assets/ragbrai_images/closest_routes.png" alt="Closest Routes" class="med-image">
+            <p>
+                I also tried a few different clustering groups to find patterns in the years, but I found a lot of variation. 
+                I still thought it was interesting to see the natural seperation of northern and southern routes.  
+            </p>
+            <img src="./Assets/ragbrai_images/clustered_routes.png" alt="Clustering Routes" class="med-image">
         </section>
 
         <!-- DATA AND TOOLS -->
-        <section id="data-and-tools">
-            <h2>Data and Tools</h2>
-            <p>Huge thank you to the following resource providers for making this project possible:</p>
-            <ul>
-                <li><a href="https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-1-states-provinces/" target="_blank">Natural Earth</a> 
-                    has boundary files for Iowa available to download for free.</li>
-                <li><a href="https://osmnx.readthedocs.io/en/stable/" target="_blank">OSMnx</a> 
-                    offers a great interface for pulling map data from OpenStreetMap. 
-                    One line of code was all it takes to get the roads and cities in Iowa:<br>
-                    <code>G = ox.graph_from_place("Iowa", network_type="drive")</code>
-                </li>
-                <li>The Python package <a href="https://pypi.org/project/wptools/" target="_blank">wptools</a> 
-                    made pulling wikipedia information automatically. I pulled the population information and county for each town in the dataset.</li>
-            </ul>
-            <p>
-                My code repository can be found on <a href="https://github.com/Jordanbarker/RAGBRAI-Guess-The-Route" target="_blank">GitHub</a>.
-            </p>
+        <h3>Data and Tools</h3>
+        <p>Huge thank you to the following resource providers for making this project possible:</p>
+        <ul>
+            <li><a href="https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-1-states-provinces/" target="_blank">Natural Earth</a> 
+                has boundary files for Iowa available to download for free.</li>
+            <li><a href="https://osmnx.readthedocs.io/en/stable/" target="_blank">OSMnx</a> 
+                offers a great interface for pulling map data from OpenStreetMap. 
+                One line of code was all it takes to get the roads and cities in Iowa:<br>
+                <code>G = ox.graph_from_place("Iowa", network_type="drive")</code>
+            </li>
+            <li>The Python package <a href="https://pypi.org/project/wptools/" target="_blank">wptools</a> 
+                made pulling wikipedia information automatically. I pulled the population information and county for each town in the dataset.</li>
+        </ul>
+        <p>
+            My code repository can be found on <a href="https://github.com/Jordanbarker/RAGBRAI-Guess-The-Route" target="_blank">GitHub</a>.
+        </p>
     </main>
 </body>
 </html>
