@@ -50,6 +50,7 @@ header nav ul li a {
     color: #1f1f1f;
     border-radius: 5px;
     text-decoration: none;
+    display: flex;
     transition: background-color 0.3s ease;
 }
 header nav ul li a:hover {
