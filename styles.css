@@ -1,9 +1,9 @@
 :root {
-  --sans-serif: -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
-  --serif: "Source Serif Pro", Iowan Old Style, Apple Garamond, Palatino Linotype, Times New Roman, "Droid Serif", Times, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
-  --code: SFMono-Regular, Menlo, Consolas, Monaco, "Liberation Mono", "Courier New", monospace;
+    --sans-serif: -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
+    --serif: "Source Serif Pro", Iowan Old Style, Apple Garamond, Palatino Linotype, Times New Roman, "Droid Serif", Times, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+    --code: SFMono-Regular, Menlo, Consolas, Monaco, "Liberation Mono", "Courier New", monospace;
 }
-
+  
 body {
     font-family: var(--sans-serif);
     padding: 0;
@@ -27,35 +27,24 @@ header {
     border-bottom: .05rem solid #8d8d8d;
     -webkit-backdrop-filter: blur(10px); /* Fixes blur for Safari */
     backdrop-filter: blur(10px);
-    padding: 15px 0px 15px 0px;
     position: fixed; 
     width: 100%; 
     top: 0; 
-    z-index: 1000;
 }
-.header_container {
+header nav {
     width: 85%;
     margin: 0 auto;
 }
-.header_links {
+header nav ul {
     display: flex;
     flex-direction: row;
     justify-content: right;
-    margin-top: -35px;
-    font-size: 1.3em;
-    font-weight: 500;
-}
-header nav ul {
-    line-height: 10px;
-    padding: 0; 
-    margin: 0; 
+    padding: 0;
 }
 header nav ul li {
     align-items: center;
     display: inline-flex; 
-    vertical-align: middle;
-    /* height: 100px; */
-    padding: 10px 10px;
+    padding: 0px 15px;
 }
 header nav ul li a {
     color: #1f1f1f;
@@ -66,14 +55,25 @@ header nav ul li a {
 header nav ul li a:hover {
     color: #616161;
 }
+.menu-icon {
+    display: none;
+    z-index: 1000;
+}
+#menu-toggle {
+    display: none;
+}
+.icon-text {
+    display: none; 
+    margin-left: 6px; /* small spacing between icon and text */
+}
 .name {
     font-size: 1.7em;
     font-weight: 600;
     margin: 0px 0px;
-    margin-left: auto;
     margin-right: auto;
+    padding: 0px 0px;
 }
-
+  
 .card_container {
     padding: 2px 16px;
     flex: 0 1 auto;
@@ -100,77 +100,64 @@ header nav ul li a:hover {
     margin-left: auto;
     margin-right: auto;
 }
-
-.menu-icon {
-    display: none;
-}
-#menu-toggle {
-    display: none;
-}
-.icon-text {
-    display: none; 
-    margin-left: 6px; /* small spacing between icon and text */
-}
-
-
+  
+  
 @media (max-width: 800px) {
-  .body_container {
+    .body_container {
         width: 90%;
-  }
-  .card {
+    }
+    .card {
         width: 100%;
-  }
-
-  .header_container {
-        width: 90%;
-  }
-  .header_links {
-        display: none;
-        flex-direction: column;
-        background-color: #eeeeee;
-        position: absolute;
-        font-size: 1.5em;
-        top: 96px; /* based on header height */
-        right: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 1000;
-  }
-  .header_links li a {
-        width: 100%;
-        padding: 10px 5% 10px;
-        text-align: right;
+    }
+    .name {
+        padding: 5px 15px;
+        font-size: 1.1em;
+    }
+    header nav {
         display: flex;
         align-items: center;
-  }
-  /* Show the navigation links when the checkbox is checked */
-  #menu-toggle:checked ~ .menu .header_links {
-        display: flex;
-  }
-  .menu {
+        position: relative;
+    }
+    .menu {
         display: flex;
         flex-direction: column;
-  }
-  /* Show the hamburger menu icon */
-  .menu-icon {
+        width: 100%;
+        background-color: #fff;
+        position: fixed;
+        top: 0px;
+        left: 0;
+        padding: 0 5vw;
+        margin: 0;
+        font-size: 1.6em;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+  
+    .menu-icon {
+        margin-left: auto;
         display: block;
         cursor: pointer;
-        color: #333;
-        font-size: 44px;
-        padding: 15px;
-        position: absolute;
-        right: 45px;
-        top: 0px;
-  }
-  .icon-text {
+        font-size: 2.5rem;
+        padding: 22px;
+    }
+    /* Hide all other li elements initially */
+    .menu li:not(.name) {
+        display: none;
+    }
+    /* When menu-toggle is checked, show the menu */
+    #menu-toggle:checked ~ .menu {
+        display: flex;
+    }
+    /* When menu is visible, show all li elements except .name */
+    #menu-toggle:checked ~ .menu li:not(.name) {
+        display: block;
+        padding: 10px 20px;
+    }
+    .menu li a {
+        display: block;
+        padding: 10px 0;
+        line-height: 40px;
+    }
+    .icon-text {
         display: inline-block;
+    }
   }
-  .name {
-        padding-left: 0px;
-        padding-right: 0px;
-        margin-left: 0px;
-        margin-right: 0px;
-        width: 100%;
-        text-align: left;
-  }
-}
