@@ -2,13 +2,14 @@
     --sans-serif: -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
     --serif: "Source Serif Pro", Iowan Old Style, Apple Garamond, Palatino Linotype, Times New Roman, "Droid Serif", Times, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
     --code: SFMono-Regular, Menlo, Consolas, Monaco, "Liberation Mono", "Courier New", monospace;
+    --body_color: #f1f1f1;
 }
   
 body {
     font-family: var(--sans-serif);
     padding: 0;
     margin: 0px;
-    background-color: #e9e9e9;
+    background-color: body_color;
     padding-top: 60px;
     line-height: 1.6em;
 }
@@ -123,14 +124,13 @@ header nav ul li a:hover {
         display: flex;
         flex-direction: column;
         width: 100%;
-        background-color: #fff;
         position: fixed;
         top: 0px;
         left: 0;
         padding: 0 5vw;
         margin: 0;
         font-size: 1.6em;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
   
     .menu-icon {
@@ -147,6 +147,7 @@ header nav ul li a:hover {
     /* When menu-toggle is checked, show the menu */
     #menu-toggle:checked ~ .menu {
         display: flex;
+        background-color: #fff;
     }
     /* When menu is visible, show all li elements except .name */
     #menu-toggle:checked ~ .menu li:not(.name) {
