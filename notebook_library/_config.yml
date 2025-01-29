@@ -3,30 +3,38 @@
 title: Data Science Cookbook
 author: Jordan Barker
 logo: logo_with_text.png
+exclude_patterns: "Notebooks/Still Cooking/*"
 
-# See https://jupyterbook.org/content/execute.html
+#######################################################################################
+# Execution settings
+# Docs: https://jupyterbook.org/content/execute.html
 execute:
-  execute_notebooks: auto
+    execute_notebooks: 'off'  # Whether to execute notebooks at build time. Must be one of ("auto", "force", "cache", "off")
+    timeout: 600    # The maximum time (in seconds) each notebook cell is allowed to run.
 
-exclude_patterns:
-  - "Notebooks/Still Cooking/*"
-
+#######################################################################################
 # Define the name of the latex output file for PDF builds
 latex:
-  latex_documents:
-    targetname: book.tex
+    latex_documents:
+        targetname: book.tex
 
+#######################################################################################
 # Information about where the book exists on the web
 repository:
-  url: https://github.com/Jordanbarker/jordanbarker.github.io  # Online location of your book
-  path_to_book: notebook_library  # Optional path to your book, relative to the repository root
-  branch: main  # Which branch of the repository should be used when creating links (optional)
+    url: https://github.com/Jordanbarker/jordanbarker.github.io  # Online location of your book
+    path_to_book: notebook_library  # Optional path to your book, relative to the repository root
+    branch: main  # Which branch of the repository should be used when creating links (optional)
 
+#######################################################################################
 # Add GitHub buttons: https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
 html:
-  use_issues_button: true
-  use_repository_button: true
+    use_issues_button: true
+    use_repository_button: true
+    favicon: 'logo.png'
+    home_page_in_navbar: false  # Whether to include your home page in the left Navigation Bar
+    baseurl: 'jordanbarker.github.io'
 
+#######################################################################################
 sphinx:
-  config:
-    html_show_copyright: false
+    config:
+        html_show_copyright: false
