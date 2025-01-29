@@ -4,6 +4,8 @@ title: Data Science Cookbook
 author: Jordan Barker
 logo: logo_with_text.png
 exclude_patterns: "Notebooks/Still Cooking/*"
+only_build_toc_files: true
+
 
 #######################################################################################
 # Execution settings
