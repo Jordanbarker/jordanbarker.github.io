@@ -1,12 +1,5 @@
 # Table of contents
-# Learn more at https://jupyterbook.org/customize/toc.html
-
-# At some point I'll add sub-topics so leaving this here as a reminder on how to do it.
-# chapters:
-# - file: notebooks/main_topic1  # Main topic 1
-#   sections:
-#     - file: notebooks/sub_topic1/sub_topic1  # Sub-topic under Main Topic 1
-#     - file: notebooks/sub_topic2/sub_topic2  # Another sub-topic under Main Topic 1
+# Docs https://jupyterbook.org/customize/toc.html
 
 format: jb-book
 root: intro
