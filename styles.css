@@ -25,7 +25,7 @@ body {
 
 header {
     background-color: rgb(255 255 255 / 85%);
-    border-bottom: .05rem solid #8d8d8d;
+    border-bottom: .05rem solid #b8b8b8;
     -webkit-backdrop-filter: blur(10px); /* Fixes blur for Safari */
     backdrop-filter: blur(10px);
     position: fixed; 
