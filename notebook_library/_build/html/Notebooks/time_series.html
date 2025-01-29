@@ -183,10 +183,12 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="package_management.html">Package Management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pandas.html">Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming (OOP) in Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parallel_processing.html">Parallel Processing</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomaly Detection</a></li>
@@ -407,7 +409,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arima-sarimax-p-d-q-x-p-d-q-s">ARIMA / SARIMAX(p, d, q)x(P, D, Q, s) <a name="ARIMA"></a></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm">LightGBM <a name="lightgbm"></a></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm">LightGBM</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sine-cosine-date-features">Sine/Cosine Date Features</a></li>
 </ul>
 </li>
@@ -582,9 +584,7 @@ dtype: float64
 
 With differencing:
 Results of Dickey-Fuller Test:
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test Statistic                  -4.108587
+Test Statistic                  -4.108587
 p-value                          0.000937
 #Lags Used                      21.000000
 Number of Observations Used    776.000000
@@ -852,7 +852,7 @@ Simple exponential smoothing won't be able to capture any of the trends on the d
 <img alt="../_images/696ce84c2bfd70fd9e5633022db65e22b1a74f4e214bcb75b793b86f538e126d.png" src="../_images/696ce84c2bfd70fd9e5633022db65e22b1a74f4e214bcb75b793b86f538e126d.png" />
 </div>
 </div>
-<div class="cell tag_remove-stderr tag_skip docutils container">
+<div class="cell tag_no-execute docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">random_arima_search</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
     <span class="n">best_aic</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
@@ -872,8 +872,12 @@ Simple exponential smoothing won't be able to capture any of the trends on the d
     
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_trials</span><span class="p">):</span>
         <span class="c1"># Randomly select order and seasonal_order</span>
-        <span class="n">order</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">p_values</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">d_values</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">q_values</span><span class="p">))</span>
-        <span class="n">seasonal_order</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">P_values</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">D_values</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">Q_values</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">m_values</span><span class="p">))</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">p_values</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">d_values</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">q_values</span><span class="p">))</span>
+        <span class="n">seasonal_order</span> <span class="o">=</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">P_values</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">D_values</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">Q_values</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">m_values</span><span class="p">))</span>
+
+        <span class="c1"># Map to int so the print statements look nice :)</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">order</span><span class="p">))</span>
+        <span class="n">seasonal_order</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">seasonal_order</span><span class="p">))</span>
         
         <span class="k">try</span><span class="p">:</span>
             <span class="n">model</span> <span class="o">=</span> <span class="n">SARIMAX</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">seasonal_order</span><span class="o">=</span><span class="n">seasonal_order</span><span class="p">)</span>
@@ -906,24 +910,21 @@ Simple exponential smoothing won't be able to capture any of the trends on the d
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tested ARIMA(0, 0, 2)x(2, 1, 2, 12) - AIC: -133.9742
-</pre></div>
-</div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">42</span>
-<span class="g g-Whitespace">     </span><span class="mi">39</span>     <span class="k">return</span> <span class="n">best_model</span><span class="p">,</span> <span class="n">best_order</span><span class="p">,</span> <span class="n">best_seasonal_order</span>
-<span class="g g-Whitespace">     </span><span class="mi">41</span> <span class="c1"># Perform random search</span>
-<span class="ne">---&gt; </span><span class="mi">42</span> <span class="n">best_model</span><span class="p">,</span> <span class="n">best_order</span><span class="p">,</span> <span class="n">best_seasonal_order</span> <span class="o">=</span> <span class="n">random_arima_search</span><span class="p">(</span><span class="n">monthly_train_df</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">44</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly_train_df</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">45</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly_test_df</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test&#39;</span><span class="p">)</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">46</span>
+<span class="g g-Whitespace">     </span><span class="mi">43</span>     <span class="k">return</span> <span class="n">best_model</span><span class="p">,</span> <span class="n">best_order</span><span class="p">,</span> <span class="n">best_seasonal_order</span>
+<span class="g g-Whitespace">     </span><span class="mi">45</span> <span class="c1"># Perform random search</span>
+<span class="ne">---&gt; </span><span class="mi">46</span> <span class="n">best_model</span><span class="p">,</span> <span class="n">best_order</span><span class="p">,</span> <span class="n">best_seasonal_order</span> <span class="o">=</span> <span class="n">random_arima_search</span><span class="p">(</span><span class="n">monthly_train_df</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">48</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly_train_df</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">49</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly_test_df</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test&#39;</span><span class="p">)</span>
 
-<span class="nn">Cell In[11], line 24,</span> in <span class="ni">random_arima_search</span><span class="nt">(train, n_trials)</span>
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span>     <span class="n">model</span> <span class="o">=</span> <span class="n">SARIMAX</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">seasonal_order</span><span class="o">=</span><span class="n">seasonal_order</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">24</span>     <span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span>     <span class="n">aic</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">aic</span>
-<span class="g g-Whitespace">     </span><span class="mi">26</span>     <span class="k">if</span> <span class="n">aic</span> <span class="o">&lt;</span> <span class="n">best_aic</span><span class="p">:</span>
+<span class="nn">Cell In[11], line 28,</span> in <span class="ni">random_arima_search</span><span class="nt">(train, n_trials)</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span>     <span class="n">model</span> <span class="o">=</span> <span class="n">SARIMAX</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">seasonal_order</span><span class="o">=</span><span class="n">seasonal_order</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">28</span>     <span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span>     <span class="n">aic</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">aic</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span>     <span class="k">if</span> <span class="n">aic</span> <span class="o">&lt;</span> <span class="n">best_aic</span><span class="p">:</span>
 
 <span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/statsmodels/tsa/statespace/mlemodel.py:704,</span> in <span class="ni">MLEModel.fit</span><span class="nt">(self, start_params, transformed, includes_fixed, cov_type, cov_kwds, method, maxiter, full_output, disp, callback, return_params, optim_score, optim_complex_step, optim_hessian, flags, low_memory, **kwargs)</span>
 <span class="g g-Whitespace">    </span><span class="mi">702</span>         <span class="n">flags</span><span class="p">[</span><span class="s1">&#39;hessian_method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">optim_hessian</span>
@@ -1094,7 +1095,7 @@ Simple exponential smoothing won't be able to capture any of the trends on the d
 </div>
 </section>
 <section id="lightgbm">
-<h3>LightGBM <a name="lightgbm"></a><a class="headerlink" href="#lightgbm" title="Link to this heading">#</a></h3>
+<h3>LightGBM<a class="headerlink" href="#lightgbm" title="Link to this heading">#</a></h3>
 <p>We can turn the forecasting data into tabular form by creating lag features.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -1115,7 +1116,7 @@ Simple exponential smoothing won't be able to capture any of the trends on the d
     <span class="kn">from</span> <span class="nn">pandas.tseries.holiday</span> <span class="kn">import</span> <span class="n">USFederalHolidayCalendar</span>
     <span class="n">holidays</span> <span class="o">=</span> <span class="n">USFederalHolidayCalendar</span><span class="p">()</span><span class="o">.</span><span class="n">holidays</span><span class="p">(</span>
         <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
-        <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">,</span> <span class="c1"># + pd.DateOffset(weeks=52),</span>
+        <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">,</span>
         <span class="n">return_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">holiday_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">holidays</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;holiday&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="s1">&#39;ds&#39;</span><span class="p">})</span>
@@ -1194,8 +1195,6 @@ Simple exponential smoothing won't be able to capture any of the trends on the d
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;Parameter Tuning&#39;&#39;&#39;</span>
 <span class="kn">from</span> <span class="nn">sklearn.experimental</span> <span class="kn">import</span> <span class="n">enable_halving_search_cv</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">HalvingRandomSearchCV</span>
-
-<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
 
 <span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;boosting_type&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;gbdt&#39;</span><span class="p">,</span> <span class="s1">&#39;dart&#39;</span><span class="p">],</span>
@@ -1714,7 +1713,7 @@ The nearest neighbor subsequence to this discord is 1.4067575559258207 units awa
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arima-sarimax-p-d-q-x-p-d-q-s">ARIMA / SARIMAX(p, d, q)x(P, D, Q, s) <a name="ARIMA"></a></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm">LightGBM <a name="lightgbm"></a></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm">LightGBM</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sine-cosine-date-features">Sine/Cosine Date Features</a></li>
 </ul>
 </li>

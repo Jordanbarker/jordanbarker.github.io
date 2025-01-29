@@ -18,7 +18,7 @@ chapters:
   - file: Notebooks/pandas
   - file: Notebooks/object_oriented_programming
   - file: Notebooks/logging
-  - file: Notebooks/parrallel_processing
+  - file: Notebooks/parallel_processing
 - file: Notebooks/anomaly_detection
 - file: Notebooks/distributions
 - file: Notebooks/evaluation_metrics

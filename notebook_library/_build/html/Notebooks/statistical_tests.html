@@ -183,10 +183,12 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="package_management.html">Package Management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pandas.html">Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming (OOP) in Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parallel_processing.html">Parallel Processing</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomaly Detection</a></li>
@@ -405,11 +407,12 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-statstical-tests">Common Statstical Tests <a name="common-statistical-tests"></a></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#z-tests-t-tests-compare-the-means-of-two-groups"><strong>Z-tests / T-tests</strong>: Compare the means of two groups. <a name="t-tests"></a></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wilcoxon-signed-rank-test-non-parametric-test-to-compare-the-means-of-two-groups"><strong>Wilcoxon Signed-Rank Test</strong>: Non-parametric test to compare the means of two groups. <a name="Wilcoxon-Signed-Rank"></a></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anova-analysis-of-variance-compare-the-means-of-three-or-more-groups"><strong>ANOVA (Analysis of Variance)</strong>: Compare the means of three or more groups. <a name="anova-analysis-of-variance"></a></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-squared-tests-test-the-relationship-between-categorical-variables"><strong>Chi-squared Tests</strong>: Test the relationship between categorical variables. <a name="chi-squared-tests"></a></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-analysis-model-the-relationship-between-a-dependent-variable-and-one-or-more-independent-variables"><strong>Regression Analysis</strong>: Model the relationship between a dependent variable and one or more independent variables. <a name="regression-analysis"></a></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#z-tests-t-tests-compare-the-means-of-two-groups"><strong>Z-tests / T-tests</strong>: Compare the means of two groups.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anova-analysis-of-variance-compare-the-means-of-three-or-more-groups"><strong>ANOVA (Analysis of Variance)</strong>: Compare the means of three or more groups.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wilcoxon-signed-rank-test-non-parametric-test-to-compare-the-median-of-a-set-of-numbers-against-a-hypothetical-median"><strong>Wilcoxon Signed-Rank Test</strong>: Non-parametric test to compare the median of a set of numbers against a hypothetical median.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mann-whitney-u-test-non-parametric-test-to-determine-whether-a-numeric-outcome-variable-with-any-distribution-differs-across-two-independent-groups"><strong>Mann-Whitney U-Test</strong>: Non-parametric test to determine whether a numeric outcome variable with any distribution differs across two independent groups.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-squared-tests-test-the-relationship-between-categorical-variables"><strong>Chi-squared Tests</strong>: Test the relationship between categorical variables.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-analysis-model-the-relationship-between-a-dependent-variable-and-one-or-more-independent-variables"><strong>Regression Analysis</strong>: Model the relationship between a dependent variable and one or more independent variables.</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
@@ -505,9 +508,9 @@ Define metrics:</p>
 </div>
 <p>Where</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(α\)</span> = probability of a Type I error, known as a “false positive”</p></li>
-<li><p><span class="math notranslate nohighlight">\(β\)</span> = probability of a Type II error, known as a “false negative”</p></li>
-<li><p><span class="math notranslate nohighlight">\(1 − α\)</span> = probability of a “true negative”, i.e., correctly not rejecting the null hypothesis</p></li>
+<li><p><span class="math notranslate nohighlight">\(α\)</span> = probability of a Type I error, known as a “false positive”.</p></li>
+<li><p><span class="math notranslate nohighlight">\(β\)</span> = probability of a Type II error, known as a “false negative”.</p></li>
+<li><p><span class="math notranslate nohighlight">\(1 − α\)</span> = probability of a “true negative”, i.e., correctly not rejecting the null hypothesis.</p></li>
 <li><p><span class="math notranslate nohighlight">\(1 − β\)</span> = probability of a “true positive”, i.e., correctly rejecting the null hypothesis. The <strong>power</strong> of the test.</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
@@ -560,7 +563,7 @@ Define metrics:</p>
 </section>
 <section id="sample-size-and-minimum-detectable-effect">
 <h3>Sample Size and Minimum Detectable Effect<a class="headerlink" href="#sample-size-and-minimum-detectable-effect" title="Link to this heading">#</a></h3>
-<p><a class="reference external" href="https://sample-size.net/sample-size-proportions/">sample-size.net</a> has a robust calculator for this.</p>
+<p><a class="reference external" href="https://sample-size.net/sample-size-proportions/">sample-size.net</a> has a nice calculator for this.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p0</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># Baseline conversion rate</span>
@@ -713,7 +716,7 @@ Interpretation: we are 95% confident that the true mean is between 79.22 and 80.
 <span class="n">std_dev_2</span> <span class="o">=</span> <span class="mi">20</span>
 <span class="n">sample_size_1</span> <span class="o">=</span> <span class="mi">30</span>
 <span class="n">sample_size_2</span> <span class="o">=</span> <span class="mi">25</span>
-<span class="n">z</span> <span class="o">=</span> <span class="mf">1.96</span>  <span class="c1"># Z value for 95% confidence is 1.96</span>
+<span class="n">z</span> <span class="o">=</span> <span class="mf">1.96</span>  <span class="c1"># Z value for 95% confidence</span>
 <span class="n">standard_error</span> <span class="o">=</span> <span class="p">((</span><span class="n">std_dev_1</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">sample_size_1</span><span class="p">)</span> <span class="o">+</span> \
                   <span class="p">(</span><span class="n">std_dev_2</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">sample_size_2</span><span class="p">))</span><span class="o">**</span><span class="mf">0.5</span>
 <span class="n">MoE</span> <span class="o">=</span> <span class="n">z</span> <span class="o">*</span> <span class="n">standard_error</span>
@@ -735,41 +738,52 @@ Interpretation: We are 95% confident that the true difference between the popula
 <section id="common-statstical-tests">
 <h2>Common Statstical Tests <a name="common-statistical-tests"></a><a class="headerlink" href="#common-statstical-tests" title="Link to this heading">#</a></h2>
 <section id="z-tests-t-tests-compare-the-means-of-two-groups">
-<h3><strong>Z-tests / T-tests</strong>: Compare the means of two groups. <a name="t-tests"></a><a class="headerlink" href="#z-tests-t-tests-compare-the-means-of-two-groups" title="Link to this heading">#</a></h3>
+<h3><strong>Z-tests / T-tests</strong>: Compare the means of two groups.<a class="headerlink" href="#z-tests-t-tests-compare-the-means-of-two-groups" title="Link to this heading">#</a></h3>
 <p><strong>When to use a Z-test vs. T-test?</strong>: Generally, Z-Tests are used when the sample size is large (<span class="math notranslate nohighlight">\(n &gt; 30\)</span>). <br>
 <strong>Assumptions</strong>: Normal distribution of data, equal variances between groups, and independence of observations.<br>
 <strong>Types</strong>: <br>
 - One-sample T-Test: Compares the means of the sample data to the population (e.g., Sample from a factory process). <br>
 - Independent (Two-sample) T-test: Compares the means of two independent groups (e.g., comparing the heights of men and women). <br>
-–  Welch’s T-Test for Unequal Variances should be used instead of the independent t-test regardless since it is more robust. It can be applied without any substantial disadvantages to Student’s t-test. It’s <em>not recommended</em> to pre-test for equal variances and then choose between Student’s t-test or Welch’s t-test. <br>
-- Paired (Dependent) T-test: Compares the means of two related groups (e.g., comparing the weights of individuals before and after a diet).</p>
-</section>
-<section id="wilcoxon-signed-rank-test-non-parametric-test-to-compare-the-means-of-two-groups">
-<h3><strong>Wilcoxon Signed-Rank Test</strong>: Non-parametric test to compare the means of two groups. <a name="Wilcoxon-Signed-Rank"></a><a class="headerlink" href="#wilcoxon-signed-rank-test-non-parametric-test-to-compare-the-means-of-two-groups" title="Link to this heading">#</a></h3>
-<p><strong>Assumptions</strong>: The data should be ordinal, interval, or ratio scales where ranking is meaningful. While it does not require normality, it assumes that the differences between pairs are symmetrically distributed around the median. <br>
-<strong>Note</strong>: More robust alternative to the t-test when dealing with outliers, as it is less sensitive to extreme values due to its reliance on ranks rather than raw data.</p>
+– Welch’s T-Test for Unequal Variances should be used instead of the independent t-test regardless since it is more robust. It can be applied without any substantial disadvantages to Student’s t-test. It’s <em>not recommended</em> to pre-test for equal variances and then choose between Student’s t-test or Welch’s t-test. <br>
+- Dependent (Paired) T-test: Compares the means of two related groups (e.g., comparing the weights of individuals before and after a diet).</p>
 </section>
 <section id="anova-analysis-of-variance-compare-the-means-of-three-or-more-groups">
-<h3><strong>ANOVA (Analysis of Variance)</strong>: Compare the means of three or more groups. <a name="anova-analysis-of-variance"></a><a class="headerlink" href="#anova-analysis-of-variance-compare-the-means-of-three-or-more-groups" title="Link to this heading">#</a></h3>
+<h3><strong>ANOVA (Analysis of Variance)</strong>: Compare the means of three or more groups.<a class="headerlink" href="#anova-analysis-of-variance-compare-the-means-of-three-or-more-groups" title="Link to this heading">#</a></h3>
 <p><strong>Assumptions</strong>: Assumes normal distribution of data, homogeneity of variances, and independence of observations.<br>
 <strong>Types</strong>:<br>
 - One-way ANOVA: Compares the means of multiple groups based on one factor (e.g., comparing the test scores of students from different schools).<br>
 - Two-way ANOVA: Compares the means of groups based on two factors (e.g., comparing the test scores of students from different schools and different grades). <br>
 <strong>Note</strong>: Analysis on a one way ANOVA with two independent samples is a T-test.</p>
 </section>
+<section id="wilcoxon-signed-rank-test-non-parametric-test-to-compare-the-median-of-a-set-of-numbers-against-a-hypothetical-median">
+<h3><strong>Wilcoxon Signed-Rank Test</strong>: Non-parametric test to compare the median of a set of numbers against a hypothetical median.<a class="headerlink" href="#wilcoxon-signed-rank-test-non-parametric-test-to-compare-the-median-of-a-set-of-numbers-against-a-hypothetical-median" title="Link to this heading">#</a></h3>
+<p><strong>Assumptions</strong>: The data should be ordinal, interval, or ratio scales where ranking is meaningful. While it does not require normality, it assumes that the differences between pairs are symmetrically distributed around the median. <br>
+<strong>Note</strong>: More robust alternative to the t-test when dealing with outliers, as it is less sensitive to extreme values due to its reliance on ranks rather than raw data.</p>
+<ul class="simple">
+<li><p>The Wilcoxon signed-ranks test is the nonparametric alternative for the <strong>dependent</strong> t-test.</p></li>
+</ul>
+</section>
+<section id="mann-whitney-u-test-non-parametric-test-to-determine-whether-a-numeric-outcome-variable-with-any-distribution-differs-across-two-independent-groups">
+<h3><strong>Mann-Whitney U-Test</strong>: Non-parametric test to determine whether a numeric outcome variable with any distribution differs across two independent groups.<a class="headerlink" href="#mann-whitney-u-test-non-parametric-test-to-determine-whether-a-numeric-outcome-variable-with-any-distribution-differs-across-two-independent-groups" title="Link to this heading">#</a></h3>
+<p><strong>Assumptions</strong>: The data should be ordinal, interval, or ratio scales where ranking is meaningful. While it does not require normality, it assumes that the differences between pairs are symmetrically distributed around the median. <br>
+<strong>Note</strong>: This test does not test specifically if the mean or median of two groups are equal, only if the overall distributions are significantly different or not. <a class="reference external" href="https://sites.utexas.edu/sos/guided/inferential/numeric/onecat/2-groups/independent/u-test/#:~:text=A%20Mann%2DWhitney%20U%2Dtest,Independent%20observations">source</a></p>
+<ul class="simple">
+<li><p>The Mann-Whitney U is the nonparametric alternative to the <strong>independent</strong> t-test.</p></li>
+</ul>
+</section>
 <section id="chi-squared-tests-test-the-relationship-between-categorical-variables">
-<h3><strong>Chi-squared Tests</strong>: Test the relationship between categorical variables. <a name="chi-squared-tests"></a><a class="headerlink" href="#chi-squared-tests-test-the-relationship-between-categorical-variables" title="Link to this heading">#</a></h3>
+<h3><strong>Chi-squared Tests</strong>: Test the relationship between categorical variables.<a class="headerlink" href="#chi-squared-tests-test-the-relationship-between-categorical-variables" title="Link to this heading">#</a></h3>
 <p><strong>Assumptions</strong>: Assumes a sufficient sample size (expected frequencies in each cell should be at least 5) and independence of observations. <br>
 <strong>Types</strong>: <br>
 - Independence: Assesses whether there is an association between two categorical variables (e.g., gender and voting preference). <br>
 - Goodness-of-Fit: Tests whether the distribution of a single categorical variable matches an expected distribution (e.g., testing if a die is fair). <br>
 - Homogeneity: Test if samples came from the same population.</p>
-<p><strong>Fisher’s Exact Test</strong>: Test relationship between categorical variables for small sample sizes or small expected frequencies<a name="fishers-exact-test"></a>
+<p><strong>Fisher’s Exact Test</strong>: Test relationship between categorical variables for small sample sizes or small expected frequencies
 <strong>Assumptions</strong>: Assumes a sufficient sample size (expected frequencies in each cell should be at least 5) and independence of observations. <br></p>
-<p><strong>G-test (Likelihood Ratio Test)</strong>: Increasingly being used over chi-squared tests due to better accuracy and interpretability in some cases, but note that it is unreliable if the sample sizes are small. <a name="g-test"></a></p>
+<p><strong>G-test (Likelihood Ratio Test)</strong>: Increasingly being used over chi-squared tests due to better accuracy and interpretability in some cases, but note that it is unreliable if the sample sizes are small.</p>
 </section>
 <section id="regression-analysis-model-the-relationship-between-a-dependent-variable-and-one-or-more-independent-variables">
-<h3><strong>Regression Analysis</strong>: Model the relationship between a dependent variable and one or more independent variables. <a name="regression-analysis"></a><a class="headerlink" href="#regression-analysis-model-the-relationship-between-a-dependent-variable-and-one-or-more-independent-variables" title="Link to this heading">#</a></h3>
+<h3><strong>Regression Analysis</strong>: Model the relationship between a dependent variable and one or more independent variables.<a class="headerlink" href="#regression-analysis-model-the-relationship-between-a-dependent-variable-and-one-or-more-independent-variables" title="Link to this heading">#</a></h3>
 <p><strong>Assumptions</strong>: Assumes linearity (linear relationship between dependent and independent variables), independence of errors, homoscedasticity (constant variance of errors), and normality of errors for linear regression. <br>
 <strong>Types</strong>:<br>
 - Simple Linear Regression: Models the relationship between a dependent variable and a single independent variable (e.g., predicting sales based on advertising budget).<br>
@@ -812,12 +826,12 @@ Interpretation: We are 95% confident that the true difference between the popula
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-statistic: -3.5604
-P-value: 0.0004
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-statistic: -2.8670
+P-value: 0.0042
 Fail to reject the null hypothesis - sample mean is not significantly different from the population mean.
 </pre></div>
 </div>
-<img alt="../_images/1eeb50ef85fadde953c2631ef385b3931a6fe6f6f21ccd68aeb2394c352cd7e6.png" src="../_images/1eeb50ef85fadde953c2631ef385b3931a6fe6f6f21ccd68aeb2394c352cd7e6.png" />
+<img alt="../_images/46f83207b6594ebdddf09943b0a41e0ed956ea117df7fd0eb30ca37c9423fd13.png" src="../_images/46f83207b6594ebdddf09943b0a41e0ed956ea117df7fd0eb30ca37c9423fd13.png" />
 </div>
 </div>
 </section>
@@ -853,15 +867,15 @@ Fail to reject the null hypothesis - sample mean is not significantly different 
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-Test Assuming Equal Variance:
-	T-statistic: -1.8214
-	P-value: 0.0687
+	T-statistic: -2.2883
+	P-value: 0.0222
 
 Welch&#39;s T-Test for Unequal Variance:
-	T-statistic: -1.8214
-	P-value: 0.0687
+	T-statistic: -2.2883
+	P-value: 0.0222
 </pre></div>
 </div>
-<img alt="../_images/8c875d3196c5c5672f075cbc852fa29f5976497d420c5486ea7e4d15dc6b0cf3.png" src="../_images/8c875d3196c5c5672f075cbc852fa29f5976497d420c5486ea7e4d15dc6b0cf3.png" />
+<img alt="../_images/07769f1f8a8bcea550f7fd7684a6b801ecc4bb6ccf79efbb3822389078a462b2.png" src="../_images/07769f1f8a8bcea550f7fd7684a6b801ecc4bb6ccf79efbb3822389078a462b2.png" />
 </div>
 </div>
 </section>
@@ -895,15 +909,15 @@ Welch&#39;s T-Test for Unequal Variance:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T-Test Assuming Equal Variance:
-	T-statistic: -1.4854
-	P-value: 0.1376
+	T-statistic: -3.2552
+	P-value: 0.0012
 
 Welch&#39;s T-Test for Unequal Variance:
-	T-statistic: -1.4854
-	P-value: 0.1377
+	T-statistic: -3.2552
+	P-value: 0.0012
 </pre></div>
 </div>
-<img alt="../_images/907c998b62436b5d938eaf2cf48db56da9ba4787762461e21bdba486a458faf4.png" src="../_images/907c998b62436b5d938eaf2cf48db56da9ba4787762461e21bdba486a458faf4.png" />
+<img alt="../_images/1e4495f3d5298c5ea40bdb987fba2b675a6516ea098cdd38f832414883ddce3c.png" src="../_images/1e4495f3d5298c5ea40bdb987fba2b675a6516ea098cdd38f832414883ddce3c.png" />
 </div>
 </div>
 </section>
@@ -940,99 +954,15 @@ Welch&#39;s T-Test for Unequal Variance:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Independent T-Test:
-	T-statistic: -4.0844
-	P-value: 0.0000
+	T-statistic: -2.9552
+	P-value: 0.0032
 
 Paired T-Test:
-	T-statistic: -4.1218
-	P-value: 0.0000
+	T-statistic: -3.0184
+	P-value: 0.0026
 </pre></div>
 </div>
-<img alt="../_images/34e254b8435da51033983b6542dda58ce92a3695da06a314e3d7d98e5fa6cd74.png" src="../_images/34e254b8435da51033983b6542dda58ce92a3695da06a314e3d7d98e5fa6cd74.png" />
-</div>
-</div>
-<p>Simulate null hypothesis and observe falsely rejecting the null hypothesis at a given p-value probability, regardless of sample size</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">reject_or_accept</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span><span class="p">):</span>
-    <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;independent&#39;</span><span class="p">:</span>
-        <span class="n">t_stat</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="c1"># Group 1 vs Group 2</span>
-    <span class="k">elif</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;welch&#39;</span><span class="p">:</span>
-        <span class="n">t_stat</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># Group 1 vs Group 2 with unequal variance</span>
-    <span class="k">elif</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;paired&#39;</span><span class="p">:</span>
-        <span class="n">t_stat</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_rel</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="c1"># Before and After</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Test type should be either independent, welch, or paired.&#39;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">p_value</span> <span class="o">&lt;</span> <span class="n">alpha</span> <span class="k">else</span> <span class="kc">False</span>
-
-<span class="k">def</span> <span class="nf">simulate_t_tests</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span><span class="p">):</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">10</span><span class="p">:</span> <span class="p">[],</span> 
-                <span class="mi">100</span><span class="p">:</span> <span class="p">[],</span>
-                <span class="mi">1000</span><span class="p">:</span> <span class="p">[],</span>
-                <span class="mi">10000</span><span class="p">:</span> <span class="p">[]</span> <span class="p">}</span>
-    
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sample_size</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
-        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
-            <span class="n">A</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span>
-            <span class="n">B</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span>
-            <span class="n">results</span><span class="p">[</span><span class="n">sample_size</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">reject_or_accept</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span><span class="p">))</span>
-        <span class="n">_</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">sample_size</span><span class="p">]),</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sample Size: </span><span class="si">{</span><span class="n">sample_size</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="o">-</span><span class="n">i</span><span class="p">)</span><span class="o">*</span><span class="s1">&#39; &#39;</span><span class="si">}</span><span class="s2"> Reject: </span><span class="si">{</span><span class="n">counts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, Accepted: </span><span class="si">{</span><span class="n">counts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Independent ______________________________________________________&quot;</span><span class="p">)</span>
-<span class="n">simulate_t_tests</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Paired ______________________________________________________&quot;</span><span class="p">)</span>
-<span class="n">simulate_t_tests</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;paired&#39;</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Welch ______________________________________________________&quot;</span><span class="p">)</span>
-<span class="n">simulate_t_tests</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;welch&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Independent ______________________________________________________
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 953, Accepted: 47
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 952, Accepted: 48
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 954, Accepted: 46
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 944, Accepted: 56
-
-Paired ______________________________________________________
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10      Reject: 950, Accepted: 50
-Sample Size: 100     Reject: 950, Accepted: 50
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 951, Accepted: 49
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 951, Accepted: 49
-
-Welch ______________________________________________________
-Sample Size: 10      Reject: 942, Accepted: 58
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 100     Reject: 951, Accepted: 49
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 1000    Reject: 939, Accepted: 61
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample Size: 10000   Reject: 939, Accepted: 61
-</pre></div>
-</div>
+<img alt="../_images/c3f19ac975229dc12b3983d45d63daa90c96d9a0413f6ef9108a766dd01a293f.png" src="../_images/c3f19ac975229dc12b3983d45d63daa90c96d9a0413f6ef9108a766dd01a293f.png" />
 </div>
 </div>
 </section>
@@ -1380,11 +1310,11 @@ P-value: 0.000044
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Observed difference in means: -0.1413
-P-value from permutation test: 0.5423
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Observed difference in means: 0.2931
+P-value from permutation test: 0.1710
 </pre></div>
 </div>
-<img alt="../_images/44fe563d7573b673a30bbca6e145dff4af7250b4a3d9d84957250e6b8b1c4399.png" src="../_images/44fe563d7573b673a30bbca6e145dff4af7250b4a3d9d84957250e6b8b1c4399.png" />
+<img alt="../_images/b4d3e102f772e664d0556651730eec26d24f845c316e3b8f60bec7d17935a60f.png" src="../_images/b4d3e102f772e664d0556651730eec26d24f845c316e3b8f60bec7d17935a60f.png" />
 </div>
 </div>
 </section>
@@ -1450,19 +1380,19 @@ that dives deeper into .</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bonferroni Correction Results:
-Test 1: Original p = 0.8916, Adjusted p = 1.0000, Not rejected
-Test 2: Original p = 0.5670, Adjusted p = 1.0000, Not rejected
-Test 3: Original p = 0.5117, Adjusted p = 1.0000, Not rejected
+Test 1: Original p = 0.1721, Adjusted p = 0.5163, Not rejected
+Test 2: Original p = 0.5555, Adjusted p = 1.0000, Not rejected
+Test 3: Original p = 0.4129, Adjusted p = 1.0000, Not rejected
 
 FDR with Benjamini-Hochberg Procedure:
-Test 1: Original p = 0.8916, Adjusted p = 0.8916, Not rejected
-Test 2: Original p = 0.5670, Adjusted p = 0.8505, Not rejected
-Test 3: Original p = 0.5117, Adjusted p = 0.8505, Not rejected
+Test 1: Original p = 0.1721, Adjusted p = 0.5163, Not rejected
+Test 2: Original p = 0.5555, Adjusted p = 0.5555, Not rejected
+Test 3: Original p = 0.4129, Adjusted p = 0.5555, Not rejected
 
 FDR with Benjamini–Yekutieli Procedure):
-Test 1: Original p = 0.8916, Adjusted p = 1.0000, Not rejected
-Test 2: Original p = 0.5670, Adjusted p = 1.0000, Not rejected
-Test 3: Original p = 0.5117, Adjusted p = 1.0000, Not rejected
+Test 1: Original p = 0.1721, Adjusted p = 0.9465, Not rejected
+Test 2: Original p = 0.5555, Adjusted p = 1.0000, Not rejected
+Test 3: Original p = 0.4129, Adjusted p = 1.0000, Not rejected
 </pre></div>
 </div>
 </div>
@@ -1520,11 +1450,12 @@ Decision at 100.0% data: Reject H0
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pymc</span> <span class="k">as</span> <span class="nn">pm</span>
 <span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
 
-<span class="c1"># Simulated conversion data   </span>
 <span class="c1"># Number of visitors</span>
-<span class="n">n_A</span> <span class="o">=</span> <span class="mi">1500</span> <span class="c1"># A: Control group</span>
-<span class="n">n_B</span> <span class="o">=</span> <span class="mi">1500</span> <span class="c1"># B: Treatment group</span>
-<span class="n">conversions_A</span> <span class="o">=</span> <span class="mi">105</span>  <span class="c1"># Number of conversions</span>
+<span class="n">n_A</span> <span class="o">=</span> <span class="mi">1500</span> <span class="c1"># Control</span>
+<span class="n">n_B</span> <span class="o">=</span> <span class="mi">1500</span> <span class="c1"># Treatment</span>
+
+<span class="c1"># Number of conversions</span>
+<span class="n">conversions_A</span> <span class="o">=</span> <span class="mi">105</span>  
 <span class="n">conversions_B</span> <span class="o">=</span> <span class="mi">125</span>
 
 <span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model</span><span class="p">:</span>
@@ -1536,8 +1467,8 @@ Decision at 100.0% data: Reject H0
     <span class="n">obs_A</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Binomial</span><span class="p">(</span><span class="s1">&#39;obs_A&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n_A</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p_A</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">conversions_A</span><span class="p">)</span>
     <span class="n">obs_B</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Binomial</span><span class="p">(</span><span class="s1">&#39;obs_B&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n_B</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p_B</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">conversions_B</span><span class="p">)</span>
 
-    <span class="c1"># Sample from the posterior using the No-U-Turn Sampler (NUTS)</span>
-    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5000</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_inferencedata</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Ensure InferenceData format is returned</span>
+    <span class="c1"># Sample from the posterior</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5000</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_inferencedata</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Plotting the posterior distributions with reference line at 0</span>
 <span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;p_A&#39;</span><span class="p">,</span> <span class="s1">&#39;p_B&#39;</span><span class="p">],</span> <span class="n">ref_val</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -1564,10 +1495,10 @@ Decision at 100.0% data: Reject H0
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 5_000 draw iterations (4_000 + 20_000 draws total) took 2 seconds.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Probability that B is better than A: 0.91
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Probability that B is better than A: 0.92
 </pre></div>
 </div>
-<img alt="../_images/53cd38e31ecd353c265ab738b99a5e82e8a255c076e1f2e1d70da0d5e04b866a.png" src="../_images/53cd38e31ecd353c265ab738b99a5e82e8a255c076e1f2e1d70da0d5e04b866a.png" />
+<img alt="../_images/89032251be70a94a0c1c7652cfc72c531dbf352b3672633101f5fed494a05340.png" src="../_images/89032251be70a94a0c1c7652cfc72c531dbf352b3672633101f5fed494a05340.png" />
 </div>
 </div>
 <p>Example from <a class="reference external" href="https://nbviewer.org/github/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/blob/master/Chapter1_Introduction/Ch1_Introduction_PyMC2.ipynb">Probabilistic Programming and Bayesian Methods for Hackers</a></p>
@@ -1598,7 +1529,7 @@ Decision at 100.0% data: Reject H0
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5b3d6bee5dfa359d2487196958db9879ac23e8019098c4bd4191eca0ac2bf693.png" src="../_images/5b3d6bee5dfa359d2487196958db9879ac23e8019098c4bd4191eca0ac2bf693.png" />
+<img alt="../_images/6656c9e2abc056ff2109b8c686efa5b0e53a83955ecf6315229f8806c8a330a1.png" src="../_images/6656c9e2abc056ff2109b8c686efa5b0e53a83955ecf6315229f8806c8a330a1.png" />
 </div>
 </div>
 </section>
@@ -1629,8 +1560,8 @@ Decision at 100.0% data: Reject H0
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shapiro-Wilk: p-value = 0.5006
-Kolmogorov-Smirnov: p-value = 0.7740
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shapiro-Wilk: p-value = 0.8916
+Kolmogorov-Smirnov: p-value = 0.9306
 </pre></div>
 </div>
 </div>
@@ -1672,11 +1603,11 @@ Kolmogorov-Smirnov: p-value = 0.7740
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kullback-Leibler Divergence: 0.2616
-Kullback-Leibler Divergence (histogram method): 0.0976
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kullback-Leibler Divergence: 0.2464
+Kullback-Leibler Divergence (histogram method): 0.1220
 </pre></div>
 </div>
-<img alt="../_images/9f0fad0b116b589e3c441610623bcc2d7d1ae04db483412137c926ff0fe438e1.png" src="../_images/9f0fad0b116b589e3c441610623bcc2d7d1ae04db483412137c926ff0fe438e1.png" />
+<img alt="../_images/ca2e5ee4cd2d954bb57e4742ca68470cfba4088845aa4db25fef7099e684d96a.png" src="../_images/ca2e5ee4cd2d954bb57e4742ca68470cfba4088845aa4db25fef7099e684d96a.png" />
 </div>
 </div>
 </section>
@@ -1690,7 +1621,9 @@ Kullback-Leibler Divergence (histogram method): 0.0976
 <p>The treatment has a better success rate on both days, but when we average the result, it is worse overall due to to weighted averaging.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_experiment</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">num_simulations</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="c1"># Setting a seed so it&#39;s reproducable</span>
+
+<span class="k">def</span> <span class="nf">run_experiment</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">num_simulations</span><span class="p">):</span>
     <span class="n">successes</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">num_simulations</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
     <span class="n">failures</span> <span class="o">=</span> <span class="n">num_simulations</span> <span class="o">-</span> <span class="n">successes</span>
     <span class="n">success_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">successes</span><span class="p">)</span>
@@ -1754,33 +1687,33 @@ Kullback-Leibler Divergence (histogram method): 0.0976
       <th>0</th>
       <td>Treatment</td>
       <td>Day 1</td>
-      <td>305</td>
-      <td>195</td>
-      <td>61.0</td>
+      <td>308</td>
+      <td>192</td>
+      <td>62.0</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Control</td>
       <td>Day 1</td>
-      <td>5411</td>
-      <td>4089</td>
-      <td>57.0</td>
+      <td>5463</td>
+      <td>4037</td>
+      <td>58.0</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Treatment</td>
       <td>Day 2</td>
-      <td>2479</td>
-      <td>2521</td>
+      <td>2522</td>
+      <td>2478</td>
       <td>50.0</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Control</td>
       <td>Day 2</td>
-      <td>2245</td>
-      <td>2755</td>
-      <td>45.0</td>
+      <td>2301</td>
+      <td>2699</td>
+      <td>46.0</td>
     </tr>
   </tbody>
 </table>
@@ -1788,7 +1721,7 @@ Kullback-Leibler Divergence (histogram method): 0.0976
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Weighted Average Results:&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Average Results:&quot;</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;Day of Test&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">grouped_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Treatment or Control&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">grouped_df</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">grouped_df</span><span class="p">[</span><span class="s1">&#39;Success&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">grouped_df</span><span class="p">[</span><span class="s1">&#39;Success&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">grouped_df</span><span class="p">[</span><span class="s1">&#39;Failure&#39;</span><span class="p">]))</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -1797,7 +1730,7 @@ Kullback-Leibler Divergence (histogram method): 0.0976
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Weighted Average Results:
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average Results:
 </pre></div>
 </div>
 <div class="output text_html"><div>
@@ -1832,14 +1765,14 @@ Kullback-Leibler Divergence (histogram method): 0.0976
   <tbody>
     <tr>
       <th>Control</th>
-      <td>7656</td>
-      <td>6844</td>
-      <td>53.0</td>
+      <td>7764</td>
+      <td>6736</td>
+      <td>54.0</td>
     </tr>
     <tr>
       <th>Treatment</th>
-      <td>2784</td>
-      <td>2716</td>
+      <td>2830</td>
+      <td>2670</td>
       <td>51.0</td>
     </tr>
   </tbody>
@@ -1854,6 +1787,14 @@ Kullback-Leibler Divergence (histogram method): 0.0976
 <li><p>Kohavi, Ron, Diane Tang, and Ya Xu. 2020. ​Trustworthy Online Controlled Experiments: A Practical Guide to A/B Testing. Cambridge University Press. <a class="reference external" href="https://experimentguide.com/">https://experimentguide.com/</a></p></li>
 <li><p><a class="reference external" href="https://en.wikiversity.org/wiki/Analysis_of_variance">Analysis of Variance - Wikiversity</a></p></li>
 </ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># kohavi2020trustworthy</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is an example citation .</p>
 </section>
 </section>
 
@@ -1933,11 +1874,12 @@ Kullback-Leibler Divergence (histogram method): 0.0976
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-statstical-tests">Common Statstical Tests <a name="common-statistical-tests"></a></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#z-tests-t-tests-compare-the-means-of-two-groups"><strong>Z-tests / T-tests</strong>: Compare the means of two groups. <a name="t-tests"></a></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wilcoxon-signed-rank-test-non-parametric-test-to-compare-the-means-of-two-groups"><strong>Wilcoxon Signed-Rank Test</strong>: Non-parametric test to compare the means of two groups. <a name="Wilcoxon-Signed-Rank"></a></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anova-analysis-of-variance-compare-the-means-of-three-or-more-groups"><strong>ANOVA (Analysis of Variance)</strong>: Compare the means of three or more groups. <a name="anova-analysis-of-variance"></a></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-squared-tests-test-the-relationship-between-categorical-variables"><strong>Chi-squared Tests</strong>: Test the relationship between categorical variables. <a name="chi-squared-tests"></a></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-analysis-model-the-relationship-between-a-dependent-variable-and-one-or-more-independent-variables"><strong>Regression Analysis</strong>: Model the relationship between a dependent variable and one or more independent variables. <a name="regression-analysis"></a></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#z-tests-t-tests-compare-the-means-of-two-groups"><strong>Z-tests / T-tests</strong>: Compare the means of two groups.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anova-analysis-of-variance-compare-the-means-of-three-or-more-groups"><strong>ANOVA (Analysis of Variance)</strong>: Compare the means of three or more groups.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wilcoxon-signed-rank-test-non-parametric-test-to-compare-the-median-of-a-set-of-numbers-against-a-hypothetical-median"><strong>Wilcoxon Signed-Rank Test</strong>: Non-parametric test to compare the median of a set of numbers against a hypothetical median.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mann-whitney-u-test-non-parametric-test-to-determine-whether-a-numeric-outcome-variable-with-any-distribution-differs-across-two-independent-groups"><strong>Mann-Whitney U-Test</strong>: Non-parametric test to determine whether a numeric outcome variable with any distribution differs across two independent groups.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-squared-tests-test-the-relationship-between-categorical-variables"><strong>Chi-squared Tests</strong>: Test the relationship between categorical variables.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-analysis-model-the-relationship-between-a-dependent-variable-and-one-or-more-independent-variables"><strong>Regression Analysis</strong>: Model the relationship between a dependent variable and one or more independent variables.</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">

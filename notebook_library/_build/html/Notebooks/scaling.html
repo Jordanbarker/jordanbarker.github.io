@@ -183,10 +183,12 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="package_management.html">Package Management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pandas.html">Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming (OOP) in Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parallel_processing.html">Parallel Processing</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomaly Detection</a></li>
@@ -409,12 +411,21 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="scaling">
 <h1>Scaling<a class="headerlink" href="#scaling" title="Link to this heading">#</a></h1>
 <p>There are several different scalers to choose from. Each with their own pros/cons. Using sklearn’s functions:</p>
-<p><code class="docutils literal notranslate"><span class="pre">StandardScaler()</span></code> (Z-score Normalization) removes the mean and scales to the unit variance.
-$<span class="math notranslate nohighlight">\( \frac{X_i - X_{Mean}}{X_{StandardDeviation}} \)</span>$</p>
-<p><code class="docutils literal notranslate"><span class="pre">MinMaxScaler()</span></code> brings all values into the range [0, 1]. Maintains the original distribution and relationships between data points.
-$<span class="math notranslate nohighlight">\( \frac{X_i - X_{Min}}{X_{Max} - X_{min}} \)</span>$</p>
-<p><code class="docutils literal notranslate"><span class="pre">RobustScaler()</span></code> is robust to outliers.
-$<span class="math notranslate nohighlight">\( \frac{X_i - X_{Med}}{IQR} \)</span>$</p>
+<p><code class="docutils literal notranslate"><span class="pre">StandardScaler()</span></code> (Z-score Normalization) removes the mean and scales to the unit variance.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\frac{X_i - X_{Mean}}{X_{StandardDeviation}} 
+\]</div>
+<p><code class="docutils literal notranslate"><span class="pre">MinMaxScaler()</span></code> brings all values into the range [0, 1]. Maintains the original distribution and relationships between data points.</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{X_i - X_{Min}}{X_{Max} - X_{min}}
+\]</div>
+<p><code class="docutils literal notranslate"><span class="pre">RobustScaler()</span></code> is robust to outliers.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\frac{X_i - X_{Med}}{IQR}
+\]</div>
 <p>Which to use?</p>
 <p>“For most cases, <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> is the scaler of choice. If you know that you have some outliers, go for the <code class="docutils literal notranslate"><span class="pre">RobustScaler</span></code>.” <a class="reference external" href="https://stackoverflow.com/questions/49408371/when-to-use-min-max-scalar-and-standard-scalar/59447032#59447032"><span class="math notranslate nohighlight">\(^1\)</span></a></p>
 <p>Both <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> and <code class="docutils literal notranslate"><span class="pre">MinMaxScaler</span></code> are very sensitive to the presence of outliers.</p>
