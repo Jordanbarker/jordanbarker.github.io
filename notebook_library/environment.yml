@@ -10,6 +10,7 @@ dependencies:
 - cvxpy
 - pymc
 - jupyter-book
+- sphinxcontrib-bibtex
 - seaborn
 - matplotlib
 - loguru

@@ -3,9 +3,8 @@
 title: Data Science Cookbook
 author: Jordan Barker
 logo: logo_with_text.png
-exclude_patterns: "Notebooks/Still Cooking/*"
+exclude_patterns: ["Notebooks/Still Cooking/*"]
 only_build_toc_files: true
-
 
 #######################################################################################
 # Execution settings
@@ -38,5 +37,10 @@ html:
 
 #######################################################################################
 sphinx:
+    extra_extensions:
+        - sphinxcontrib.bibtex
     config:
         html_show_copyright: false
+        bibtex_reference_style: author_year
+        bibtex_bibfiles:
+        - references.bib
