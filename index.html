@@ -8,6 +8,99 @@
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
 </head>
 
+<style>
+    h2 {
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+        color: #333;
+    }
+
+    .body_container {
+        width: 70%;
+        padding-top: 10px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .card_container {
+        padding: 2px 16px;
+        flex: 0 1 auto;
+    }
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        object-fit: cover;
+        width: 70%;
+        margin: 10px;
+        border-radius: 5px;
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+    }
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+    .card img {
+        border-radius: 5px;
+        width: 100%;
+        height: 60%; 
+        flex: 1 0 auto;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .favorites-container {
+        width: 80%;
+        margin: 0 auto;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+    }
+
+    .links-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .link-card {
+        background: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .link-card a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        display: block;
+    }
+
+    .link-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .link-card img {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 10px;
+    }
+    @media (max-width: 800px) {
+        .body_container {
+            width: 90%;
+        }
+        .card {
+            width: 100%;
+        }
+    }
+</style>
+
 
 <body>
     <header>
@@ -77,20 +170,37 @@
                   <p>Project I developed to practice custom Javascript D3 visualizations while I was also relearning polar coordinates.</p>
                 </div>
             </div>
-            <!-- <h2>Python Notebooks</h2>
-                <li><a href="./PythonFundamentals.html">Python Fundamentals</a></li>
-                <li><a href="./Distributions.html">Distributions Guide</a></li>
-                <li><a href="./StatisticalTests.html">Statistical Tests (A/B testing)</a></li>
-                <li><a href="./Evaluation_Metrics.html">Evaluation Metrics</a></li>
-                <li><a href="./TimeSeries.html">Time Series</a></li> -->
-            <!-- <h2>Fun</h2>
-                <li><a href="./wiki_sentiment.html">Wikipedia Sentiment Analysis Exploration</a></li>
-                <li><a href="./pong.html">Reinforcement Learning Pong Agent</a></li>
-                <li><a href="./Scroll.html">Scroll</a></li>
-                <li><a href="./MLQuizGame.html">Machine Learning Quiz</a></li>
-                <li><a href="./Zipper.html">Zipper</a></li>
-                <li><a href="./FibinocciRoses.html">Fibinocci Roses</a></li> -->
-        </div> 
+        </div>
+        <!-- 
+        
+        Favorites Container
+
+        -->
+        <div class="favorites-container">
+            <h2>My Favorite Websites</h2>
+            <div class="links-grid">
+                <div class="link-card">
+                    <a href="http://mfviz.com/" target="_blank">mfviz.com</a>
+                    <p>Michael Freeman's personal website has great stuff.</p>
+                </div>
+                <div class="link-card">
+                    <a href="https://setosa.io/#/" target="_blank">setosa.io</a>
+                    <p>Explained Visually is an incredible series that blends teachings and interactive visualizations.</p>
+                </div>
+                <div class="link-card">
+                    <a href="https://worrydream.com/" target="_blank">worrydream.com</a>
+                    <p>Bret Victor is a pioneer and leader in the data visualization space.</p>
+                </div>
+                <div class="link-card">
+                    <a href="https://explorabl.es/" target="_blank">explorabl.es</a>
+                    <p>Explorable Explanations has interactive pages that combine education with art in brilliant ways.</p>
+                </div>
+                <div class="link-card">
+                    <a href="https://distill.pub/" target="_blank">distill</a>
+                    <p>Machine learning research made in a more clear and understandable form.</p>
+                </div>
+            </div>
+        </div>
     </main>
 </body>
 
