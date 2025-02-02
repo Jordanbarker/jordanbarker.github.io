@@ -14,5 +14,6 @@ dependencies:
 - seaborn
 - matplotlib
 - loguru
+- mlxtend
 channels:  
 - conda-forge

@@ -20,4 +20,5 @@ chapters:
 - file: Notebooks/statistical_tests
 - file: Notebooks/time_series
 - file: Notebooks/visualizations
+- file: Notebooks/uncertainty
 - file: Notebooks/cookbook_meta

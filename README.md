@@ -1,8 +1,8 @@
 # About
-A website to host some of my commonly referenced notes on data science and machine learning. Also using it to showcase some personal projects.
+This website hosts my commonly referenced notes on data science and machine learning as well as some personal projects.
 
-## Technical details
-The notebook library is created using [Jupyter Book](https://jupyterbook.org/en/stable/intro.html).
+## Cookbook details
+The data science cookbook is created using [Jupyter Book](https://jupyterbook.org/en/stable/intro.html).
 
 There is an environment file to create a conda environment with all the necessary libraries:
 > conda env create --file environment.yml
@@ -29,5 +29,5 @@ Was using custom_classic but this is going to take some work to cleanup
 Test locally with: 'live-server' or 'python -m http.server 8000'
 
 ## Future ideas
-* Clustering
-* Integrate [Plausible Analytics](https://jupyterbook.org/en/stable/advanced/html.html#use-plausible-analytics)
+* Bayesian inference using [groundhog-day](https://groundhog-day.com/) data.
+* Integrate [Plausible Analytics](https://jupyterbook.org/en/stable/advanced/html.html#use-plausible-analytics).

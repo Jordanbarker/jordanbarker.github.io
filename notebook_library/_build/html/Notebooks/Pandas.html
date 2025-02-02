@@ -66,7 +66,7 @@
     <link rel="icon" href="../_static/logo.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Object-Oriented Programming (OOP) in Python" href="object_oriented_programming.html" />
+    <link rel="next" title="Object-Oriented Programming" href="object_oriented_programming.html" />
     <link rel="prev" title="Numpy" href="numpy.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -168,7 +168,7 @@
 <li class="toctree-l2"><a class="reference internal" href="package_management.html">Package Management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Pandas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming (OOP) in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parallel_processing.html">Parallel Processing</a></li>
 </ul>
@@ -181,6 +181,7 @@
 <li class="toctree-l1"><a class="reference internal" href="statistical_tests.html">Statistical Tests (A/B Testing)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series</a></li>
 <li class="toctree-l1"><a class="reference internal" href="visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uncertainty.html">Uncertainty</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cookbook_meta.html">Cookbook Meta</a></li>
 </ul>
 
@@ -426,7 +427,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pandas version: 2.2.3
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pandas version: 2.2.1
 </pre></div>
 </div>
 </div>
@@ -852,7 +853,7 @@ Data columns (total 5 columns):
  3   departmentId  5 non-null      int64  
  4   bonus         5 non-null      float64
 dtypes: float64(1), int64(3), object(1)
-memory usage: 328.0+ bytes
+memory usage: 332.0+ bytes
 </pre></div>
 </div>
 </div>
@@ -864,7 +865,7 @@ memory usage: 328.0+ bytes
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index           128
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index           132
 id               40
 name            302
 salary           40
@@ -1028,20 +1029,20 @@ dtype: int64
   </thead>
   <tbody>
     <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>Henry</td>
-      <td>80000</td>
+      <th>1</th>
       <td>2</td>
-      <td>987.60</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>Max</td>
+      <td>Jim</td>
       <td>90000</td>
       <td>1</td>
       <td>1111.05</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Joe</td>
+      <td>70000</td>
+      <td>1</td>
+      <td>864.15</td>
     </tr>
     <tr>
       <th>3</th>
@@ -1062,51 +1063,21 @@ dtype: int64
 <section id="items">
 <h3><a class="reference external" href="https://pandas.pydata.org/pandas-docs/version/1.5/reference/api/pandas.DataFrame.items.html">Items()</a><a class="headerlink" href="#items" title="Link to this heading">#</a></h3>
 <p>Iterates over the DataFrame columns, returning a tuple with the column name and the content as a Series.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">series</span> <span class="ow">in</span> <span class="n">employee_df</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;column_name:&quot;</span><span class="p">,</span> <span class="n">column_name</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
-    <span class="k">break</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>column_name: id
-0    1
-1    2
-2    3
-3    4
-4    5
-Name: id, dtype: int64
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 Joe
-1 Jim
-2 Henry
-3 Sam
-4 Max
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 <section id="itertuples">
 <h3><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.itertuples.html">Itertuples()</a><a class="headerlink" href="#itertuples" title="Link to this heading">#</a></h3>
 <p>Generally faster than <code class="docutils literal notranslate"><span class="pre">items()</span></code> and returns row data as a tuple.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">employee_df</span><span class="o">.</span><span class="n">itertuples</span><span class="p">():</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">series</span> <span class="ow">in</span> <span class="n">employee_df</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;column_name:&quot;</span><span class="p">,</span> <span class="n">column_name</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+    <span class="k">break</span>
+
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">employee_df</span><span class="o">.</span><span class="n">itertuples</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">index=False __________________________&quot;</span><span class="p">)</span>    
@@ -1120,7 +1091,19 @@ Name: id, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pandas(Index=0, id=1, name=&#39;Joe&#39;, salary=70000, departmentId=1, bonus=864.15)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>column_name: id
+0    1
+1    2
+2    3
+3    4
+4    5
+Name: id, dtype: int64
+0 Joe
+1 Jim
+2 Henry
+3 Sam
+4 Max
+Pandas(Index=0, id=1, name=&#39;Joe&#39;, salary=70000, departmentId=1, bonus=864.15)
 Pandas(Index=1, id=2, name=&#39;Jim&#39;, salary=90000, departmentId=1, bonus=1111.05)
 Pandas(Index=2, id=3, name=&#39;Henry&#39;, salary=80000, departmentId=2, bonus=987.6)
 Pandas(Index=3, id=4, name=&#39;Sam&#39;, salary=60000, departmentId=2, bonus=740.7)
@@ -1568,83 +1551,6 @@ t(Index=4, id=5, name=&#39;Max&#39;, salary=90000, departmentId=1, bonus=1111.05
 </table>
 </div></div></div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">employee_df</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>name</th>
-      <th>salary</th>
-      <th>departmentId</th>
-      <th>bonus</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>Joe</td>
-      <td>70000</td>
-      <td>1</td>
-      <td>864.15</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>Jim</td>
-      <td>90000</td>
-      <td>1</td>
-      <td>1111.05</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>Henry</td>
-      <td>80000</td>
-      <td>2</td>
-      <td>987.60</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>Sam</td>
-      <td>60000</td>
-      <td>2</td>
-      <td>740.70</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>Max</td>
-      <td>90000</td>
-      <td>1</td>
-      <td>1111.05</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
 </section>
 </section>
 <section id="filtering">
@@ -1822,6 +1728,7 @@ Any salaries in employee_df are less than 80000: True
 <p><code class="docutils literal notranslate"><span class="pre">isna()</span></code> / <code class="docutils literal notranslate"><span class="pre">isnull()</span></code> Detect missing values <br>
 <code class="docutils literal notranslate"><span class="pre">notna()</span></code> / <code class="docutils literal notranslate"><span class="pre">notnull()</span></code> Detect non-missing values <br></p>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop.html"><code class="docutils literal notranslate"><span class="pre">df.drop()</span></code></a></p>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop_duplicates.html">df.drop_duplicates()</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dropdf</span> <span class="o">=</span> <span class="n">employee_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -1837,6 +1744,8 @@ Any salaries in employee_df are less than 80000: True
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;del dropdf[&quot;&#39;</span><span class="s2">&quot;departmentId&quot;</span><span class="s1">&#39;&quot;]&#39;</span><span class="p">)</span>
 <span class="k">del</span> <span class="n">dropdf</span><span class="p">[</span><span class="s1">&#39;departmentId&#39;</span><span class="p">]</span>
 <span class="n">display</span><span class="p">(</span><span class="n">dropdf</span><span class="p">)</span>
+
+<span class="n">employee_df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;departmentId&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1995,17 +1904,7 @@ dropdf.drop([0,1]
     </tr>
   </tbody>
 </table>
-</div></div></div>
-</div>
-<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop_duplicates.html">df.drop_duplicates()</a></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">employee_df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;departmentId&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
+</div></div><div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2533,7 +2432,9 @@ dropdf.drop([0,1]
 <h3><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.apply.html">Apply</a><a class="headerlink" href="#apply" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;above_average_salary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;salary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;salary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;above_average_salary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;salary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;salary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="p">)</span>
 <span class="n">employee_df</span>
 </pre></div>
 </div>
@@ -2636,11 +2537,6 @@ dropdf.drop([0,1]
 
 <span class="n">year_start</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">YearBegin</span><span class="p">()</span> <span class="c1"># 2024-01-01</span>
 <span class="n">year_end</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">YearEnd</span><span class="p">()</span> <span class="c1"># 2023-12-31</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Timestamp(&#39;2023-04-06 00:00:00&#39;)
 </pre></div>
 </div>
 </div>
@@ -2849,7 +2745,7 @@ dropdf.drop([0,1]
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Object-Oriented Programming (OOP) in Python</p>
+        <p class="prev-next-title">Object-Oriented Programming</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

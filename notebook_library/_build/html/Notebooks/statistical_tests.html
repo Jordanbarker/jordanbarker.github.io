@@ -170,7 +170,7 @@
 <li class="toctree-l2"><a class="reference internal" href="package_management.html">Package Management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pandas.html">Pandas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming (OOP) in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parallel_processing.html">Parallel Processing</a></li>
 </ul>
@@ -183,6 +183,7 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Statistical Tests (A/B Testing)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series</a></li>
 <li class="toctree-l1"><a class="reference internal" href="visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uncertainty.html">Uncertainty</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cookbook_meta.html">Cookbook Meta</a></li>
 </ul>
 
@@ -541,10 +542,20 @@ Define metrics:</p>
 <img alt="../_images/9f04161d7973f88498ab570afba33d4f3014c30aef414dfbfb841da25b3deb45.png" src="../_images/9f04161d7973f88498ab570afba33d4f3014c30aef414dfbfb841da25b3deb45.png" />
 </div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The alpha and p-value are not the same!</p>
+<ul class="simple">
+<li><p><strong>Alpha</strong>: The pre-determined probability of incorrectly rejecting a null hypothesis that is actually true.</p></li>
+<li><p><strong>P-value</strong>: The probability of getting a result at least as extreme as observed in the sample. It’s computed from the sample data, based on the type of test.</p></li>
+</ul>
+<p>If <span class="math notranslate nohighlight">\( p-value &lt; alpha \)</span> then the null hypothesis is rejected.</p>
+<p>“the probability that the data could have arisen if the null hypothesis is true,” is not the same as, “the probability that the null hypothesis is true given the data.” <span id="id1">[<a class="reference internal" href="#id6" title="Jacob Cohen. The earth is round (p &lt; .05). American Psychologist, 49(12):997–1003, 1994.">Cohen, 1994</a>]</span></p>
+</div>
 </section>
 <section id="sample-size-and-minimum-detectable-effect">
 <h3>Sample Size and Minimum Detectable Effect<a class="headerlink" href="#sample-size-and-minimum-detectable-effect" title="Link to this heading">#</a></h3>
-<p><a class="reference external" href="https://sample-size.net/sample-size-proportions/">sample-size.net</a> has a nice calculator for this.</p>
+<p>Handy calculators are available online for this such as <span id="id2">[<a class="reference internal" href="#id7" title="Mark A. Kohn and Janet Senyak. Sample size calculators. \textit UCSF CTSI Website, 2025. Available at https://www.sample-size.net/ [Accessed 30 January 2025].">Kohn and Senyak, 2025</a>]</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p0</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># Baseline conversion rate</span>
@@ -747,7 +758,7 @@ Interpretation: We are 95% confident that the true difference between the popula
 <section id="mann-whitney-u-test-non-parametric-test-to-determine-whether-a-numeric-outcome-variable-with-any-distribution-differs-across-two-independent-groups">
 <h3><strong>Mann-Whitney U-Test</strong>: Non-parametric test to determine whether a numeric outcome variable with any distribution differs across two independent groups.<a class="headerlink" href="#mann-whitney-u-test-non-parametric-test-to-determine-whether-a-numeric-outcome-variable-with-any-distribution-differs-across-two-independent-groups" title="Link to this heading">#</a></h3>
 <p><strong>Assumptions</strong>: The data should be ordinal, interval, or ratio scales where ranking is meaningful. While it does not require normality, it assumes that the differences between pairs are symmetrically distributed around the median. <br>
-<strong>Note</strong>: This test does not test specifically if the mean or median of two groups are equal, only if the overall distributions are significantly different or not. <a class="reference external" href="https://sites.utexas.edu/sos/guided/inferential/numeric/onecat/2-groups/independent/u-test/#:~:text=A%20Mann%2DWhitney%20U%2Dtest,Independent%20observations">source</a></p>
+<strong>Note</strong>: This test does not test specifically if the mean or median of two groups are equal, only if the overall distributions are significantly different or not <span id="id3">[<a class="reference internal" href="#id8" title="Mann-whitney u-test. https://sites.utexas.edu/sos/guided/inferential/numeric/onecat/2-groups/independent/u-test/. Accessed: 2025-01-30."><em>Mann-Whitney U-Test</em>, n.d.</a>]</span>.</p>
 <ul class="simple">
 <li><p>The Mann-Whitney U is the nonparametric alternative to the <strong>independent</strong> t-test.</p></li>
 </ul>
@@ -1758,13 +1769,20 @@ Kullback-Leibler Divergence (histogram method): 0.1083
 <h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://en.wikiversity.org/wiki/Analysis_of_variance">Analysis of Variance - Wikiversity</a></p></li>
-<li><p><span id="id1">[<a class="reference internal" href="#id3" title="Ron Kohavi, Diane Tang, and Ya Xu. Trustworthy Online Controlled Experiments: A Practical Guide to A/B Testing. Cambridge University Press, 2020. URL: https://experimentguide.com/.">Kohavi <em>et al.</em>, 2020</a>]</span>.</p></li>
 </ul>
-<div class="docutils container" id="id2">
+<div class="docutils container" id="id4">
 <div role="list" class="citation-list">
-<div class="citation" id="id3" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">KTX20</a><span class="fn-bracket">]</span></span>
-<p>Ron Kohavi, Diane Tang, and Ya Xu. <em>Trustworthy Online Controlled Experiments: A Practical Guide to A/B Testing</em>. Cambridge University Press, 2020. URL: <a class="reference external" href="https://experimentguide.com/">https://experimentguide.com/</a>.</p>
+<div class="citation" id="id8" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">man</a><span class="fn-bracket">]</span></span>
+<p>Mann-whitney u-test. <a class="reference external" href="https://sites.utexas.edu/sos/guided/inferential/numeric/onecat/2-groups/independent/u-test/">https://sites.utexas.edu/sos/guided/inferential/numeric/onecat/2-groups/independent/u-test/</a>. Accessed: 2025-01-30.</p>
+</div>
+<div class="citation" id="id6" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">Coh94</a><span class="fn-bracket">]</span></span>
+<p>Jacob Cohen. The earth is round (p &lt; .05). <em>American Psychologist</em>, 49(12):997–1003, 1994.</p>
+</div>
+<div class="citation" id="id7" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">KS25</a><span class="fn-bracket">]</span></span>
+<p>Mark A. Kohn and Janet Senyak. Sample size calculators. \textit UCSF CTSI Website, 2025. Available at <a class="reference external" href="https://www.sample-size.net/">https://www.sample-size.net/</a> [Accessed 30 January 2025].</p>
 </div>
 </div>
 </div>
