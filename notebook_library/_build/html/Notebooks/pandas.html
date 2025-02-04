@@ -1,0 +1,2846 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Pandas &#8212; Data Science Cookbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/book.css?v=4c0c071e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Notebooks/pandas';</script>
+    <link rel="canonical" href="jordanbarker.github.io/Notebooks/pandas.html" />
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Object-Oriented Programming" href="object_oriented_programming.html" />
+    <link rel="prev" title="Numpy" href="numpy.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo_with_text.png" class="logo__image only-light" alt="Data Science Cookbook - Home"/>
+    <img src="../_static/logo_with_text.png" class="logo__image only-dark pst-js-only" alt="Data Science Cookbook - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals <a class="anchor" id="chapter1"></a></a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="package_management.html">Package Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object_oriented_programming.html">Object-Oriented Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parallel_processing.html">Parallel Processing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="anomaly_detection.html">Anomaly Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="evaluation_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html">Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scaling.html">Scaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="statistical_tests.html">Statistical Tests (A/B Testing)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uncertainty.html">Uncertainty</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook_meta.html">Cookbook Meta</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Jordanbarker/jordanbarker.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Jordanbarker/jordanbarker.github.io/issues/new?title=Issue%20on%20page%20%2FNotebooks/pandas.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Notebooks/pandas.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Pandas</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframe-creation">DataFrame Creation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#options">Options</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-explore">Data Explore</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterate">Iterate</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#items">Items()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#itertuples">Itertuples()</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#join-merge-concate">Join / Merge / Concate</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concate">Concate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merge">Merge</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#groupby-aggregate">Groupby / Aggregate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering">Filtering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iloc">iloc</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loc">loc</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types">Data Types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datetime">Datetime <a class="anchor" id="Datetime"></a></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apply">Apply</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#date-features">Date Features</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pd-offsets"><code class="docutils literal notranslate"><span class="pre">pd.offsets</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#holidays">Holidays</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduce-memory-usage">Reduce Memory Usage</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="pandas">
+<h1>Pandas<a class="headerlink" href="#pandas" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pandas version: </span><span class="si">{</span><span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pandas version: 2.2.1
+</pre></div>
+</div>
+</div>
+</div>
+<section id="dataframe-creation">
+<h2>DataFrame Creation<a class="headerlink" href="#dataframe-creation" title="Link to this heading">#</a></h2>
+<p>There are a ton of ways to create a DataFrame. For example:</p>
+<ul class="simple">
+<li><p>pd.read_csv(‘name.csv’)</p></li>
+<li><p>pd.read_excel(‘name.xlsx’)</p></li>
+<li><p>pd.read_html(url)</p></li>
+<li><p>pd.read_json(path)</p></li>
+<li><p>pd.read_sql(query, connection)</p></li>
+</ul>
+<p>For a simple example below, I just create it manually with a <code class="docutils literal notranslate"><span class="pre">dict</span></code> object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">employee_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Joe&quot;</span><span class="p">,</span> <span class="s2">&quot;Jim&quot;</span><span class="p">,</span> <span class="s2">&quot;Henry&quot;</span><span class="p">,</span> <span class="s2">&quot;Sam&quot;</span><span class="p">,</span> <span class="s2">&quot;Max&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;salary&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">70000</span><span class="p">,</span> <span class="mi">90000</span><span class="p">,</span> <span class="mi">80000</span><span class="p">,</span> <span class="mi">60000</span><span class="p">,</span> <span class="mi">90000</span><span class="p">],</span>
+    <span class="s2">&quot;departmentId&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">employee_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">employee_data</span><span class="p">)</span>
+<span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;bonus&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;salary&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.012345</span>
+<span class="n">employee_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>salary</th>
+      <th>departmentId</th>
+      <th>bonus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Joe</td>
+      <td>70000</td>
+      <td>1</td>
+      <td>864.15</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Jim</td>
+      <td>90000</td>
+      <td>1</td>
+      <td>1111.05</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Henry</td>
+      <td>80000</td>
+      <td>2</td>
+      <td>987.60</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Sam</td>
+      <td>60000</td>
+      <td>2</td>
+      <td>740.70</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Max</td>
+      <td>90000</td>
+      <td>1</td>
+      <td>1111.05</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>You can save/read from your clipboard as well!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">employee_df</span><span class="o">.</span><span class="n">to_clipboard</span><span class="p">()</span>  
+<span class="n">pd</span><span class="o">.</span><span class="n">read_clipboard</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>salary</th>
+      <th>departmentId</th>
+      <th>bonus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Joe</td>
+      <td>70000</td>
+      <td>1</td>
+      <td>864.15</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="options">
+<h2>Options<a class="headerlink" href="#options" title="Link to this heading">#</a></h2>
+<p>Options allow you to control many aspects. My favorites are the display options, but a full list can be found here:
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/options.html#available-options">Available options</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Display Rows:&quot;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="s2">&quot;display.max_rows&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Display Columns:&quot;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="s2">&quot;display.max_columns&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Display Precision:&quot;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="s2">&quot;display.precision&quot;</span><span class="p">))</span>
+<span class="n">employee_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Display Rows: 60
+Display Columns: 20
+Display Precision: 6
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>salary</th>
+      <th>departmentId</th>
+      <th>bonus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Joe</td>
+      <td>70000</td>
+      <td>1</td>
+      <td>864.15</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Jim</td>
+      <td>90000</td>
+      <td>1</td>
+      <td>1111.05</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Henry</td>
+      <td>80000</td>
+      <td>2</td>
+      <td>987.60</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Sam</td>
+      <td>60000</td>
+      <td>2</td>
+      <td>740.70</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Max</td>
+      <td>90000</td>
+      <td>1</td>
+      <td>1111.05</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_rows&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_columns&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.precision&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">employee_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>...</th>
+      <th>bonus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>...</td>
+      <td>864.1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>...</td>
+      <td>1111.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 5 columns</p>
+</div></div></div>
+</div>
+<p>Display options can be reset like so:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">reset_option</span><span class="p">(</span><span class="s2">&quot;^display&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-explore">
+<h2>Data Explore<a class="headerlink" href="#data-explore" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;df.shape </span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="n">employee_df</span><span class="o">.</span><span class="n">shape</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;df.index </span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="n">employee_df</span><span class="o">.</span><span class="n">index</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;C.columns </span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">employee_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">employee_df</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>df.shape 	 (5, 5)
+df.index 	 RangeIndex(start=0, stop=5, step=1)
+C.columns 	 Index([&#39;id&#39;, &#39;name&#39;, &#39;salary&#39;, &#39;departmentId&#39;, &#39;bonus&#39;], dtype=&#39;object&#39;)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>salary</th>
+      <th>departmentId</th>
+      <th>bonus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>5.000000</td>
+      <td>5.00000</td>
+      <td>5.000000</td>
+      <td>5.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>3.000000</td>
+      <td>78000.00000</td>
+      <td>1.400000</td>
+      <td>962.910000</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1.581139</td>
+      <td>13038.40481</td>
+      <td>0.547723</td>
+      <td>160.959107</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1.000000</td>
+      <td>60000.00000</td>
+      <td>1.000000</td>
+      <td>740.700000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>2.000000</td>
+      <td>70000.00000</td>
+      <td>1.000000</td>
+      <td>864.150000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>3.000000</td>
+      <td>80000.00000</td>
+      <td>1.000000</td>
+      <td>987.600000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>4.000000</td>
+      <td>90000.00000</td>
+      <td>2.000000</td>
+      <td>1111.050000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>5.000000</td>
+      <td>90000.00000</td>
+      <td>2.000000</td>
+      <td>1111.050000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">employee_df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 5 entries, 0 to 4
+Data columns (total 5 columns):
+ #   Column        Non-Null Count  Dtype  
+---  ------        --------------  -----  
+ 0   id            5 non-null      int64  
+ 1   name          5 non-null      object 
+ 2   salary        5 non-null      int64  
+ 3   departmentId  5 non-null      int64  
+ 4   bonus         5 non-null      float64
+dtypes: float64(1), int64(3), object(1)
+memory usage: 332.0+ bytes
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">employee_df</span><span class="o">.</span><span class="n">memory_usage</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index           132
+id               40
+name            302
+salary           40
+departmentId     40
+bonus            40
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">employee_df</span><span class="o">.</span><span class="n">departmentId</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+    </tr>
+    <tr>
+      <th>departmentId</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">employee_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">employee_df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">employee_df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>salary</th>
+      <th>departmentId</th>
+      <th>bonus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Joe</td>
+      <td>70000</td>
+      <td>1</td>
+      <td>864.15</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>salary</th>
+      <th>departmentId</th>
+      <th>bonus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Max</td>
+      <td>90000</td>
+      <td>1</td>
+      <td>1111.05</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>salary</th>
+      <th>departmentId</th>
+      <th>bonus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Jim</td>
+      <td>90000</td>
+      <td>1</td>
+      <td>1111.05</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Joe</td>
+      <td>70000</td>
+      <td>1</td>
+      <td>864.15</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Sam</td>
+      <td>60000</td>
+      <td>2</td>
+      <td>740.70</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="iterate">
+<h2>Iterate<a class="headerlink" href="#iterate" title="Link to this heading">#</a></h2>
+<p>Never modify something you are iterating over. It returns a copy and dtypes are not preserved across the rows.</p>
+<section id="items">
+<h3><a class="reference external" href="https://pandas.pydata.org/pandas-docs/version/1.5/reference/api/pandas.DataFrame.items.html">Items()</a><a class="headerlink" href="#items" title="Link to this heading">#</a></h3>
+<p>Iterates over the DataFrame columns, returning a tuple with the column name and the content as a Series.</p>
+</section>
+<section id="itertuples">
+<h3><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.itertuples.html">Itertuples()</a><a class="headerlink" href="#itertuples" title="Link to this heading">#</a></h3>
+<p>Generally faster than <code class="docutils literal notranslate"><span class="pre">items()</span></code> and returns row data as a tuple.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">series</span> <span class="ow">in</span> <span class="n">employee_df</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;column_name:&quot;</span><span class="p">,</span> <span class="n">column_name</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+    <span class="k">break</span>
+
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">employee_df</span><span class="o">.</span><span class="n">itertuples</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">index=False __________________________&quot;</span><span class="p">)</span>    
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">employee_df</span><span class="o">.</span><span class="n">itertuples</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">name=&#39;t&#39; __________________________&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">employee_df</span><span class="o">.</span><span class="n">itertuples</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;t&#39;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>column_name: id
+0    1
+1    2
+2    3
+3    4
+4    5
+Name: id, dtype: int64
+0 Joe
+1 Jim
+2 Henry
+3 Sam
+4 Max
+Pandas(Index=0, id=1, name=&#39;Joe&#39;, salary=70000, departmentId=1, bonus=864.15)
+Pandas(Index=1, id=2, name=&#39;Jim&#39;, salary=90000, departmentId=1, bonus=1111.05)
+Pandas(Index=2, id=3, name=&#39;Henry&#39;, salary=80000, departmentId=2, bonus=987.6)
+Pandas(Index=3, id=4, name=&#39;Sam&#39;, salary=60000, departmentId=2, bonus=740.7)
+Pandas(Index=4, id=5, name=&#39;Max&#39;, salary=90000, departmentId=1, bonus=1111.05)
+
+index=False __________________________
+Pandas(id=1, name=&#39;Joe&#39;, salary=70000, departmentId=1, bonus=864.15)
+Pandas(id=2, name=&#39;Jim&#39;, salary=90000, departmentId=1, bonus=1111.05)
+Pandas(id=3, name=&#39;Henry&#39;, salary=80000, departmentId=2, bonus=987.6)
+Pandas(id=4, name=&#39;Sam&#39;, salary=60000, departmentId=2, bonus=740.7)
+Pandas(id=5, name=&#39;Max&#39;, salary=90000, departmentId=1, bonus=1111.05)
+
+name=&#39;t&#39; __________________________
+t(Index=0, id=1, name=&#39;Joe&#39;, salary=70000, departmentId=1, bonus=864.15)
+t(Index=1, id=2, name=&#39;Jim&#39;, salary=90000, departmentId=1, bonus=1111.05)
+t(Index=2, id=3, name=&#39;Henry&#39;, salary=80000, departmentId=2, bonus=987.6)
+t(Index=3, id=4, name=&#39;Sam&#39;, salary=60000, departmentId=2, bonus=740.7)
+t(Index=4, id=5, name=&#39;Max&#39;, salary=90000, departmentId=1, bonus=1111.05)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="join-merge-concate">
+<h2>Join / Merge / Concate<a class="headerlink" href="#join-merge-concate" title="Link to this heading">#</a></h2>
+<section id="concate">
+<h3><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html">Concate</a><a class="headerlink" href="#concate" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;letter&#39;</span><span class="p">,</span> <span class="s1">&#39;number&#39;</span><span class="p">])</span>
+<span class="c1">#       letter  number</span>
+<span class="c1"># 0      a       1</span>
+<span class="c1"># 1      b       2</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;letter&#39;</span><span class="p">,</span> <span class="s1">&#39;number&#39;</span><span class="p">])</span>
+<span class="c1">#       letter  number</span>
+<span class="c1"># 0      c       3</span>
+<span class="c1"># 1      d       4</span>
+<span class="n">df3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">])</span>
+<span class="n">df3</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>letter</th>
+      <th>number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>a</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>b</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>c</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>d</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="merge">
+<h3><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.merge.html">Merge</a><a class="headerlink" href="#merge" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><em>Inner-join (<code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code>)</em> (default): Keep only rows of <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> where the on-keys match in both.</p></li>
+<li><p><em>Outer-join (<code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code>)</em>: Keep all rows of both frames, but merge rows when the on-keys match. For non-matches, fill in missing values with not-a-number (<code class="docutils literal notranslate"><span class="pre">NaN</span></code>) values.</p></li>
+<li><p><em>Left-join (<code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code>)</em>: Keep all rows of <code class="docutils literal notranslate"><span class="pre">A</span></code>. Only merge rows of <code class="docutils literal notranslate"><span class="pre">B</span></code> whose on-keys match <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p></li>
+<li><p><em>Right-join (<code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code>)</em>: Keep all rows of <code class="docutils literal notranslate"><span class="pre">B</span></code>. Only merge rows of <code class="docutils literal notranslate"><span class="pre">A</span></code> whose on-keys match <code class="docutils literal notranslate"><span class="pre">B</span></code>.</p></li>
+</ul>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">merge</span></code>’s <code class="docutils literal notranslate"><span class="pre">how=...</span></code> parameter, which takes the (string) values, <code class="docutils literal notranslate"><span class="pre">'inner</span></code>’, <code class="docutils literal notranslate"><span class="pre">'outer'</span></code>, <code class="docutils literal notranslate"><span class="pre">'left'</span></code>, and <code class="docutils literal notranslate"><span class="pre">'right'</span></code>. Here are some examples of these types of joins.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mergeA</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="p">],</span> 
+                       <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;b1&#39;</span><span class="p">,</span> <span class="s1">&#39;b2&#39;</span><span class="p">]})</span>
+<span class="n">mergeB</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="p">,</span><span class="s1">&#39;a3&#39;</span><span class="p">],</span> 
+                       <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;c1&#39;</span><span class="p">,</span> <span class="s1">&#39;c2&#39;</span><span class="p">,</span><span class="s1">&#39;c3&#39;</span><span class="p">]})</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Inner-join ===&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">mergeA</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">mergeB</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Outer-join ===&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">mergeA</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">mergeB</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Left-join ===&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">mergeA</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">mergeB</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Right-join ===&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">mergeA</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">mergeB</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">))</span>
+
+
+<span class="n">mergeC</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="p">,</span><span class="s1">&#39;a3&#39;</span><span class="p">],</span> 
+                       <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;c1&#39;</span><span class="p">,</span> <span class="s1">&#39;c2&#39;</span><span class="p">,</span><span class="s1">&#39;c3&#39;</span><span class="p">]})</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">mergeA</span><span class="p">,</span> <span class="n">mergeC</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="n">right_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Inner-join ===
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>a1</td>
+      <td>b1</td>
+      <td>c1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>a2</td>
+      <td>b2</td>
+      <td>c2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Outer-join ===
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>a1</td>
+      <td>b1</td>
+      <td>c1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>a2</td>
+      <td>b2</td>
+      <td>c2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>a3</td>
+      <td>NaN</td>
+      <td>c3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Left-join ===
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>a1</td>
+      <td>b1</td>
+      <td>c1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>a2</td>
+      <td>b2</td>
+      <td>c2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Right-join ===
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>a1</td>
+      <td>b1</td>
+      <td>c1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>a2</td>
+      <td>b2</td>
+      <td>c2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>a3</td>
+      <td>NaN</td>
+      <td>c3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>a1</td>
+      <td>b1</td>
+      <td>a1</td>
+      <td>c1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>a2</td>
+      <td>b2</td>
+      <td>a2</td>
+      <td>c2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="groupby-aggregate">
+<h3><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html">Groupby</a> / <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.agg.html">Aggregate</a><a class="headerlink" href="#groupby-aggregate" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">employee_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;departmentId&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;count&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>departmentId</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">employee_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;departmentId&#39;</span><span class="p">)[</span><span class="s1">&#39;salary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>min</th>
+      <th>max</th>
+      <th>mean</th>
+      <th>median</th>
+    </tr>
+    <tr>
+      <th>departmentId</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>70000</td>
+      <td>90000</td>
+      <td>83333.333333</td>
+      <td>90000.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>60000</td>
+      <td>80000</td>
+      <td>70000.000000</td>
+      <td>70000.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="filtering">
+<h2>Filtering<a class="headerlink" href="#filtering" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.filter.html">df.filter()</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filter_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]],</span>
+                  <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mouse&#39;</span><span class="p">,</span> <span class="s1">&#39;rabbit&#39;</span><span class="p">],</span>
+                  <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">])</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">filter_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">]))</span>           <span class="c1"># by column</span>
+<span class="n">display</span><span class="p">(</span><span class="n">filter_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mouse&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span> <span class="c1"># by row</span>
+<span class="n">display</span><span class="p">(</span><span class="n">filter_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">like</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">))</span>                <span class="c1"># non-exact match</span>
+<span class="n">display</span><span class="p">(</span><span class="n">filter_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="s1">&#39;e$&#39;</span><span class="p">))</span>              <span class="c1"># using regular expression (e$ matches to strings that end in e)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>one</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>mouse</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>rabbit</th>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>one</th>
+      <th>two</th>
+      <th>three</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>mouse</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>one</th>
+      <th>two</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>mouse</th>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>rabbit</th>
+      <td>4</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>one</th>
+      <th>three</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>mouse</th>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>rabbit</th>
+      <td>4</td>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">df.all()</span></code> Returns True if all elements are True.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.any()</span></code> Returns True if any elements are True.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All salaries in employee_df are less than 80000:&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;salary&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">80000</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Any salaries in employee_df are less than 80000:&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;salary&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">80000</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">(),</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All salaries in employee_df are less than 80000: False 
+
+Any salaries in employee_df are less than 80000: True 
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">isna()</span></code> / <code class="docutils literal notranslate"><span class="pre">isnull()</span></code> Detect missing values <br>
+<code class="docutils literal notranslate"><span class="pre">notna()</span></code> / <code class="docutils literal notranslate"><span class="pre">notnull()</span></code> Detect non-missing values <br></p>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop.html"><code class="docutils literal notranslate"><span class="pre">df.drop()</span></code></a></p>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop_duplicates.html">df.drop_duplicates()</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dropdf</span> <span class="o">=</span> <span class="n">employee_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Drop indexes: </span><span class="se">\n</span><span class="s1">dropdf.drop([0,1]&#39;</span><span class="p">)</span>
+<span class="n">dropdf</span> <span class="o">=</span> <span class="n">dropdf</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span> 
+<span class="n">display</span><span class="p">(</span><span class="n">dropdf</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;dropdf.drop([&quot;&#39;</span><span class="s2">&quot;bonus&quot;</span><span class="s1">&#39;&quot;], axis=1)&#39;</span><span class="p">)</span>
+<span class="n">dropdf</span> <span class="o">=</span> <span class="n">dropdf</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;bonus&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+<span class="n">display</span><span class="p">(</span><span class="n">dropdf</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;del dropdf[&quot;&#39;</span><span class="s2">&quot;departmentId&quot;</span><span class="s1">&#39;&quot;]&#39;</span><span class="p">)</span>
+<span class="k">del</span> <span class="n">dropdf</span><span class="p">[</span><span class="s1">&#39;departmentId&#39;</span><span class="p">]</span>
+<span class="n">display</span><span class="p">(</span><span class="n">dropdf</span><span class="p">)</span>
+
+<span class="n">employee_df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;departmentId&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Drop indexes: 
+dropdf.drop([0,1]
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>salary</th>
+      <th>departmentId</th>
+      <th>bonus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Henry</td>
+      <td>80000</td>
+      <td>2</td>
+      <td>987.60</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Sam</td>
+      <td>60000</td>
+      <td>2</td>
+      <td>740.70</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Max</td>
+      <td>90000</td>
+      <td>1</td>
+      <td>1111.05</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dropdf.drop([&quot;bonus&quot;], axis=1)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>salary</th>
+      <th>departmentId</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Henry</td>
+      <td>80000</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Sam</td>
+      <td>60000</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Max</td>
+      <td>90000</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>del dropdf[&quot;departmentId&quot;]
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>salary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Henry</td>
+      <td>80000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Sam</td>
+      <td>60000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Max</td>
+      <td>90000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>salary</th>
+      <th>departmentId</th>
+      <th>bonus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Joe</td>
+      <td>70000</td>
+      <td>1</td>
+      <td>864.15</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Henry</td>
+      <td>80000</td>
+      <td>2</td>
+      <td>987.60</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.isin.html"><code class="docutils literal notranslate"><span class="pre">df.isin()</span></code></a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">employee_df</span><span class="p">[</span><span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;Joe&#39;</span><span class="p">,</span> <span class="s1">&#39;Henry&#39;</span><span class="p">])]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>salary</th>
+      <th>departmentId</th>
+      <th>bonus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Joe</td>
+      <td>70000</td>
+      <td>1</td>
+      <td>864.15</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Henry</td>
+      <td>80000</td>
+      <td>2</td>
+      <td>987.60</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="iloc">
+<h3>iloc<a class="headerlink" href="#iloc" title="Link to this heading">#</a></h3>
+<p>Primarily integer position based (from 0 to length-1 of the axis), but may also be used with a boolean array.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">employee_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>salary</th>
+      <th>departmentId</th>
+      <th>bonus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Jim</td>
+      <td>90000</td>
+      <td>1</td>
+      <td>1111.05</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="loc">
+<h3>loc<a class="headerlink" href="#loc" title="Link to this heading">#</a></h3>
+<p>Label based, but may also be used with a boolean array.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">employee_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">employee_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">!=</span> <span class="s1">&#39;departmentId&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>salary</th>
+      <th>bonus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Joe</td>
+      <td>70000</td>
+      <td>864.15</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Jim</td>
+      <td>90000</td>
+      <td>1111.05</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Henry</td>
+      <td>80000</td>
+      <td>987.60</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Sam</td>
+      <td>60000</td>
+      <td>740.70</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Max</td>
+      <td>90000</td>
+      <td>1111.05</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="data-types">
+<h2>Data Types<a class="headerlink" href="#data-types" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.astype.html"><code class="docutils literal notranslate"><span class="pre">astype</span></code></a></p>
+<p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype"><code class="docutils literal notranslate"><span class="pre">dtype</span></code></a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">employee_df</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="s1">&#39;column&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="s1">&#39;dtype&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>column</th>
+      <th>dtype</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>id</td>
+      <td>int64</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>name</td>
+      <td>object</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>salary</td>
+      <td>int64</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>departmentId</td>
+      <td>int64</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>bonus</td>
+      <td>float64</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="datetime">
+<h3>Datetime <a class="anchor" id="Datetime"></a><a class="headerlink" href="#datetime" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.to_datetime.html?highlight=to_datetime">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.to_datetime.html?highlight=to_datetime</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">2016</span><span class="p">],</span>
+    <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="s1">&#39;day&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">date_df</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">date_df</span><span class="p">)</span>
+<span class="n">date_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>month</th>
+      <th>day</th>
+      <th>datetime</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2015</td>
+      <td>2</td>
+      <td>4</td>
+      <td>2015-02-04</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2016</td>
+      <td>3</td>
+      <td>5</td>
+      <td>2016-03-05</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date_df</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">date_df</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+<span class="n">date_df</span><span class="p">[</span><span class="s1">&#39;Month&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">date_df</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span>
+<span class="n">date_df</span><span class="p">[</span><span class="s1">&#39;Day&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">date_df</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day</span>
+<span class="n">date_df</span><span class="p">[</span><span class="s1">&#39;Day Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">date_df</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day_name</span><span class="p">()</span>
+<span class="n">date_df</span><span class="p">[</span><span class="s1">&#39;Month Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">date_df</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month_name</span><span class="p">()</span>
+<span class="n">date_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>month</th>
+      <th>day</th>
+      <th>datetime</th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Day</th>
+      <th>Day Name</th>
+      <th>Month Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2015</td>
+      <td>2</td>
+      <td>4</td>
+      <td>2015-02-04</td>
+      <td>2015</td>
+      <td>2</td>
+      <td>4</td>
+      <td>Wednesday</td>
+      <td>February</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2016</td>
+      <td>3</td>
+      <td>5</td>
+      <td>2016-03-05</td>
+      <td>2016</td>
+      <td>3</td>
+      <td>5</td>
+      <td>Saturday</td>
+      <td>March</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date_df</span><span class="p">[</span><span class="n">date_df</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2015-12-12&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>month</th>
+      <th>day</th>
+      <th>datetime</th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Day</th>
+      <th>Day Name</th>
+      <th>Month Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>2016</td>
+      <td>3</td>
+      <td>5</td>
+      <td>2016-03-05</td>
+      <td>2016</td>
+      <td>3</td>
+      <td>5</td>
+      <td>Saturday</td>
+      <td>March</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date_df</span><span class="p">[</span><span class="n">date_df</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="s1">&#39;2015-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2015-07-01&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>month</th>
+      <th>day</th>
+      <th>datetime</th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Day</th>
+      <th>Day Name</th>
+      <th>Month Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2015</td>
+      <td>2</td>
+      <td>4</td>
+      <td>2015-02-04</td>
+      <td>2015</td>
+      <td>2</td>
+      <td>4</td>
+      <td>Wednesday</td>
+      <td>February</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="apply">
+<h3><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.apply.html">Apply</a><a class="headerlink" href="#apply" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;above_average_salary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;salary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">employee_df</span><span class="p">[</span><span class="s1">&#39;salary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="p">)</span>
+<span class="n">employee_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>salary</th>
+      <th>departmentId</th>
+      <th>bonus</th>
+      <th>above_average_salary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Joe</td>
+      <td>70000</td>
+      <td>1</td>
+      <td>864.15</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Jim</td>
+      <td>90000</td>
+      <td>1</td>
+      <td>1111.05</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Henry</td>
+      <td>80000</td>
+      <td>2</td>
+      <td>987.60</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Sam</td>
+      <td>60000</td>
+      <td>2</td>
+      <td>740.70</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Max</td>
+      <td>90000</td>
+      <td>1</td>
+      <td>1111.05</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="date-features">
+<h2>Date Features<a class="headerlink" href="#date-features" title="Link to this heading">#</a></h2>
+<section id="pd-offsets">
+<h3><code class="docutils literal notranslate"><span class="pre">pd.offsets</span></code><a class="headerlink" href="#pd-offsets" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2023-01-06&#39;</span><span class="p">)</span>  <span class="c1"># Friday</span>
+<span class="n">new_date</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">months</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># Timestamp(&#39;2023-04-06&#39;)</span>
+
+<span class="n">next_day</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">Day</span><span class="p">()</span> <span class="c1"># 2023-01-07  # Saturday</span>
+<span class="n">next_business_day</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">BusinessDay</span><span class="p">()</span> <span class="c1"># 2023-01-09  # Monday</span>
+
+<span class="n">next_week</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">Week</span><span class="p">(</span><span class="n">weekday</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 2023-01-09 Move to next Monday (weekday must be 0&lt;=day&lt;=6)</span>
+
+<span class="n">month_start</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">MonthBegin</span><span class="p">()</span> <span class="c1"># 2023-02-01</span>
+<span class="n">month_end</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">MonthEnd</span><span class="p">()</span> <span class="c1"># 2023-01-31&#39;</span>
+
+<span class="n">year_start</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">YearBegin</span><span class="p">()</span> <span class="c1"># 2024-01-01</span>
+<span class="n">year_end</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">YearEnd</span><span class="p">()</span> <span class="c1"># 2023-12-31</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="holidays">
+<h3>Holidays<a class="headerlink" href="#holidays" title="Link to this heading">#</a></h3>
+<p>Panda’s holiday methods live here and are a great jumping off point:
+<a class="github reference external" href="https://github.com/pandas-dev/pandas/blob/main/pandas/tseries/holiday.py">pandas-dev/pandas</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pandas.tseries.holiday</span><span class="w"> </span><span class="kn">import</span> <span class="n">Holiday</span><span class="p">,</span> <span class="n">AbstractHolidayCalendar</span><span class="p">,</span> <span class="n">MO</span><span class="p">,</span> <span class="n">nearest_workday</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">CanadaHolidayCalendar</span><span class="p">(</span><span class="n">AbstractHolidayCalendar</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;https://www.statutoryholidays.com/&#39;&#39;&#39;</span>
+    <span class="n">rules</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s2">&quot;New Year&#39;s Day&quot;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">observance</span><span class="o">=</span><span class="n">nearest_workday</span><span class="p">),</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s2">&quot;Family Day&quot;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">weekday</span><span class="o">=</span><span class="n">MO</span><span class="p">(</span><span class="mi">3</span><span class="p">))),</span>
+        <span class="n">pd</span><span class="o">.</span><span class="n">tseries</span><span class="o">.</span><span class="n">holiday</span><span class="o">.</span><span class="n">GoodFriday</span><span class="p">,</span>
+        <span class="n">pd</span><span class="o">.</span><span class="n">tseries</span><span class="o">.</span><span class="n">holiday</span><span class="o">.</span><span class="n">EasterMonday</span><span class="p">,</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;Victoria Day&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">weekday</span><span class="o">=</span><span class="n">MO</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))),</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;Saint-Jean-Baptiste Day&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">24</span><span class="p">),</span>  <span class="c1"># Quebec only</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;Canada Day&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">observance</span><span class="o">=</span><span class="n">nearest_workday</span><span class="p">),</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;Civic Holiday&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>  <span class="c1"># Excluding Quebec</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;Labour Day&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">weekday</span><span class="o">=</span><span class="n">MO</span><span class="p">(</span><span class="mi">1</span><span class="p">))),</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;National Day for Truth and Reconciliation&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">30</span><span class="p">),</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;Thanksgiving Day&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">weekday</span><span class="o">=</span><span class="n">MO</span><span class="p">(</span><span class="mi">2</span><span class="p">))),</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;Remembrance Day&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">observance</span><span class="o">=</span><span class="n">nearest_workday</span><span class="p">),</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;Christmas Day&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">25</span><span class="p">),</span>
+        <span class="n">Holiday</span><span class="p">(</span><span class="s1">&#39;Boxing Day&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">26</span><span class="p">),</span>
+    <span class="p">]</span>
+
+<span class="n">ca_holidays</span> <span class="o">=</span> <span class="n">CanadaHolidayCalendar</span><span class="p">()</span><span class="o">.</span><span class="n">holidays</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s1">&#39;2024-01-01&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;2024-12-31&#39;</span><span class="p">,</span> <span class="n">return_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ca_holiday_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ca_holidays</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Holiday&#39;</span><span class="p">])</span>
+<span class="n">ca_holiday_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Holiday</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2024-01-01</th>
+      <td>New Year's Day</td>
+    </tr>
+    <tr>
+      <th>2024-02-19</th>
+      <td>Family Day</td>
+    </tr>
+    <tr>
+      <th>2024-03-29</th>
+      <td>Good Friday</td>
+    </tr>
+    <tr>
+      <th>2024-04-01</th>
+      <td>Easter Monday</td>
+    </tr>
+    <tr>
+      <th>2024-05-20</th>
+      <td>Victoria Day</td>
+    </tr>
+    <tr>
+      <th>2024-06-24</th>
+      <td>Saint-Jean-Baptiste Day</td>
+    </tr>
+    <tr>
+      <th>2024-07-01</th>
+      <td>Canada Day</td>
+    </tr>
+    <tr>
+      <th>2024-08-05</th>
+      <td>Civic Holiday</td>
+    </tr>
+    <tr>
+      <th>2024-09-02</th>
+      <td>Labour Day</td>
+    </tr>
+    <tr>
+      <th>2024-09-30</th>
+      <td>National Day for Truth and Reconciliation</td>
+    </tr>
+    <tr>
+      <th>2024-10-14</th>
+      <td>Thanksgiving Day</td>
+    </tr>
+    <tr>
+      <th>2024-11-11</th>
+      <td>Remembrance Day</td>
+    </tr>
+    <tr>
+      <th>2024-12-25</th>
+      <td>Christmas Day</td>
+    </tr>
+    <tr>
+      <th>2024-12-26</th>
+      <td>Boxing Day</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="reduce-memory-usage">
+<h2>Reduce Memory Usage<a class="headerlink" href="#reduce-memory-usage" title="Link to this heading">#</a></h2>
+<p>Credit to <a class="reference external" href="https://github.com/matthiasanderer">Matthias</a> for this from his second place <a class="reference external" href="https://github.com/matthiasanderer/m5-accuracy-competition/blob/main/m5-simple-fe-evaluation.ipynb">submission</a> in the m5 forecasting competition.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span> 
+
+<span class="k">def</span><span class="w"> </span><span class="nf">reduce_mem_usage</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">numerics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;int16&#39;</span><span class="p">,</span> <span class="s1">&#39;int32&#39;</span><span class="p">,</span> <span class="s1">&#39;int64&#39;</span><span class="p">,</span> <span class="s1">&#39;float16&#39;</span><span class="p">,</span> <span class="s1">&#39;float32&#39;</span><span class="p">,</span> <span class="s1">&#39;float64&#39;</span><span class="p">]</span>
+    <span class="n">start_mem</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">memory_usage</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">2</span>    
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">col_type</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtypes</span>
+        <span class="k">if</span> <span class="n">col_type</span> <span class="ow">in</span> <span class="n">numerics</span><span class="p">:</span>
+            <span class="n">c_min</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+            <span class="n">c_max</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">col_type</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;int&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">c_min</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span><span class="o">.</span><span class="n">min</span> <span class="ow">and</span> <span class="n">c_max</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
+                    <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">c_min</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span><span class="o">.</span><span class="n">min</span> <span class="ow">and</span> <span class="n">c_max</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
+                       <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">c_min</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">min</span> <span class="ow">and</span> <span class="n">c_max</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
+                    <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">c_min</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span><span class="o">.</span><span class="n">min</span> <span class="ow">and</span> <span class="n">c_max</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
+                    <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>  
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">c_min</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span><span class="o">.</span><span class="n">min</span> <span class="ow">and</span> <span class="n">c_max</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
+                    <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">c_min</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">min</span> <span class="ow">and</span> <span class="n">c_max</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
+                    <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>    
+    <span class="n">end_mem</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">memory_usage</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mem. usage decreased to </span><span class="si">{:5.2f}</span><span class="s1"> Mb (</span><span class="si">{:.1f}% r</span><span class="s1">eduction)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">end_mem</span><span class="p">,</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">start_mem</span> <span class="o">-</span> <span class="n">end_mem</span><span class="p">)</span> <span class="o">/</span> <span class="n">start_mem</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="numpy.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Numpy</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="object_oriented_programming.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Object-Oriented Programming</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframe-creation">DataFrame Creation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#options">Options</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-explore">Data Explore</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterate">Iterate</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#items">Items()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#itertuples">Itertuples()</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#join-merge-concate">Join / Merge / Concate</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concate">Concate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merge">Merge</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#groupby-aggregate">Groupby / Aggregate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering">Filtering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iloc">iloc</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loc">loc</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types">Data Types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datetime">Datetime <a class="anchor" id="Datetime"></a></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apply">Apply</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#date-features">Date Features</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pd-offsets"><code class="docutils literal notranslate"><span class="pre">pd.offsets</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#holidays">Holidays</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduce-memory-usage">Reduce Memory Usage</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jordan Barker
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
