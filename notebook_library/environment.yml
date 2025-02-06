@@ -1,4 +1,4 @@
-name: cookbook_env
+name: cookbook
 dependencies:  
 - numpy
 - pandas
