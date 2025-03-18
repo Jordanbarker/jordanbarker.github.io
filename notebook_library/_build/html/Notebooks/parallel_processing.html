@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/book.css?v=4c0c071e" />
@@ -377,7 +377,6 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-gil-global-interpreter-lock-in-python">The GIL (Global Interpreter Lock) in Python</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cpu-bound-vs-i-o-bound-tasks">CPU-bound vs. I/O-bound Tasks</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelism-vs-concurrency">Parallelism vs. Concurrency</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges">Challenges</a></li>
 </ul>
@@ -409,13 +408,6 @@
 <section id="the-gil-global-interpreter-lock-in-python">
 <h3>The GIL (Global Interpreter Lock) in Python<a class="headerlink" href="#the-gil-global-interpreter-lock-in-python" title="Link to this heading">#</a></h3>
 <p>Python’s GIL allows only one thread to execute at a time in a single process, affecting CPU-bound threading performance.</p>
-</section>
-<section id="cpu-bound-vs-i-o-bound-tasks">
-<h3>CPU-bound vs. I/O-bound Tasks<a class="headerlink" href="#cpu-bound-vs-i-o-bound-tasks" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>CPU-bound tasks: Require significant CPU resources (e.g., mathematical computations).</p></li>
-<li><p>I/O-bound tasks: Spend time waiting for input/output operations (e.g., reading files, network requests).</p></li>
-</ul>
 </section>
 <section id="parallelism-vs-concurrency">
 <h3>Parallelism vs. Concurrency<a class="headerlink" href="#parallelism-vs-concurrency" title="Link to this heading">#</a></h3>
@@ -480,38 +472,37 @@
 </div>
 </div>
 </div>
-<p>Process, Pool, and <code class="docutils literal notranslate"><span class="pre">map</span></code></p>
+<p>Parallelize the computation using <code class="docutils literal notranslate"><span class="pre">Pool</span></code> to create 4 worker processes. This distributes the function across them.</p>
 <div class="cell tag_no-execute docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">multiprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pool</span>
 
-<span class="c1"># worker.py</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">square</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
 
 <span class="k">with</span> <span class="n">Pool</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-    
-<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <section id="communication-between-processes">
 <h3>Communication Between Processes<a class="headerlink" href="#communication-between-processes" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Queue</span></code> allows us to communicate between processes.</p>
+<p>In this example, a new process starts with the queue as an argument. Inside the worker function, <code class="docutils literal notranslate"><span class="pre">q.put('Hello</span> <span class="pre">from</span> <span class="pre">worker')</span></code> adds a message to the queue.</p>
 <div class="cell tag_no-execute docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">multiprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Process</span><span class="p">,</span> <span class="n">Queue</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">worker</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
-    <span class="n">q</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s1">&#39;Hello from worker&#39;</span><span class="p">)</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s1">&#39;Hello from worker&#39;</span><span class="p">)</span> <span class="c1"># Add message to the queue</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">q</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">worker</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">q</span><span class="p">,))</span>
     <span class="n">p</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>  <span class="c1"># Output: Hello from worker</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">join</span><span class="p">()</span> <span class="c1"># Ensures the worker process completes before exiting.</span>
 </pre></div>
 </div>
 </div>
@@ -539,7 +530,7 @@
 </section>
 <section id="managing-shared-memory">
 <h3>Managing Shared Memory<a class="headerlink" href="#managing-shared-memory" title="Link to this heading">#</a></h3>
-<p>Value and Array in Shared Memory</p>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">Value</span></code> and <code class="docutils literal notranslate"><span class="pre">Array</span></code> to share memory across processes.</p>
 <div class="cell tag_no-execute docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">multiprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Process</span><span class="p">,</span> <span class="n">Value</span><span class="p">,</span> <span class="n">Array</span>
@@ -551,12 +542,21 @@
 <span class="n">p</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">increment</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">num</span><span class="p">,))</span>
 <span class="n">p</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 <span class="n">p</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">num</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>  <span class="c1"># Output: 1</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+</div>
+<p>Here is how it would look with <code class="docutils literal notranslate"><span class="pre">Array</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">increment</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="p">)):</span>
+        <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">nums</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>  <span class="c1"># Shared array of integers</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">increment</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">nums</span><span class="p">,))</span>
+<span class="n">p</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">p</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -580,6 +580,7 @@
 </div>
 </div>
 </div>
+<p>Here is an example to perform asynchronous HTTP requests, which allows other tasks to proceed while waiting for the response.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
@@ -677,7 +678,6 @@
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-gil-global-interpreter-lock-in-python">The GIL (Global Interpreter Lock) in Python</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cpu-bound-vs-i-o-bound-tasks">CPU-bound vs. I/O-bound Tasks</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelism-vs-concurrency">Parallelism vs. Concurrency</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges">Challenges</a></li>
 </ul>

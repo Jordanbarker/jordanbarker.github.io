@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/book.css?v=4c0c071e" />
@@ -377,6 +377,7 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mamba">Mamba</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uv">uv</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-a-package-in-development-mode">Installing a package in development mode</a></li>
 </ul>
             </nav>
         </div>
@@ -423,23 +424,23 @@
 <tr class="row-odd"><td><p>Remove a package</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">mamba</span> <span class="pre">remove</span> <span class="pre">matplotlib</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>List all environments</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">mamba</span> <span class="pre">env</span> <span class="pre">list</span></code></p></td>
+<tr class="row-even"><td><p>Remove an environment</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mamba</span> <span class="pre">remove</span> <span class="pre">--name</span> <span class="pre">myenv</span> <span class="pre">--all</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>List packages</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">mamba</span> <span class="pre">list</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>Export environment to a file</p></td>
+<tr class="row-even"><td><p>List all environments</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mamba</span> <span class="pre">env</span> <span class="pre">list</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Export environment to a file</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">mamba</span> <span class="pre">env</span> <span class="pre">export</span> <span class="pre">&gt;</span> <span class="pre">environment.yml</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>Create an environment from a file</p></td>
+<tr class="row-even"><td><p>Create an environment from a file</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">mamba</span> <span class="pre">env</span> <span class="pre">create</span> <span class="pre">-f</span> <span class="pre">environment.yml</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>Update mamba to the latest version</p></td>
+<tr class="row-odd"><td><p>Update mamba to the latest version</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">mamba</span> <span class="pre">update</span> <span class="pre">mamba</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>Remove an environment</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">mamba</span> <span class="pre">remove</span> <span class="pre">--name</span> <span class="pre">myenv</span> <span class="pre">--all</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -461,29 +462,36 @@
 <td><p><code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">python</span> <span class="pre">install</span> <span class="pre">3.12</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Install packages</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pandas</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Add dependency</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">add</span> <span class="pre">django</span> <span class="pre">requests</span> <span class="pre">&quot;pandas&gt;=2.3&quot;</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>Remove package</p></td>
+<tr class="row-even"><td><p>Remove package</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">remove</span> <span class="pre">django</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>List packages</p></td>
+<tr class="row-odd"><td><p>List packages</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">python</span> <span class="pre">list</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>See package dependency tree</p></td>
+<tr class="row-even"><td><p>See package dependency tree</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">tree</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>Run a python script directly w/o starting venv</p></td>
+<tr class="row-odd"><td><p>Run a python script directly w/o starting venv</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span> <span class="pre">main.py</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>Run a cli tool like Ruff</p></td>
+<tr class="row-even"><td><p>Run a cli tool like Ruff</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span> <span class="pre">tool</span> <span class="pre">ruff</span></code> (or <code class="docutils literal notranslate"><span class="pre">uvx</span> <span class="pre">ruff</span></code>)</p></td>
 </tr>
-<tr class="row-even"><td><p>Update uv version to latest</p></td>
+<tr class="row-odd"><td><p>Update uv version to latest</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">self</span> <span class="pre">update</span></code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
+</section>
+<section id="installing-a-package-in-development-mode">
+<h2>Installing a package in development mode<a class="headerlink" href="#installing-a-package-in-development-mode" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code></p>
 </section>
 </section>
 
@@ -554,6 +562,7 @@
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mamba">Mamba</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uv">uv</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-a-package-in-development-mode">Installing a package in development mode</a></li>
 </ul>
   </nav></div>
 

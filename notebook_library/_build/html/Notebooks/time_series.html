@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/book.css?v=4c0c071e" />
@@ -377,6 +377,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-generation">Data Generation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stationary">Stationary</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#augmented-dickey-fuller">Augmented Dickey-Fuller</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acf-autocorrelation-function">ACF (Autocorrelation Function)</a></li>
@@ -417,6 +418,9 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="time-series">
 <h1>Time Series<a class="headerlink" href="#time-series" title="Link to this heading">#</a></h1>
+<p>This notebook contains a high level overview of time series concepts using a dummy dataset.</p>
+<section id="data-generation">
+<h2>Data Generation<a class="headerlink" href="#data-generation" title="Link to this heading">#</a></h2>
 <p>Generate Data with linear trend with a cyclic pattern and random noise</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -477,7 +481,7 @@
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/20807c42b0f5284f24aafe9ff6f5d175fd5480d74319f86c0e6c13073c35e44e.png" src="../_images/20807c42b0f5284f24aafe9ff6f5d175fd5480d74319f86c0e6c13073c35e44e.png" />
+<img alt="../_images/a43d14b18d4e60bbdcebf40f7d4d39cd703e3d20d55bae29159575c80013caee.png" src="../_images/a43d14b18d4e60bbdcebf40f7d4d39cd703e3d20d55bae29159575c80013caee.png" />
 </div>
 </div>
 <p>Also creating monthly data since ARIMA models are too compute intensive for daily.</p>
@@ -512,9 +516,10 @@
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/de1c5d05b7da443b5410242758e6b6bea6f7b2925e675569f99dd6f5230492a9.png" src="../_images/de1c5d05b7da443b5410242758e6b6bea6f7b2925e675569f99dd6f5230492a9.png" />
+<img alt="../_images/af4485c4949f7d918eff1f2c5bc47e29c490af5e7573ba82e0e32dc2aaa1cf38.png" src="../_images/af4485c4949f7d918eff1f2c5bc47e29c490af5e7573ba82e0e32dc2aaa1cf38.png" />
 </div>
 </div>
+</section>
 <section id="stationary">
 <h2>Stationary<a class="headerlink" href="#stationary" title="Link to this heading">#</a></h2>
 <p>A time series is stationary if it does not exhibit any long term trends or obvious seasonality. It must have:</p>
@@ -609,7 +614,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d1a0dd4c010d57418e5d1a2d995b9577eaffeae499230984d4d6d16263acef34.png" src="../_images/d1a0dd4c010d57418e5d1a2d995b9577eaffeae499230984d4d6d16263acef34.png" />
+<img alt="../_images/71764923bf822628ebdb9fa88a62d9928ae08da23c89f9fdc3de74ef04083566.png" src="../_images/71764923bf822628ebdb9fa88a62d9928ae08da23c89f9fdc3de74ef04083566.png" />
 </div>
 </div>
 </section>
@@ -617,86 +622,86 @@ dtype: float64
 <h3>Seasonal-Trend decomposition [<a class="reference external" href="https://www.statsmodels.org/dev/examples/notebooks/generated/mstl_decomposition.html">MSTL docs</a>]<a class="headerlink" href="#seasonal-trend-decomposition-mstl-docs" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Update plot size for large graphs</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
- 
-<span class="n">mstl</span> <span class="o">=</span> <span class="n">MSTL</span><span class="p">(</span><span class="n">train_df</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">365</span><span class="p">])</span>
-<span class="n">res</span> <span class="o">=</span> <span class="n">mstl</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use a larger plot for these</span>
+<span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">rc_context</span><span class="p">({</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">]}):</span>
+    <span class="n">mstl</span> <span class="o">=</span> <span class="n">MSTL</span><span class="p">(</span><span class="n">train_df</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">365</span><span class="p">])</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">mstl</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 
-<span class="c1"># Plot comparisions</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Plot comparisions</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="c1"># Plotting the trend component</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">trend</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MSTL Trend&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">train_df</span><span class="p">)][</span><span class="s1">&#39;trend&#39;</span><span class="p">]</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True Trend&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Trend Comparison&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="c1"># Plotting the trend component</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">trend</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MSTL Trend&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">train_df</span><span class="p">)][</span><span class="s1">&#39;trend&#39;</span><span class="p">]</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True Trend&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Trend Comparison&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
-<span class="c1"># Plotting the yearly seasonality component</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">seasonal</span><span class="p">[</span><span class="s1">&#39;seasonal_365&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MSTL Yearly Seasonality&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">train_df</span><span class="p">)][</span><span class="s1">&#39;yearly_seasonality&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True Yearly Seasonality&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Yearly Seasonality Comparison&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="c1"># Plotting the yearly seasonality component</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">seasonal</span><span class="p">[</span><span class="s1">&#39;seasonal_365&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MSTL Yearly Seasonality&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">train_df</span><span class="p">)][</span><span class="s1">&#39;yearly_seasonality&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True Yearly Seasonality&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Yearly Seasonality Comparison&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
-<span class="c1"># Plotting the weekly seasonality component</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">seasonal</span><span class="p">[</span><span class="s1">&#39;seasonal_7&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MSTL Weekly Seasonality&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">train_df</span><span class="p">)][</span><span class="s1">&#39;weekly_seasonality&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True Weekly Seasonality&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Weekly Seasonality Comparison&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="c1"># Plotting the weekly seasonality component</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">seasonal</span><span class="p">[</span><span class="s1">&#39;seasonal_7&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MSTL Weekly Seasonality&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">train_df</span><span class="p">)][</span><span class="s1">&#39;weekly_seasonality&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True Weekly Seasonality&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Weekly Seasonality Comparison&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
-<span class="c1"># Plotting the residuals</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MSTL Residuals&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">train_df</span><span class="p">)][</span><span class="s1">&#39;noise&#39;</span><span class="p">]</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True Noise - 2&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Residuals vs. True Noise&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="c1"># Plotting the residuals</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MSTL Residuals&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">train_df</span><span class="p">)][</span><span class="s1">&#39;noise&#39;</span><span class="p">]</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True Noise - 2&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Residuals vs. True Noise&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/679aafcc8072349d0f4976eb5faf7c8e4c0227aaa2e4a3c62957fffc67744708.png" src="../_images/679aafcc8072349d0f4976eb5faf7c8e4c0227aaa2e4a3c62957fffc67744708.png" />
-<img alt="../_images/f81aaaf60c8493e497306ae951612fca4e1280173357568c7ed9ebf3489d64ec.png" src="../_images/f81aaaf60c8493e497306ae951612fca4e1280173357568c7ed9ebf3489d64ec.png" />
+<img alt="../_images/65ebeb2ee4f72aa3416beda15d898385ccdef4e43cc5c6e1573644610294ba36.png" src="../_images/65ebeb2ee4f72aa3416beda15d898385ccdef4e43cc5c6e1573644610294ba36.png" />
+<img alt="../_images/77e72fe1287f6a2bad0f50e203d7211a4e0fc7ada22bbc9f58d579844be18d2e.png" src="../_images/77e72fe1287f6a2bad0f50e203d7211a4e0fc7ada22bbc9f58d579844be18d2e.png" />
 </div>
 </div>
 <p>If we take away the noise, the predictions are near perfect</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mstl</span> <span class="o">=</span> <span class="n">MSTL</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;noise&#39;</span><span class="p">],</span> <span class="n">periods</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">365</span><span class="p">])</span>
-<span class="n">res</span> <span class="o">=</span> <span class="n">mstl</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">rc_context</span><span class="p">({</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">]}):</span>
+    <span class="n">mstl</span> <span class="o">=</span> <span class="n">MSTL</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;noise&#39;</span><span class="p">],</span> <span class="n">periods</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">365</span><span class="p">])</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">mstl</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 
-<span class="c1"># Plot comparisions</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Plot comparisions</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="c1"># Plotting the trend component</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">trend</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MSTL Trend&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;trend&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True Trend&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Trend Comparison&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="c1"># Plotting the trend component</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">trend</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MSTL Trend&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;trend&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True Trend&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Trend Comparison&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
-<span class="c1"># Plotting the yearly seasonality component</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">seasonal</span><span class="p">[</span><span class="s1">&#39;seasonal_365&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MSTL Yearly Seasonality&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;yearly_seasonality&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True Yearly Seasonality&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Yearly Seasonality Comparison&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="c1"># Plotting the yearly seasonality component</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">seasonal</span><span class="p">[</span><span class="s1">&#39;seasonal_365&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MSTL Yearly Seasonality&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;yearly_seasonality&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True Yearly Seasonality&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Yearly Seasonality Comparison&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
-<span class="c1"># Plotting the weekly seasonality component</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">seasonal</span><span class="p">[</span><span class="s1">&#39;seasonal_7&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MSTL Weekly Seasonality&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;weekly_seasonality&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True Weekly Seasonality&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Weekly Seasonality Comparison&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="c1"># Plotting the weekly seasonality component</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">seasonal</span><span class="p">[</span><span class="s1">&#39;seasonal_7&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MSTL Weekly Seasonality&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;weekly_seasonality&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True Weekly Seasonality&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Weekly Seasonality Comparison&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f3a03dd6763b3c43c733e2e16c319a61c81e78dc0d701aae955250a6a5f6e389.png" src="../_images/f3a03dd6763b3c43c733e2e16c319a61c81e78dc0d701aae955250a6a5f6e389.png" />
-<img alt="../_images/aac260b46c1768060d4e1dfdb5f9295452b3bc48e0a7e52577e4b1eb4a5498ce.png" src="../_images/aac260b46c1768060d4e1dfdb5f9295452b3bc48e0a7e52577e4b1eb4a5498ce.png" />
+<img alt="../_images/ca03765acbf666b6df92edfb3702d66c5fb302e9e1518ff92632f693d9837058.png" src="../_images/ca03765acbf666b6df92edfb3702d66c5fb302e9e1518ff92632f693d9837058.png" />
+<img alt="../_images/467eb9665ec973dbe62fadf84c6d4f7c62e5bed9a8b0e1ab626a633270282f3f.png" src="../_images/467eb9665ec973dbe62fadf84c6d4f7c62e5bed9a8b0e1ab626a633270282f3f.png" />
 </div>
 </div>
 </section>
@@ -714,9 +719,7 @@ dtype: float64
 <br>
 Simple exponential smoothing won't be able to capture any of the trends on the data :(<div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_df</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_df</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">test_df</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test&#39;</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]:</span>
@@ -730,7 +733,7 @@ Simple exponential smoothing won't be able to capture any of the trends on the d
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/14042e591ab93453baa914aa9453acf289b222e19bbad17b8fd8e785a7f3dddf.png" src="../_images/14042e591ab93453baa914aa9453acf289b222e19bbad17b8fd8e785a7f3dddf.png" />
+<img alt="../_images/8dfa3ef88286d4678ffcf7eceee9d07abf99b601951d571e92ffd537f1cb6815.png" src="../_images/8dfa3ef88286d4678ffcf7eceee9d07abf99b601951d571e92ffd537f1cb6815.png" />
 </div>
 </div>
 <section id="exponential-smoothing-with-seasonality-holt-winters">
@@ -1511,6 +1514,7 @@ The nearest neighbor subsequence to this discord is 1.4067575559258207 units awa
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-generation">Data Generation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stationary">Stationary</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#augmented-dickey-fuller">Augmented Dickey-Fuller</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acf-autocorrelation-function">ACF (Autocorrelation Function)</a></li>
