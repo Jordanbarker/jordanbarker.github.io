@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Marathon training plan, and personal success tips.">
+    <meta name="keywords" content="Marathon, running, data science, analytics">
+    <meta name="author" content="Jordan Barker">
+    <link rel="stylesheet" href="styles.css">
+    <title>How to Run an Above Average Marathon</title>
+</head>
+
+<style>
+    main {
+        line-height: 1.6em;
+        margin-top: 35px;
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    main li {
+        line-height: 1.5em;
+        margin-bottom: .5em; 
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 50%;
+        margin: auto;
+        background-color: white;
+        box-shadow: 0px 2px 20px rgba(0,0,0,0.1);
+        border-radius: 12px;
+        overflow: hidden; 
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+    }
+    th {
+        background-color: #565c62;
+        color: white;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .table-title {
+        text-align: center;
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 12px;
+    }
+</style>
+
+<body>
+    <header>
+        <nav>
+            <input type="checkbox" id="menu-toggle">
+            <label for="menu-toggle" class="menu-icon">&#8801;</label>
+            <ul class="menu">
+                <li class="name"><a href="./index.html">Jordan Barker</a></li>
+                <li><a href="./about.html">About</a></li>
+                <li><a href="./data-science-cookbook/docs/intro.html">Data Science Cookbook</a></li>
+                <li>
+                    <a href="https://github.com/Jordanbarker" target="_blank" rel="noopener noreferrer">
+                        <img src="./Assets/github-mark.svg" alt="GitHub" style="width: 25px; height: 25px;">
+                        <span class="icon-text">GitHub</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/barkerjordan/" target="_blank" rel="noopener noreferrer">
+                        <img src="./Assets/linkedin_icon_black.svg" alt="LinkedIn" style="width: 25px; height: 25px;">
+                        <span class="icon-text">LinkedIn</span>
+                    </a> 
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="intro">
+            <!-- <h1>RAGBRAI LII Guess the Route Prediction</h1>
+            <p>RAGBRAI (Register's Annual Great Bicycle Ride Across Iowa) is a week-long cycling event that spans the state of Iowa from west to east, 
+                starting at the Missouri River (or the Big Sioux River if it starts north of Sioux City) and ending at the Mississippi River. 
+                Established in 1973, it is the oldest, largest, and longest recreational bicycle touring event in the world, 
+                drawing thousands of participants each year to experience Iowa's small towns, scenic landscapes, and local culture.
+            </p>
+            <p>
+                Each year, a contest is held to guess the route prior to the announcement party. 
+                Applicants submit their predictions for the eight overnight towns. 
+            </p>
+            <p>
+                While we were biking across Iowa during RAGBRAI in 2024, a friend challenged me to use data science to predict the route for RAGBRAI LII in 2025. 
+                Challenge accepted. 
+            </p>
+            -->
+            <h2>Table of Contents</h2>
+                <ul>
+                    <li><a href="#goal">Goal</a></li>
+                    <li><a href="#gear">Gear</a></li>
+                    <li><a href="#diet">Diet</a></li>
+                </ul> 
+        </section>
+
+        <section id="goal">
+            <table>
+                <!-- <caption style="caption-side: top; font-weight: bold; padding: 8px;">
+                    Male Runner Results — 2024 Madison Marathon
+                </caption> -->
+                <!-- <tr>
+                    <th colspan="3" style="background:#343a40; color:white; font-size:1.1em;">
+                    </th>
+                </tr> -->
+                <!-- <tr>
+                    <th>Time Bracket</th>
+                    <th>Number of Runners</th>
+                    <th>Percentage</th>
+                </tr> -->
+                <div class="table-title">
+                    Male Runner Results — 2024 Madison Marathon
+                </div>
+                <thead>
+                    <tr>
+                        <th>Time Bracket</th>
+                        <th>Number of Runners</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sub-3:00</td>
+                        <td>71</td>
+                        <td>5.8%</td>
+                    </tr>
+                    <tr>
+                        <td>Sub-3:30</td>
+                        <td>233</td>
+                        <td>19.1%</td>
+                    </tr>
+                    <tr>
+                        <td>Sub-4:00</td>
+                        <td>519</td>
+                        <td>42.5%</td>
+                    </tr>
+                    <tr>
+                        <td>Sub-4:30</td>
+                        <td>827</td>
+                        <td>67.7%</td>
+                    </tr>
+                    <tr>
+                        <td>Sub-5:00</td>
+                        <td>1,018</td>
+                        <td>83.3%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Diet -->
+        <section id="diet">
+            <h2>Diet</h2>
+            <p>
+                Elite marathoners train their gut as much as their legs. The goal is to be able to consume 60-90+ grams of carbohydrates per hour. 
+            </p>
+            <h3>Hydration</h3>
+            <p>
+                For water intake, “drink to thirst” will usually suffice. If you want to get more precise, cooler conditions call for lower end (~0.4 L/h), while hot weather is more on the order of (~0.8 L/h or more).
+            </p>
+            <h3>Electrolytes</h3>
+            <p>
+                This is largely individual dependent as well as race conditions. I targeted 600 mg of sodium per hour.
+            </p>
+            Homemade <a href="https://drinklmnt.com/pages/ingredients#facts">LMNT</a>:
+            <ul>
+                <li>2,500 mg sodium chloride (for 1,000 mg sodium)</li>
+                <li>385 mg potassium chloride (for 200 mg potassium)</li>
+                <li>390 mg magnesium malate OR 265 mg di-magnesium malate (for 60 mg magnesium)</li>
+                
+            <h3>Carbs</h3>
+            <p>
+                The carbs are typically a mix of glucose and fructose in roughly 2:1 ratio. I started training with plain old granulated sugar, which has a 1:1 ratio.
+            </p>
+                <br>
+                <div class="table-title">
+                    Glucose:Fructose Profile of Common Sweeteners
+                </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sweetener</th>
+                        <th>Approx G:F Ratio</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sucrose (table/white/brown sugar)</td>
+                        <td>1:1</td>
+                        <td>Splits to equal glucose and fructose.</td>
+                    </tr>
+                    <tr>
+                        <td>Maple syrup</td>
+                        <td>1:1</td>
+                        <td>Minor free glucose/fructose; effectively 1:1 after digestion.</td>
+                    </tr>
+                    <tr>
+                        <td>Honey</td>
+                        <td>0.65-0.97:1</td>
+                        <td>Varies by floral source; often fructose-heavy.</td>
+                    </tr>
+                    <tr>
+                        <td>Agave syrup</td>
+                        <td>0.2-0.7:1</td>
+                        <td>Brand/process dependent.</td>
+                    </tr>
+                    <tr>
+                        <td>High-fructose corn syrup</td>
+                        <td>0.76-1.26:1</td>
+                        <td>"HFCS 42" and "HFCS 55" refer to dry weight fructose compositions of 42% and 55% respectively, the rest being glucose.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Corn syrup</td>
+                        <td>1:0</td>
+                        <td>Essentially no fructose; use as the “glucose side.”</td>
+                    </tr>
+                    <tr>
+                        <td>Brown rice syrup</td>
+                        <td>1:0</td>
+                        <td>Effectively all glucose side of the mix.</td>
+                    </tr>
+                    <tr>
+                        <td>Maltodextrin</td>
+                        <td>1:0</td>
+                        <td>Low osmolality vs simple sugars; great for bottles.</td>
+                    </tr>
+                    <tr>
+                        <td>Dextrose</td>
+                        <td>1:0</td>
+                        <td>Pure glucose; fast transporter (SGLT1).</td>
+                    </tr>
+                    <tr>
+                        <td>Fructose (powder)</td>
+                        <td>0:1</td>
+                        <td>Use to balance mixes toward targeted ratios.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>
+                Natural sources and commercial products both work well. Both can cause GI discomfort, and both should be incorporated at easy efforts and hard efforts multiple times. 
+                Natural sources can be more challenging to carry, so is it realistic outside of training? 
+                Dates, bananas, applesauce. 
+            </p>
+            <p>
+                Practice your long run pre fueling strategy. Find something for almost all long runs and can use pre-marathon. 
+                Do not change this fueling strategy on the day of the race. 
+                
+                Consider run nutrition for anything above 75 mins. It increases recovery, delays fatigue, improves GI distress, and helps with training adaptations.
+
+            </p>
+            <h3>Pre-Race &amp; Race Nutrition</h3>
+            <ul>
+                <li><strong>Day Before:</strong> Normal meals that are carb-rich (noodles, rice, potatoes).</li>
+                <li><strong>Night Before:</strong> Bagels + peanut butter &amp; honey, 1-2 bananas, large sports drink like Powerade.</li>
+                <li><strong>3 Hours Before:</strong> 1-2 bagels with light PB <em>or</em> large muffin.</li>
+                <li><strong>45 Minutes Before:</strong> Honey Stinger waffle or granola bar (familiar fuel that has been used on runs).</li>
+                <li><strong>10-15 Minutes Before:</strong> 40g caffeinated gel.</li>
+                <li><strong>During Race (every 5K or so):</strong> ~25g of carbs</li>
+            </ul>
+            
+
+        </section>
+        <section>
+            https://vdoto2.com/calculator
+            <!-- <iframe src='https://vdoto2.com/calculator/embed' width='600' height='1600' frameborder='0'></iframe> -->
+        </section>
+    </main>
+</body>
+</html>
