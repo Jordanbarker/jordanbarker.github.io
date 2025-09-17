@@ -11,6 +11,14 @@
 </head>
 
 <style>
+    :root {
+        --radius: 12px;
+        --shadow: 0px 2px 20px rgba(0,0,0,0.1);
+        --muted: #666;
+        --surface: #fff;
+        --brand-dark: #565c62;
+    }
+    
     main {
         line-height: 1.6em;
         margin-top: 35px;
@@ -27,9 +35,9 @@
         border-collapse: collapse;
         width: 50%;
         margin: auto;
-        background-color: white;
-        box-shadow: 0px 2px 20px rgba(0,0,0,0.1);
-        border-radius: 12px;
+        background-color: var(--surface);
+        box-shadow: var(--shadow);
+        border-radius: var(--radius);
         overflow: hidden; 
     }
     th, td {
@@ -51,6 +59,30 @@
         font-weight: bold;
         margin-bottom: 12px;
     }
+
+    figure { text-align: center; margin: 20px auto; }
+    figure img {
+        display: block;
+        width: min(600px, 50%);
+        max-width: 100%;
+        height: auto;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        margin-left: auto;
+        margin-right: auto;
+    }
+    figure figcaption {
+        margin-top: .5rem;
+        color: var(--muted);
+        font-size: .95rem;
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 768px) {
+        table { width: 100%; }
+        figure img { width: 100%; }
+    }
+
 </style>
 
 <body>
@@ -97,6 +129,8 @@
             <h2>Table of Contents</h2>
                 <ul>
                     <li><a href="#goal">Goal</a></li>
+                    <li><a href="#coach">AI Coach</a></li>
+                    <li><a href="#analytics">Analytics</a></li>
                     <li><a href="#shoes">Shoes</a></li>
                     <li><a href="#diet">Diet</a></li>
                 </ul> 
@@ -108,6 +142,13 @@
         
         -->
         <section id="goal">
+            <h2>Goal</h2>
+            
+            I set out to run an above average marathon. 
+            I defined that as being in the top 50% of male runners, and luckily, https://madisonmarathon.org/ publishes past results online, 
+            so I was able to scrap this an generate some summary statistics to narrow in on the target.  
+            
+            
             <table>
                 <!-- <caption style="caption-side: top; font-weight: bold; padding: 8px;">
                     Male Runner Results — 2024 Madison Marathon
@@ -161,22 +202,54 @@
             </table>
         </section>
 
+
+        <!--
+
+        Coach 
+        
+        -->
+        <section id="coach">
+            
+            <h2>AI Coach</h2>
+            
+            I've used Garmin's built-in coaching tools in the past, but the max distance for a race is a half-marathon, so I needed to look elsewhere.
+
+            <br><br>
+            I decided to build my own coaching tool by gathering marathon training articles and papers to give an LLM the latest context. 
+            With that primer, I can get personalized workouts by passing my latest running data, and automatically generate workouts for the week. 
+
+            <br><br>
+            Here is an example of a workout that was generated through this process:
+
+            <figure>
+                <img src="Assets/marathon/sunday_workout.png" alt="Sunday Workout Plan">
+                <figcaption>AI generated workout plan for Sunday</figcaption>
+            </figure>
+
+        </section>
+
         <!--
 
         Shoes 
         
         -->
         <section id="shoes">
-            1. Fresh Foam 680v8 for $68.56, retired at 688.7 miles
-            2. Fresh Foam 680v8 for $63.99, retired at 
-            3. Fresh Foam X Kaiha Road for $83.69
+            <h2>Shoes</h2>
+            <ol>
+                <li>Fresh Foam 680v8 for $68.56, retired at 688.7 miles</li>
+                <li>Fresh Foam 680v8 for $63.99, retired at </li>
+                <li>Fresh Foam X Kaiha Road for $83.69</li>
+            </ol>
+
             <a href="https://runrepeat.com/guides/best-shin-splints-running-shoes#shin-splints-and-running">RunRepeat.com's blog on the best shoes for shin splints.</a>
 
-            <h2>Carbon Plated Shoes</h2>
+            <h3>Carbon Plates</h3>
             Expensive and complately optional, I opted for race shoes that had carbon-fiber plates to get the 2-3% improvement on race time. 
             
+            <br><br>
             Unfortunately, they don't last as long as standard shoes. The "pop" diminishes after about 100 to 140 miles so you need to be strategic about breaking them in.
 
+            <br><br>
             I utilized them for some marathon-pace efforts about 4 weeks prior to the race. As well as run a long distance run, >10 miles, two weeks prior to the race.  
         </section>
 
@@ -203,6 +276,7 @@
                 <li>2,500 mg sodium chloride (for 1,000 mg sodium)</li>
                 <li>385 mg potassium chloride (for 200 mg potassium)</li>
                 <li>390 mg magnesium malate OR 265 mg di-magnesium malate (for 60 mg magnesium)</li>
+            </ul>
                 
             <h3>Carbs</h3>
             <p>
