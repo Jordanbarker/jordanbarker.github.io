@@ -109,23 +109,10 @@
             </ul>
         </nav>
     </header>
+
+
     <main>
         <section id="intro">
-            <!-- <h1>RAGBRAI LII Guess the Route Prediction</h1>
-            <p>RAGBRAI (Register's Annual Great Bicycle Ride Across Iowa) is a week-long cycling event that spans the state of Iowa from west to east, 
-                starting at the Missouri River (or the Big Sioux River if it starts north of Sioux City) and ending at the Mississippi River. 
-                Established in 1973, it is the oldest, largest, and longest recreational bicycle touring event in the world, 
-                drawing thousands of participants each year to experience Iowa's small towns, scenic landscapes, and local culture.
-            </p>
-            <p>
-                Each year, a contest is held to guess the route prior to the announcement party. 
-                Applicants submit their predictions for the eight overnight towns. 
-            </p>
-            <p>
-                While we were biking across Iowa during RAGBRAI in 2024, a friend challenged me to use data science to predict the route for RAGBRAI LII in 2025. 
-                Challenge accepted. 
-            </p>
-            -->
             <h2>Table of Contents</h2>
                 <ul>
                     <li><a href="#goal">Goal</a></li>
@@ -203,8 +190,8 @@
             I've used Garmin's built-in coaching tools in the past, but the max distance for a race is a half-marathon, so I needed to look elsewhere.
 
             <br><br>
-            I decided to build my own coaching tool by gathering marathon training articles and papers to give an LLM the latest context. 
-            With that primer, I got personalized workouts by passing my latest running data. 
+            I built my own coaching tool by gathering marathon training articles and papers to give an LLM the latest context. 
+            With that primer, I passed it my latest running data and got personalized workouts. 
 
             <br><br>
             Here is an example of a workout that was generated through this process:
@@ -297,7 +284,7 @@
                     </tr>
                     <tr>
                         <td>Honey</td>
-                        <td>0.65-0.97:1</td>
+                        <td>1.1-1.5:1</td>
                         <td>Varies by floral source; often fructose-heavy.</td>
                     </tr>
                     <tr>
@@ -307,8 +294,8 @@
                     </tr>
                     <tr>
                         <td>High-fructose corn syrup</td>
-                        <td>0.76-1.26:1</td>
-                        <td>"HFCS 42" and "HFCS 55" refer to dry weight fructose compositions of 42% and 55% respectively, the rest being glucose.</td>
+                        <td>0.7-1.2:1</td>
+                        <td>"HFCS 42" and "HFCS 55" refer to fructose compositions of 42% and 55% respectively, the rest being glucose. The manufacturing processes naturally yield the 42% and 55% forms.</td>
                     </tr>
                     <tr>
                         <td>Corn syrup / Brown rice syrup</td>
