@@ -1,91 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Marathon training plan, and personal success tips.">
-    <meta name="keywords" content="Marathon, running, data science, analytics">
-    <meta name="author" content="Jordan Barker">
-    <link rel="stylesheet" href="styles.css">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="description" content="Marathon training plan, and
+personal success tips">
+            <meta name="keywords" content="Marathon, running, data
+science, analytics">
+            <meta name="author" content="Jordan Barker">
+        <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="blog.css">
     <title>How to Run an Above Average Marathon</title>
-</head>
-
-<style>
-    :root {
-        --radius: 12px;
-        --shadow: 0px 2px 20px rgba(0,0,0,0.1);
-        --muted: #666;
-        --surface: #fff;
-        --brand-dark: #565c62;
-    }
-    
-    main {
-        line-height: 1.6em;
-        margin-top: 35px;
-        max-width: 80%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    main li {
-        line-height: 1.5em;
-        margin-bottom: .5em; 
-    }
-
-    table {
-        border-collapse: collapse;
-        width: 50%;
-        margin: auto;
-        background-color: var(--surface);
-        box-shadow: var(--shadow);
-        border-radius: var(--radius);
-        overflow: hidden; 
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 12px;
-        text-align: center;
-    }
-    th {
-        background-color: #565c62;
-        color: white;
-    }
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    .table-title {
-        text-align: center;
-        font-size: 1.2em;
-        font-weight: bold;
-        margin-bottom: 12px;
-    }
-
-    figure { text-align: center; margin: 20px auto; }
-    figure img {
-        display: block;
-        width: min(600px, 50%);
-        max-width: 100%;
-        height: auto;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        margin-left: auto;
-        margin-right: auto;
-    }
-    figure figcaption {
-        margin-top: .5rem;
-        color: var(--muted);
-        font-size: .95rem;
-    }
-
-    /* Mobile tweaks */
-    @media (max-width: 768px) {
-        table { width: 100%; }
-        figure img { width: 100%; }
-    }
-
-</style>
-
-<body>
+  </head>
+  <body>
     <header>
         <nav>
             <input type="checkbox" id="menu-toggle">
@@ -110,261 +37,270 @@
         </nav>
     </header>
 
-
     <main>
-        <section id="intro">
-            <h2>Table of Contents</h2>
-                <ul>
-                    <li><a href="#goal">Goal</a></li>
-                    <li><a href="#coach">AI Coach</a></li>
-                    <li><a href="#analytics">Analytics</a></li>
-                    <li><a href="#shoes">Shoes</a></li>
-                    <li><a href="#diet">Diet</a></li>
-                    <li><a href="#injuries">Injuries</a></li>
-                </ul> 
-        </section>
-
-        <!--
-
-        Goal 
-        
-        -->
-        <section id="goal">
-            <h2>Goal</h2>
+                <h2>Table of Contents</h2>
+        <nav id="toc" role="navigation" aria-label="Table of contents">
+        <ul>
+        <li><a href="#goal" id="toc-goal">Goal</a></li>
+        <li><a href="#ai-coach" id="toc-ai-coach">AI Coach</a></li>
+        <li><a href="#shoes" id="toc-shoes">Shoes</a></li>
+        <li><a href="#diet" id="toc-diet">Diet</a></li>
+        <li><a href="#injuries" id="toc-injuries">Injuries</a></li>
+        </ul>
+        </nav>
             
-            I set out to run an above average marathon. 
-            I defined that as being in the top 50% of male runners, and luckily, https://madisonmarathon.org/ publishes past results online, 
-            so I was able to scrap this an generate some summary statistics to narrow in on the target.  
-
-            
-            <table>
-                <div class="table-title">
-                    Male Runner Results — 2024 Madison Marathon
-                </div>
-                <thead>
-                    <tr>
-                        <th>Time Bracket</th>
-                        <th>Number of Runners</th>
-                        <th>Percentage</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Sub-3:00</td>
-                        <td>71</td>
-                        <td>5.8%</td>
-                    </tr>
-                    <tr>
-                        <td>Sub-3:30</td>
-                        <td>233</td>
-                        <td>19.1%</td>
-                    </tr>
-                    <tr>
-                        <td>Sub-4:00</td>
-                        <td>519</td>
-                        <td>42.5%</td>
-                    </tr>
-                    <tr>
-                        <td>Sub-4:30</td>
-                        <td>827</td>
-                        <td>67.7%</td>
-                    </tr>
-                    <tr>
-                        <td>Sub-5:00</td>
-                        <td>1,018</td>
-                        <td>83.3%</td>
-                    </tr>
-                </tbody>
-            </table>
+        <section id="goal" class="level2">
+        <h2>Goal</h2>
+        <p>I set out to run an above average marathon. I defined that as
+        being in the top 50% of male runners, and luckily, <a
+        href="https://madisonmarathon.org/">Madison Marathon</a>
+        publishes past results online, so I was able to scrap this and
+        generate some summary statistics to narrow in on the target.</p>
+        <div class="table-title">
+        <p>Male Runner Results — 2024 Madison Marathon</p>
+        </div>
+        <table>
+        <thead>
+        <tr>
+        <th>Time Bracket</th>
+        <th>Number of Runners</th>
+        <th>Percentage</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>Sub-3:00</td>
+        <td>71</td>
+        <td>5.8%</td>
+        </tr>
+        <tr>
+        <td>Sub-3:30</td>
+        <td>233</td>
+        <td>19.1%</td>
+        </tr>
+        <tr>
+        <td>Sub-4:00</td>
+        <td>519</td>
+        <td>42.5%</td>
+        </tr>
+        <tr>
+        <td>Sub-4:30</td>
+        <td>827</td>
+        <td>67.7%</td>
+        </tr>
+        <tr>
+        <td>Sub-5:00</td>
+        <td>1,018</td>
+        <td>83.3%</td>
+        </tr>
+        </tbody>
+        </table>
         </section>
-
-
-        <!--
-
-        Coach 
-        
-        -->
-        <section id="coach">
-            
-            <h2>AI Coach</h2>
-            
-            I've used Garmin's built-in coaching tools in the past, but the max distance for a race is a half-marathon, so I needed to look elsewhere.
-
-            <br><br>
-            I built my own coaching tool by gathering marathon training articles and papers to give an LLM the latest context. 
-            With that primer, I passed it my latest running data and got personalized workouts. 
-
-            <br><br>
-            Here is an example of a workout that was generated through this process:
-
-            <figure>
-                <img src="Assets/marathon/sunday_workout.png" alt="Sunday Workout Plan">
-                <figcaption>AI generated workout plan for Sunday</figcaption>
-            </figure>
-
+        <section id="ai-coach" class="level2">
+        <h2>AI Coach</h2>
+        <p>I’ve used Garmin’s built-in coaching tools in the past, but
+        the max distance for a race is a half-marathon, so I needed to
+        look elsewhere.</p>
+        <p>I built my own coaching tool by gathering marathon training
+        articles and papers to give an LLM the latest context. With that
+        primer, I passed it my latest running data and got personalized
+        workouts.</p>
+        <p>Here is an example of a workout that was generated through
+        this process:</p>
+        <figure>
+        <img src="Assets/marathon/sunday_workout.png"
+        alt="AI generated workout plan for Sunday" />
+        <figcaption aria-hidden="true">AI generated workout plan for
+        Sunday</figcaption>
+        </figure>
         </section>
-
-        <!--
-
-        Shoes 
-        
-        -->
-        <section id="shoes">
-            <h2>Shoes</h2>            
-            Here is my running shoe history for the year:
-            <ol>
-                <li>Fresh Foam 680v8 for $68.56, retired at 688.7 miles</li>
-                <li>Fresh Foam 680v8 for $63.99, retired at 442.4 miles</li>
-                <li>Fresh Foam X Kaiha Road for $83.69</li>
-            </ol>
-
-            The typically recommendation is to retire shoes after 300-500 miles. 
-            You can still get use out of older shoes, but the risk of injury increases. 
-            My second pair of shoes were retired 250 miles sooner than the previous pair due to a shin splint injury.
-            
-            <br><br>
-            <a href="https://runrepeat.com/guides/best-shin-splints-running-shoes#shin-splints-and-running">RunRepeat.com's blog on shoes for shin splints.</a>
-
-            <h3>Carbon Plates</h3>
-            Expensive and complately optional, I opted for race shoes that had carbon-fiber plates to get the 2-3% improvement on race time. 
-            Unfortunately, they don't last as long as standard shoes. The "pop" diminishes after about 100 to 140 miles so you need to be strategic about breaking them in.
-            I utilized them for some marathon-pace efforts about 4 weeks prior to the race. As well as run a long distance run, >10 miles, two weeks prior to the race.  
+        <section id="shoes" class="level2">
+        <h2>Shoes</h2>
+        <p>Here is my running shoe history for the year:</p>
+        <ol type="1">
+        <li>Fresh Foam 680v8 for $68.56, retired at 688.7 miles<br />
+        </li>
+        <li>Fresh Foam 680v8 for $63.99, retired at 442.4 miles<br />
+        </li>
+        <li>Fresh Foam X Kaiha Road for $83.69</li>
+        </ol>
+        <p>The typical recommendation is to retire shoes after 300–500
+        miles. You can still get use out of older shoes, but the risk of
+        injury increases. My second pair of shoes were retired 250 miles
+        sooner than the previous pair due to a shin splint injury.</p>
+        <p><a
+        href="https://runrepeat.com/guides/best-shin-splints-running-shoes#shin-splints-and-running">RunRepeat.com’s
+        blog on shoes for shin splints</a></p>
+        <section id="carbon-plates" class="level3">
+        <h3>Carbon Plates</h3>
+        <p>Expensive and completely optional, I opted for race shoes
+        that had carbon-fiber plates to get the 2–3% improvement on race
+        time. Unfortunately, they don’t last as long as standard shoes.
+        The “pop” diminishes after about 100 to 140 miles so you need to
+        be strategic about breaking them in. I utilized them for some
+        marathon-pace efforts about 4 weeks prior to the race, as well
+        as a long distance run (&gt;10 miles) two weeks prior to the
+        race.</p>
         </section>
-
-        <!--
-
-        Diet 
-        
-        -->
-        <section id="injuries">
-            <h2>Injuries</h2>
-            "Out of 300 runners, 126 (42%) reported at least one injury during the training period. 
-            The most common injuries included medial tibial stress syndrome (24%), iliotibial band syndrome (19%), and plantar fasciitis (15%). 
-            Injury incidence was significantly higher in runners exceeding 50 km/week without strength training (p=0.03). 
-            Participants who followed structured warm-up and strength training routines had a 35% lower injury rate (p=0.01). 
-            Footwear replacement within 500-700 km was associated with reduced injury occurrence (p=0.04)."
-            https://www.icr-heart.com/article/injury-incidence-and-prevention-strategies-among-amateur-marathon-runners-a-prospective-cohort-study-2510/#:~:text=analysis%20included%20chi,marathon%20runners%20are%20at%20a
         </section>
-        <!--
-
-        Diet 
-        
-        -->
-        <section id="diet">
-            <h2>Diet</h2>
-            <p>
-                Elite marathoners train their gut as much as their legs. The goal is to be able to consume 60-90+ grams of carbohydrates per hour. 
-            </p>
-            <h3>Hydration</h3>
-            <p>
-                For water intake, “drink to thirst” will usually suffice. If you want to get more precise, cooler conditions call for ~0.4 L/h, while hot weather is about ~0.8 L/h or more.
-            </p>
-            <h3>Electrolytes</h3>
-            <p>
-                This is largely individual dependent as well as race conditions. I targeted 600 mg of sodium per hour.
-            </p>
-            Homemade <a href="https://drinklmnt.com/pages/ingredients#facts">LMNT</a>:
-            <ul>
-                <li>2,500 mg sodium chloride (for 1,000 mg sodium)</li>
-                <li>385 mg potassium chloride (for 200 mg potassium)</li>
-                <li>390 mg magnesium malate OR 265 mg di-magnesium malate (for 60 mg magnesium)</li>
-            </ul>
-                
-            <h3>Carbs</h3>
-            <p>
-                The carbs are typically a mix of glucose and fructose in roughly 2:1 ratio. I started training with plain old granulated sugar, which has a 1:1 ratio.
-                
-                I made my own running gel/juice to get 90g/hr. I added 60g granulated sugar + 30g maltodextrin and added water as needed. I prefer a more watery mix than normal gels. 
-                I also typically add 100mg of caffeine and 200mg of l-theanine and electrolytes like LMNT.
-            </p>
-                <br>
-                <div class="table-title">
-                    Glucose:Fructose Profile of Common Sweeteners
-                </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Sweetener</th>
-                        <th>Approx G:F Ratio</th>
-                        <th>Notes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Sucrose (table/white/brown sugar)</td>
-                        <td>1:1</td>
-                        <td>Splits to equal glucose and fructose.</td>
-                    </tr>
-                    <tr>
-                        <td>Maple syrup</td>
-                        <td>1:1</td>
-                        <td>Minor free glucose/fructose; effectively 1:1 after digestion.</td>
-                    </tr>
-                    <tr>
-                        <td>Honey</td>
-                        <td>0.6-1:1</td>
-                        <td>Varies by floral source; often fructose-heavy.</td>
-                    </tr>
-                    <tr>
-                        <td>Agave syrup</td>
-                        <td>0.2-0.7:1</td>
-                        <td>Brand/process dependent.</td>
-                    </tr>
-                    <tr>
-                        <td>High-fructose corn syrup</td>
-                        <td>0.8-1.4:1</td>
-                        <td>"HFCS 42" and "HFCS 55" refer to fructose compositions of 42% and 55% respectively, the rest being glucose. The manufacturing processes naturally yield the 42% and 55% forms.</td>
-                    </tr>
-                    <tr>
-                        <td>Corn syrup / Brown rice syrup</td>
-                        <td>1:0</td>
-                        <td>Essentially no fructose; use as the “glucose side.”</td>
-                    </tr>
-                    <tr>
-                        <td>Maltodextrin</td>
-                        <td>1:0</td>
-                        <td>Low osmolality vs simple sugars; great for bottles.</td>
-                    </tr>
-                    <tr>
-                        <td>Dextrose</td>
-                        <td>1:0</td>
-                        <td>Pure glucose; fast transporter (SGLT1).</td>
-                    </tr>
-                    <tr>
-                        <td>Fructose (powder)</td>
-                        <td>0:1</td>
-                        <td>Use to balance mixes toward targeted ratios.</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <p>
-                Natural sources and commercial products both work well. Both can cause GI discomfort, and both should be incorporated at easy efforts and hard efforts multiple times. 
-                Natural sources can be more challenging to carry, so is it realistic outside of training? 
-                Dates, bananas, applesauce. 
-            </p>
-            <p>
-                Practice your long run pre fueling strategy. Find something for almost all long runs and can use pre-marathon. 
-                Do not change this fueling strategy on the day of the race. 
-                
-                Consider run nutrition for anything above 75 mins. It increases recovery, delays fatigue, improves GI distress, and helps with training adaptations.
-
-            </p>
-            <h3>Pre-Race &amp; Race Nutrition</h3>
-            <ul>
-                <li><strong>Day Before:</strong> Normal meals that are carb-rich (noodles, rice, potatoes).</li>
-                <li><strong>Night Before:</strong> Bagels + peanut butter &amp; honey, 1-2 bananas, large sports drink like Powerade.</li>
-                <li><strong>3 Hours Before:</strong> 1-2 bagels with light PB <em>or</em> large muffin.</li>
-                <li><strong>45 Minutes Before:</strong> Honey Stinger waffle or granola bar (familiar fuel that has been used on runs).</li>
-                <li><strong>10-15 Minutes Before:</strong> 40g caffeinated gel.</li>
-                <li><strong>During Race (every 5K or so):</strong> ~25g of carbs</li>
-            </ul>
-            
+        <section id="diet" class="level2">
+        <h2>Diet</h2>
+        <p>Elite marathoners train their gut as much as their legs. The
+        goal is to be able to consume 60–90+ grams of carbohydrates per
+        hour.</p>
+        <p>Consider run nutrition for anything above 75 mins. It
+        increases recovery, delays fatigue, improves GI distress, and
+        helps with training adaptations.</p>
+        <p>Natural sources and commercial products both work well. Both
+        can cause GI discomfort, and both should be incorporated at easy
+        efforts and hard efforts multiple times. Natural sources can be
+        more challenging to carry, so is it realistic outside of
+        training? Dates, bananas, applesauce.</p>
+        <p>Practice your long run pre-fueling strategy. Find something
+        for almost all long runs and use it pre-marathon. Do not change
+        this fueling strategy on the day of the race.</p>
+        <section id="hydration" class="level3">
+        <h3>Hydration</h3>
+        <p>For water intake, “drink to thirst” will usually suffice. If
+        you want to get more precise, cooler conditions call for ~0.4
+        L/h, while hot weather is about ~0.8 L/h or more.</p>
         </section>
-        <section>
-            https://vdoto2.com/calculator
-            <!-- <iframe src='https://vdoto2.com/calculator/embed' width='600' height='1600' frameborder='0'></iframe> -->
+        <section id="electrolytes" class="level3">
+        <h3>Electrolytes</h3>
+        <p>This is largely individual dependent as well as race
+        conditions. I targeted 600 mg of sodium per hour and made my
+        electrolyte mix at home following <a
+        href="https://drinklmnt.com/pages/ingredients#facts">LMNT’s
+        recipe</a>:</p>
+        <ul>
+        <li>2,500 mg sodium chloride (for 1,000 mg sodium)<br />
+        </li>
+        <li>385 mg potassium chloride (for 200 mg potassium)<br />
+        </li>
+        <li>390 mg magnesium malate <strong>or</strong> 265 mg
+        di-magnesium malate (for 60 mg magnesium)</li>
+        </ul>
+        </section>
+        <section id="carbs" class="level3">
+        <h3>Carbs</h3>
+        <p>The carbs are typically a mix of glucose and fructose in
+        roughly a 2:1 ratio. I started training with plain old
+        granulated sugar, which has a 1:1 ratio.</p>
+        <p>I made my own running gel/juice to get 90g/hr. I added 60g
+        granulated sugar + 30g maltodextrin and added water as needed. I
+        prefer a more watery mix than normal gels. I also typically add
+        100mg of caffeine and 200mg of l-theanine and electrolytes like
+        LMNT.</p>
+        <div class="table-title">
+        <p>Glucose:Fructose Profile of Common Sweeteners</p>
+        </div>
+        <table>
+        <colgroup>
+        <col style="width: 24%" />
+        <col style="width: 12%" />
+        <col style="width: 62%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th>Sweetener</th>
+        <th>Approx G:F Ratio</th>
+        <th>Notes</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>Sucrose (table/white/brown sugar)</td>
+        <td>1:1</td>
+        <td>Splits to equal glucose and fructose.</td>
+        </tr>
+        <tr>
+        <td>Maple syrup</td>
+        <td>1:1</td>
+        <td>Minor free glucose/fructose; effectively 1:1 after
+        digestion.</td>
+        </tr>
+        <tr>
+        <td>Honey</td>
+        <td>0.6–1:1</td>
+        <td>Varies by floral source; often fructose-heavy.</td>
+        </tr>
+        <tr>
+        <td>Agave syrup</td>
+        <td>0.2–0.7:1</td>
+        <td>Brand/process dependent.</td>
+        </tr>
+        <tr>
+        <td>High-fructose corn syrup</td>
+        <td>0.8–1.4:1</td>
+        <td>“HFCS 42” and “HFCS 55” refer to fructose compositions of
+        42% and 55% respectively.</td>
+        </tr>
+        <tr>
+        <td>Corn syrup / Brown rice syrup</td>
+        <td>1:0</td>
+        <td>Essentially no fructose; use as the “glucose side.”</td>
+        </tr>
+        <tr>
+        <td>Maltodextrin</td>
+        <td>1:0</td>
+        <td>Low osmolality vs simple sugars; great for bottles.</td>
+        </tr>
+        <tr>
+        <td>Dextrose</td>
+        <td>1:0</td>
+        <td>Pure glucose; fast transporter (SGLT1).</td>
+        </tr>
+        <tr>
+        <td>Fructose (powder)</td>
+        <td>0:1</td>
+        <td>Use to balance mixes toward targeted ratios.</td>
+        </tr>
+        </tbody>
+        </table>
+        </section>
+        <section id="pre-race-race-nutrition" class="level3">
+        <h3>Pre-Race &amp; Race Nutrition</h3>
+        <ul>
+        <li><strong>Day Before:</strong> Normal meals that are carb-rich
+        (noodles, rice, potatoes).<br />
+        </li>
+        <li><strong>Night Before:</strong> Bagels + peanut butter &amp;
+        honey, 1–2 bananas, large sports drink like Powerade.<br />
+        </li>
+        <li><strong>3 Hours Before:</strong> 1–2 bagels with light PB
+        <em>or</em> large muffin.<br />
+        </li>
+        <li><strong>45 Minutes Before:</strong> Honey Stinger waffle or
+        granola bar (familiar fuel that has been used on runs).<br />
+        </li>
+        <li><strong>10–15 Minutes Before:</strong> 40g caffeinated
+        gel.<br />
+        </li>
+        <li><strong>During Race (every 5K or so):</strong> ~25g of
+        carbs</li>
+        </ul>
+        </section>
+        </section>
+        <section id="injuries" class="level2">
+        <h2>Injuries</h2>
+        <blockquote>
+        “Out of 300 runners, 126 (42%) reported at least one injury
+        during the training period. The most common injuries included
+        medial tibial stress syndrome (24%), iliotibial band syndrome
+        (19%), and plantar fasciitis (15%). Injury incidence was
+        significantly higher in runners exceeding 50 km/week without
+        strength training (p=0.03). Participants who followed structured
+        warm-up and strength training routines had a 35% lower injury
+        rate (p=0.01). Footwear replacement within 500-700 km was
+        associated with reduced injury occurrence (p=0.04).”
+        <div class="source">
+        <a
+        href="https://www.icr-heart.com/article/injury-incidence-and-prevention-strategies-among-amateur-marathon-runners-a-prospective-cohort-study-2510/#:~:text=analysis%20included%20chi,marathon%20runners%20are%20at%20a">Injury
+        Incidence and Prevention Strategies Among Amateur Marathon
+        Runners: A Prospective Cohort Study</a>
+        </div>
+        </blockquote>
         </section>
     </main>
-</body>
+  </body>
 </html>
