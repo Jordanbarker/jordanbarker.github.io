@@ -47,32 +47,28 @@ The typical recommendation is to retire shoes after 300–500 miles. You can sti
 
 ### Carbon Plates
 
-Expensive and completely optional, I opted for race shoes that had carbon-fiber plates to get the 2–3% improvement on race time. Unfortunately, they don't last as long as standard shoes. The "pop" diminishes after about 100 to 140 miles so you need to be strategic about breaking them in. I utilized them for some marathon-pace efforts about 4 weeks prior to the race, as well as a long distance run (>10 miles) two weeks prior to the race.  
-
+Expensive and completely optional, I opted for race shoes that had carbon-fiber plates to get the 2–3% improvement on race time. Unfortunately, they don't last as long as standard shoes. The "pop" diminishes after about 100 to 140 miles so you need to be strategic about breaking them in. I utilized them for some marathon-pace efforts about 4 weeks prior to the race, as well as a long distance run (>10 miles) two weeks prior to the race. 
 
 ## Diet {#diet}
 
-Elite marathoners train their gut as much as their legs. The goal is to be able to consume 60–90+ grams of carbohydrates per hour.
+The best marathoners train their gut as much as their legs. Consider practicing run nutrition for any runs longer than 75 mins. It increases recovery, delays fatigue, improves GI distress, and helps with training adaptations.  
 
-Consider run nutrition for anything above 75 mins. It increases recovery, delays fatigue, improves GI distress, and helps with training adaptations.  
-
-Natural sources and commercial products both work well. Both can cause GI discomfort, and both should be incorporated at easy efforts and hard efforts multiple times. Natural sources can be more challenging to carry, so is it realistic outside of training? Dates, bananas, applesauce.  
+Natural sources and commercial products both work well. Both can cause GI discomfort, and both should be incorporated at easy efforts and hard efforts multiple times. Natural sources (dates, bananas, applesauce) can be more challenging to carry, so is it realistic outside of training? 
 
 Practice your long run pre-fueling strategy. Find something for almost all long runs and use it pre-marathon. Do not change this fueling strategy on the day of the race.  
 
-### Hydration {#hydration}
-For water intake, “drink to thirst” will usually suffice. If you want to get more precise, cooler conditions call for ~0.4 L/h, while hot weather is about ~0.8 L/h or more.
-
-### Electrolytes {#electrolytes}
-This is largely individual dependent as well as race conditions. I targeted 600 mg of sodium per hour and made my electrolyte mix at home following [LMNT's recipe](https://drinklmnt.com/pages/ingredients#facts):
-
-- 2,500 mg sodium chloride (for 1,000 mg sodium)  
-- 385 mg potassium chloride (for 200 mg potassium)  
-- 390 mg magnesium malate **or** 265 mg di-magnesium malate (for 60 mg magnesium)  
-
 ### Carbs
 
-The carbs are typically a mix of glucose and fructose in roughly a 2:1 ratio. I started training with plain old granulated sugar, which has a 1:1 ratio.
+The goal is to be able to consume 90+ grams of carbohydrates per hour. To accomplish this, you can use a mix of glucose and fructose. 
+
+> There is no optimal ratio. The ratio that is optimal will change depending on amounts ingested. If 90 g/h is ingested it should be around 2:1, but if more is ingested, for example 120 g/h, 1:1 is likely better.
+> [https://www.mysportscience.com/post/the-optimal-ratio-of-carbohydrates]
+
+Transporters: Glucose uses SGLT1; fructose uses GLUT5. 
+
+The carbs are typically a mix of glucose and fructose in roughly a 2:1 ratio. I started training with plain old granulated sugar, which has a 1:1 ratio. 
+
+"Similar metabolic effects can be achieved via the ingestion of sucrose [...] because intestinal absorption is unlikely to be limited by sucrose hydrolysis." [https://www.mdpi.com/2072-6643/9/4/344]
 
 I made my own running gel/juice to get 90g/hr. I added 60g granulated sugar + 30g maltodextrin and added water as needed. I prefer a more watery mix than normal gels. I also typically add 100mg of caffeine and 200mg of l-theanine and electrolytes like LMNT.  
 
@@ -89,9 +85,17 @@ I made my own running gel/juice to get 90g/hr. I added 60g granulated sugar + 30
 | High-fructose corn syrup         | 0.8–1.4:1        | "HFCS 42" and "HFCS 55" refer to fructose compositions of 42% and 55% respectively.    |
 | Corn syrup / Brown rice syrup    | 1:0              | Essentially no fructose; use as the “glucose side.”                                    |
 | Maltodextrin                     | 1:0              | Low osmolality vs simple sugars; great for bottles.                                    |
-| Dextrose                         | 1:0              | Pure glucose; fast transporter (SGLT1).                                                |
 | Fructose (powder)                | 0:1              | Use to balance mixes toward targeted ratios.                                           |
 
+### Electrolytes {#electrolytes}
+This is largely individual dependent as well as race conditions. I targeted 600 mg of sodium per hour and made my electrolyte mix at home following [LMNT's recipe](https://drinklmnt.com/pages/ingredients#facts):
+
+- 2,500 mg sodium chloride (for 1,000 mg sodium)  
+- 385 mg potassium chloride (for 200 mg potassium)  
+- 390 mg magnesium malate **or** 265 mg di-magnesium malate (for 60 mg magnesium)  
+
+### Hydration {#hydration}
+For water intake, “drink to thirst” will usually suffice. If you want to get more precise, cooler conditions call for ~0.4 L/h, while hot weather is about ~0.8 L/h or more.
 
 ### Pre-Race & Race Nutrition
 
@@ -104,9 +108,21 @@ I made my own running gel/juice to get 90g/hr. I added 60g granulated sugar + 30
 
 
 ## Injuries
+
+Running injuries are extremely common in marathon runners. Higher training volumes generally increases the injury risk among runners with amateuers being more susceptible to injuries as they increase mileage and are less likely to follow proper a strength training program.
+
 > "Out of 300 runners, 126 (42%) reported at least one injury during the training period. 
 > The most common injuries included medial tibial stress syndrome (24%), iliotibial band syndrome (19%), and plantar fasciitis (15%). 
 > Injury incidence was significantly higher in runners exceeding 50 km/week without strength training (p=0.03). 
 > Participants who followed structured warm-up and strength training routines had a 35% lower injury rate (p=0.01). 
 > Footwear replacement within 500-700 km was associated with reduced injury occurrence (p=0.04)."
 > <div class="source"> [Injury Incidence and Prevention Strategies Among Amateur Marathon Runners: A Prospective Cohort Study](https://www.icr-heart.com/article/injury-incidence-and-prevention-strategies-among-amateur-marathon-runners-a-prospective-cohort-study-2510/#:~:text=analysis%20included%20chi,marathon%20runners%20are%20at%20a) </div>
+
+> 9 out of 10 reported a running related injury or illness symptom at some time during the 16-week study period (n = 161)
+> <div class="source"> [Running Themselves Into the Ground? Incidence, Prevalence, and Impact of Injury and Illness in Runners Preparing for a Half or Full Marathon](https://pubmed.ncbi.nlm.nih.gov/31213161/#:~:text=Results%3A%20%20Of%20the%20161,of%20illness%20symptoms%20peaked%20at) </div>
+
+> Running-related injuries were reported in 53.6% (n = 28) of elite runners and 34.6% of recreational runners (n = 254)
+> <div class="source"> [Exploring the Relationship between Running-Related Technology Use and Running-Related Injuries: A Cross-Sectional Study of Recreational and Elite Long-Distance Runners](https://pmc.ncbi.nlm.nih.gov/articles/PMC10970008/#sec3-healthcare-12-00642) </div>
+
+> 75% of elite marathon runners reported running-related musculoskeletal pain in the last 12 months (n = 199)
+> <div class="source"> [PREVALENCE OF MUSCULOSKELETAL PAIN IN MARATHON RUNNERS WHO COMPETE AT THE ELITE LEVEL](https://pubmed.ncbi.nlm.nih.gov/26900507/#:~:text=presence%2C%20location%20and%20intensity%20of,musculoskeletal%20pain) </div>
