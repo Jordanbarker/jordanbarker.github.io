@@ -25,19 +25,15 @@ Male Runner Results — 2024 Madison Marathon
 
 ## AI Coach
 
-I've used Garmin's built-in coaching tools in the past, but the max distance for a race is a half-marathon, so I needed to improvise. There are [plenty](https://www.halhigdon.com/training/marathon-training/) [of](https://marathonhandbook.com/trainingplans/marathon-training-plans/) [great](https://www.mymottiv.com/marathon-training-plan) marathon training plans online, but I wanted more autonomy and adaptability. 
-
-### Limitations
-
-It's useful to note the biggest downsides of using an AI coach compared to what an expert human coach could provide.
-
-1. They 
+I've used Garmin's built-in coaching tools in the past, but the max distance for a race is a half-marathon, so I needed to improvise. There are [plenty](https://www.halhigdon.com/training/marathon-training/) [of](https://marathonhandbook.com/trainingplans/marathon-training-plans/) [great](https://www.mymottiv.com/marathon-training-plan) marathon training plans online, but I wanted more autonomy. 
 
 ### Data
 
 I built my own coaching tool by gathering marathon training articles and papers to give an LLM the latest context. With that primer, I passed it my latest running data and got personalized workouts.  
 
-:::{.note}
+<details class="callout" open>
+<summary>Example training status text</summary>
+:::{.text-block}
 Weeks until marathon: 2
 VO₂ Max (Running): 58
 Lactate Threshold Pace (min:sec/mi): 7:36
@@ -84,10 +80,19 @@ Daily mileage for the last 2 weeks:
 | 2025-10-20 |      6.85 |     5.11 |    15.84 |    43.6  |     0    |        0 |
 | 2025-10-21 |      7.71 |     2.4  |    42.65 |    27.24 |     0    |        0 |
 :::
+</details>
+
+### Workout Creation
 
 Here is an example of a workout that was generated through this process:
 
 ![AI generated workout plan for Sunday](Assets/marathon/sunday_workout.png)  
+
+### Limitations
+
+It's useful to note the biggest downsides of using an AI coach compared to what an expert human coach could provide.
+
+1. Running form is 
 
 ## Shoes {#shoes}
 
