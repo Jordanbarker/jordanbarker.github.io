@@ -25,60 +25,153 @@ Male Runner Results — 2024 Madison Marathon
 
 ## AI Coach
 
-I've used Garmin's built-in coaching tools in the past, but the max distance for a race is a half-marathon, so I needed to improvise. There are [plenty](https://www.halhigdon.com/training/marathon-training/) [of](https://marathonhandbook.com/trainingplans/marathon-training-plans/) [great](https://www.mymottiv.com/marathon-training-plan) marathon training plans online, but I wanted more autonomy. 
+I've used Garmin's built-in coaching tools in the past, but the max distance for a race is a half-marathon, so I needed to improvise. There are [plenty](https://www.halhigdon.com/training/marathon-training/) [of](https://marathonhandbook.com/trainingplans/marathon-training-plans/) [great](https://www.mymottiv.com/marathon-training-plan) marathon training plans online, but I wanted more autonomy so I built my own coaching tool. 
 
 ### Data
 
-I built my own coaching tool by gathering marathon training articles and papers to give an LLM the latest context. With that primer, I passed it my latest running data and got personalized workouts.  
+I used deep research from Perplexity and ChatGPT to gather articles and papers on various running topics that I found interesting while training, and reviewed the results myself to verify authenticity. I primarly looked at what cohorts were studied, how many participants, and if the findings had been replicated. This knowledge base served as the primer for the LLM to give it the latest context. 
 
-<details class="callout" open>
-<summary>Example training status text</summary>
+Next, I used [garth](https://github.com/matin/garth) to pull my latest running data from Garmin. Below is an example of what information is gathered about my training status.
+
+<details class="callout"><summary>Example training status text</summary>
+:::{.text-block} 
+
+    Weeks until marathon: 2
+
+    VO₂ Max (Running): 58
+
+    Lactate Threshold Pace (min:sec/mi): 7:36
+
+    Lactate Threshold HR: 174
+
+    Current estimated race paces:
+
+    | Race         | Est. Race Pace   | Est. Race Time   |
+    |--------------|------------------|------------------|
+    | 5K           | 6:29             | 0:20:08          |
+    | 10K          | 6:54             | 0:42:53          |
+    | HalfMarathon | 7:15             | 1:35:06          |
+    | Marathon     | 7:58             | 3:28:46          |
+
+    Weekly mileage for the last 12 weeks:
+
+    | week_start   | week_end   |   mileage |   z1_min |   z2_min |   z3_min |   z4_min |   z5_min |   rolling_avg |   pct_change |
+    |--------------|------------|-----------|----------|----------|----------|----------|----------|---------------|--------------|
+    | 2025-07-28   | 2025-08-03 |     48.97 |    24.74 |   132.89 |   181.87 |    99.38 |     5.86 |        nan    |       nan    |
+    | 2025-08-04   | 2025-08-10 |     63.55 |    39.07 |   193.68 |   272.68 |    96.98 |     1.7  |         56.26 |        29.77 |
+    | 2025-08-11   | 2025-08-17 |     60.23 |    53.5  |   239.87 |   179.64 |   101.04 |     2.48 |         61.89 |        -5.22 |
+    | 2025-08-18   | 2025-08-24 |     54.59 |    57.56 |   192.19 |   180.64 |    74.45 |     4.53 |         57.41 |        -9.36 |
+    | 2025-08-25   | 2025-08-31 |     41.22 |    27.56 |   108.71 |   189.06 |    44.9  |     0    |         47.9  |       -24.49 |
+    | 2025-09-01   | 2025-09-07 |     13.08 |    50.95 |    28.96 |    38.9  |    12.13 |     0    |         27.15 |       -68.27 |
+    | 2025-09-08   | 2025-09-14 |     15.81 |    21.13 |    50.54 |    55.59 |    33.19 |     0    |         14.44 |        20.87 |
+    | 2025-09-15   | 2025-09-21 |     22.13 |    63.81 |    82.61 |    79.21 |     8.33 |     0    |         18.97 |        39.97 |
+    | 2025-09-22   | 2025-09-28 |     30.43 |    42.25 |    88.62 |   159.35 |     1.33 |     0    |         26.28 |        37.51 |
+    | 2025-09-29   | 2025-10-05 |     41.52 |    47.68 |   143    |   182.8  |    23.1  |     5.85 |         35.98 |        36.44 |
+    | 2025-10-06   | 2025-10-12 |     43.66 |    23.96 |   187.84 |   152.41 |    37.3  |     0    |         42.59 |         5.15 |
+    | 2025-10-13   | 2025-10-19 |     44.4  |    43.68 |   181.39 |   138.66 |    42.37 |     0    |         44.03 |         1.69 |
+
+    Daily mileage for the last 2 weeks:
+
+    | date       |   mileage |   z1_min |   z2_min |   z3_min |   z4_min |   z5_min |
+    |------------|-----------|----------|----------|----------|----------|----------|
+    | 2025-10-09 |      7.19 |     6    |    41.33 |    21    |     0    |        0 |
+    | 2025-10-10 |     10.03 |     6.88 |    38.15 |    15.82 |    29.02 |        0 |
+    | 2025-10-11 |      5.5  |     2.03 |    42.62 |     9.43 |     0    |        0 |
+    | 2025-10-12 |     15.69 |     0.57 |    22.45 |   101.96 |     8.28 |        0 |
+    | 2025-10-13 |      1.05 |     5.07 |     7.9  |     0.25 |     0    |        0 |
+    | 2025-10-14 |     13.48 |     0.96 |    14.27 |    58.77 |    35.46 |        0 |
+    | 2025-10-15 |      1.01 |     8.11 |     4.05 |     0    |     0    |        0 |
+    | 2025-10-16 |      9.37 |    16.27 |    37.44 |    32.02 |     1.35 |        0 |
+    | 2025-10-17 |      4.16 |     4.77 |     5.33 |    21.45 |     5.56 |        0 |
+    | 2025-10-18 |     14.21 |     6.4  |   101.74 |    24.55 |     0    |        0 |
+    | 2025-10-19 |      1.12 |     2.1  |    10.66 |     1.62 |     0    |        0 |
+    | 2025-10-20 |      6.85 |     5.11 |    15.84 |    43.6  |     0    |        0 |
+    | 2025-10-21 |      7.71 |     2.4  |    42.65 |    27.24 |     0    |        0 |
+    :::
+</details>
+
+I had it create a long term training plan that would be used to guide weekly workout structure going forward. 
+
+<details class="callout"><summary>Initial Training Plan</summary>
 :::{.text-block}
-Weeks until marathon: 2
-VO₂ Max (Running): 58
-Lactate Threshold Pace (min:sec/mi): 7:36
-Lactate Threshold HR: 174
 
-Current estimated race paces:
-| Race         | Est. Race Pace   | Est. Race Time   |
-|--------------|------------------|------------------|
-| 5K           | 6:29             | 0:20:08          |
-| 10K          | 6:54             | 0:42:53          |
-| HalfMarathon | 7:15             | 1:35:06          |
-| Marathon     | 7:58             | 3:28:46          |
+Here is the initial training plan, starting 17 weeks away from the marathon and broken into 3 weeks blocks. 
 
-Weekly mileage for the last 12 weeks:
-| week_start   | week_end   |   mileage |   z1_min |   z2_min |   z3_min |   z4_min |   z5_min |   rolling_avg |   pct_change |
-|--------------|------------|-----------|----------|----------|----------|----------|----------|---------------|--------------|
-| 2025-07-28   | 2025-08-03 |     48.97 |    24.74 |   132.89 |   181.87 |    99.38 |     5.86 |        nan    |       nan    |
-| 2025-08-04   | 2025-08-10 |     63.55 |    39.07 |   193.68 |   272.68 |    96.98 |     1.7  |         56.26 |        29.77 |
-| 2025-08-11   | 2025-08-17 |     60.23 |    53.5  |   239.87 |   179.64 |   101.04 |     2.48 |         61.89 |        -5.22 |
-| 2025-08-18   | 2025-08-24 |     54.59 |    57.56 |   192.19 |   180.64 |    74.45 |     4.53 |         57.41 |        -9.36 |
-| 2025-08-25   | 2025-08-31 |     41.22 |    27.56 |   108.71 |   189.06 |    44.9  |     0    |         47.9  |       -24.49 |
-| 2025-09-01   | 2025-09-07 |     13.08 |    50.95 |    28.96 |    38.9  |    12.13 |     0    |         27.15 |       -68.27 |
-| 2025-09-08   | 2025-09-14 |     15.81 |    21.13 |    50.54 |    55.59 |    33.19 |     0    |         14.44 |        20.87 |
-| 2025-09-15   | 2025-09-21 |     22.13 |    63.81 |    82.61 |    79.21 |     8.33 |     0    |         18.97 |        39.97 |
-| 2025-09-22   | 2025-09-28 |     30.43 |    42.25 |    88.62 |   159.35 |     1.33 |     0    |         26.28 |        37.51 |
-| 2025-09-29   | 2025-10-05 |     41.52 |    47.68 |   143    |   182.8  |    23.1  |     5.85 |         35.98 |        36.44 |
-| 2025-10-06   | 2025-10-12 |     43.66 |    23.96 |   187.84 |   152.41 |    37.3  |     0    |         42.59 |         5.15 |
-| 2025-10-13   | 2025-10-19 |     44.4  |    43.68 |   181.39 |   138.66 |    42.37 |     0    |         44.03 |         1.69 |
+### Phase 1: Base & Strength (Weeks 17–14)
+Mileage: Stabilize between 45–55 miles per week; cautiously progress up to a 15-20% increase if well-tolerated, based on your historical mileage progression (your current weekly mileage can safely rise slightly above the conventional 10% rule).
 
-Daily mileage for the last 2 weeks:
-| date       |   mileage |   z1_min |   z2_min |   z3_min |   z4_min |   z5_min |
-|------------|-----------|----------|----------|----------|----------|----------|
-| 2025-10-09 |      7.19 |     6    |    41.33 |    21    |     0    |        0 |
-| 2025-10-10 |     10.03 |     6.88 |    38.15 |    15.82 |    29.02 |        0 |
-| 2025-10-11 |      5.5  |     2.03 |    42.62 |     9.43 |     0    |        0 |
-| 2025-10-12 |     15.69 |     0.57 |    22.45 |   101.96 |     8.28 |        0 |
-| 2025-10-13 |      1.05 |     5.07 |     7.9  |     0.25 |     0    |        0 |
-| 2025-10-14 |     13.48 |     0.96 |    14.27 |    58.77 |    35.46 |        0 |
-| 2025-10-15 |      1.01 |     8.11 |     4.05 |     0    |     0    |        0 |
-| 2025-10-16 |      9.37 |    16.27 |    37.44 |    32.02 |     1.35 |        0 |
-| 2025-10-17 |      4.16 |     4.77 |     5.33 |    21.45 |     5.56 |        0 |
-| 2025-10-18 |     14.21 |     6.4  |   101.74 |    24.55 |     0    |        0 |
-| 2025-10-19 |      1.12 |     2.1  |    10.66 |     1.62 |     0    |        0 |
-| 2025-10-20 |      6.85 |     5.11 |    15.84 |    43.6  |     0    |        0 |
-| 2025-10-21 |      7.71 |     2.4  |    42.65 |    27.24 |     0    |        0 |
+Intensity distribution: 80% easy mileage (Zones 1–2), ~10–15% threshold (Zone 3–4), <5% VO₂max (Zone 4–5).
+
+Key workouts:
+
+* Weekly long run: 13–15 miles, progressing from Zone 2, finishing the last 2-3 miles at threshold (Zone 4, HR ~168–174 bpm).
+* Threshold workouts (1 per week):
+	* Example: 5 × 5 minutes at lactate threshold (~7:36 pace), 1 min jog recovery.
+	* Strength and cross-training: Include weekly strength/core sessions and occasional cycling/swimming for recovery.
+
+### Phase 2: Lactate Threshold & Aerobic Capacity (Weeks 13–9)
+Mileage: Sustain or increase slightly, peaking around 50–60 miles/week.
+
+Intensity distribution: 75–80% easy, 15–20% threshold, ~5% VO₂max intervals.
+
+Key workouts:
+
+* Extended tempo runs: 30–40 min continuous at LT (7:36 pace).
+* Cruise intervals: 4 × 8 minutes at LT with 2 min recovery.
+* Weekly long run: 15–18 miles, steady pace with a moderate finish at marathon pace (~7:50 min/mi).
+* Cadence focus: Experiment modestly with cadence adjustments (+3-5%) during moderate runs to enhance running economy and reduce injury risk.
+
+### Phase 3: Marathon-Specific Endurance (Weeks 8–4)
+Mileage: Peak training weeks, aiming for 55–65 miles/week.
+
+Intensity distribution: ~70–75% easy, 20–25% marathon/threshold pace, ~5% VO₂max.
+
+Key workouts:
+
+* Marathon pace runs: 8–12 miles at goal marathon pace (7:40–7:50 min/mi).
+* Long runs with marathon pace finish: 18–20 miles, last 5–8 miles at marathon pace.
+* Advanced LT workouts: Alternating threshold intervals (e.g., 3 min at LT minus 20–30 sec/mi, then 1 min 10K pace, repeated for 30–40 min).
+* Warm-up and cooldown protocols: Include structured dynamic warm-ups before harder runs to reduce injury risk significantly.
+
+### Phase 4: Peak & Taper (Weeks 3–1)
+Mileage: Gradual reduction, 3-week taper (~75%, 50%, and 30% of peak mileage).
+
+Intensity distribution: Short, quality sessions maintaining intensity; mostly recovery runs.
+
+Key workouts:
+
+* Reduced-length marathon pace runs: 4–6 miles at goal marathon pace.
+* Final tune-up threshold workout (about 10 days before race): 3 × 1 mile at threshold pace, 2 min jog recovery.
+* Taper duration: Short (7–10 days of reduced load) aligns with elite practice and scientific recommendations for optimal freshness.
+
+
+Physiological Targets
+
+* Improve lactate threshold closer to 90%+ of HR_max, which is a primary factor for marathon performance.
+* Include VO₂ max sessions sparingly (once every 10–14 days) to maintain top-end aerobic power.
+
+Weekly Structure (Typical Example):
+
+* Monday: Easy recovery run (Zone 1–2, 4–6 mi)
+* Tuesday: Threshold/Cruise intervals (total ~8–10 mi)
+* Wednesday: Easy/moderate run (Zone 2, 6–8 mi)
+* Thursday: Rest or cross-train/active recovery
+* Friday: Marathon pace or tempo run (6–12 mi total)
+* Saturday: Easy/moderate run (5–7 mi)
+* Sunday: Long run (13–20 mi, progressive structure)
+
+Warmups and Cooldowns
+
+* Consistent dynamic warm-ups are scientifically supported for reducing injury and improving performance; active cooldowns are optional but beneficial for recovery and lactate clearance.
+
+Monitoring & Adjustments
+
+* Monitor heart rate closely during threshold and marathon pace efforts. Aim for lactate threshold HR (currently ~174 bpm) during threshold workouts.
+* Adapt training based on RPE and fatigue; be flexible rather than strictly adherent to mileage.
+
+Considerations for Cadence
+
+* Aim for slight optimization (individual-dependent), potentially increasing running economy by experimenting incrementally during easy/moderate runs.
 :::
 </details>
 
