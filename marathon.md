@@ -183,9 +183,11 @@ Here is an example of a workout that was generated through this process:
 
 ### Limitations
 
-It's useful to note the biggest downsides of using an AI coach compared to what an expert human coach could provide.
+It's useful to note the biggest downsides of using an AI coach compared to what an expert human coach could provide. Here are a few that stood out to me:
 
-1. Running form is 
+1. LLMs are [Sycophantic](https://arxiv.org/pdf/2310.13548). They will tell you what you want to hear, which is obviously not a trait of a great coach.
+2. Reactive assistence. If you do not know what to ask, the LLM cannot help you. A real coach can probe and provide guidance proactively. 
+3. Input is entirely text based. Running form is essential; and ideally it would be monitored consistently by a real coach. Visual feedback back help spot weaknesses or early injuries before it worsens.
 
 ## Shoes {#shoes}
 
