@@ -188,14 +188,15 @@ It's useful to note the biggest downsides of using an AI coach compared to what 
 1. LLMs are [Sycophantic](https://arxiv.org/pdf/2310.13548). They will tell you what you want to hear, which is obviously not a trait of a great coach.
 2. Reactive assistence. If you do not know what to ask, the LLM cannot help you. A real coach can probe and provide guidance proactively. 
 3. Input is entirely text based. Running form is essential; and ideally it would be monitored consistently by a real coach. Visual feedback back help spot weaknesses or early injuries before it worsens.
+4. (Garbage in, garbage out)[https://en.wikipedia.org/wiki/Garbage_in,_garbage_out]. This whole thing relies on Garmin having accurate data. My lactate threshold prediction on Garmin remained the same for the last 8 months of training, which I am now confident is incorrect, but it took months to realize. Unfortunately, lactate threshold is one of the most important predictors of marathon performance, and key to accurate workout programming.
 
 ## Shoes {#shoes}
 
 Here is my running shoe history for the year:
 
-1. Fresh Foam 680v8 for $68.56, retired at 688.7 miles  
-2. Fresh Foam 680v8 for $63.99, retired at 442.4 miles  
-3. Fresh Foam X Kaiha Road for $83.69  
+1. Fresh Foam 680v8 4E for $68.56, retired at 688.7 miles  
+2. Fresh Foam 680v8 4E for $63.99, retired at 442.4 miles  
+3. Fresh Foam X Kaiha Road 4E for $83.69  
 
 The typical recommendation is to retire shoes after 300–500 miles. You can still get use out of older shoes, but the risk of injury increases. My second pair of shoes were retired 250 miles sooner than the previous pair due to a shin splint injury.  
 
