@@ -87,7 +87,7 @@ Next, I used [garth](https://github.com/matin/garth) to pull my latest running d
     | 2025-10-19 |      1.12 |     2.1  |    10.66 |     1.62 |     0    |        0 |
     | 2025-10-20 |      6.85 |     5.11 |    15.84 |    43.6  |     0    |        0 |
     | 2025-10-21 |      7.71 |     2.4  |    42.65 |    27.24 |     0    |        0 |
-    :::
+:::
 </details>
 
 I had it create a long term training plan that would be used to guide weekly workout structure going forward. 
@@ -190,25 +190,27 @@ It's useful to note the biggest downsides of using an AI coach compared to what 
 3. Input is entirely text based. Running form is essential; and ideally it would be monitored consistently by a real coach. Visual feedback back help spot weaknesses or early injuries before it worsens.
 4. (Garbage in, garbage out)[https://en.wikipedia.org/wiki/Garbage_in,_garbage_out]. This whole thing relies on Garmin having accurate data. My lactate threshold prediction on Garmin remained the same for the last 8 months of training, which I am now confident is incorrect, but it took months to realize. Unfortunately, lactate threshold is one of the most important predictors of marathon performance, and key to accurate workout programming.
 
-## Shoes {#shoes}
 
-Here is my running shoe history for the year:
+## Results
+
+## My Experience and Recommendations
+
+### Shoes {#shoes}
+
+I stuck with New Balance for some consistency and because since they had a sale on wide-toebox shoes. Here is my running shoe history for the year:
 
 1. Fresh Foam 680v8 4E for $68.56, retired at 688.7 miles  
 2. Fresh Foam 680v8 4E for $63.99, retired at 442.4 miles  
-3. Fresh Foam X Kaiha Road 4E for $83.69  
+3. Fresh Foam X Kaiha Road 4E for $83.69, still using at 300+ miles, but they lost the 'pop'
+4. Fresh Foam X 880 v15 4E for $150 - full retail price sadly since I bought last minute in person  
 
-The typical recommendation is to retire shoes after 300–500 miles. You can still get use out of older shoes, but the risk of injury increases. My second pair of shoes were retired 250 miles sooner than the previous pair due to a shin splint injury.  
+The typical recommendation is to retire shoes after 300–500 miles. You can still get use out of older shoes, but the risk of injury increases. My second pair of shoes were retired 250 miles sooner than the previous pair due to a shin splint injury. I used [RunRepeat.com's blog on shoes for shin splints](https://runrepeat.com/guides/best-shin-splints-running-shoes#shin-splints-and-running) to pick the third pair after that.
 
-[RunRepeat.com's blog on shoes for shin splints](https://runrepeat.com/guides/best-shin-splints-running-shoes#shin-splints-and-running)
+#### Carbon Plates
 
-### Carbon Plates
+Expensive and completely optional, carbon-fiber plated shoes can give a 2–3% improvement on race time. Unfortunately, they don't last as long as standard shoes. The "pop" diminishes after about 100 to 140 miles so you need to be strategic about breaking them in. Due to the durability limitations, it's generally advised to just wear them for marathon-pace efforts about 4 weeks prior to the race, as well as a long distance run (>10 miles) two weeks prior to the race. I ended up opting out on carbon plates since I was already ahead of my goal, and the improvement wouldn't have made enough of a difference for me.
 
-Expensive and completely optional, carbon-fiber plated shoes can give a 2–3% improvement on race time. Unfortunately, they don't last as long as standard shoes. The "pop" diminishes after about 100 to 140 miles so you need to be strategic about breaking them in. Due to the durability limitations, it's generally advised to just wear them for marathon-pace efforts about 4 weeks prior to the race, as well as a long distance run (>10 miles) two weeks prior to the race.
-
-I ended up opting out on carbon plates since I was already ahead of my goal, and the improvement wouldn't have made enough of a difference for me.
-
-## Diet {#diet}
+### Diet {#diet}
 
 The best marathoners train their gut as much as their legs. Consider practicing run nutrition for any runs longer than 75 mins. It increases recovery, delays fatigue, improves GI distress, and helps with training adaptations.  
 
@@ -216,7 +218,7 @@ Natural sources and commercial products both work well. Both can cause GI discom
 
 Practice your long run pre-fueling strategy. Find something for almost all long runs and use it pre-marathon. Do not change this fueling strategy on the day of the race.  
 
-### Carbs
+#### Carbs
 
 The goal is to be able to consume 90+ grams of carbohydrates per hour. To accomplish this, you can use a mix of glucose and fructose. 
 
@@ -246,17 +248,17 @@ I made my own running gel/juice to get 90g/hr. I added 60g granulated sugar + 30
 | Maltodextrin                     | 1:0              | Low osmolality vs simple sugars; great for bottles.                                    |
 | Fructose (powder)                | 0:1              | Use to balance mixes toward targeted ratios.                                           |
 
-### Electrolytes {#electrolytes}
+#### Electrolytes {#electrolytes}
 This is largely individual dependent as well as race conditions. I targeted 600 mg of sodium per hour and made my electrolyte mix at home following [LMNT's recipe](https://drinklmnt.com/pages/ingredients#facts):
 
 - 2,500 mg sodium chloride (for 1,000 mg sodium)  
 - 385 mg potassium chloride (for 200 mg potassium)  
 - 390 mg magnesium malate **or** 265 mg di-magnesium malate (for 60 mg magnesium)  
 
-### Hydration {#hydration}
+#### Hydration {#hydration}
 For water intake, “drink to thirst” will usually suffice. If you want to get more precise, cooler conditions call for ~0.4 L/h, while hot weather is about ~0.8 L/h or more.
 
-### Pre-Race & Race Nutrition
+#### Pre-Race & Race Nutrition
 
 - **Day Before:** Normal meals that are carb-rich (noodles, rice, potatoes).  
 - **Night Before:** Bagels + peanut butter & honey, 1–2 bananas, large sports drink like Powerade.  
@@ -265,7 +267,7 @@ For water intake, “drink to thirst” will usually suffice. If you want to get
 - **10–15 Minutes Before:** 40g caffeinated gel.  
 - **During Race (every 5K or so):** ~25g of carbs  
 
-## Injuries
+### Injuries
 
 Running injuries are extremely common in marathon runners. Higher training volumes generally increases the injury risk among runners with amateuers being more susceptible to injuries as they increase mileage and are less likely to follow proper a strength training program.
 
