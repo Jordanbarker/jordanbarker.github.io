@@ -8,8 +8,7 @@ toc: true
 ---
 
 ## Goal
-In January 2025, I set out to run a marathon. Then the competative side of me kicked in, and I upped the goal to be *above average*.
-I defined that formally as being in the top 50% of male runners. Luckily, [Madison Marathon](https://madisonmarathon.org/) publishes past results online so I was able to generate some summary statistics to narrow in on the target.
+In January 2025, I set out to run a marathon. Shortly after registering for the [Madison Marathon](https://madisonmarathon.org/) the competative side of me kicked in, and I upped the goal to be an *above average* marathon runner. I defined that as being in the top 50% of male runners. Luckily, past results are published online so I was able to generate some summary statistics to narrow in on the target.
 
 <div class="table-title">
 Male Runner Results — 2024 Madison Marathon
@@ -25,11 +24,11 @@ Male Runner Results — 2024 Madison Marathon
 
 ## AI Coach
 
-I've used Garmin's built-in coaching tools in the past, but the max distance for a race is a half-marathon, so I needed to improvise. There are [plenty](https://www.halhigdon.com/training/marathon-training/) [of](https://marathonhandbook.com/trainingplans/marathon-training-plans/) [great](https://www.mymottiv.com/marathon-training-plan) marathon training plans online, but I wanted more autonomy so I built my own coaching tool. 
+I've used Garmin's built-in coaching tools in the past, but the max distance for a race is a half-marathon, so I needed to improvise. There are [plenty](https://www.halhigdon.com/training/marathon-training/) [of](https://marathonhandbook.com/trainingplans/marathon-training-plans/) [great](https://www.mymottiv.com/marathon-training-plan) marathon training plans online, but I wanted more autonomy, so I built my own coaching tool. 
 
 ### Data
 
-I used deep research from Perplexity and ChatGPT to gather articles and papers on various running topics that I found interesting while training, and reviewed the results myself to verify authenticity. I primarly looked at what cohorts were studied, how many participants, and if the findings had been replicated. This knowledge base served as the primer for the LLM to give it the latest context. 
+I used deep research from Perplexity and ChatGPT to gather articles and papers on various running topics that I found interesting while training, such as "What is the ideal running cadence?" or "Are warmups and cooldowns important?" I reviewed the results myself to verify accuracy by looking at what cohorts were studied, how many participants, and if the findings had been replicated in other studies. After review, the notes were added as context for the coach. This knowledge base served as the primer for the LLM to give it the latest relevant information. Ideally, this process would be continously updating as need data came out, but that is a future problem to solve.
 
 Next, I used [garth](https://github.com/matin/garth) to pull my latest running data from Garmin. Below is an example of what information is gathered about my training status.
 
@@ -37,12 +36,10 @@ Next, I used [garth](https://github.com/matin/garth) to pull my latest running d
 :::{.text-block} 
 
     Weeks until marathon: 2
-
     VO₂ Max (Running): 58
-
     Lactate Threshold Pace (min:sec/mi): 7:36
-
     Lactate Threshold HR: 174
+
 
     Current estimated race paces:
 
@@ -52,6 +49,7 @@ Next, I used [garth](https://github.com/matin/garth) to pull my latest running d
     | 10K          | 6:54             | 0:42:53          |
     | HalfMarathon | 7:15             | 1:35:06          |
     | Marathon     | 7:58             | 3:28:46          |
+
 
     Weekly mileage for the last 12 weeks:
 
@@ -69,6 +67,7 @@ Next, I used [garth](https://github.com/matin/garth) to pull my latest running d
     | 2025-09-29   | 2025-10-05 |     41.52 |    47.68 |   143    |   182.8  |    23.1  |     5.85 |         35.98 |        36.44 |
     | 2025-10-06   | 2025-10-12 |     43.66 |    23.96 |   187.84 |   152.41 |    37.3  |     0    |         42.59 |         5.15 |
     | 2025-10-13   | 2025-10-19 |     44.4  |    43.68 |   181.39 |   138.66 |    42.37 |     0    |         44.03 |         1.69 |
+
 
     Daily mileage for the last 2 weeks:
 
@@ -95,7 +94,7 @@ I had it create a long term training plan that would be used to guide weekly wor
 <details class="callout"><summary>Initial Training Plan</summary>
 :::{.text-block}
 
-Here is the initial training plan, starting 17 weeks away from the marathon and broken into 3 weeks blocks. 
+Here is the training plan, starting 17 weeks away from the marathon and broken into 3 weeks blocks. 
 
 ### Phase 1: Base & Strength (Weeks 17–14)
 Mileage: Stabilize between 45–55 miles per week; cautiously progress up to a 15-20% increase if well-tolerated, based on your historical mileage progression (your current weekly mileage can safely rise slightly above the conventional 10% rule).
@@ -177,7 +176,7 @@ Considerations for Cadence
 
 ### Workout Creation
 
-Here is an example of a workout that was generated through this process:
+With the LLM primed with the latest running research and my current training status, I had it generate my workouts on a weekly basis. The workouts were sent to my Garmin account via their API so that I could follow along easily. Here is an example of a workout that was generated through this process:
 
 ![AI generated workout plan for Sunday](Assets/marathon/sunday_workout.png)  
 
@@ -187,13 +186,13 @@ It's useful to note the biggest downsides of using an AI coach compared to what 
 
 1. LLMs are [Sycophantic](https://arxiv.org/pdf/2310.13548). They will tell you what you want to hear, which is obviously not a trait of a great coach.
 2. Reactive assistence. If you do not know what to ask, the LLM cannot help you. A real coach can probe and provide guidance proactively. 
-3. Input is entirely text based. Running form is essential; and ideally it would be monitored consistently by a real coach. Visual feedback back help spot weaknesses or early injuries before it worsens.
-4. (Garbage in, garbage out)[https://en.wikipedia.org/wiki/Garbage_in,_garbage_out]. This whole thing relies on Garmin having accurate data. My lactate threshold prediction on Garmin remained the same for the last 8 months of training, which I am now confident is incorrect, but it took months to realize. Unfortunately, lactate threshold is one of the most important predictors of marathon performance, and key to accurate workout programming.
+3. Input is entirely text based. Running form is essential; and ideally it would be monitored throughout training. Visual feedback would help spot weaknesses or early injuries.
+4. [Garbage in, garbage out](https://en.wikipedia.org/wiki/Garbage_in,_garbage_out). This whole thing relies on Garmin having accurate data. My lactate threshold prediction on Garmin remained the same for the last 8 months of training, which I am now confident is incorrect, but it took months to realize. Unfortunately, lactate threshold is one of the most important predictors of marathon performance, and key to accurate workout programming.
 
-
-## Results
 
 ## My Experience and Recommendations
+
+I placed in the top ~10% of male participants! I saw tremendous improvement this year as I steadily increase mileage. I went from running 25 miles per month to 250. Below are more details about my experience and some of the learnings picked up along the way. 
 
 ### Shoes {#shoes}
 
@@ -204,11 +203,11 @@ I stuck with New Balance for some consistency and because since they had a sale 
 3. Fresh Foam X Kaiha Road 4E for $83.69, still using at 300+ miles, but they lost the 'pop'
 4. Fresh Foam X 880 v15 4E for $150 - full retail price sadly since I bought last minute in person  
 
+![Running shoes, newest to oldest](Assets/marathon/shoes.png)
+
 The typical recommendation is to retire shoes after 300–500 miles. You can still get use out of older shoes, but the risk of injury increases. My second pair of shoes were retired 250 miles sooner than the previous pair due to a shin splint injury. I used [RunRepeat.com's blog on shoes for shin splints](https://runrepeat.com/guides/best-shin-splints-running-shoes#shin-splints-and-running) to pick the third pair after that.
 
-#### Carbon Plates
-
-Expensive and completely optional, carbon-fiber plated shoes can give a 2–3% improvement on race time. Unfortunately, they don't last as long as standard shoes. The "pop" diminishes after about 100 to 140 miles so you need to be strategic about breaking them in. Due to the durability limitations, it's generally advised to just wear them for marathon-pace efforts about 4 weeks prior to the race, as well as a long distance run (>10 miles) two weeks prior to the race. I ended up opting out on carbon plates since I was already ahead of my goal, and the improvement wouldn't have made enough of a difference for me.
+Carbon Plates - Expensive and completely optional, carbon-fiber plated shoes can give a 2–3% improvement on race time. Unfortunately, they don't last as long as standard shoes. The "pop" diminishes after about 100 to 140 miles so you need to be strategic about breaking them in. Due to the durability limitations, it's generally advised to just wear them for marathon-pace efforts about 4 weeks prior to the race, as well as a long distance run (>10 miles) two weeks prior to the race. I ended up opting out on carbon plates since I was already ahead of my goal, and the improvement wouldn't have made enough of a difference for me.
 
 ### Diet {#diet}
 
@@ -225,11 +224,10 @@ The goal is to be able to consume 90+ grams of carbohydrates per hour. To accomp
 > There is no optimal ratio. The ratio that is optimal will change depending on amounts ingested. If 90 g/h is ingested it should be around 2:1, but if more is ingested, for example 120 g/h, 1:1 is likely better.
 > [https://www.mysportscience.com/post/the-optimal-ratio-of-carbohydrates]
 
-Transporters: Glucose uses SGLT1; fructose uses GLUT5. 
-
 The carbs are typically a mix of glucose and fructose in roughly a 2:1 ratio. I started training with plain old granulated sugar, which has a 1:1 ratio. 
 
-"Similar metabolic effects can be achieved via the ingestion of sucrose [...] because intestinal absorption is unlikely to be limited by sucrose hydrolysis." [https://www.mdpi.com/2072-6643/9/4/344]
+> "Similar metabolic effects can be achieved via the ingestion of sucrose [...] because intestinal absorption is unlikely to be limited by sucrose hydrolysis." 
+> [https://www.mdpi.com/2072-6643/9/4/344]
 
 I made my own running gel/juice to get 90g/hr. I added 60g granulated sugar + 30g maltodextrin and added water as needed. I prefer a more watery mix than normal gels. I also typically add 100mg of caffeine and 200mg of l-theanine and electrolytes like LMNT.  
 
@@ -249,6 +247,7 @@ I made my own running gel/juice to get 90g/hr. I added 60g granulated sugar + 30
 | Fructose (powder)                | 0:1              | Use to balance mixes toward targeted ratios.                                           |
 
 #### Electrolytes {#electrolytes}
+
 This is largely individual dependent as well as race conditions. I targeted 600 mg of sodium per hour and made my electrolyte mix at home following [LMNT's recipe](https://drinklmnt.com/pages/ingredients#facts):
 
 - 2,500 mg sodium chloride (for 1,000 mg sodium)  
@@ -256,6 +255,7 @@ This is largely individual dependent as well as race conditions. I targeted 600 
 - 390 mg magnesium malate **or** 265 mg di-magnesium malate (for 60 mg magnesium)  
 
 #### Hydration {#hydration}
+
 For water intake, “drink to thirst” will usually suffice. If you want to get more precise, cooler conditions call for ~0.4 L/h, while hot weather is about ~0.8 L/h or more.
 
 #### Pre-Race & Race Nutrition
@@ -278,11 +278,27 @@ Running injuries are extremely common in marathon runners. Higher training volum
 > Footwear replacement within 500-700 km was associated with reduced injury occurrence (p=0.04)."
 > <div class="source"> [Injury Incidence and Prevention Strategies Among Amateur Marathon Runners: A Prospective Cohort Study](https://www.icr-heart.com/article/injury-incidence-and-prevention-strategies-among-amateur-marathon-runners-a-prospective-cohort-study-2510/#:~:text=analysis%20included%20chi,marathon%20runners%20are%20at%20a) </div>
 
-> 9 out of 10 reported a running related injury or illness symptom at some time during the 16-week study period (n = 161)
-> <div class="source"> [Running Themselves Into the Ground? Incidence, Prevalence, and Impact of Injury and Illness in Runners Preparing for a Half or Full Marathon](https://pubmed.ncbi.nlm.nih.gov/31213161/#:~:text=Results%3A%20%20Of%20the%20161,of%20illness%20symptoms%20peaked%20at) </div>
+Other studies point to similar findings, anywhere between 30%-75% of marathon runners will experience a running related injury. 
 
-> Running-related injuries were reported in 53.6% (n = 28) of elite runners and 34.6% of recreational runners (n = 254)
+> 33% of half or full marathon runners reported a running related injury or illness symptom at some time during the 16-week study period (n = 161).
+> <div class="source"> [Running Themselves Into the Ground? Incidence, Prevalence, and Impact of Injury and Illness in Runners Preparing for a Half or Full Marathon](https://www.jospt.org/doi/10.2519/jospt.2019.8473) </div>
+
+> Running-related injuries were reported in 53.6% (n = 28) of elite runners and 34.6% of recreational runners (n = 254).
 > <div class="source"> [Exploring the Relationship between Running-Related Technology Use and Running-Related Injuries: A Cross-Sectional Study of Recreational and Elite Long-Distance Runners](https://pmc.ncbi.nlm.nih.gov/articles/PMC10970008/#sec3-healthcare-12-00642) </div>
 
-> 75% of elite marathon runners reported running-related musculoskeletal pain in the last 12 months (n = 199)
+> 75% of elite marathon runners reported running-related musculoskeletal pain in the last 12 months (n = 199).
 > <div class="source"> [PREVALENCE OF MUSCULOSKELETAL PAIN IN MARATHON RUNNERS WHO COMPETE AT THE ELITE LEVEL](https://pubmed.ncbi.nlm.nih.gov/26900507/#:~:text=presence%2C%20location%20and%20intensity%20of,musculoskeletal%20pain) </div>
+
+<!-- 
+Running-related injuries and pain are highly prevalent in both recreational and elite marathon runners. In a prospective cohort of 300 amateur marathon runners, 42% reported at least one injury during the training period, with medial tibial stress syndrome (24%), iliotibial band syndrome (19%), and plantar fasciitis (15%) being the most common issues; higher weekly mileage (>50 km/week) without strength training was associated with significantly higher injury incidence, while structured warm-up, strength training, and timely footwear replacement (every 500–700 km) were linked to lower injury rates <a href="#ref-1" class="ref" data-tooltip="Injury Incidence and Prevention Strategies Among Amateur Marathon Runners: A Prospective Cohort Study">[1]</a> In a 16-week study of runners preparing for a half or full marathon (n = 161), 33% reported a running-related injury or illness symptom at some point during the training block <a href="#ref-2" class="ref" data-tooltip="Running Themselves Into the Ground? Incidence, Prevalence, and Impact of Injury and Illness in Runners Preparing for a Half or Full Marathon.">[2]</a> Cross-sectional data from long-distance runners found running-related injuries in 53.6% of elite runners (n = 28) and 34.6% of recreational runners (n = 254) <a href="#ref-3" class="ref" data-tooltip="Exploring the Relationship between Running-Related Technology Use and Running-Related Injuries: A Cross-Sectional Study of Recreational and Elite Long-Distance Runners.">[3]</a> Among elite marathon runners specifically, 75% reported running-related musculoskeletal pain in the previous 12 months (n = 199) <a href="#ref-4" class="ref" data-tooltip="Prevalence of Musculoskeletal Pain in Marathon Runners Who Compete at the Elite Level">[4]</a>
+
+### References
+
+<p id="ref-1">[1] Injury Incidence and Prevention Strategies Among Amateur Marathon Runners: A Prospective Cohort Study. <a href="https://www.icr-heart.com/article/injury-incidence-and-prevention-strategies-among-amateur-marathon-runners-a-prospective-cohort-study-2510/#:~:text=analysis%20included%20chi,marathon%20runners%20are%20at%20a">Link</a></p>
+
+<p id="ref-2">[2] Running Themselves Into the Ground? Incidence, Prevalence, and Impact of Injury and Illness in Runners Preparing for a Half or Full Marathon. <a href="https://www.jospt.org/doi/10.2519/jospt.2019.8473">Link</a></p>
+
+<p id="ref-3">[3] Exploring the Relationship between Running-Related Technology Use and Running-Related Injuries: A Cross-Sectional Study of Recreational and Elite Long-Distance Runners. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10970008/#sec3-healthcare-12-00642">Link</a></p>
+
+<p id="ref-4">[4] Prevalence of Musculoskeletal Pain in Marathon Runners Who Compete at the Elite Level. <a href="https://pubmed.ncbi.nlm.nih.gov/26900507/#:~:text=presence%2C%20location%20and%20intensity%20of,musculoskeletal%20pain">Link</a></p> 
+-->
