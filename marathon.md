@@ -1,11 +1,13 @@
 ---
-title: Marathon 2025
-pagetitle: How to Run an Above Average Marathon
+title: "Coach Claude: How to Run an Above Average Marathon"
+pagetitle: "Coach Claude: How to Run an Above Average Marathon"
+date: "November 21, 2025"
 description: Marathon training plan, and personal success tips
 keywords: Marathon, running, data science, analytics
 author: Jordan Barker
 toc: true
 ---
+
 
 ## Goal
 In January 2025, I set out to run a marathon. Shortly after registering for the [Madison Marathon](https://madisonmarathon.org/) the competative side of me kicked in, and I upped the goal to be an *above average* marathon runner. I defined that as being in the top 50% of male runners. Luckily, past results are published online so I was able to generate some summary statistics to narrow in on the target.
@@ -24,7 +26,7 @@ Male Runner Results — 2024 Madison Marathon
 
 ## AI Coach
 
-I've used Garmin's built-in coaching tools in the past, but the max distance for a race is a half-marathon, so I needed to improvise. There are [plenty](https://www.halhigdon.com/training/marathon-training/) [of](https://marathonhandbook.com/trainingplans/marathon-training-plans/) [great](https://www.mymottiv.com/marathon-training-plan) marathon training plans online, but I wanted more autonomy, so I built my own coaching tool. 
+I've used Garmin's coach in the past, but the max distance for a race is a half-marathon, so I needed to improvise. There are [plenty](https://www.halhigdon.com/training/marathon-training/) [of](https://marathonhandbook.com/trainingplans/marathon-training-plans/) [great](https://www.mymottiv.com/marathon-training-plan) marathon training plans online, but I wanted more autonomy, so I built my own coaching tool. 
 
 ### Data
 
@@ -192,7 +194,13 @@ It's useful to note the biggest downsides of using an AI coach compared to what 
 
 ## My Experience and Recommendations
 
-I placed in the top ~10% of male participants! I saw tremendous improvement this year as I steadily increase mileage. I went from running 25 miles per month to 250. Below are more details about my experience and some of the learnings picked up along the way. 
+I placed in the top ~10% of male participants! I saw tremendous improvement this year as I increased mileage from running 25 miles per month in December 2024 to 250 miles in August 2025. Much of my progress is likely attributed to just putting on the miles, but it was really handy to have the running plan set automatically and to be able to customize it as needed. 
+
+On race day, I was lucky to have the great support of family and friends cheering in the freezing cold. My friend Anthony is an experienced marathon runner and he was able to follow me on an ebike for most of the race. This was an incredible advantange on race day. 
+
+![The best support crew in the world](Assets/marathon/finish.png)
+
+Below are more details about my experience and some of the learnings picked up along the way. 
 
 ### Shoes {#shoes}
 
@@ -219,17 +227,12 @@ Practice your long run pre-fueling strategy. Find something for almost all long 
 
 #### Carbs
 
-The goal is to be able to consume 90+ grams of carbohydrates per hour. To accomplish this, you can use a mix of glucose and fructose. 
+The goal is to be able to consume 90+ grams of carbohydrates per hour. Combining the ingestion of fructose and glucose takes advantage of both transport mechanisms. Different ratios can be used to achieve this. 
 
-> There is no optimal ratio. The ratio that is optimal will change depending on amounts ingested. If 90 g/h is ingested it should be around 2:1, but if more is ingested, for example 120 g/h, 1:1 is likely better.
-> [https://www.mysportscience.com/post/the-optimal-ratio-of-carbohydrates]
+> "There is no optimal ratio. The ratio that is optimal will change depending on amounts ingested. If 90 g/h is ingested it should be around 2:1, but if more is ingested, for example 120 g/h, 1:1 is likely better."
+> Source: [The optimal ratio of carbohydrates](https://www.mysportscience.com/post/the-optimal-ratio-of-carbohydrates)
 
-The carbs are typically a mix of glucose and fructose in roughly a 2:1 ratio. I started training with plain old granulated sugar, which has a 1:1 ratio. 
-
-> "Similar metabolic effects can be achieved via the ingestion of sucrose [...] because intestinal absorption is unlikely to be limited by sucrose hydrolysis." 
-> [https://www.mdpi.com/2072-6643/9/4/344]
-
-I made my own running gel/juice to get 90g/hr. I added 60g granulated sugar + 30g maltodextrin and added water as needed. I prefer a more watery mix than normal gels. I also typically add 100mg of caffeine and 200mg of l-theanine and electrolytes like LMNT.  
+The table below will give you an idea of the fructose and glucose content of different sweeteners. 
 
 <div class="table-title">
   Glucose:Fructose Profile of Common Sweeteners
@@ -245,6 +248,13 @@ I made my own running gel/juice to get 90g/hr. I added 60g granulated sugar + 30
 | Corn syrup / Brown rice syrup    | 1:0              | Essentially no fructose; use as the “glucose side.”                                    |
 | Maltodextrin                     | 1:0              | Low osmolality vs simple sugars; great for bottles.                                    |
 | Fructose (powder)                | 0:1              | Use to balance mixes toward targeted ratios.                                           |
+
+I started training with plain old granulated sugar, which has a 1:1 ratio. I'm not convinced you have to get too fancy here.
+
+> "Similar metabolic effects can be achieved via the ingestion of sucrose [...] because intestinal absorption is unlikely to be limited by sucrose hydrolysis." 
+> [Source: MDPI study on sucrose](https://www.mdpi.com/2072-6643/9/4/344)
+
+Later, I added maltodextrin to trial ratios like 1.5:1 and 2:1. For example, to make my own running gel/juice at 90g/hr, I mixed 60g granulated sugar + 30g maltodextrin and added water. I preferred a more watery mix than normal gels. I also added 100mg of caffeine, 200mg of l-theanine, and electrolytes (see below).  
 
 #### Electrolytes {#electrolytes}
 
@@ -278,16 +288,17 @@ Running injuries are extremely common in marathon runners. Higher training volum
 > Footwear replacement within 500-700 km was associated with reduced injury occurrence (p=0.04)."
 > <div class="source"> [Injury Incidence and Prevention Strategies Among Amateur Marathon Runners: A Prospective Cohort Study](https://www.icr-heart.com/article/injury-incidence-and-prevention-strategies-among-amateur-marathon-runners-a-prospective-cohort-study-2510/#:~:text=analysis%20included%20chi,marathon%20runners%20are%20at%20a) </div>
 
-Other studies point to similar findings, anywhere between 30%-75% of marathon runners will experience a running related injury. 
+Other studies point to similar findings, anywhere between 30%-75% of marathon runners will experience a running related injury:
 
-> 33% of half or full marathon runners reported a running related injury or illness symptom at some time during the 16-week study period (n = 161).
-> <div class="source"> [Running Themselves Into the Ground? Incidence, Prevalence, and Impact of Injury and Illness in Runners Preparing for a Half or Full Marathon](https://www.jospt.org/doi/10.2519/jospt.2019.8473) </div>
+- 33% of half or full marathon runners reported a running related injury or illness symptom at some time during the 16-week study period (n = 161). [Running Themselves Into the Ground? Incidence, Prevalence, and Impact of Injury and Illness in Runners Preparing for a Half or Full Marathon](https://www.jospt.org/doi/10.2519/jospt.2019.8473)
+- Running-related injuries were reported in 53.6% (n = 28) of elite runners and 34.6% of recreational runners (n = 254). [Exploring the Relationship between Running-Related Technology Use and Running-Related Injuries: A Cross-Sectional Study of Recreational and Elite Long-Distance Runners](https://pmc.ncbi.nlm.nih.gov/articles/PMC10970008/#sec3-healthcare-12-00642)
+- 75% of elite marathon runners reported running-related musculoskeletal pain in the last 12 months (n = 199). [PREVALENCE OF MUSCULOSKELETAL PAIN IN MARATHON RUNNERS WHO COMPETE AT THE ELITE LEVEL](https://pubmed.ncbi.nlm.nih.gov/26900507/#:~:text=presence%2C%20location%20and%20intensity%20of,musculoskeletal%20pain)
 
-> Running-related injuries were reported in 53.6% (n = 28) of elite runners and 34.6% of recreational runners (n = 254).
-> <div class="source"> [Exploring the Relationship between Running-Related Technology Use and Running-Related Injuries: A Cross-Sectional Study of Recreational and Elite Long-Distance Runners](https://pmc.ncbi.nlm.nih.gov/articles/PMC10970008/#sec3-healthcare-12-00642) </div>
+#### Physical Therapy
 
-> 75% of elite marathon runners reported running-related musculoskeletal pain in the last 12 months (n = 199).
-> <div class="source"> [PREVALENCE OF MUSCULOSKELETAL PAIN IN MARATHON RUNNERS WHO COMPETE AT THE ELITE LEVEL](https://pubmed.ncbi.nlm.nih.gov/26900507/#:~:text=presence%2C%20location%20and%20intensity%20of,musculoskeletal%20pain) </div>
+Running a marathon will expose any weaknesses you have in your body. For me, it was my hips (fixed by doing [standing side leg raises](https://www.hingehealth.com/resources/articles/standing-side-leg-raise/)), then shins splints (likely due to a weak soleus - fixed by [bent knee calf raises](https://www.treatmyachilles.com/post/bent-knee-calf-raises-how-to-target-the-soleus-part-of-the-achilles-tendon)), and then plantar fasciitis (likely a tight calf muscle from all of the calf raises - fixed by following [these exercises](https://www.ortho.wustl.edu/content/Education/3691/Patient-Education/Educational-Materials/Plantar-Fasciitis-Exercises.aspx)).
+
+I'll preface by saying that I am biased since I'm married to a physical therapist, but her support was invaluable. My biggest advice here is that if you can afford it, see a physical therapist. Having a professional is worth the premium when you're in pain, and it is easy to misdiagnose yourself. There are also a lot of preventative exercises you can do to strengthen the body while running, and a physical therapist can help spot areas of improvement more efficiently. 
 
 <!-- 
 Running-related injuries and pain are highly prevalent in both recreational and elite marathon runners. In a prospective cohort of 300 amateur marathon runners, 42% reported at least one injury during the training period, with medial tibial stress syndrome (24%), iliotibial band syndrome (19%), and plantar fasciitis (15%) being the most common issues; higher weekly mileage (>50 km/week) without strength training was associated with significantly higher injury incidence, while structured warm-up, strength training, and timely footwear replacement (every 500–700 km) were linked to lower injury rates <a href="#ref-1" class="ref" data-tooltip="Injury Incidence and Prevention Strategies Among Amateur Marathon Runners: A Prospective Cohort Study">[1]</a> In a 16-week study of runners preparing for a half or full marathon (n = 161), 33% reported a running-related injury or illness symptom at some point during the training block <a href="#ref-2" class="ref" data-tooltip="Running Themselves Into the Ground? Incidence, Prevalence, and Impact of Injury and Illness in Runners Preparing for a Half or Full Marathon.">[2]</a> Cross-sectional data from long-distance runners found running-related injuries in 53.6% of elite runners (n = 28) and 34.6% of recreational runners (n = 254) <a href="#ref-3" class="ref" data-tooltip="Exploring the Relationship between Running-Related Technology Use and Running-Related Injuries: A Cross-Sectional Study of Recreational and Elite Long-Distance Runners.">[3]</a> Among elite marathon runners specifically, 75% reported running-related musculoskeletal pain in the previous 12 months (n = 199) <a href="#ref-4" class="ref" data-tooltip="Prevalence of Musculoskeletal Pain in Marathon Runners Who Compete at the Elite Level">[4]</a>
