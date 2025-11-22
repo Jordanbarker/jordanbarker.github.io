@@ -42,6 +42,14 @@
     </header>
 
     <main>
+        $if(title)$
+        <h1 class="page-title">$title$</h1>
+        $endif$
+        
+        $if(date)$
+        <p class="page-date">$date$</p>
+        $endif$
+        
         $if(toc)$
         <h2>Table of Contents</h2>
         <nav id="toc" role="navigation" aria-label="Table of contents">
