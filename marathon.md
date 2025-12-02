@@ -179,7 +179,7 @@ Considerations for Cadence
 
 With the LLM primed with the latest running research and my current training status, I had it generate my workouts on a weekly basis. The workouts were sent to my Garmin account via their API so that I could follow along easily. Here is an example of a workout that was generated through this process:
 
-![AI generated workout plan for Sunday](Assets/marathon/sunday_workout.png)  
+![AI generated workout plan for Sunday](Assets/marathon/sunday_workout.png){.figure-large}  
 
 ### Limitations
 

@@ -61,7 +61,7 @@ tr:nth-child(even) {
 figure { text-align: center; margin: 20px auto; }
 figure img {
     display: block;
-    width: min(600px, 50%);
+    width: min(520px, 60%);
     max-width: 100%;
     height: auto;
     border-radius: var(--radius);
@@ -73,6 +73,12 @@ figure figcaption {
     margin-top: .5rem;
     color: var(--muted);
     font-size: .95rem;
+}
+
+.figure-large img,
+figure img.figure-large,
+figure.figure-large img {
+    width: min(640px, 70%);
 }
 
 blockquote {
