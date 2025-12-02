@@ -12,10 +12,21 @@ main {
     max-width: 75%;
     margin-left: auto;
     margin-right: auto;
+    padding: 0 1.25rem;
 }
 main li {
     line-height: 1.5em;
     margin-bottom: .5em; 
+}
+
+main h1,
+main h2,
+main h3 {
+    line-height: 1.3;
+}
+
+.page-title {
+    margin-bottom: .35em;
 }
 
 table {
@@ -166,9 +177,30 @@ summary {
   opacity: 1;
 }
 
+.text-block pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+}
+
 
 /* Mobile tweaks */
 @media (max-width: 768px) {
+    main {
+        max-width: 100%;
+        margin-top: 28px;
+        padding: 0 1.1rem;
+    }
+    .page-title {
+        font-size: 1.9rem;
+        line-height: 1.32;
+    }
     table { width: 100%; }
     figure img { width: 100%; }
+    .text-block {
+        padding: 1rem 0.9rem;
+    }
+    .text-block pre {
+        font-size: .95rem;
+    }
 }
