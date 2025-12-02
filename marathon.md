@@ -1,7 +1,6 @@
 ---
-title: "Coach Claude: How to Run an Above Average Marathon"
-pagetitle: "Coach Claude: How to Run an Above Average Marathon"
-date: "November 21, 2025"
+title: "AI Engineer's Approach to Running a Marathon"
+date: "November 22, 2025"
 description: Marathon training plan, and personal success tips
 keywords: Marathon, running, data science, analytics
 author: Jordan Barker
@@ -200,8 +199,6 @@ On race day, I was lucky to have the great support of family and friends cheerin
 
 ![The best support crew in the world](Assets/marathon/finish.png)
 
-Below are more details about my experience and some of the learnings picked up along the way. 
-
 ### Shoes {#shoes}
 
 I stuck with New Balance for some consistency and because since they had a sale on wide-toebox shoes. Here is my running shoe history for the year:
@@ -249,7 +246,7 @@ The table below will give you an idea of the fructose and glucose content of dif
 | Maltodextrin                     | 1:0              | Low osmolality vs simple sugars; great for bottles.                                    |
 | Fructose (powder)                | 0:1              | Use to balance mixes toward targeted ratios.                                           |
 
-I started training with plain old granulated sugar, which has a 1:1 ratio. I'm not convinced you have to get too fancy here.
+I started training with plain old (literally) granulated sugar, which has a 1:1 ratio. I'm not convinced you have to get too fancy here.
 
 > "Similar metabolic effects can be achieved via the ingestion of sucrose [...] because intestinal absorption is unlikely to be limited by sucrose hydrolysis." 
 > [Source: MDPI study on sucrose](https://www.mdpi.com/2072-6643/9/4/344)
@@ -270,12 +267,12 @@ For water intake, “drink to thirst” will usually suffice. If you want to get
 
 #### Pre-Race & Race Nutrition
 
-- **Day Before:** Normal meals that are carb-rich (noodles, rice, potatoes).  
-- **Night Before:** Bagels + peanut butter & honey, 1–2 bananas, large sports drink like Powerade.  
-- **3 Hours Before:** 1–2 bagels with light PB *or* large muffin.  
-- **45 Minutes Before:** Honey Stinger waffle or granola bar (familiar fuel that has been used on runs).  
-- **10–15 Minutes Before:** 40g caffeinated gel.  
-- **During Race (every 5K or so):** ~25g of carbs  
+- Day Before: Normal meals that are carb-rich (noodles, rice, potatoes).  
+- Night Before: Bagels + peanut butter & honey, 1–2 bananas, large sports drink like Powerade.  
+- 3 Hours Before: 1–2 bagels with light PB *or* large muffin.  
+- 45 Minutes Before: Honey Stinger waffle or granola bar (familiar fuel that has been used on runs).  
+- 10–15 Minutes Before: 40g caffeinated gel.  
+- During Race: >= 90g of gel per hour
 
 ### Injuries
 
@@ -294,11 +291,11 @@ Other studies point to similar findings, anywhere between 30%-75% of marathon ru
 - Running-related injuries were reported in 53.6% (n = 28) of elite runners and 34.6% of recreational runners (n = 254). [Exploring the Relationship between Running-Related Technology Use and Running-Related Injuries: A Cross-Sectional Study of Recreational and Elite Long-Distance Runners](https://pmc.ncbi.nlm.nih.gov/articles/PMC10970008/#sec3-healthcare-12-00642)
 - 75% of elite marathon runners reported running-related musculoskeletal pain in the last 12 months (n = 199). [PREVALENCE OF MUSCULOSKELETAL PAIN IN MARATHON RUNNERS WHO COMPETE AT THE ELITE LEVEL](https://pubmed.ncbi.nlm.nih.gov/26900507/#:~:text=presence%2C%20location%20and%20intensity%20of,musculoskeletal%20pain)
 
-#### Physical Therapy
+### Physical Therapy
 
-Running a marathon will expose any weaknesses you have in your body. For me, it was my hips (fixed by doing [standing side leg raises](https://www.hingehealth.com/resources/articles/standing-side-leg-raise/)), then shins splints (likely due to a weak soleus - fixed by [bent knee calf raises](https://www.treatmyachilles.com/post/bent-knee-calf-raises-how-to-target-the-soleus-part-of-the-achilles-tendon)), and then plantar fasciitis (likely a tight calf muscle from all of the calf raises - fixed by following [these exercises](https://www.ortho.wustl.edu/content/Education/3691/Patient-Education/Educational-Materials/Plantar-Fasciitis-Exercises.aspx)).
+Running a marathon will expose any weaknesses you have. For me, it was my hips (fixed by doing [standing side leg raises](https://www.hingehealth.com/resources/articles/standing-side-leg-raise/)), then shins splints (likely due to a weak soleus - fixed by [bent knee calf raises](https://www.treatmyachilles.com/post/bent-knee-calf-raises-how-to-target-the-soleus-part-of-the-achilles-tendon)), and then plantar fasciitis (likely a tight calf muscle from all of the calf raises - fixed by following [these exercises](https://www.ortho.wustl.edu/content/Education/3691/Patient-Education/Educational-Materials/Plantar-Fasciitis-Exercises.aspx)).
 
-I'll preface by saying that I am biased since I'm married to a physical therapist, but her support was invaluable. My biggest advice here is that if you can afford it, see a physical therapist. Having a professional is worth the premium when you're in pain, and it is easy to misdiagnose yourself. There are also a lot of preventative exercises you can do to strengthen the body while running, and a physical therapist can help spot areas of improvement more efficiently. 
+I am biased since I'm married to a physical therapist, but her knowledge and support was invaluable. My biggest advice here is that if you can afford it, see a physical therapist. Having a professional is worth the premium when you're in pain, and it is easy to misdiagnose yourself. There are also a lot of preventative exercises you can do to strengthen the body while running, and a physical therapist can help spot areas of improvement more efficiently. 
 
 <!-- 
 Running-related injuries and pain are highly prevalent in both recreational and elite marathon runners. In a prospective cohort of 300 amateur marathon runners, 42% reported at least one injury during the training period, with medial tibial stress syndrome (24%), iliotibial band syndrome (19%), and plantar fasciitis (15%) being the most common issues; higher weekly mileage (>50 km/week) without strength training was associated with significantly higher injury incidence, while structured warm-up, strength training, and timely footwear replacement (every 500–700 km) were linked to lower injury rates <a href="#ref-1" class="ref" data-tooltip="Injury Incidence and Prevention Strategies Among Amateur Marathon Runners: A Prospective Cohort Study">[1]</a> In a 16-week study of runners preparing for a half or full marathon (n = 161), 33% reported a running-related injury or illness symptom at some point during the training block <a href="#ref-2" class="ref" data-tooltip="Running Themselves Into the Ground? Incidence, Prevalence, and Impact of Injury and Illness in Runners Preparing for a Half or Full Marathon.">[2]</a> Cross-sectional data from long-distance runners found running-related injuries in 53.6% of elite runners (n = 28) and 34.6% of recreational runners (n = 254) <a href="#ref-3" class="ref" data-tooltip="Exploring the Relationship between Running-Related Technology Use and Running-Related Injuries: A Cross-Sectional Study of Recreational and Elite Long-Distance Runners.">[3]</a> Among elite marathon runners specifically, 75% reported running-related musculoskeletal pain in the previous 12 months (n = 199) <a href="#ref-4" class="ref" data-tooltip="Prevalence of Musculoskeletal Pain in Marathon Runners Who Compete at the Elite Level">[4]</a>
