@@ -28,6 +28,12 @@ Was using custom_classic but this is going to take some work to cleanup
 
 Test locally with: 'live-server' or 'python -m http.server 8000'
 
+## Pandoc Build
+
+```bash
+pandoc marathon.md -o marathon.html -s --section-divs --toc --toc-depth=2 --template=pandoc_template.html
+```
+
 ## Future ideas
 * Bayesian inference using [groundhog-day](https://groundhog-day.com/) data.
 * Integrate [Plausible Analytics](https://jupyterbook.org/en/stable/advanced/html.html#use-plausible-analytics).
