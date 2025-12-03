@@ -179,7 +179,7 @@ Considerations for Cadence
 
 With the LLM primed with the latest running research and my current training status, I had it generate my workouts on a weekly basis. The workouts were sent to my Garmin account via their API so that I could follow along easily. Here is an example of a workout that was generated through this process:
 
-![AI generated workout plan for Sunday](Assets/marathon/sunday_workout.png){.figure-large}  
+![AI generated workout plan for Sunday](assets/marathon/sunday_workout.png){.figure-large}  
 
 ### Limitations
 
@@ -197,7 +197,7 @@ In the end, I placed in the top ~10% of male participants! Throughout the year, 
 
 On race day, I was lucky to have the great support of family and friends cheering in the freezing cold. My friend Anthony is an experienced marathon runner and he was able to follow me on an ebike for most of the race. This was an incredible advantange on race day. 
 
-![The best support crew in the world](Assets/marathon/finish.png)
+![The best support crew in the world](assets/marathon/finish.png)
 
 
 ### Diet {#diet}
@@ -295,7 +295,7 @@ I stuck with New Balance for consistency and because since they had a sales on w
 3. Fresh Foam X Kaiha Road 4E for $83.69, still using at 300+ miles, but they lost the 'pop'
 4. Fresh Foam X 880 v15 4E for $150 - full retail price sadly since I bought last minute in person  
 
-![Running shoes, newest to oldest](Assets/marathon/shoes.png)
+![Running shoes, newest to oldest](assets/marathon/shoes.png)
 
 
 <!-- Carbon Plates - Expensive and completely optional, carbon-fiber plated shoes can give a 2–3% improvement on race time. Unfortunately, they don't last as long as standard shoes. The "pop" diminishes after about 100 to 140 miles so you need to be strategic about breaking them in. Due to the durability limitations, it's generally advised to just wear them for marathon-pace efforts about 4 weeks prior to the race, as well as a long distance run (>10 miles) two weeks prior to the race. I ended up opting out on carbon plates since I was already ahead of my goal, and the improvement wouldn't have made enough of a difference for me. -->

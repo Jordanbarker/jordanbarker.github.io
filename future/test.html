@@ -103,12 +103,12 @@
                         <li><a href="./notebook_library/_build/html/intro.html">Data Science Cookbook</a></li>
                         <li>
                             <a href="https://github.com/Jordanbarker" target="_blank" rel="noopener noreferrer">
-                                <img src="./Assets/github-mark.svg" alt="GitHub" style="width: 25px; height: 25px;">
+                                <img src="./assets/github-mark.svg" alt="GitHub" style="width: 25px; height: 25px;">
                             </a>
                         </li>
                         <li>
                             <a href="https://www.linkedin.com/in/barkerjordan/" target="_blank" rel="noopener noreferrer">
-                                <img src="./Assets/linkedin_icon_black.svg" alt="LinkedIn" style="width: 25px; height: 25px;">
+                                <img src="./assets/linkedin_icon_black.svg" alt="LinkedIn" style="width: 25px; height: 25px;">
                             </a>
                         </li>
                     </div>
@@ -167,11 +167,11 @@
             <p>They have also released the logo, which may (or may not) hint at the route with the dotted line in the background.</p>
             <div class="image-container">
                 <figure>
-                    <img src="./Assets/ragbrai_images/ragbrai_lii.jpg" alt="RAGBRAI LII" class="small-image">
+                    <img src="./assets/ragbrai_images/ragbrai_lii.jpg" alt="RAGBRAI LII" class="small-image">
                     <figcaption>RAGBRAI LII Logo</figcaption>
                 </figure>
             </div>
-            <!-- <img src="./Assets/ragbrai_images/ragbrai_lii.jpg" alt="RAGBRAI LII" style="width: 500px; height: auto;"> -->
+            <!-- <img src="./assets/ragbrai_images/ragbrai_lii.jpg" alt="RAGBRAI LII" style="width: 500px; height: auto;"> -->
         </section>
 
         <!-- PAST ROUTES ANALYSIS -->
@@ -193,15 +193,15 @@
                 The towns in the middle of the route vary a lot more than that start and end.
             </p>
             <p> The plot below shows how different days of the route vary in terms of revisiting towns, and the number of unique towns visited for each day.</p>
-            <img src="./Assets/ragbrai_images/town_visits.png" alt="Town Visit Statistics" class="large-image">
+            <img src="./assets/ragbrai_images/town_visits.png" alt="Town Visit Statistics" class="large-image">
             <p>Here are the towns that have started and ended the route in the past. The number after the name represents the number of times that town has been visited. </p>
-            <img src="./Assets/ragbrai_images/start_end_towns.png" alt="Start and End Towns" class="med-image">
+            <img src="./assets/ragbrai_images/start_end_towns.png" alt="Start and End Towns" class="med-image">
             <p>
                 Next, I looked at the distances traveled. I calculated the distance between towns using the 
                 <a href="https://en.wikipedia.org/wiki/Haversine_formula" target="_blank">haversine formula</a>.
                 An outlier here was in 2017, bikings went from Waukon to Lansing. The towns are only 14 miles apart, but the actual bike path they rode was 45 miles.
             </p>
-            <img src="./Assets/ragbrai_images/distances_traveled.png" alt="Town Visit Statistics" class="small-image">
+            <img src="./assets/ragbrai_images/distances_traveled.png" alt="Town Visit Statistics" class="small-image">
             <p>
                 Another way to analyze distance traveled is in terms of latitudes and longitudes. 
                 I used <a href="https://jordanbarker.github.io/notebook_library/_build/html/Notebooks/anomaly_detection.html#interquartile-range-iqr" target="_blank">IQR ranges</a>
@@ -220,12 +220,12 @@
                 The further you go in one direction the more limited you should be in the other.
             </p>
             <p>Here is what the histograms of latitude and longitude traveled look like with the IQR thresholds:</p>
-            <img src="./Assets/ragbrai_images/latlon_histograms.png" alt="Latitude and Longitude Traveled Histograms" class="large-image">
+            <img src="./assets/ragbrai_images/latlon_histograms.png" alt="Latitude and Longitude Traveled Histograms" class="large-image">
             <p>
                 Since Dubuque is the primarly end town candidate, I looked at past routes to there. 
                 Dubuque has been the ending town four times before. It's central location makes it accesible from nearly any starting point.
             </p>
-            <img src="./Assets/ragbrai_images/past_routes_dubuque.png" alt="Past Routes to Dubuque" class="med-image">
+            <img src="./assets/ragbrai_images/past_routes_dubuque.png" alt="Past Routes to Dubuque" class="med-image">
             <h3>Outlier Routes</h3>
             <p>While analyzing the data behind RAGBRAI routes, some routes naturally popped up as unique and warranted further investigation:</p>
             <ul>
@@ -289,7 +289,7 @@
                 The scatterplots below visualizes how towns are scored. The left plot shows how scores change with visit frequency and recency.
                 The right plot visualizes how these scores play out look on real towns.
             </p>
-            <img src="./Assets/ragbrai_images/scoring.png" alt="Day of Route Scoring" class="large-image">
+            <img src="./assets/ragbrai_images/scoring.png" alt="Day of Route Scoring" class="large-image">
             <p>
                 The total route score, calculated as the sum of town scores across all seven days, 
                 helps prioritize routes that align with historical patterns while accommodating RAGBRAI's preference for variety.
@@ -299,8 +299,8 @@
                 By scoring and summing up towns in this way, 
                 I can rank potential routes based on their alignment with historical trends and likelihood of selection.
             </p>
-            <!-- <img src="./Assets/ragbrai_images/top_routes_10000.png" alt="Top 10000 Routes "> -->
-            <img src="./Assets/ragbrai_images/top_routes_heatmap.png" alt="Top 100000 Routes" class="med-image">
+            <!-- <img src="./assets/ragbrai_images/top_routes_10000.png" alt="Top 10000 Routes "> -->
+            <img src="./assets/ragbrai_images/top_routes_heatmap.png" alt="Top 100000 Routes" class="med-image">
         </section>
         <section id="final-pick">
             <h2>Final Route Selection</h2>
@@ -316,7 +316,7 @@
                 <li>End: Dubuque</li>
             </ol>
 
-            <img src="./Assets/ragbrai_images/top_routes.png" alt="Top Routes" class="med-image">
+            <img src="./assets/ragbrai_images/top_routes.png" alt="Top Routes" class="med-image">
         </section>
 
         <!-- APPENDIX -->
@@ -332,7 +332,7 @@
                 Each edge contains additional metadata, such as road type, and length.
             </p>
             <p>Here is an example graph where nodes are colored orange and edges are the white roads:</p>
-            <img src="./Assets/ragbrai_images/kirkwood.png" alt="Kirkwood Graph" class="small-image">
+            <img src="./assets/ragbrai_images/kirkwood.png" alt="Kirkwood Graph" class="small-image">
             <h4>Custom Path Weights</h4>
             <p>
                 Not all roads are equal when planning a RAGBRAI route. To account for this, I added custom weights to the edges in my graph.
@@ -385,7 +385,7 @@
                 Then after calculating a path from Sioux Center to each candidate town we can perform another round of filtering to see if the path is between typical route distances (~35-85 miles).
                 The map below shows this two stage filtering, where the orange lines are only valid in the first round, and the green lines are valid for both filters. 
             </p>
-            <img src="./Assets/ragbrai_images/route_filtering.png" alt="Route Filtering from Graph Path" class="large-image">
+            <img src="./assets/ragbrai_images/route_filtering.png" alt="Route Filtering from Graph Path" class="large-image">
             <h4>Computational Challenges and Pivot</h4>
             <p>
                 I kicked off the program and let it run overnight to find all possible routes with the starting point of Sioux Center. 
@@ -401,14 +401,14 @@
                 Clustering is a useful tool for data analysis. I explored clustering routes based on their latitude and longitude to compare routes based on their distance from eachother. 
                 The dendogram shows how similar different routes are to eachother. Patterns appear such as nearby years being far away from eachother and the closest routes can be found.    
             </p>
-            <img src="./Assets/ragbrai_images/dendogram.png" alt="Dendogram of Routes" class="large-image">
+            <img src="./assets/ragbrai_images/dendogram.png" alt="Dendogram of Routes" class="large-image">
             <p>Routes 12 and 51 have the lowest average haversine distance as found by the dendogram. On a map, it's clear to see why as they visited several of the same towns.</p>
-            <img src="./Assets/ragbrai_images/closest_routes.png" alt="Closest Routes" class="med-image">
+            <img src="./assets/ragbrai_images/closest_routes.png" alt="Closest Routes" class="med-image">
             <p>
                 I also tried a few different clustering groups to find patterns in the years, but I found a lot of variation. 
                 I still thought it was interesting to see the natural seperation of northern and southern routes.  
             </p>
-            <img src="./Assets/ragbrai_images/clustered_routes.png" alt="Clustering Routes" class="med-image">
+            <img src="./assets/ragbrai_images/clustered_routes.png" alt="Clustering Routes" class="med-image">
         </section>
 
         <!-- DATA AND TOOLS -->
