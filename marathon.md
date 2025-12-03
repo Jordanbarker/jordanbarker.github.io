@@ -1,6 +1,6 @@
 ---
 title: "AI Engineer's Approach to Running a Marathon"
-date: "November 22, 2025"
+date: "December 2, 2025"
 description: Marathon training plan, and personal success tips
 keywords: Marathon, running, data science, analytics
 author: Jordan Barker
@@ -29,7 +29,7 @@ I've used Garmin's coach in the past, but the max distance for a race is a half-
 
 ### Data
 
-I used deep research from Perplexity and ChatGPT to gather articles and papers on various running topics that I found interesting while training, such as "What is the ideal running cadence?" or "Are warmups and cooldowns important?" I reviewed the results myself to verify accuracy by looking at what cohorts were studied, how many participants, and if the findings had been replicated in other studies. After review, the notes were added as context for the coach. This knowledge base served as the primer for the LLM to give it the latest relevant information. Ideally, this process would be continously updating as need data came out, but that is a future problem to solve.
+I used deep research from Perplexity and ChatGPT to gather articles and papers on various running topics that I found interesting while training, such as "What are the biggest predictors of marathon performance?" or "Are warmups and cooldowns important?" I reviewed the results by looking at things such as what cohorts were studied, how many participants, and if the findings had been replicated in other studies. After review, the notes were added as context for the coach. This knowledge base served as the primer for the LLM to give it the latest relevant information. Ideally, this knowledge would be continously updating as new research and data came out, but that is a future problem to solve.
 
 Next, I used [garth](https://github.com/matin/garth) to pull my latest running data from Garmin. Below is an example of what information is gathered about my training status.
 
@@ -193,32 +193,18 @@ It's useful to note the biggest downsides of using an AI coach compared to what 
 
 ## My Experience and Recommendations
 
-I placed in the top ~10% of male participants! I saw tremendous improvement this year as I increased mileage from running 25 miles per month in December 2024 to 250 miles in August 2025. Much of my progress is likely attributed to just putting on the miles, but it was really handy to have the running plan set automatically and to be able to customize it as needed. 
+In the end, I placed in the top ~10% of male participants! Throughout the year, I saw tremendous improvement as I increased running mileage from 25 miles per month in December 2024 to 250 miles in August 2025. Much of my progress is likely attributed to just putting on the miles, but it was really handy to have the running plan set automatically and to be able to customize it as needed. 
 
 On race day, I was lucky to have the great support of family and friends cheering in the freezing cold. My friend Anthony is an experienced marathon runner and he was able to follow me on an ebike for most of the race. This was an incredible advantange on race day. 
 
 ![The best support crew in the world](Assets/marathon/finish.png)
 
-### Shoes {#shoes}
-
-I stuck with New Balance for some consistency and because since they had a sale on wide-toebox shoes. Here is my running shoe history for the year:
-
-1. Fresh Foam 680v8 4E for $68.56, retired at 688.7 miles  
-2. Fresh Foam 680v8 4E for $63.99, retired at 442.4 miles  
-3. Fresh Foam X Kaiha Road 4E for $83.69, still using at 300+ miles, but they lost the 'pop'
-4. Fresh Foam X 880 v15 4E for $150 - full retail price sadly since I bought last minute in person  
-
-![Running shoes, newest to oldest](Assets/marathon/shoes.png)
-
-The typical recommendation is to retire shoes after 300–500 miles. You can still get use out of older shoes, but the risk of injury increases. My second pair of shoes were retired 250 miles sooner than the previous pair due to a shin splint injury. I used [RunRepeat.com's blog on shoes for shin splints](https://runrepeat.com/guides/best-shin-splints-running-shoes#shin-splints-and-running) to pick the third pair after that.
-
-Carbon Plates - Expensive and completely optional, carbon-fiber plated shoes can give a 2–3% improvement on race time. Unfortunately, they don't last as long as standard shoes. The "pop" diminishes after about 100 to 140 miles so you need to be strategic about breaking them in. Due to the durability limitations, it's generally advised to just wear them for marathon-pace efforts about 4 weeks prior to the race, as well as a long distance run (>10 miles) two weeks prior to the race. I ended up opting out on carbon plates since I was already ahead of my goal, and the improvement wouldn't have made enough of a difference for me.
 
 ### Diet {#diet}
 
-The best marathoners train their gut as much as their legs. Consider practicing run nutrition for any runs longer than 75 mins. It increases recovery, delays fatigue, improves GI distress, and helps with training adaptations.  
+The best marathoners train their gut as much as their legs. I'll go into further detail on making it below, but I consumed homemade gels on most runs longer than 75 mins. Practicing race nutrition is essential and increases recovery, delays fatigue, improves GI distress, and helps with training adaptations.  
 
-Natural sources and commercial products both work well. Both can cause GI discomfort, and both should be incorporated at easy efforts and hard efforts multiple times. Natural sources (dates, bananas, applesauce) can be more challenging to carry, so is it realistic outside of training? 
+Natural sources (dates, bananas, applesauce) and commercial products (gels) both work well. Both can cause GI discomfort, and both should be incorporated at easy efforts and hard efforts multiple times. Natural sources can be more challenging to carry. 
 
 Practice your long run pre-fueling strategy. Find something for almost all long runs and use it pre-marathon. Do not change this fueling strategy on the day of the race.  
 
@@ -235,7 +221,7 @@ The table below will give you an idea of the fructose and glucose content of dif
   Glucose:Fructose Profile of Common Sweeteners
 </div>
 
-| Sweetener                        | Approx G:F Ratio | Notes                                                                                  |
+| Sweetener                        |  G:F Ratio  | Notes                                                                                  |
 |----------------------------------|------------------|----------------------------------------------------------------------------------------|
 | Sucrose (table/white/brown sugar)| 1:1              | Splits to equal glucose and fructose.                                                  |
 | Maple syrup                      | 1:1              | Minor free glucose/fructose; effectively 1:1 after digestion.                          |
@@ -274,6 +260,7 @@ For water intake, “drink to thirst” will usually suffice. If you want to get
 - 10–15 Minutes Before: 40g caffeinated gel.  
 - During Race: >= 90g of gel per hour
 
+
 ### Injuries
 
 Running injuries are extremely common in marathon runners. Higher training volumes generally increases the injury risk among runners with amateuers being more susceptible to injuries as they increase mileage and are less likely to follow proper a strength training program.
@@ -295,18 +282,20 @@ Other studies point to similar findings, anywhere between 30%-75% of marathon ru
 
 Running a marathon will expose any weaknesses you have. For me, it was my hips (fixed by doing [standing side leg raises](https://www.hingehealth.com/resources/articles/standing-side-leg-raise/)), then shins splints (likely due to a weak soleus - fixed by [bent knee calf raises](https://www.treatmyachilles.com/post/bent-knee-calf-raises-how-to-target-the-soleus-part-of-the-achilles-tendon)), and then plantar fasciitis (likely a tight calf muscle from all of the calf raises - fixed by following [these exercises](https://www.ortho.wustl.edu/content/Education/3691/Patient-Education/Educational-Materials/Plantar-Fasciitis-Exercises.aspx)).
 
-I am biased since I'm married to a physical therapist, but her knowledge and support was invaluable. My biggest advice here is that if you can afford it, see a physical therapist. Having a professional is worth the premium when you're in pain, and it is easy to misdiagnose yourself. There are also a lot of preventative exercises you can do to strengthen the body while running, and a physical therapist can help spot areas of improvement more efficiently. 
+I am biased since I'm married to a physical therapist, but her knowledge and support was invaluable. My biggest advice here is that if you can afford it, see a physical therapist. Having a professional is worth it to be able to continue training. There are also a lot of preventative exercises you can do to strengthen the body while running, and a physical therapist can help spot areas of improvement more efficiently. 
 
-<!-- 
-Running-related injuries and pain are highly prevalent in both recreational and elite marathon runners. In a prospective cohort of 300 amateur marathon runners, 42% reported at least one injury during the training period, with medial tibial stress syndrome (24%), iliotibial band syndrome (19%), and plantar fasciitis (15%) being the most common issues; higher weekly mileage (>50 km/week) without strength training was associated with significantly higher injury incidence, while structured warm-up, strength training, and timely footwear replacement (every 500–700 km) were linked to lower injury rates <a href="#ref-1" class="ref" data-tooltip="Injury Incidence and Prevention Strategies Among Amateur Marathon Runners: A Prospective Cohort Study">[1]</a> In a 16-week study of runners preparing for a half or full marathon (n = 161), 33% reported a running-related injury or illness symptom at some point during the training block <a href="#ref-2" class="ref" data-tooltip="Running Themselves Into the Ground? Incidence, Prevalence, and Impact of Injury and Illness in Runners Preparing for a Half or Full Marathon.">[2]</a> Cross-sectional data from long-distance runners found running-related injuries in 53.6% of elite runners (n = 28) and 34.6% of recreational runners (n = 254) <a href="#ref-3" class="ref" data-tooltip="Exploring the Relationship between Running-Related Technology Use and Running-Related Injuries: A Cross-Sectional Study of Recreational and Elite Long-Distance Runners.">[3]</a> Among elite marathon runners specifically, 75% reported running-related musculoskeletal pain in the previous 12 months (n = 199) <a href="#ref-4" class="ref" data-tooltip="Prevalence of Musculoskeletal Pain in Marathon Runners Who Compete at the Elite Level">[4]</a>
+### Shoes {#shoes}
 
-### References
+The typical recommendation is to retire shoes after 300–500 miles. You can still get use out of older shoes, but the risk of injury increases. This was likely a factor in my shin splint injury. I found used [RunRepeat.com's blog on shoes for shin splints](https://runrepeat.com/guides/best-shin-splints-running-shoes#shin-splints-and-running) helpful in picking my third pair of shoes post injury.
 
-<p id="ref-1">[1] Injury Incidence and Prevention Strategies Among Amateur Marathon Runners: A Prospective Cohort Study. <a href="https://www.icr-heart.com/article/injury-incidence-and-prevention-strategies-among-amateur-marathon-runners-a-prospective-cohort-study-2510/#:~:text=analysis%20included%20chi,marathon%20runners%20are%20at%20a">Link</a></p>
+I stuck with New Balance for consistency and because since they had a sales on wide-toebox shoes. Here is my running shoe history for the year:
 
-<p id="ref-2">[2] Running Themselves Into the Ground? Incidence, Prevalence, and Impact of Injury and Illness in Runners Preparing for a Half or Full Marathon. <a href="https://www.jospt.org/doi/10.2519/jospt.2019.8473">Link</a></p>
+1. Fresh Foam 680v8 4E for $68.56, retired at 688.7 miles  
+2. Fresh Foam 680v8 4E for $63.99, retired at 442.4 miles  
+3. Fresh Foam X Kaiha Road 4E for $83.69, still using at 300+ miles, but they lost the 'pop'
+4. Fresh Foam X 880 v15 4E for $150 - full retail price sadly since I bought last minute in person  
 
-<p id="ref-3">[3] Exploring the Relationship between Running-Related Technology Use and Running-Related Injuries: A Cross-Sectional Study of Recreational and Elite Long-Distance Runners. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10970008/#sec3-healthcare-12-00642">Link</a></p>
+![Running shoes, newest to oldest](Assets/marathon/shoes.png)
 
-<p id="ref-4">[4] Prevalence of Musculoskeletal Pain in Marathon Runners Who Compete at the Elite Level. <a href="https://pubmed.ncbi.nlm.nih.gov/26900507/#:~:text=presence%2C%20location%20and%20intensity%20of,musculoskeletal%20pain">Link</a></p> 
--->
+
+<!-- Carbon Plates - Expensive and completely optional, carbon-fiber plated shoes can give a 2–3% improvement on race time. Unfortunately, they don't last as long as standard shoes. The "pop" diminishes after about 100 to 140 miles so you need to be strategic about breaking them in. Due to the durability limitations, it's generally advised to just wear them for marathon-pace efforts about 4 weeks prior to the race, as well as a long distance run (>10 miles) two weeks prior to the race. I ended up opting out on carbon plates since I was already ahead of my goal, and the improvement wouldn't have made enough of a difference for me. -->

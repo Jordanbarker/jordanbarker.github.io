@@ -75,9 +75,7 @@ figure figcaption {
     font-size: .95rem;
 }
 
-.figure-large img,
-figure img.figure-large,
-figure.figure-large img {
+.figure-large{
     width: min(640px, 70%);
 }
 
@@ -151,14 +149,8 @@ summary {
   bottom: 130%;
   left: 50%;
   transform: translateX(-50%);
-
-  /* This is the key line – without it, max-width does almost nothing */
   display: inline-block;
-
-  /* Make the box wider */
   width: min(16rem, 90vw);
-
-  /* max-width: min(32rem, 90vw);   wider than before */
   white-space: normal;           /* allow wrapping */
   overflow-wrap: break-word;     /* break long words/URLs */
 
@@ -201,12 +193,38 @@ summary {
         font-size: 1.9rem;
         line-height: 1.32;
     }
-    table { width: 100%; }
+    table {
+        width: 100%;
+        table-layout: fixed;     /* makes colgroup widths “stick” */
+        display: block;          /* enables overflow scrolling */
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    thead, tbody { display: table; width: 99%; table-layout: fixed; }
+    th, td {
+        font-size: clamp(0.78rem, 2.8vw, 0.95rem);
+        padding: clamp(6px, 1.6vw, 10px);
+        line-height: 1.25;
+        white-space: normal;     /* ensure wrapping is allowed */
+        overflow-wrap: anywhere; /* breaks long tokens only when needed */
+    }
+    
     figure img { width: 100%; }
+    .figure-large { width: 100% }
     .text-block {
         padding: 1rem 0.9rem;
     }
     .text-block pre {
         font-size: .95rem;
+    }
+
+    main ul,
+    main ol {
+        padding-left: 1.1rem;
+        margin-left: 0;
+        list-style-position: outside;
+    }
+    main li {
+        margin-bottom: 0.45rem; /* slightly tighter */
     }
 }
