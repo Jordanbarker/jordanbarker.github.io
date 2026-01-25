@@ -171,7 +171,7 @@
                 currentDataSize = selectedDataSize;
                 // console.log('display data', selectedDisplay, selectedDataSize, selectedDataType)
                 
-                d3.json(`assets/wiki_sentiment/data/${selectedDataSize}_${selectedDataType}.json`).then(function(data_temp) {
+                d3.json(`../assets/wiki_sentiment/data/${selectedDataSize}_${selectedDataType}.json`).then(function(data_temp) {
                     data = data_temp; // Store the data for later use
 
                     if (selectedDisplay === 'summary') {

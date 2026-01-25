@@ -13,7 +13,7 @@ I recently picked up a beautiful Denon X4500H receiver that someone was selling 
 
 Luckily my TV console has some holes in the bottom and back side so air can flow, but I could still feel a lot of heat over the receiver after a few hours of usage. It's winter currently and could get much warmer in the summer or heat could build up after longer usage.
 
-![Denon X4500H, cooked.](assets/receiver_fan_automation/fire.jpg)
+![Denon X4500H, cooked.](../assets/receiver_fan_automation/fire.jpg)
 
 ## Solution
 
@@ -21,7 +21,7 @@ There are several possible ways to go about fixing this. The most obvious is to 
 
 In the process, I found that the fans could be powered by wiring them with an old power supply [like this](https://www.sparkfun.com/wall-adapter-power-supply-5vdc-2a-barrel-jack.html). Just cut-off the barrel jack to expose the wires, use a multimeter to confirm the positive and negative wires, then twist the bare wires together and screw on a wire nut to secure them. I had 3 fans rated at ~0.35A each, so I just had to make sure the power supply was rated greater than 1.05A. 
 
-![Success! The fans are now powered. I raised one up to get better airflow using leftover packaging material if you're wondering what the white base is.](assets/receiver_fan_automation/fans.png)
+![Success! The fans are now powered. I raised one up to get better airflow using leftover packaging material if you're wondering what the white base is.](../assets/receiver_fan_automation/fans.png)
 
 I put them in the TV console with the receiver and let them run 24/7. This was an easy solution, but wasn't very satisfying since the fans didn't _need_ to be on when the receiver wasn't. They also make a subtle noise that can be heard when the speakers are not playing anything. The fan only use 12w in total so some quick math shows that this will cost about $23.13 to run this 24/7 for a full year at 22¢/kWh.
 
@@ -40,7 +40,7 @@ How can you confirm anything changed without data? In order to make this more of
 
 The results were clear after collecting just two samples. With the fans, the temperature leveled out around 75°F. Without the fans, the temperature climbed past 95°F so I cut the experiment short.
 
-![A clear winner!](assets/receiver_fan_automation/line_plot.png)
+![A clear winner!](../assets/receiver_fan_automation/line_plot.png)
 
 I had originally planned a full hypothesis test with statistical significance and all of that, but I scrapped the plan after collecting the data. I'll leave the original plan details below since I already put the time in to write it out. 
 
