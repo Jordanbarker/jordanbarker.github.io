@@ -50,46 +50,25 @@
         margin-left: auto;
         margin-right: auto;
     }
-    .favorites-container {
-        width: 80%;
-        margin: 0 auto;
-        background: white;
+    .favorites-list {
+        width: 70%;
+        margin: 20px auto;
         padding: 20px;
-        border-radius: 12px;
-        text-align: center;
     }
 
-    .links-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 15px;
+    .favorites-list ul {
+        list-style: disc;
+        padding-left: 20px;
     }
 
-    .link-card {
-        background: #fff;
-        padding: 15px;
-        border-radius: 10px;
-        text-align: center;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease-in-out;
+    .favorites-list li {
+        margin-bottom: 10px;
+        line-height: 1.5;
     }
 
-    .link-card a {
-        text-decoration: none;
+    .favorites-list a {
         color: #333;
         font-weight: bold;
-        display: block;
-    }
-
-    .link-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    }
-
-    .link-card img {
-        width: 40px;
-        height: 40px;
-        margin-bottom: 10px;
     }
     @media (max-width: 800px) {
         .body_container {
@@ -192,39 +171,18 @@
                 </div>
             </div>
         </div>
-        <!-- 
-        
-        Favorites Container
-
+        <!--
+        Favorites
         -->
-        <div class="favorites-container">
-            <h2>My Favorite Websites</h2>
-            <div class="links-grid">
-                <div class="link-card">
-                    <a href="http://mfviz.com/" target="_blank">mfviz.com</a>
-                    <p>Michael Freeman's personal website has great stuff.</p>
-                </div>
-                <div class="link-card">
-                    <a href="https://setosa.io/#/" target="_blank">setosa.io</a>
-                    <p>Explained Visually is an incredible series that blends teachings and interactive visualizations.</p>
-                </div>
-                <div class="link-card">
-                    <a href="https://worrydream.com/" target="_blank">worrydream.com</a>
-                    <p>Bret Victor is a pioneer and leader in the data visualization space.</p>
-                </div>
-                <div class="link-card">
-                    <a href="https://explorabl.es/" target="_blank">explorabl.es</a>
-                    <p>Explorable Explanations has interactive pages that combine education with art in brilliant ways.</p>
-                </div>
-                <div class="link-card">
-                    <a href="https://distill.pub/" target="_blank">distill</a>
-                    <p>Machine learning research made in a more clear and understandable form.</p>
-                </div>
-                <div class="link-card">
-                    <a href="https://homepage.divms.uiowa.edu/~mbognar/" target="_blank">uiowa.edu/~mbognar</a>
-                    <p>Matt Bognar's probability distribution applets are timeless.</p>
-                </div>
-            </div>
+        <div class="favorites-list">
+            <h2>Favorite Websites</h2>
+            <ul>
+                <li><a href="https://setosa.io/#/" target="_blank">setosa.io</a> - Explained Visually is an incredible series that blends teachings and interactive visualizations.</li>
+                <li><a href="https://worrydream.com/" target="_blank">worrydream.com</a> - Bret Victor is a pioneer and leader in the data visualization space.</li>
+                <li><a href="https://explorabl.es/" target="_blank">explorabl.es</a> - Explorable Explanations has interactive pages that combine education with art in brilliant ways.</li>
+                <li><a href="https://distill.pub/" target="_blank">distill</a> - Machine learning research made in a more clear and understandable form.</li>
+                <li><a href="https://homepage.divms.uiowa.edu/~mbognar/" target="_blank">uiowa.edu/~mbognar</a> - Matt Bognar's probability distribution applets are timeless.</li>
+            </ul>
         </div>
     </main>
 </body>
