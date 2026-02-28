@@ -1,6 +1,6 @@
 ---
 title: "Receiver Fan Automation"
-date: "Jan 25, 2025"
+date: "Jan 25, 2026"
 description: Receiver fan automation project
 keywords: AVR, receiver, fan, hack, DIY
 author: Jordan Barker
