@@ -182,6 +182,11 @@ summary {
 }
 
 
+mjx-container {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
 /* Mobile tweaks */
 @media (max-width: 768px) {
     main {
