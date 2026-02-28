@@ -13,8 +13,6 @@ I recently picked up a beautiful Denon X4500H receiver that someone was selling 
 
 Luckily my TV console has some holes in the bottom and back side so air can flow, but I could still feel a lot of heat over the receiver after a few hours of usage. It's winter currently and could get much warmer in the summer or heat could build up after longer usage.
 
-![Denon X4500H, cooked.](../assets/receiver_fan_automation/fire.jpg)
-
 ## Solution
 
 There are several possible ways to go about fixing this. The most obvious is to move the receiver out of the TV console. It could go on top of the TV console, but aesthetically this wasn't ideal. Then I remembered I have an old Raspberry Pi 3 with a [DHT22 temperature sensor](https://www.amazon.com/dp/B073F472JL) from a past project. I also have extra PC fans laying around - surely the Pi could control those, right? As it turns out, not really. [The fans](https://www.amazon.com/dp/B0DPX94PSL) are 12 volts, and the Pi GPIO pins are 3.3V, so they can't directly drive a 12V fan's power/current. I'd need an intermediary circuit to power them.
