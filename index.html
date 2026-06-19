@@ -5,85 +5,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jordan Barker</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
 </head>
 
 <style>
-    h2 {
-        margin-bottom: 20px;
-        font-size: 1.8rem;
-        color: #333;
+    /* Content-first, fast. */
+    body {
+        color: #161512;
     }
 
-    .body_container {
-        width: 70%;
-        max-width: 1200px;
-        padding-top: 10px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-    .card_container {
-        padding: 2px 16px;
-        flex: 0 1 auto;
-    }
-    .card {
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-        transition: 0.3s;
-        object-fit: cover;
-        width: 70%;
-        margin: 10px;
-        border-radius: 5px;
-        flex: 0 0 auto;
-        display: flex;
-        flex-direction: column;
-    }
-    .card:hover {
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    }
-    .card img {
-        border-radius: 5px;
-        width: 100%;
-        height: 60%; 
-        flex: 1 0 auto;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .favorites-list {
-        width: 70%;
-        margin: 20px auto;
-        padding: 20px;
-    }
-
-    .favorites-list ul {
-        list-style: disc;
-        padding-left: 20px;
-    }
-
-    .favorites-list li {
-        margin-bottom: 10px;
+    .content {
+        font-family: 'Times New Roman', Times, serif;
         line-height: 1.5;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: clamp(20px, 2vw, 64px) clamp(18px, 5vw, 72px);
+        box-sizing: border-box;
     }
 
-    .favorites-list a {
-        color: #333;
-        font-weight: bold;
+    .content a {
+        color: inherit;
+        text-decoration: underline;
     }
-    @media (max-width: 800px) {
-        .body_container {
-            width: 90%;
-        }
-        .card {
-            width: 100%;
-        }
+
+    .project-meta,
+    .site-footer {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        color: #5c574d;
+    }
+
+    .project {
+        display: flex;
+        flex-wrap: wrap;
+        gap: clamp(20px, 3vw, 40px);
+        align-items: flex-start;
+        padding: 34px 0;
+        border-bottom: 1px solid #cfcabd;
+    }
+    .project-thumb {
+        flex: 0 0 300px;
+        max-width: 100%;
+        display: block;
+        text-decoration: none;
+        aspect-ratio: 4 / 3;
+        border: 1px solid #161512;
+        box-sizing: border-box;
+    }
+    .project-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background: #f7f6f2;
+        display: block;
+    }
+    .project-body {
+        flex: 1 1 340px;
+        min-width: 260px;
+    }
+    .project-meta {
+        font-size: 12px;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        margin: 2px 0 6px;
+    }
+    .project-title {
+        font-size: clamp(24px, 3.4vw, 33px);
+        font-weight: 700;
+        line-height: 1.12;
+        margin: 0 0 10px;
+        letter-spacing: -0.01em;
+    }
+    .project-desc {
+        font-size: clamp(16px, 2vw, 19px);
+        margin: 0;
+        max-width: 120ch;
+        text-wrap: pretty;
+    }
+
+    .favorites {
+        padding: 34px 0;
+        border-bottom: 1px solid #cfcabd;
+    }
+    .favorites h2 {
+        font-size: clamp(24px, 3.4vw, 33px);
+        font-weight: 700;
+        margin: 0 0 16px;
+        letter-spacing: -0.01em;
+    }
+    .favorites ul {
+        list-style: disc;
+        padding-left: 22px;
+        margin: 0;
+    }
+    .favorites li {
+        margin-bottom: 10px;
+        font-size: clamp(16px, 2vw, 19px);
+    }
+
+    .site-footer {
+        margin-top: 40px;
+        font-size: 13px;
+    }
+    .site-footer p {
+        margin: 0 0 4px;
     }
 </style>
 
 
 <body>
-    <header>
+    <header id="top">
         <nav>
             <input type="checkbox" id="menu-toggle">
             <label for="menu-toggle" class="menu-icon">&#8801;</label>
@@ -101,110 +130,134 @@
                     <a href="https://www.linkedin.com/in/barkerjordan/" target="_blank" rel="noopener noreferrer">
                         <img src="./assets/icons/linkedin_icon_black.svg" alt="LinkedIn" style="width: 25px; height: 25px;">
                         <span class="icon-text">LinkedIn</span>
-                    </a> 
+                    </a>
                 </li>
             </ul>
         </nav>
     </header>
-    <main>
-        <div class="body_container">
-            <div class="card" onclick="location.href='./secret-hitler-sim/';" style="cursor: pointer;">
-                <img src="./assets/card_headers/secret-hitler.png">
-                <div class="card_container">
-                  <h4><b>Secret Hitler Simulation</b></h4>
-                  <p>Built a simulation of Secret Hitler to view bayesian probabilties on the fly.</p>
-                </div>
+    <main class="content">
+        <article class="project">
+            <a class="project-thumb" href="./secret-hitler-sim/">
+                <img src="./assets/card_headers/secret-hitler.png" alt="Secret Hitler Simulation" loading="lazy">
+            </a>
+            <div class="project-body">
+                <p class="project-meta">Simulation · Bayesian · 2026</p>
+                <h2 class="project-title"><a href="./secret-hitler-sim/">Secret Hitler Simulation</a></h2>
+                <p class="project-desc">Built a simulation of Secret Hitler to view bayesian probabilties on the fly.</p>
             </div>
-            <div class="card" onclick="location.href='./projects/receiver-fan-automation.html';" style="cursor: pointer;">
-                <img src="./assets/receiver_fan_automation/line_plot.png">
-                <div class="card_container">
-                  <h4><b>Receiver Fan Automation</b></h4>
-                  <p>Automating receiver cooling with a 12V trigger, relay, and a data-backed temperature check.</p>
-                </div>
+        </article>
+
+        <article class="project">
+            <a class="project-thumb" href="./projects/receiver-fan-automation.html">
+                <img src="./assets/receiver_fan_automation/line_plot.png" alt="Receiver Fan Automation" loading="lazy">
+            </a>
+            <div class="project-body">
+                <p class="project-meta">Hardware · Automation · 2026</p>
+                <h2 class="project-title"><a href="./projects/receiver-fan-automation.html">Receiver Fan Automation</a></h2>
+                <p class="project-desc">Automating receiver cooling with a 12V trigger, relay, and a data-backed temperature check.</p>
             </div>
-            <div class="card" onclick="location.href='./projects/marathon.html';" style="cursor: pointer;">
-                <img src="./assets/marathon/madison_marathon.jpeg">
-                <div class="card_container">
-                  <h4><b>AI Engineer's Approach to Running a Marathon</b></h4>
-                  <p>AI-assisted training, and race day recap of the Madison Marathon.</p>
-                </div>
+        </article>
+
+        <article class="project">
+            <a class="project-thumb" href="./projects/marathon.html">
+                <img src="./assets/marathon/madison_marathon.jpeg" alt="AI Engineer's Approach to Running a Marathon" loading="lazy">
+            </a>
+            <div class="project-body">
+                <p class="project-meta">Blog · Running · 2025</p>
+                <h2 class="project-title"><a href="./projects/marathon.html">AI Engineer's Approach to Running a Marathon</a></h2>
+                <p class="project-desc">AI-assisted training, and race day recap of the Madison Marathon.</p>
             </div>
-            <div class="card" onclick="location.href='./projects/ragbrai-lii.html';" style="cursor: pointer;">
-                <img src="./assets/ragbrai_images/ragbrai_lii_header.png">
-                <div class="card_container">
-                  <h4><b>RAGBRAI LII Guess the Route Contest</b></h4>
-                  <p>I analyzed past RAGBRAI routes and developed an algorithm to predict where the race will take place in 2025.</p>
-                </div>
+        </article>
+
+        <article class="project">
+            <a class="project-thumb" href="./projects/ragbrai-lii.html">
+                <img src="./assets/ragbrai_images/ragbrai_lii_header.png" alt="RAGBRAI LII Guess the Route Contest" loading="lazy">
+            </a>
+            <div class="project-body">
+                <p class="project-meta">Data analysis · Prediction · 2025</p>
+                <h2 class="project-title"><a href="./projects/ragbrai-lii.html">RAGBRAI LII Guess the Route Contest</a></h2>
+                <p class="project-desc">I analyzed past RAGBRAI routes and developed an algorithm to predict where the race will take place in 2025.</p>
             </div>
-            <div class="card" onclick="location.href='./marimo-pages/apps/house_affordability.html';" style="cursor: pointer;">
-                <img src="./assets/card_headers/house_calc.png">
-                <div class="card_container">
-                  <h4><b>House Affordability Calculator</b></h4>
-                  <p>An interactive mortgage calculator to help inform a new home purchase.</p>
-                </div>
+        </article>
+
+        <article class="project">
+            <a class="project-thumb" href="./marimo-pages/apps/house_affordability.html">
+                <img src="./assets/card_headers/house_calc.png" alt="House Affordability Calculator" loading="lazy">
+            </a>
+            <div class="project-body">
+                <p class="project-meta">Interactive · Finance · 2024</p>
+                <h2 class="project-title"><a href="./marimo-pages/apps/house_affordability.html">House Affordability Calculator</a></h2>
+                <p class="project-desc">An interactive mortgage calculator to help inform a new home purchase.</p>
             </div>
-            <div class="card" onclick="location.href='./projects/wiki-sentiment.html';" style="cursor: pointer;">
-                <img src="./assets/wiki_sentiment/wiki_sentiment.png">
-                <div class="card_container">
-                  <h4><b>Wikipedia Sentiment Analysis Exploration</b></h4>
-                  <p>This project aims to explore sentiment models by visualizing their predictions on a subset of Wikipedia articles.</p>
-                </div>
+        </article>
+
+        <article class="project">
+            <a class="project-thumb" href="./projects/wiki-sentiment.html">
+                <img src="./assets/wiki_sentiment/wiki_sentiment.png" alt="Wikipedia Sentiment Analysis Exploration" loading="lazy">
+            </a>
+            <div class="project-body">
+                <p class="project-meta">NLP · Visualization · 2023</p>
+                <h2 class="project-title"><a href="./projects/wiki-sentiment.html">Wikipedia Sentiment Analysis Exploration</a></h2>
+                <p class="project-desc">This project aims to explore sentiment models by visualizing their predictions on a subset of Wikipedia articles.</p>
             </div>
-            <div class="card" onclick="location.href='./projects/pong.html';" style="cursor: pointer;">
-                <img src="./assets/pong/pong_network.gif">
-                <div class="card_container">
-                  <h4><b>Reinforcement Learning Pong Agent</b></h4>
-                  <p>Play against a neural network RL agent in your browser! Incredible how much computation we have today.</p>
-                </div>
+        </article>
+
+        <article class="project">
+            <a class="project-thumb" href="./projects/pong.html">
+                <img src="./assets/pong/pong_network.gif" alt="Reinforcement Learning Pong Agent" loading="lazy">
+            </a>
+            <div class="project-body">
+                <p class="project-meta">Reinforcement learning · Game · 2023</p>
+                <h2 class="project-title"><a href="./projects/pong.html">Reinforcement Learning Pong Agent</a></h2>
+                <p class="project-desc">Play against a neural network RL agent in your browser! Incredible how much computation we have today.</p>
             </div>
-            <div class="card" onclick="location.href='./projects/ml-quiz-game.html';" style="cursor: pointer;">
-                <img src="./assets/ml_quiz/ml_quiz.png">
-                <div class="card_container">
-                  <h4><b>Machine Learning Quiz</b></h4>
-                  <p>A quiz game with common machine learning questions generated by an LLM. Admittedly, I switched to using Anki instead, but I still thought the concept was fun.</p>
-                </div>
+        </article>
+
+        <article class="project">
+            <a class="project-thumb" href="./projects/ml-quiz-game.html">
+                <img src="./assets/ml_quiz/ml_quiz.png" alt="Machine Learning Quiz" loading="lazy">
+            </a>
+            <div class="project-body">
+                <p class="project-meta">Quiz · LLM · 2023</p>
+                <h2 class="project-title"><a href="./projects/ml-quiz-game.html">Machine Learning Quiz</a></h2>
+                <p class="project-desc">A quiz game with common machine learning questions generated by an LLM. Admittedly, I switched to using Anki instead, but I still thought the concept was fun.</p>
             </div>
-            <div class="card" onclick="location.href='./projects/zipper.html';" style="cursor: pointer;">
-                <img src="./assets/zipper/zipper.png">
-                <div class="card_container">
-                  <h4><b>Zipper</b></h4>
-                  <p>Title says it all.</p>
-                </div>
+        </article>
+
+        <article class="project">
+            <a class="project-thumb" href="./projects/zipper.html">
+                <img src="./assets/zipper/zipper.png" alt="Zipper" loading="lazy">
+            </a>
+            <div class="project-body">
+                <p class="project-meta">Sketch · Interactive · 2023</p>
+                <h2 class="project-title"><a href="./projects/zipper.html">Zipper</a></h2>
+                <p class="project-desc">Title says it all.</p>
             </div>
-            <div class="card" onclick="location.href='./projects/fibonacci-roses.html';" style="cursor: pointer;">
-                <img src="./assets/fibinacci_roses/roses.png">
-                <div class="card_container">
-                  <h4><b>Fibinocci Roses</b></h4>
-                  <p>Project I developed to practice custom Javascript D3 visualizations while I was also relearning polar coordinates.</p>
-                </div>
+        </article>
+
+        <article class="project">
+            <a class="project-thumb" href="./projects/fibonacci-roses.html">
+                <img src="./assets/fibinacci_roses/roses.png" alt="Fibonacci Roses" loading="lazy">
+            </a>
+            <div class="project-body">
+                <p class="project-meta">D3 · Visualization · 2023</p>
+                <h2 class="project-title"><a href="./projects/fibonacci-roses.html">Fibinocci Roses</a></h2>
+                <p class="project-desc">Project I developed to practice custom Javascript D3 visualizations while I was also relearning polar coordinates.</p>
             </div>
-        </div>
-        <!--
-        Favorites
-        -->
-        <div class="favorites-list">
+        </article>
+
+        <section class="favorites">
             <h2>Favorite Websites</h2>
             <ul>
-                <li><a href="https://setosa.io/#/" target="_blank">setosa.io</a> - Explained Visually is an incredible series that blends teachings and interactive visualizations.</li>
-                <li><a href="https://worrydream.com/" target="_blank">worrydream.com</a> - Bret Victor is a pioneer and leader in the data visualization space.</li>
-                <li><a href="https://explorabl.es/" target="_blank">explorabl.es</a> - Explorable Explanations has interactive pages that combine education with art in brilliant ways.</li>
-                <li><a href="https://distill.pub/" target="_blank">distill</a> - Machine learning research made in a more clear and understandable form.</li>
-                <li><a href="https://homepage.divms.uiowa.edu/~mbognar/" target="_blank">uiowa.edu/~mbognar</a> - Matt Bognar's probability distribution applets are timeless.</li>
+                <li><a href="https://brutalist-web.design/" target="_blank" rel="noopener noreferrer">brutalist-web.design/</a> - Simple pages are better. Inspired this page's design.</li>
+                <li><a href="https://setosa.io/#/" target="_blank" rel="noopener noreferrer">setosa.io</a> - Explained Visually is an incredible series that blends teachings and interactive visualizations.</li>
+                <li><a href="https://worrydream.com/" target="_blank" rel="noopener noreferrer">worrydream.com</a> - Bret Victor is a pioneer and leader in the data visualization space.</li>
+                <li><a href="https://explorabl.es/" target="_blank" rel="noopener noreferrer">explorabl.es</a> - Explorable Explanations has interactive pages that combine education with art in brilliant ways.</li>
+                <li><a href="https://distill.pub/" target="_blank" rel="noopener noreferrer">distill</a> - Machine learning research made in a more clear and understandable form.</li>
+                <li><a href="https://homepage.divms.uiowa.edu/~mbognar/" target="_blank" rel="noopener noreferrer">uiowa.edu/~mbognar</a> - Matt Bognar's probability distribution applets are timeless.</li>
             </ul>
-        </div>
+        </section>
+
     </main>
 </body>
-
-<!-- I wanted to switch text to a hamburger button on mobile, but that is a project for another day  -->
-<!-- <script>
-    function toggleMenu() {
-        var x = document.getElementById("myLinks");
-        if (x.style.display === "block") {
-            x.style.display = "none";
-        } else {
-            x.style.display = "block";
-        }
-    }
-</script> -->
-
 </html>
