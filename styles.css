@@ -1,15 +1,12 @@
 :root {
     --sans-serif: -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
-    --serif: "Source Serif Pro", Iowan Old Style, Apple Garamond, Palatino Linotype, Times New Roman, "Droid Serif", Times, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
-    --code: SFMono-Regular, Menlo, Consolas, Monaco, "Liberation Mono", "Courier New", monospace;
-    --body_color: #f1f1f1;
+    --code: ui-monospace, SFMono-Regular, Menlo, Consolas, Monaco, "Liberation Mono", "Courier New", monospace;
 }
   
 body {
     font-family: var(--sans-serif);
     padding: 0;
     margin: 0px;
-    background-color: body_color;
     padding-top: 60px;
     line-height: 1.6em;
 }
