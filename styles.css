@@ -21,6 +21,7 @@
     --separator: rgba(60, 60, 67, 0.29);
     --bg: #fff;
     --grouped-bg: #f5f5f7;
+    --elevated-bg: #fff; /* overlays (e.g. mobile menu); lighter than --bg in dark mode */
     --tint: #0066cc;
     --icon-filter: none;
 }
@@ -32,6 +33,7 @@
         --separator: rgba(84, 84, 88, 0.6);
         --bg: #000;
         --grouped-bg: #1c1c1e;
+        --elevated-bg: #1c1c1e;
         --tint: #2997ff;
         --icon-filter: invert(1);
     }
@@ -186,9 +188,11 @@ header nav ul li.name a {
     /* When menu-toggle is checked, show the menu */
     #menu-toggle:checked ~ .menu {
         display: flex;
-        background-color: var(--bg);
+        background-color: var(--elevated-bg);
         padding-bottom: 8px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+        border-bottom: 0.5px solid var(--separator);
+        /* drop shadow, plus a huge spread that acts as a scrim dimming the page behind */
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12), 0 0 0 100vmax rgba(0,0,0,0.4);
     }
     /* When menu is visible, show all li elements except .name */
     #menu-toggle:checked ~ .menu li:not(.name) {
