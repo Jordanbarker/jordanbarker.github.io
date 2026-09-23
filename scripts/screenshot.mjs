@@ -1,6 +1,6 @@
 // Screenshot a page at desktop and mobile widths and print rendered logo/icon sizes.
 // Usage: node scripts/screenshot.mjs [page.html]   (default: about.html, the only page with timeline sections)
-// Output: output/<page>-*.png
+// Output: output/<page>-*.png (light) and output/<page>-*-dark-*.png
 // One-time setup: npx playwright install chromium
 import { chromium } from 'playwright';
 import { existsSync, mkdirSync } from 'node:fs';
@@ -39,30 +39,45 @@ async function measure(p, sizes) {
     for (const [key, size] of found) sizes.set(key, size);
 }
 
+// Lazy images below the fold never load in a full-page capture, so load them all first.
+async function loadAllImages(p) {
+    await p.evaluate(async () => {
+        const imgs = [...document.images];
+        imgs.forEach(img => { img.loading = 'eager'; });
+        await Promise.all(imgs.map(img => img.decode().catch(() => {})));
+    });
+}
+
 const browser = await chromium.launch();
 try {
-    for (const [label, viewport] of Object.entries(viewports)) {
-        const p = await browser.newPage({ viewport });
-        await p.goto(url, { waitUntil: 'networkidle' });
-        await p.screenshot({ path: join(outDir, `${name}-${label}-full.png`), fullPage: true });
+    for (const colorScheme of ['light', 'dark']) {
+        const suffix = colorScheme === 'dark' ? '-dark' : '';
+        for (const [label, viewport] of Object.entries(viewports)) {
+            const p = await browser.newPage({ viewport, colorScheme });
+            await p.goto(url, { waitUntil: 'networkidle' });
+            await loadAllImages(p);
+            await p.screenshot({ path: join(outDir, `${name}-${label}${suffix}-full.png`), fullPage: true });
 
-        const sizes = new Map();
-        await measure(p, sizes);
+            const sizes = new Map();
+            await measure(p, sizes);
 
-        // Viewport shots per timeline section, so sticky elements show as they do while scrolling.
-        if (label === 'desktop') {
-            const ids = await p.$$eval('.timeline-event[id]', els => els.map(el => el.id));
-            for (const id of ids) {
-                await p.evaluate(i => document.getElementById(i).scrollIntoView(), id);
-                await p.waitForTimeout(400);
-                await p.screenshot({ path: join(outDir, `${name}-${label}-${id}.png`) });
-                await measure(p, sizes);
+            // Viewport shots per timeline section, so sticky elements show as they do while scrolling.
+            if (label === 'desktop') {
+                const ids = await p.$$eval('.timeline-event[id]', els => els.map(el => el.id));
+                for (const id of ids) {
+                    await p.evaluate(i => document.getElementById(i).scrollIntoView(), id);
+                    await p.waitForTimeout(400);
+                    await p.screenshot({ path: join(outDir, `${name}-${label}${suffix}-${id}.png`) });
+                    await measure(p, sizes);
+                }
             }
-        }
 
-        const lines = [...sizes].map(([key, size]) => `  ${key}: ${size}`);
-        console.log(`${label}:\n${lines.join('\n')}`);
-        await p.close();
+            if (colorScheme === 'light') {
+                const lines = [...sizes].map(([key, size]) => `  ${key}: ${size}`);
+                console.log(`${label}:\n${lines.join('\n')}`);
+            }
+            await p.close();
+        }
     }
 } finally {
     await browser.close();

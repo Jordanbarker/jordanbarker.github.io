@@ -1,31 +1,67 @@
 :root {
-    --sans-serif: -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
+    --sans-serif: -apple-system, system-ui, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
     --code: ui-monospace, SFMono-Regular, Menlo, Consolas, Monaco, "Liberation Mono", "Courier New", monospace;
     --header-h: 56px;
 
     /* Readable line length (~65-75 chars) and a rem type scale that follows the reader's font size. */
     --measure: 34em; /* ~70 chars; ch overcounts because "0" is wider than average glyphs */
-    --text-caption: 0.8125rem; /* 13px */
-    --text-body: 1.0625rem;    /* 17px, HIG body */
-    --text-title: clamp(1.5rem, 1.2rem + 1.2vw, 2.0625rem); /* 24-33px */
+    --text-large-title: 2.125rem; /* 34px */
+    --text-title: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem); /* 22-28px, HIG Title 2 -> Title 1 */
+    --text-title2: 1.375rem;      /* 22px */
+    --text-title3: 1.25rem;       /* 20px */
+    --text-headline: 1.0625rem;   /* 17px, weight 600 */
+    --text-body: 1.0625rem;       /* 17px, HIG body */
+    --text-footnote: 0.8125rem;   /* 13px */
+    --text-caption: 0.8125rem;    /* 13px, kept for existing callers */
+
+    /* HIG-style semantic colors. */
+    color-scheme: light dark;
+    --label: #1d1d1f;
+    --secondary-label: rgba(60, 60, 67, 0.6);
+    --separator: rgba(60, 60, 67, 0.29);
+    --bg: #fff;
+    --grouped-bg: #f5f5f7;
+    --tint: #0066cc;
+    --icon-filter: none;
 }
-  
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --label: #f5f5f7;
+        --secondary-label: rgba(235, 235, 245, 0.6);
+        --separator: rgba(84, 84, 88, 0.6);
+        --bg: #000;
+        --grouped-bg: #1c1c1e;
+        --tint: #2997ff;
+        --icon-filter: invert(1);
+    }
+}
+
 body {
     font-family: var(--sans-serif);
     padding: 0;
     margin: 0px;
     padding-top: var(--header-h);
     line-height: 1.5;
+    background: var(--bg);
+    color: var(--label);
+    -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+    outline: 2px solid var(--tint);
+    outline-offset: 2px;
+    border-radius: 6px;
 }
 
 header {
-    background-color: rgb(255 255 255 / 85%);
-    border-bottom: .05rem solid #b8b8b8;
-    -webkit-backdrop-filter: blur(10px); /* Fixes blur for Safari */
-    backdrop-filter: blur(10px);
-    position: fixed; 
-    width: 100%; 
-    top: 0; 
+    background-color: color-mix(in srgb, var(--bg) 80%, transparent);
+    border-bottom: 0.5px solid var(--separator);
+    -webkit-backdrop-filter: saturate(180%) blur(20px); /* Fixes blur for Safari */
+    backdrop-filter: saturate(180%) blur(20px);
+    position: fixed;
+    width: 100%;
+    top: 0;
     z-index: 100;
 }
 header nav {
@@ -42,30 +78,36 @@ header nav ul {
     flex-direction: row;
     justify-content: right;
     align-items: center;
-    gap: 22px;
+    gap: 6px;
     width: 100%;
     margin: 0;
     padding: 0;
+    list-style: none;
 }
 header nav ul li {
     align-items: center;
-    display: inline-flex; 
+    display: inline-flex;
     padding: 0;
 }
 header nav ul li a {
-    color: #1f1f1f;
-    border-radius: 5px;
+    color: var(--label);
+    font-size: 0.9375rem; /* 15px */
     text-decoration: none;
     display: flex;
     align-items: center;
-    transition: background-color 0.3s ease;
+    justify-content: center;
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0 8px;
+    box-sizing: border-box;
 }
 header nav ul li a:hover {
-    color: #616161;
+    opacity: 0.7;
 }
 header nav img {
     width: 20px;
     height: 20px;
+    filter: var(--icon-filter);
 }
 .menu-icon {
     display: none;
@@ -75,17 +117,27 @@ header nav img {
     display: none;
 }
 .icon-text {
-    display: none; 
+    display: none;
     margin-left: 6px; /* small spacing between icon and text */
 }
 .name {
-    font-size: 1.3em;
-    font-weight: 600;
     margin: 0px 0px;
     margin-right: auto;
     padding: 0px 0px;
 }
-  
+header nav ul li.name a {
+    font-size: 1.1875rem; /* 19px */
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    padding-left: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    header nav ul li a {
+        transition: opacity 0.2s ease;
+    }
+}
+
 @media (max-width: 800px) {
     :root {
         --header-h: 48px;
@@ -94,8 +146,8 @@ header nav img {
         position: relative;
         padding: 0 16px;
     }
-    .name {
-        font-size: 1.1em;
+    header nav ul li.name a {
+        font-size: 1.0625rem;
     }
     .menu {
         display: flex;
@@ -109,21 +161,23 @@ header nav img {
         padding: 0 16px;
         margin: 0;
         box-sizing: border-box;
-        font-size: 1.1em;
     }
     .menu li.name {
         height: var(--header-h);
         margin-right: 0;
     }
-  
+
     .menu-icon {
         position: relative; /* so z-index keeps it above the fixed .menu */
         margin-left: auto;
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
         font-size: 1.75rem;
-        line-height: var(--header-h);
-        padding: 0 4px;
+        min-width: 44px;
+        height: var(--header-h);
+        color: var(--label);
     }
     /* Hide all other li elements initially */
     .menu li:not(.name) {
@@ -132,17 +186,20 @@ header nav img {
     /* When menu-toggle is checked, show the menu */
     #menu-toggle:checked ~ .menu {
         display: flex;
-        background-color: #fff;
+        background-color: var(--bg);
         padding-bottom: 8px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.12);
     }
     /* When menu is visible, show all li elements except .name */
     #menu-toggle:checked ~ .menu li:not(.name) {
         display: block;
+        border-top: 0.5px solid var(--separator);
     }
-    .menu li a {
-        display: flex;
-        line-height: 44px;
+    .menu li a,
+    header nav ul li a {
+        justify-content: flex-start;
+        font-size: var(--text-body);
+        padding-left: 0;
     }
     .icon-text {
         display: inline-block;

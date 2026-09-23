@@ -5,111 +5,157 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jordan Barker</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .content {
+            line-height: 1.5;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: clamp(1.25rem, 2vw, 4rem) clamp(18px, 5vw, 72px);
+            box-sizing: border-box;
+        }
+
+        /* One link per card: the title's link stretches over the whole card. */
+        .project {
+            position: relative;
+            isolation: isolate; /* keeps the hover plate (z-index: -1) inside the card */
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(20px, 3vw, 40px);
+            align-items: flex-start;
+            padding: 28px 0;
+            border-bottom: 0.5px solid var(--separator);
+        }
+        .project::before {
+            content: "";
+            position: absolute;
+            inset: 8px -16px;
+            border-radius: 16px;
+            background: var(--grouped-bg);
+            opacity: 0;
+            z-index: -1;
+        }
+        .project:hover::before {
+            opacity: 1;
+        }
+        .project:has(:focus-visible)::before {
+            opacity: 1;
+            outline: 2px solid var(--tint);
+        }
+        .project-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .project-title a::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+        }
+        .project-title a:focus-visible {
+            outline: none;
+        }
+
+        .project-thumb {
+            flex: 0 0 300px;
+            max-width: 100%;
+            display: block;
+            aspect-ratio: 4 / 3;
+            border: 0.5px solid var(--separator);
+            border-radius: 12px;
+            overflow: hidden;
+            box-sizing: border-box;
+            background: var(--grouped-bg);
+        }
+        .project-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        /* Charts and diagrams shouldn't be cropped. */
+        .project-thumb--contain img {
+            object-fit: contain;
+            background: #fff; /* screenshots are drawn on white */
+        }
+        .project-body {
+            flex: 1 1 340px;
+            min-width: 260px;
+        }
+        .project-meta {
+            font-size: var(--text-footnote);
+            color: var(--secondary-label);
+            margin: 2px 0 6px;
+        }
+        .project-title {
+            font-size: var(--text-title);
+            font-weight: 600;
+            line-height: 1.2;
+            margin: 0 0 8px;
+            letter-spacing: -0.01em;
+        }
+        .project-desc {
+            font-size: var(--text-body);
+            color: var(--secondary-label);
+            margin: 0;
+            max-width: var(--measure);
+            text-wrap: pretty;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .project::before {
+                transition: opacity 0.2s ease;
+            }
+        }
+
+        /* HIG-style grouped list. */
+        .favorites {
+            padding: 40px 0;
+        }
+        .favorites h2 {
+            font-size: var(--text-title);
+            font-weight: 600;
+            margin: 0 0 12px;
+            letter-spacing: -0.01em;
+        }
+        .favorites ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-width: calc(var(--measure) + 2rem);
+            background: var(--grouped-bg);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .favorites li {
+            min-height: 44px;
+            padding: 11px 16px;
+            box-sizing: border-box;
+            font-size: var(--text-body);
+            color: var(--secondary-label);
+        }
+        .favorites li + li {
+            box-shadow: inset 16px 0 0 var(--grouped-bg), inset 0 0.5px 0 var(--separator);
+        }
+        .favorites a {
+            display: block;
+            color: var(--tint);
+            text-decoration: none;
+        }
+        .favorites a:hover {
+            text-decoration: underline;
+        }
+
+        .site-footer {
+            margin-top: 40px;
+            font-size: var(--text-footnote);
+            color: var(--secondary-label);
+        }
+        .site-footer p {
+            margin: 0 0 4px;
+        }
+    </style>
 </head>
 
-<style>
-    /* Content-first, fast. */
-    body {
-        color: #161512;
-    }
 
-    .content {
-        font-family: var(--sans-serif);
-        line-height: 1.5;
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: clamp(1.25rem, 2vw, 4rem) clamp(18px, 5vw, 72px);
-        box-sizing: border-box;
-    }
-
-    .content a {
-        color: inherit;
-        text-decoration: underline;
-    }
-
-    .project-meta,
-    .site-footer {
-        font-family: var(--code);
-        color: #5c574d;
-    }
-
-    .project {
-        display: flex;
-        flex-wrap: wrap;
-        gap: clamp(20px, 3vw, 40px);
-        align-items: flex-start;
-        padding: 34px 0;
-        border-bottom: 1px solid #cfcabd;
-    }
-    .project-thumb {
-        flex: 0 0 300px;
-        max-width: 100%;
-        display: block;
-        text-decoration: none;
-        aspect-ratio: 4 / 3;
-        border: 1px solid #161512;
-        box-sizing: border-box;
-    }
-    .project-thumb img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        background: #f7f6f2;
-        display: block;
-    }
-    .project-body {
-        flex: 1 1 340px;
-        min-width: 260px;
-    }
-    .project-meta {
-        font-size: 0.75rem;
-        letter-spacing: 0.03em;
-        text-transform: uppercase;
-        margin: 2px 0 6px;
-    }
-    .project-title {
-        font-size: var(--text-title);
-        font-weight: 700;
-        line-height: 1.12;
-        margin: 0 0 10px;
-        letter-spacing: -0.01em;
-    }
-    .project-desc {
-        font-size: var(--text-body);
-        margin: 0;
-        max-width: var(--measure);
-        text-wrap: pretty;
-    }
-
-    .favorites {
-        padding: 34px 0;
-        border-bottom: 1px solid #cfcabd;
-    }
-    .favorites h2 {
-        font-size: var(--text-title);
-        font-weight: 700;
-        margin: 0 0 16px;
-        letter-spacing: -0.01em;
-    }
-    .favorites ul {
-        list-style: disc;
-        padding-left: 22px;
-        margin: 0;
-    }
-    .favorites li {
-        margin-bottom: 10px;
-        font-size: var(--text-body);
-        max-width: var(--measure);
-    }
-
-    .site-footer {
-        margin-top: 40px;
-        font-size: var(--text-caption);
-    }
-    .site-footer p {
-        margin: 0 0 4px;
-    }
-</style>
 
 
 <body>
@@ -138,7 +184,7 @@
     </header>
     <main class="content">
         <article class="project">
-            <a class="project-thumb" href="https://github.com/Jordanbarker/space-analyzer" target="_blank" rel="noopener noreferrer">
+            <a class="project-thumb" href="https://github.com/Jordanbarker/space-analyzer" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
                 <img src="./assets/card_headers/space-analyzer.png" alt="Space Analyzer" loading="lazy">
             </a>
             <div class="project-body">
@@ -149,7 +195,7 @@
         </article>
 
         <article class="project">
-            <a class="project-thumb" href="./secret-hitler-sim/">
+            <a class="project-thumb" href="./secret-hitler-sim/" tabindex="-1" aria-hidden="true">
                 <img src="./assets/card_headers/secret-hitler.png" alt="Secret Hitler Simulation" loading="lazy">
             </a>
             <div class="project-body">
@@ -160,7 +206,7 @@
         </article>
 
         <article class="project">
-            <a class="project-thumb" href="./projects/receiver-fan-automation.html">
+            <a class="project-thumb project-thumb--contain" href="./projects/receiver-fan-automation.html" tabindex="-1" aria-hidden="true">
                 <img src="./assets/receiver_fan_automation/line_plot.png" alt="Receiver Fan Automation" loading="lazy">
             </a>
             <div class="project-body">
@@ -171,7 +217,7 @@
         </article>
 
         <article class="project">
-            <a class="project-thumb" href="./projects/marathon.html">
+            <a class="project-thumb" href="./projects/marathon.html" tabindex="-1" aria-hidden="true">
                 <img src="./assets/marathon/madison_marathon.jpeg" alt="AI Engineer's Approach to Running a Marathon" loading="lazy">
             </a>
             <div class="project-body">
@@ -182,7 +228,7 @@
         </article>
 
         <article class="project">
-            <a class="project-thumb" href="./projects/ragbrai-lii.html">
+            <a class="project-thumb" href="./projects/ragbrai-lii.html" tabindex="-1" aria-hidden="true">
                 <img src="./assets/ragbrai_images/ragbrai_lii_header.png" alt="RAGBRAI LII Guess the Route Contest" loading="lazy">
             </a>
             <div class="project-body">
@@ -193,7 +239,7 @@
         </article>
 
         <article class="project">
-            <a class="project-thumb" href="./marimo-pages/apps/house_affordability.html">
+            <a class="project-thumb project-thumb--contain" href="./marimo-pages/apps/house_affordability.html" tabindex="-1" aria-hidden="true">
                 <img src="./assets/card_headers/house_calc.png" alt="House Affordability Calculator" loading="lazy">
             </a>
             <div class="project-body">
@@ -204,7 +250,7 @@
         </article>
 
         <article class="project">
-            <a class="project-thumb" href="./projects/wiki-sentiment.html">
+            <a class="project-thumb project-thumb--contain" href="./projects/wiki-sentiment.html" tabindex="-1" aria-hidden="true">
                 <img src="./assets/wiki_sentiment/wiki_sentiment.png" alt="Wikipedia Sentiment Analysis Exploration" loading="lazy">
             </a>
             <div class="project-body">
@@ -215,7 +261,7 @@
         </article>
 
         <article class="project">
-            <a class="project-thumb" href="./projects/pong.html">
+            <a class="project-thumb project-thumb--contain" href="./projects/pong.html" tabindex="-1" aria-hidden="true">
                 <img src="./assets/pong/pong_network.gif" alt="Reinforcement Learning Pong Agent" loading="lazy">
             </a>
             <div class="project-body">
@@ -226,7 +272,7 @@
         </article>
 
         <article class="project">
-            <a class="project-thumb" href="./projects/ml-quiz-game.html">
+            <a class="project-thumb project-thumb--contain" href="./projects/ml-quiz-game.html" tabindex="-1" aria-hidden="true">
                 <img src="./assets/ml_quiz/ml_quiz.png" alt="Machine Learning Quiz" loading="lazy">
             </a>
             <div class="project-body">
@@ -237,7 +283,7 @@
         </article>
 
         <article class="project">
-            <a class="project-thumb" href="./projects/zipper.html">
+            <a class="project-thumb" href="./projects/zipper.html" tabindex="-1" aria-hidden="true">
                 <img src="./assets/zipper/zipper.png" alt="Zipper" loading="lazy">
             </a>
             <div class="project-body">
@@ -248,7 +294,7 @@
         </article>
 
         <article class="project">
-            <a class="project-thumb" href="./projects/fibonacci-roses.html">
+            <a class="project-thumb" href="./projects/fibonacci-roses.html" tabindex="-1" aria-hidden="true">
                 <img src="./assets/fibinacci_roses/roses.png" alt="Fibonacci Roses" loading="lazy">
             </a>
             <div class="project-body">
@@ -261,12 +307,12 @@
         <section class="favorites">
             <h2>Favorite Websites</h2>
             <ul>
-                <li><a href="https://brutalist-web.design/" target="_blank" rel="noopener noreferrer">brutalist-web.design/</a> - Simple pages are better. Inspired this page's design.</li>
-                <li><a href="https://setosa.io/#/" target="_blank" rel="noopener noreferrer">setosa.io</a> - Explained Visually is an incredible series that blends teachings and interactive visualizations.</li>
-                <li><a href="https://worrydream.com/" target="_blank" rel="noopener noreferrer">worrydream.com</a> - Bret Victor is a pioneer and leader in the data visualization space.</li>
-                <li><a href="https://explorabl.es/" target="_blank" rel="noopener noreferrer">explorabl.es</a> - Explorable Explanations has interactive pages that combine education with art in brilliant ways.</li>
-                <li><a href="https://distill.pub/" target="_blank" rel="noopener noreferrer">distill</a> - Machine learning research made in a more clear and understandable form.</li>
-                <li><a href="https://homepage.divms.uiowa.edu/~mbognar/" target="_blank" rel="noopener noreferrer">uiowa.edu/~mbognar</a> - Matt Bognar's probability distribution applets are timeless.</li>
+                <li><a href="https://brutalist-web.design/" target="_blank" rel="noopener noreferrer">brutalist-web.design</a> Simple pages are better.</li>
+                <li><a href="https://setosa.io/#/" target="_blank" rel="noopener noreferrer">setosa.io</a> Explained Visually is an incredible series that blends teachings and interactive visualizations.</li>
+                <li><a href="https://worrydream.com/" target="_blank" rel="noopener noreferrer">worrydream.com</a> Bret Victor is a pioneer and leader in the data visualization space.</li>
+                <li><a href="https://explorabl.es/" target="_blank" rel="noopener noreferrer">explorabl.es</a> Explorable Explanations has interactive pages that combine education with art in brilliant ways.</li>
+                <li><a href="https://distill.pub/" target="_blank" rel="noopener noreferrer">distill</a> Machine learning research made in a more clear and understandable form.</li>
+                <li><a href="https://homepage.divms.uiowa.edu/~mbognar/" target="_blank" rel="noopener noreferrer">uiowa.edu/~mbognar</a> Matt Bognar's probability distribution applets are timeless.</li>
             </ul>
         </section>
 

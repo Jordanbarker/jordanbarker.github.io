@@ -7,94 +7,100 @@
     <title>About Jordan Barker</title>
     <link rel="stylesheet" href="styles.css">
     <style>
+        /* Same box as index .content so text lines up with the header. */
         main {
             line-height: 1.5;
-            /* body already reserves --header-h for the fixed header. */
-            margin-top: 2.75rem;
-            max-width: 75%;
-            margin-left: auto;
-            margin-right: auto;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2.75rem clamp(18px, 5vw, 72px) 4rem;
+            box-sizing: border-box;
+        }
+        main p,
+        main li {
+            font-size: var(--text-body);
+            line-height: 1.5;
+            max-width: var(--measure);
+        }
+        main p {
+            margin: 0 0 0.75rem;
         }
         main li {
-            font-size: 1.5rem;
-            line-height: 1.5;
-            margin-bottom: .5em;
+            margin-bottom: 0.4em;
+        }
+        main ul {
+            padding-left: 1.25rem;
         }
         h1, h2, h3 {
             line-height: 1.2;
+            letter-spacing: -0.01em;
         }
         h1 {
-            font-size: 2.2rem;
-            margin-top: 0;
+            font-size: var(--text-large-title);
+            font-weight: 700;
+            margin: 0 0 1rem;
         }
         h2 {
-            font-size: 2rem;
-            margin-top: 0;
-            margin-bottom: 1.5rem;
+            font-size: var(--text-title2);
+            font-weight: 600;
+            margin: 2.5rem 0 1.5rem;
         }
         h3 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-top: 0;
-            margin-bottom: 0;
+            font-size: var(--text-title3);
+            font-weight: 600;
+            margin: 0;
         }
-        article {
-            color: rgb(34, 34, 34);
-        }
-        p {
-            font-size: 1.5rem;
-            line-height: 1.5;
-            max-width: var(--measure);
-            margin-top: 0;
-            margin-bottom: 1rem;
-        }
-        .date {
-            font-size: 1.1rem;
+        main p.date {
+            font-size: var(--text-footnote);
             line-height: 1.4;
-            margin: 0 0 1rem;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: rgb(110, 110, 110);
+            margin: 0.2rem 0 0.75rem;
+            color: var(--secondary-label);
         }
         .timeline-event {
             display: flex;
             align-items: flex-start;
+            gap: 2rem;
             margin-bottom: 3rem;
         }
-        /* Give the last sticky logo room to stay in view while its text scrolls by. */
-        #isu-era {
-            padding-bottom: 30vh;
+        .timeline-event,
+        .timeline-entry {
+            scroll-margin-top: calc(var(--header-h) + 1rem);
         }
         .timeline-text {
-            width: 60%;
+            flex: 0 1 var(--measure);
+            min-width: 0;
         }
         .timeline-entry + .timeline-entry {
-            margin-top: 3rem;
+            margin-top: 2.5rem;
         }
+        /* Logos stick just below the header, level with the entry headings. */
         .timeline-image {
+            position: sticky;
+            top: calc(var(--header-h) + 2rem);
+            flex: 1 1 35%;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 2rem;
+            gap: 1.5rem;
             margin: 0;
-            width: 40%;
-            top: 30vh;
-            text-align: center;
-            position: sticky;
         }
         /* One box for every logo: tall marks hit the height, wide wordmarks hit the width. */
         .timeline-image .logo {
-            height: 96px;
+            height: 64px;
             width: auto;
-            max-width: 200px;
+            max-width: 140px;
             min-width: 0;
             flex: 0 1 auto;
             object-fit: contain;
         }
-        /* Hidden logos leave the flow so the remaining ones re-spread. */
-        .timeline-image .logo.is-hidden {
-            display: none;
+        /* Several logos share a column when roles overlapped in time; the one for the
+           entry being read stays full strength and the others fade back. */
+        .timeline-image .logo.is-dim {
+            opacity: 0.6;
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            .timeline-image .logo {
+                transition: opacity 0.4s ease;
+            }
         }
         /* SVG coloring tool: https://codepen.io/sosuke/pen/Pjoqqp */
         .logo--linkedin {
@@ -105,33 +111,24 @@
             display: none;
         }
 
+        /* Logos with dark-mode variants are wrapped in <picture>; keep it out of the flex layout. */
+        .entry-header > picture,
+        .timeline-image > picture {
+            display: contents;
+        }
+        picture > source {
+            display: none;
+        }
+
         @media (max-width: 700px) {
             main {
-                max-width: 90%;
-                margin-top: 2rem;
-                padding-bottom: 3rem;
-            }
-            main ul {
-                padding-left: 1.25rem;
-            }
-            p, main li {
-                font-size: 1.1rem;
-            }
-            .date {
-                font-size: 0.95rem;
-                margin-bottom: 0.75rem;
+                padding: 2rem 16px 3rem;
             }
             h1 {
-                font-size: 2rem;
+                font-size: 1.75rem;
             }
             h2 {
-                font-size: 1.5rem;
                 margin-top: 2rem;
-            }
-            h3 {
-                font-size: 1.2rem;
-                flex: 1;
-                min-width: 0;
             }
             .timeline-event {
                 flex-direction: column;
@@ -140,15 +137,9 @@
             .timeline-event:last-child {
                 margin-bottom: 0;
             }
-            .timeline-entry + .timeline-entry {
-                margin-top: 2.5rem;
-            }
-            /* The sticky logo column is hidden, so it needs no scroll room. */
-            #isu-era {
-                padding-bottom: 0;
-            }
+            /* In a column, the desktop flex-basis would become a height. */
             .timeline-text {
-                width: 100%;
+                flex: none;
             }
             /* No sticky column on mobile: show each logo beside its own header instead. */
             .timeline-image {
@@ -160,6 +151,10 @@
                 align-items: flex-start;
                 gap: 0.75rem;
             }
+            h3 {
+                flex: 1;
+                min-width: 0;
+            }
             /* Fixed slot so every heading starts at the same x. */
             .entry-logo {
                 display: block;
@@ -168,7 +163,7 @@
                 height: 2rem;
                 margin-top: -0.2rem;
                 object-fit: contain;
-                object-position: left center;
+                object-position: center;
             }
         }
     </style>
@@ -212,28 +207,37 @@
 
             <div id="uwcu-era" class="timeline-event">
                 <article class="timeline-text">
-                    <div class="timeline-entry">
+                    <div class="timeline-entry" data-logo="uwcu-logo">
                         <div class="entry-header">
-                            <img class="entry-logo" src="./assets/logos/uwcu-logo.svg" alt="" aria-hidden="true">
+                            <picture>
+                                <source srcset="./assets/logos/uwcu-logo-dark.svg" media="(prefers-color-scheme: dark)">
+                                <img class="entry-logo" src="./assets/logos/uwcu-logo.svg" alt="" aria-hidden="true">
+                            </picture>
                             <h3>UW Credit Union</h3>
                         </div>
-                        <p class="date"><time datetime="2025-05">May 2025</time> - Present</p>
+                        <p class="date"><time datetime="2025-05">May 2025</time> – Present</p>
                         <p>Joined as an AI Engineer to help with automation and machine learning applications.</p>
                     </div>
                 </article>
                 <figure class="timeline-image">
-                    <img id="uwcu-logo" class="logo" src="./assets/logos/uwcu-logo.svg" alt="UW Credit Union Logo">
+                    <picture>
+                        <source srcset="./assets/logos/uwcu-logo-dark.svg" media="(prefers-color-scheme: dark)">
+                        <img id="uwcu-logo" class="logo" src="./assets/logos/uwcu-logo.svg" alt="UW Credit Union Logo">
+                    </picture>
                 </figure>
             </div>
 
             <div id="generac-era" class="timeline-event">
                 <article class="timeline-text">
-                    <div class="timeline-entry">
+                    <div class="timeline-entry" data-logo="generac-logo">
                         <div class="entry-header">
-                            <img class="entry-logo" src="./assets/logos/generac-power-systems-vector-logo.svg" alt="" aria-hidden="true">
+                            <picture>
+                                <source srcset="./assets/logos/generac-power-systems-vector-logo-dark.svg" media="(prefers-color-scheme: dark)">
+                                <img class="entry-logo" src="./assets/logos/generac-power-systems-vector-logo.svg" alt="" aria-hidden="true">
+                            </picture>
                             <h3>Generac</h3>
                         </div>
-                        <p class="date"><time datetime="2024-07">July 2024</time> - <time datetime="2025-05">May 2025</time></p>
+                        <p class="date"><time datetime="2024-07">July 2024</time> – <time datetime="2025-05">May 2025</time></p>
                         <p>Worked as a data scientist to help optimize operations using statistics and machine learning.</p>
                         <p>Spent a lot of my time doing time series forecasting to help the business plan and make decisions.</p>
                         <p>
@@ -243,27 +247,30 @@
                     </div>
                 </article>
                 <figure class="timeline-image">
-                    <img id="generac-logo" class="logo" src="./assets/logos/generac-power-systems-vector-logo.svg" alt="Generac Logo">
+                    <picture>
+                        <source srcset="./assets/logos/generac-power-systems-vector-logo-dark.svg" media="(prefers-color-scheme: dark)">
+                        <img id="generac-logo" class="logo" src="./assets/logos/generac-power-systems-vector-logo.svg" alt="Generac Logo">
+                    </picture>
                 </figure>
             </div>
 
             <div id="epic-era" class="timeline-event">
                 <article class="timeline-text">
-                    <div class="timeline-entry">
+                    <div class="timeline-entry" data-logo="linkedin-logo">
                         <div class="entry-header">
                             <img class="entry-logo logo--linkedin" src="./assets/icons/linkedin-logo.svg" alt="" aria-hidden="true">
                             <h3>LinkedIn</h3>
                         </div>
-                        <p class="date"><time datetime="2024-01">January 2024</time> - <time datetime="2024-05">May 2024</time></p>
+                        <p class="date"><time datetime="2024-01">January 2024</time> – <time datetime="2024-05">May 2024</time></p>
                         <p>Developed a time-series forecasting model to predict new signups and renewals as a practicum project.</p>
                         <p>The model had an interface that allowed users to run the model and update predictions based on new factors, such as promotions, which can have a dramatic impact on future predictions.</p>
                     </div>
-                    <div class="timeline-entry">
+                    <div class="timeline-entry" data-logo="georgia-tech-logo">
                         <div class="entry-header">
                             <img class="entry-logo" src="./assets/logos/Georgia_Tech_logo.svg" alt="" aria-hidden="true">
                             <h3>Georgia Institute of Technology</h3>
                         </div>
-                        <p class="date"><time datetime="2020-08">August 2020</time> - <time datetime="2024-05">May 2024</time></p>
+                        <p class="date"><time datetime="2020-08">August 2020</time> – <time datetime="2024-05">May 2024</time></p>
                         <p>I got my Master of Science in Analytics remotely while working at Epic.</p>
                         <p>Here I applied machine learning and statistics on a range of projects including: </p>
                         <ul>
@@ -273,12 +280,12 @@
                             <li>Clustering analysis of MLB pitchers with k-means.</li>
                         </ul>
                     </div>
-                    <div class="timeline-entry">
+                    <div class="timeline-entry" data-logo="epic-logo">
                         <div class="entry-header">
                             <img class="entry-logo" src="./assets/logos/Epic_systems_logo.svg" alt="" aria-hidden="true">
                             <h3>Epic Systems Corporation</h3>
                         </div>
-                        <p class="date"><time datetime="2019-01">January 2019</time> - <time datetime="2024-05">May 2024</time></p>
+                        <p class="date"><time datetime="2019-01">January 2019</time> – <time datetime="2024-05">May 2024</time></p>
                         <p>Helped optimize the revenue cycle of healthcare organizations across the United States.</p>
                         <p>Led the reporting workgroup. Developed analytical reports and new features with SQL, Python and Caché.</p>
                         <p>Presented machine learning features both internally and externally and helped lead project implementations.</p>
@@ -293,31 +300,34 @@
 
             <div id="isu-era" class="timeline-event">
                 <article class="timeline-text">
-                    <div class="timeline-entry">
+                    <div class="timeline-entry" data-logo="union-pacific-logo">
                         <div class="entry-header">
                             <img class="entry-logo" src="./assets/logos/Union_pacific_railroad_logo.svg" alt="" aria-hidden="true">
                             <h3>Union Pacific Railroad</h3>
                         </div>
-                        <p class="date"><time datetime="2018-05">May 2018</time> - <time datetime="2018-08">August 2018</time></p>
+                        <p class="date"><time datetime="2018-05">May 2018</time> – <time datetime="2018-08">August 2018</time></p>
                         <p>Constructed a TensorFlow LSTM model for predicting train faults using time series data.</p>
                         <p>Improved AUC by 15% which significantly improved fault prediction and understanding of the root causes.</p>
                     </div>
-                    <div class="timeline-entry">
+                    <div class="timeline-entry" data-logo="dot-logo">
                         <div class="entry-header">
-                            <img class="entry-logo" src="./assets/logos/Iowa_DOT_logo.svg" alt="" aria-hidden="true">
+                            <picture>
+                                <source srcset="./assets/logos/Iowa_DOT_logo-dark.svg" media="(prefers-color-scheme: dark)">
+                                <img class="entry-logo" src="./assets/logos/Iowa_DOT_logo.svg" alt="" aria-hidden="true">
+                            </picture>
                             <h3>Iowa Department of Transportation</h3>
                         </div>
-                        <p class="date"><time datetime="2016-08">August 2016</time> - <time datetime="2018-01">January 2018</time></p>
+                        <p class="date"><time datetime="2016-08">August 2016</time> – <time datetime="2018-01">January 2018</time></p>
                         <p>Served as a data analyst intern.</p>
                         <p>Collaborated with several teams to implement a new asset management system that would help track equipment and repairs.</p>
                         <p>This project enabled new analytics to be performed such as answering, <em>"Which HVAC brand is the most reliable?"</em></p>
                     </div>
-                    <div class="timeline-entry">
+                    <div class="timeline-entry" data-logo="isu-logo">
                         <div class="entry-header">
                             <img class="entry-logo" src="./assets/logos/Iowa_State_logo.svg" alt="" aria-hidden="true">
                             <h3>Iowa State University</h3>
                         </div>
-                        <p class="date"><time datetime="2014-08">August 2014</time> - <time datetime="2018-12">December 2018</time></p>
+                        <p class="date"><time datetime="2014-08">August 2014</time> – <time datetime="2018-12">December 2018</time></p>
                         <p>Received my Bachelor of Science in Management Information Systems with a focus on analytics.</p>
                         <p>Awarded <em>“Best Healthcare Innovation Helping People Live Healthier Lives"</em> at HackISU 2018 by developing an AI assistant with Rasa, a Python deep learning NLP library, with fellow Union Pacific interns.</p>
                         <p>Volunteered with the Computational Thinking Workshop to teach over 100 students programming skills.</p>
@@ -326,47 +336,62 @@
                 <figure class="timeline-image">
                     <img id="isu-logo" class="logo" src="./assets/logos/Iowa_State_logo.svg" alt="Iowa State Logo">
                     <img id="union-pacific-logo" class="logo" src="./assets/logos/Union_pacific_railroad_logo.svg" alt="Union Pacific Logo">
-                    <img id="dot-logo" class="logo is-hidden" src="./assets/logos/Iowa_DOT_logo.svg" alt="Iowa DOT Logo">
+                    <picture>
+                        <source srcset="./assets/logos/Iowa_DOT_logo-dark.svg" media="(prefers-color-scheme: dark)">
+                        <img id="dot-logo" class="logo" src="./assets/logos/Iowa_DOT_logo.svg" alt="Iowa DOT Logo">
+                    </picture>
                 </figure>
             </div>
         </div>
     </main>
 
-    <script src="https://unpkg.com/enter-view@2.0.1"></script>
     <script>
-        // Show each logo only while `progress` is inside its [from, until) range.
-        function showInRange(el, progress, ranges) {
-            ranges.forEach(function (r) {
-                var logo = el.querySelector('#' + r.id);
-                var visible = progress >= r.from && progress < r.until;
-                logo.classList.toggle('is-hidden', !visible);
+        // Where roles overlapped, several logos share one sticky column.
+        // Exactly one logo stays full strength: the last entry whose top has passed the
+        // reading line (the first entry until then), so nothing flashes in the gaps.
+        function setActive(event, id) {
+            if (event.dataset.active === id) return;
+            event.dataset.active = id;
+            event.querySelectorAll('.timeline-image .logo').forEach(function (logo) {
+                logo.classList.toggle('is-dim', logo.id !== id);
             });
         }
 
-        // The sticky logo column is hidden on mobile, so there's nothing to toggle.
-        if (!window.matchMedia('(max-width: 700px)').matches) {
-            enterView({
-                selector: '#epic-era',
-                offset: 0.5,
-                progress: function (el, progress) {
-                    showInRange(el, progress, [
-                        { id: 'linkedin-logo', from: 0, until: 0.30 },
-                        { id: 'georgia-tech-logo', from: 0, until: 0.72 }
-                    ]);
-                }
-            });
+        var columns = [];
+        document.querySelectorAll('.timeline-event').forEach(function (event) {
+            if (event.querySelectorAll('.timeline-image .logo').length < 2) return;
+            columns.push({ event: event, entries: event.querySelectorAll('.timeline-entry[data-logo]') });
+        });
 
-            enterView({
-                selector: '#isu-era',
-                offset: 0.5,
-                progress: function (el, progress) {
-                    showInRange(el, progress, [
-                        { id: 'union-pacific-logo', from: 0, until: 0.25 },
-                        { id: 'dot-logo', from: 0.30, until: 0.60 }
-                    ]);
+        function update() {
+            var line = window.innerHeight * 0.35;
+            var atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+            columns.forEach(function (col) {
+                var active = col.entries[0];
+                if (atBottom) {
+                    active = col.entries[col.entries.length - 1];
+                } else {
+                    col.entries.forEach(function (entry) {
+                        if (entry.getBoundingClientRect().top <= line) active = entry;
+                    });
                 }
+                setActive(col.event, active.dataset.logo);
             });
         }
+
+        var pending = false;
+        function schedule() {
+            if (pending) return;
+            pending = true;
+            requestAnimationFrame(function () {
+                pending = false;
+                update();
+            });
+        }
+
+        update();
+        window.addEventListener('scroll', schedule, { passive: true });
+        window.addEventListener('resize', schedule, { passive: true });
     </script>
 </body>
 
