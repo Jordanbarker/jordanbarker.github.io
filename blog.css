@@ -61,8 +61,9 @@ tr:nth-child(even) {
 figure { text-align: center; margin: 20px auto; }
 figure img {
     display: block;
-    width: min(520px, 60%);
+    width: auto;       /* fill the measure, but keep tall photos within the screen */
     max-width: 100%;
+    max-height: 75vh;
     height: auto;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
@@ -75,8 +76,13 @@ figure figcaption {
     font-size: .95rem;
 }
 
-.figure-large{
-    width: min(640px, 70%);
+/* Breaks out of the text column to --wide, centered, never wider than the viewport. */
+figure img.figure-large {
+    --w: min(var(--wide), 100vw - 2.5rem);
+    width: var(--w);
+    max-width: none;
+    margin-left: calc((100% - var(--w)) / 2);
+    margin-right: calc((100% - var(--w)) / 2);
 }
 
 blockquote {
@@ -214,8 +220,7 @@ mjx-container {
         overflow-wrap: anywhere; /* breaks long tokens only when needed */
     }
     
-    figure img { width: 100%; }
-    .figure-large { width: 100% }
+    figure img.figure-large { --w: 100%; }
     .text-block {
         padding: 1rem 0.9rem;
     }

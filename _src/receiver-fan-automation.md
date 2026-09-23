@@ -38,7 +38,7 @@ How can you confirm anything changed without data? In order to make this more of
 
 The results were clear after collecting just two samples. With the fans, the temperature leveled out around 75°F. Without the fans, the temperature climbed past 95°F so I cut the experiment short.
 
-![A clear winner!](../assets/receiver_fan_automation/line_plot.png)
+![A clear winner!](../assets/receiver_fan_automation/line_plot.png){.figure-large}
 
 I had originally planned a full hypothesis test with statistical significance and all of that, but I scrapped the plan after collecting the data. I'll leave the original plan details below since I already put the time in to write it out. 
 
