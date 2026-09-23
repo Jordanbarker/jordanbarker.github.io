@@ -105,53 +105,6 @@
                 transition: opacity 0.2s ease;
             }
         }
-
-        /* HIG-style grouped list. */
-        .favorites {
-            padding: 40px 0;
-        }
-        .favorites h2 {
-            font-size: var(--text-title);
-            font-weight: 600;
-            margin: 0 0 12px;
-            letter-spacing: -0.01em;
-        }
-        .favorites ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            max-width: calc(var(--measure) + 2rem);
-            background: var(--grouped-bg);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        .favorites li {
-            min-height: 44px;
-            padding: 11px 16px;
-            box-sizing: border-box;
-            font-size: var(--text-body);
-            color: var(--secondary-label);
-        }
-        .favorites li + li {
-            box-shadow: inset 16px 0 0 var(--grouped-bg), inset 0 0.5px 0 var(--separator);
-        }
-        .favorites a {
-            display: block;
-            color: var(--tint);
-            text-decoration: none;
-        }
-        .favorites a:hover {
-            text-decoration: underline;
-        }
-
-        .site-footer {
-            margin-top: 40px;
-            font-size: var(--text-footnote);
-            color: var(--secondary-label);
-        }
-        .site-footer p {
-            margin: 0 0 4px;
-        }
     </style>
 </head>
 
@@ -313,19 +266,6 @@
                 <p class="project-desc">Project I developed to practice custom Javascript D3 visualizations while I was also relearning polar coordinates.</p>
             </div>
         </article>
-
-        <section class="favorites">
-            <h2>Favorite Websites</h2>
-            <ul>
-                <li><a href="https://brutalist-web.design/" target="_blank" rel="noopener noreferrer">brutalist-web.design</a> Simple pages are better.</li>
-                <li><a href="https://setosa.io/#/" target="_blank" rel="noopener noreferrer">setosa.io</a> Explained Visually is an incredible series that blends teachings and interactive visualizations.</li>
-                <li><a href="https://worrydream.com/" target="_blank" rel="noopener noreferrer">worrydream.com</a> Bret Victor is a pioneer and leader in the data visualization space.</li>
-                <li><a href="https://explorabl.es/" target="_blank" rel="noopener noreferrer">explorabl.es</a> Explorable Explanations has interactive pages that combine education with art in brilliant ways.</li>
-                <li><a href="https://distill.pub/" target="_blank" rel="noopener noreferrer">distill</a> Machine learning research made in a more clear and understandable form.</li>
-                <li><a href="https://homepage.divms.uiowa.edu/~mbognar/" target="_blank" rel="noopener noreferrer">uiowa.edu/~mbognar</a> Matt Bognar's probability distribution applets are timeless.</li>
-            </ul>
-        </section>
-
     </main>
 </body>
 </html>
