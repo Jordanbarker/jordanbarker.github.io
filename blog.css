@@ -7,15 +7,15 @@
 }
 
 main {
-    line-height: 1.6em;
+    line-height: 1.6;
     margin-top: 35px;
-    max-width: 75%;
+    max-width: calc(var(--measure) + 2.5rem); /* measure + side padding */
     margin-left: auto;
     margin-right: auto;
     padding: 0 1.25rem;
 }
 main li {
-    line-height: 1.5em;
+    line-height: 1.5;
     margin-bottom: .5em; 
 }
 
@@ -31,7 +31,7 @@ main h3 {
 
 table {
     border-collapse: collapse;
-    width: 70%;
+    width: 100%;
     margin: auto;
     background-color: var(--surface);
     box-shadow: var(--shadow);

@@ -1,14 +1,21 @@
 :root {
     --sans-serif: -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
     --code: ui-monospace, SFMono-Regular, Menlo, Consolas, Monaco, "Liberation Mono", "Courier New", monospace;
+    --header-h: 56px;
+
+    /* Readable line length (~65-75 chars) and a rem type scale that follows the reader's font size. */
+    --measure: 34em; /* ~70 chars; ch overcounts because "0" is wider than average glyphs */
+    --text-caption: 0.8125rem; /* 13px */
+    --text-body: 1.0625rem;    /* 17px, HIG body */
+    --text-title: clamp(1.5rem, 1.2rem + 1.2vw, 2.0625rem); /* 24-33px */
 }
   
 body {
     font-family: var(--sans-serif);
     padding: 0;
     margin: 0px;
-    padding-top: 60px;
-    line-height: 1.6em;
+    padding-top: var(--header-h);
+    line-height: 1.5;
 }
 
 header {
@@ -22,29 +29,43 @@ header {
     z-index: 100;
 }
 header nav {
-    width: 85%;
+    max-width: 1400px; /* matches index .content */
+    height: var(--header-h);
     margin: 0 auto;
+    padding: 0 clamp(18px, 5vw, 72px); /* same gutter as index .content */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
 }
 header nav ul {
     display: flex;
     flex-direction: row;
     justify-content: right;
+    align-items: center;
+    gap: 22px;
+    width: 100%;
+    margin: 0;
     padding: 0;
 }
 header nav ul li {
     align-items: center;
     display: inline-flex; 
-    padding: 0px 15px;
+    padding: 0;
 }
 header nav ul li a {
     color: #1f1f1f;
     border-radius: 5px;
     text-decoration: none;
     display: flex;
+    align-items: center;
     transition: background-color 0.3s ease;
 }
 header nav ul li a:hover {
     color: #616161;
+}
+header nav img {
+    width: 20px;
+    height: 20px;
 }
 .menu-icon {
     display: none;
@@ -58,7 +79,7 @@ header nav ul li a:hover {
     margin-left: 6px; /* small spacing between icon and text */
 }
 .name {
-    font-size: 1.7em;
+    font-size: 1.3em;
     font-weight: 600;
     margin: 0px 0px;
     margin-right: auto;
@@ -66,34 +87,43 @@ header nav ul li a:hover {
 }
   
 @media (max-width: 800px) {
-    .name {
-        padding: 5px 15px;
-        font-size: 1.1em;
+    :root {
+        --header-h: 48px;
     }
     header nav {
-        display: flex;
-        align-items: center;
         position: relative;
+        padding: 0 16px;
+    }
+    .name {
+        font-size: 1.1em;
     }
     .menu {
         display: flex;
         flex-direction: column;
+        align-items: stretch;
+        gap: 0;
         width: 100%;
         position: fixed;
         top: 0px;
         left: 0;
-        padding: 0 5vw;
+        padding: 0 16px;
         margin: 0;
-        font-size: 1.6em;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        box-sizing: border-box;
+        font-size: 1.1em;
+    }
+    .menu li.name {
+        height: var(--header-h);
+        margin-right: 0;
     }
   
     .menu-icon {
+        position: relative; /* so z-index keeps it above the fixed .menu */
         margin-left: auto;
         display: block;
         cursor: pointer;
-        font-size: 2.5rem;
-        padding: 22px;
+        font-size: 1.75rem;
+        line-height: var(--header-h);
+        padding: 0 4px;
     }
     /* Hide all other li elements initially */
     .menu li:not(.name) {
@@ -103,16 +133,16 @@ header nav ul li a:hover {
     #menu-toggle:checked ~ .menu {
         display: flex;
         background-color: #fff;
+        padding-bottom: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.12);
     }
     /* When menu is visible, show all li elements except .name */
     #menu-toggle:checked ~ .menu li:not(.name) {
         display: block;
-        padding: 10px 20px;
     }
     .menu li a {
-        display: block;
-        padding: 10px 0;
-        line-height: 40px;
+        display: flex;
+        line-height: 44px;
     }
     .icon-text {
         display: inline-block;

@@ -4,3 +4,5 @@ lightning_logs/
 Jupyter_Notebooks/Leetcode.ipynb
 notebook_library/.DS_Store
 .DS_Store
+output/
+node_modules/
