@@ -5,7 +5,7 @@
 
     /* Readable line length (~65-75 chars) and a rem type scale that follows the reader's font size. */
     --measure: 34em; /* ~70 chars; ch overcounts because "0" is wider than average glyphs */
-    --page-max: 1120px; /* site frame: header, index, about */
+    --page-max: 1120px; /* site frame: header, index */
     --wide: 52rem; /* article figures that break out of the measure */
     --text-large-title: 2.125rem; /* 34px */
     --text-title: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem); /* 22-28px, HIG Title 2 -> Title 1 */
@@ -23,7 +23,6 @@
     --separator: rgba(60, 60, 67, 0.29);
     --bg: #fff;
     --grouped-bg: #f5f5f7;
-    --elevated-bg: #fff; /* overlays (e.g. mobile menu); lighter than --bg in dark mode */
     --tint: #0066cc;
     --icon-filter: none;
 }
@@ -35,7 +34,6 @@
         --separator: rgba(84, 84, 88, 0.6);
         --bg: #000;
         --grouped-bg: #1c1c1e;
-        --elevated-bg: #1c1c1e;
         --tint: #2997ff;
         --icon-filter: invert(1);
     }
@@ -113,13 +111,6 @@ header nav img {
     height: 20px;
     filter: var(--icon-filter);
 }
-.menu-icon {
-    display: none;
-    z-index: 1000;
-}
-#menu-toggle {
-    display: none;
-}
 .icon-text {
     display: none;
     margin-left: 6px; /* small spacing between icon and text */
@@ -153,61 +144,4 @@ header nav ul li.name a {
     header nav ul li.name a {
         font-size: 1.0625rem;
     }
-    .menu {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-        width: 100%;
-        position: fixed;
-        top: 0px;
-        left: 0;
-        padding: 0 16px;
-        margin: 0;
-        box-sizing: border-box;
-    }
-    .menu li.name {
-        height: var(--header-h);
-        margin-right: 0;
-    }
-
-    .menu-icon {
-        position: relative; /* so z-index keeps it above the fixed .menu */
-        margin-left: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        font-size: 1.75rem;
-        min-width: 44px;
-        height: var(--header-h);
-        color: var(--label);
-    }
-    /* Hide all other li elements initially */
-    .menu li:not(.name) {
-        display: none;
-    }
-    /* When menu-toggle is checked, show the menu */
-    #menu-toggle:checked ~ .menu {
-        display: flex;
-        background-color: var(--elevated-bg);
-        padding-bottom: 8px;
-        border-bottom: 0.5px solid var(--separator);
-        /* drop shadow, plus a huge spread that acts as a scrim dimming the page behind */
-        box-shadow: 0 4px 12px rgba(0,0,0,0.12), 0 0 0 100vmax rgba(0,0,0,0.4);
-    }
-    /* When menu is visible, show all li elements except .name */
-    #menu-toggle:checked ~ .menu li:not(.name) {
-        display: block;
-        border-top: 0.5px solid var(--separator);
-    }
-    .menu li a,
-    header nav ul li a {
-        justify-content: flex-start;
-        font-size: var(--text-body);
-        padding-left: 0;
-    }
-    .icon-text {
-        display: inline-block;
-    }
-  }
+}

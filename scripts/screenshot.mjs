@@ -1,5 +1,5 @@
 // Screenshot a page at desktop and mobile widths and print rendered logo/icon sizes.
-// Usage: node scripts/screenshot.mjs [page.html]   (default: about.html, the only page with timeline sections)
+// Usage: node scripts/screenshot.mjs [page.html]   (default: index.html)
 // Output: output/<page>-*.png (light) and output/<page>-*-dark-*.png
 // One-time setup: npx playwright install chromium
 import { chromium } from 'playwright';
@@ -8,7 +8,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const page = (process.argv[2] ?? 'about.html').replace(/^\.\//, '');
+const page = (process.argv[2] ?? 'index.html').replace(/^\.\//, '');
 const file = join(root, page);
 if (!existsSync(file)) {
     console.error(`No such page: ${file}`);
