@@ -1,7 +1,9 @@
 ---
 title: "Receiver Fan Automation"
 date: "Jan 25, 2026"
-description: Receiver fan automation project
+description: Automating AV receiver cooling with a 12V trigger, a relay, and a data-backed temperature check.
+date-iso: "2026-01-25"
+image: assets/receiver_fan_automation/fans.png
 keywords: AVR, receiver, fan, hack, DIY
 author: Jordan Barker
 ---

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     $if(description)$
-    <meta name="description" content="$description$">
+    <meta name="description" content="$description/nowrap$">
     $endif$
     $if(keywords)$
     <meta name="keywords" content="$keywords$">
@@ -12,9 +12,44 @@
     $if(author)$
     <meta name="author" content="$author$">
     $endif$
+    <link rel="canonical" href="https://jordanbarker.github.io/$outputfile$">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Jordan Barker">
+    <meta property="og:title" content="$pagetitle$">
+    $if(description)$
+    <meta property="og:description" content="$description/nowrap$">
+    $endif$
+    <meta property="og:url" content="https://jordanbarker.github.io/$outputfile$">
+    $if(image)$
+    <meta property="og:image" content="https://jordanbarker.github.io/$image$">
+    <meta name="twitter:card" content="summary_large_image">
+    $endif$
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "$pagetitle$",
+        $if(description)$
+        "description": "$description/nowrap$",
+        $endif$
+        $if(date-iso)$
+        "datePublished": "$date-iso$",
+        $endif$
+        $if(image)$
+        "image": "https://jordanbarker.github.io/$image$",
+        $endif$
+        "url": "https://jordanbarker.github.io/$outputfile$",
+        "author": {
+            "@type": "Person",
+            "@id": "https://jordanbarker.github.io/#person",
+            "name": "Jordan Barker",
+            "url": "https://jordanbarker.github.io/"
+        }
+    }
+    </script>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="../blog.css">
-    <title>$if(pagetitle)$$pagetitle$$else$$title$$endif$</title>
+    <title>$if(pagetitle)$$pagetitle$$else$$title$$endif$ | Jordan Barker</title>
     $math$
   </head>
   <body>

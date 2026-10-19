@@ -3,16 +3,40 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-        <meta name="description" content="Receiver fan automation
-project">
+        <meta name="description" content="Automating AV receiver cooling with a 12V trigger, a relay, and a data-backed temperature check.">
             <meta name="keywords" content="AVR, receiver, fan, hack,
 DIY">
             <meta name="author" content="Jordan Barker">
-        <link rel="stylesheet" href="../styles.css">
+        <link rel="canonical" href="https://jordanbarker.github.io/projects/receiver-fan-automation.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Jordan Barker">
+    <meta property="og:title" content="Receiver Fan Automation">
+        <meta property="og:description" content="Automating AV receiver cooling with a 12V trigger, a relay, and a data-backed temperature check.">
+        <meta property="og:url" content="https://jordanbarker.github.io/projects/receiver-fan-automation.html">
+        <meta property="og:image" content="https://jordanbarker.github.io/assets/receiver_fan_automation/fans.png">
+    <meta name="twitter:card" content="summary_large_image">
+        <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Receiver Fan Automation",
+                "description": "Automating AV receiver cooling with a 12V trigger, a relay, and a data-backed temperature check.",
+                        "datePublished": "2026-01-25",
+                        "image": "https://jordanbarker.github.io/assets/receiver_fan_automation/fans.png",
+                "url": "https://jordanbarker.github.io/projects/receiver-fan-automation.html",
+        "author": {
+            "@type": "Person",
+            "@id": "https://jordanbarker.github.io/#person",
+            "name": "Jordan Barker",
+            "url": "https://jordanbarker.github.io/"
+        }
+    }
+    </script>
+    <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="../blog.css">
-    <title>Receiver Fan Automation</title>
-    <script
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+    <title>Receiver Fan Automation | Jordan Barker</title>
+    <script defer=""
+    src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"
     type="text/javascript"></script>
   </head>
   <body>
@@ -102,10 +126,10 @@ DIY">
         speakers are not playing anything. The fan only use 12w in total
         so some quick math shows that this will cost about $23.13 to run
         this 24/7 for a full year at 22¢/kWh.</p>
-        <p><span class="math display">\[ 0.012 \text{ kW} * 8,760 \text{
-        hours/year} = 105.12 \text{ kWh/year} \]</span></p>
-        <p><span class="math display">\[ 105.12 * \$0.22 = \$23.13
-        \text{ /year} \]</span></p>
+        <p><span class="math display">\[0.012 \text{ kW} * 8,760 \text{
+        hours/year} = 105.12 \text{ kWh/year}\]</span></p>
+        <p><span class="math display">\[105.12 * \$0.22 = \$23.13 \text{
+        /year}\]</span></p>
         <p>After some more researching I found that the receiver has a
         3.5mm 12v TRIGGER OUT port! With this, we can plug the fans into
         a <a

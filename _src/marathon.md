@@ -1,7 +1,9 @@
 ---
 title: "AI Engineer's Approach to Running a Marathon"
 date: "December 2, 2025"
-description: Marathon training plan, and personal success tips
+description: How I used AI-assisted training to prepare for the Madison Marathon, plus my training plan, race day recap, and tips.
+date-iso: "2025-12-02"
+image: assets/marathon/madison_marathon.jpeg
 keywords: Marathon, running, data science, analytics
 author: Jordan Barker
 toc: true

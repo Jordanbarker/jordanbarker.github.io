@@ -4,6 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jordan Barker</title>
+    <meta name="description" content="Jordan Barker is an AI engineer. Projects in machine learning, data analysis, simulation, and hardware tinkering, from a reinforcement learning Pong agent to RAGBRAI route predictions.">
+    <meta name="author" content="Jordan Barker">
+    <link rel="canonical" href="https://jordanbarker.github.io/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Jordan Barker">
+    <meta property="og:title" content="Jordan Barker – AI Engineer">
+    <meta property="og:description" content="Projects in machine learning, data analysis, simulation, and hardware tinkering.">
+    <meta property="og:url" content="https://jordanbarker.github.io/">
+    <meta property="og:image" content="https://jordanbarker.github.io/assets/profile_pic.jpeg">
+    <meta name="twitter:card" content="summary">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Person",
+                "@id": "https://jordanbarker.github.io/#person",
+                "name": "Jordan Barker",
+                "jobTitle": "AI Engineer",
+                "url": "https://jordanbarker.github.io/",
+                "image": "https://jordanbarker.github.io/assets/profile_pic.jpeg",
+                "sameAs": [
+                    "https://github.com/Jordanbarker",
+                    "https://www.linkedin.com/in/barkerjordan/"
+                ]
+            },
+            {
+                "@type": "WebSite",
+                "name": "Jordan Barker",
+                "url": "https://jordanbarker.github.io/",
+                "author": { "@id": "https://jordanbarker.github.io/#person" }
+            }
+        ]
+    }
+    </script>
     <link rel="stylesheet" href="styles.css">
     <style>
         .content {
@@ -52,6 +87,14 @@
         }
         .project-title a:focus-visible {
             outline: none;
+        }
+
+        .intro h1 {
+            font-size: var(--text-large-title);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin: 0 0 8px;
         }
 
         .project-thumb {
@@ -132,6 +175,9 @@
         </nav>
     </header>
     <main class="content">
+        <section class="intro">
+            <h1>Projects and Writings</h1>
+        </section>
         <article class="project">
             <a class="project-thumb" href="https://github.com/Jordanbarker/space-analyzer" tabindex="-1" aria-hidden="true">
                 <img src="./assets/card_headers/space-analyzer.png" alt="Space Analyzer" loading="lazy">
@@ -150,7 +196,7 @@
             <div class="project-body">
                 <p class="project-meta">Simulation · Bayesian · 2026</p>
                 <h2 class="project-title"><a href="./secret-hitler-sim/">Secret Hitler Simulation</a></h2>
-                <p class="project-desc">Built a simulation of Secret Hitler to view bayesian probabilties on the fly.</p>
+                <p class="project-desc">Built a simulation of Secret Hitler to view Bayesian probabilities on the fly.</p>
             </div>
         </article>
 
@@ -259,7 +305,7 @@
             </a>
             <div class="project-body">
                 <p class="project-meta">D3 · Visualization · 2023</p>
-                <h2 class="project-title"><a href="./projects/fibonacci-roses.html">Fibinocci Roses</a></h2>
+                <h2 class="project-title"><a href="./projects/fibonacci-roses.html">Fibonacci Roses</a></h2>
                 <p class="project-desc">Project I developed to practice custom Javascript D3 visualizations while I was also relearning polar coordinates.</p>
             </div>
         </article>
