@@ -1,0 +1,32 @@
+# Jordan Barker
+
+> Personal site of Jordan Barker, an AI engineer. Projects in machine learning, data analysis, and computer tinkering.
+
+Writing posts link to plain Markdown versions where one exists. Interactive projects link to live web pages.
+
+## Writing
+
+- [AI Engineer's Approach to Running a Marathon](https://jordanbarker.github.io/projects/marathon.html.md): AI-assisted training plan and race day recap of the Madison Marathon.
+- [Receiver Fan Automation](https://jordanbarker.github.io/projects/receiver-fan-automation.html.md): Automating receiver cooling with a 12V trigger, relay, and a data-backed temperature check.
+- [RAGBRAI LII Guess the Route Contest](https://jordanbarker.github.io/projects/ragbrai-lii.html): Analyzing past RAGBRAI routes with clustering and a scoring algorithm to predict the 2025 route.
+
+## Interactive projects
+
+- [Termverse](https://jordanbarker.github.io/termverse/): Browser games that teach terminal concepts.
+- [Secret Hitler Simulation](https://jordanbarker.github.io/secret-hitler-sim/): A simulation of Secret Hitler showing Bayesian probabilities on the fly.
+- [House Affordability Calculator](https://jordanbarker.github.io/marimo-pages/apps/house_affordability.html): An interactive mortgage calculator.
+- [Wikipedia Sentiment Analysis Exploration](https://jordanbarker.github.io/projects/wiki-sentiment.html): Visualizing sentiment and emotion model predictions on Wikipedia articles.
+- [Reinforcement Learning Pong Agent](https://jordanbarker.github.io/projects/pong.html): Play Pong against a deep Q-learning agent in the browser.
+
+## Tools
+
+- [Space Analyzer](https://github.com/Jordanbarker/space-analyzer): A disk space visualization tool for macOS.
+
+## Reference
+
+- [Data Science Cookbook](https://jordanbarker.github.io/data-science-cookbook/docs/intro.html): Jupyter notebooks covering common data science techniques.
+
+## Optional
+
+- [GitHub](https://github.com/Jordanbarker): Code repositories.
+- [LinkedIn](https://www.linkedin.com/in/barkerjordan/): Professional profile.

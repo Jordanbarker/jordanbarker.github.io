@@ -12,6 +12,12 @@
     $if(author)$
     <meta name="author" content="$author$">
     $endif$
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="canonical" href="https://jordanbarker.github.io/$outputfile$">
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Jordan Barker">
@@ -53,6 +59,7 @@
     $math$
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <header>
         <nav>
             <ul class="menu">
@@ -73,7 +80,7 @@
         </nav>
     </header>
 
-    <main>
+    <main id="main">
         $if(title)$
         <h1 class="page-title">$title$</h1>
         $endif$

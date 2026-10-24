@@ -1,0 +1,4 @@
+Contact: https://github.com/Jordanbarker
+Expires: 2027-10-24T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://jordanbarker.github.io/.well-known/security.txt

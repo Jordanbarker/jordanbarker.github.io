@@ -145,3 +145,21 @@ header nav ul li.name a {
         font-size: 1.0625rem;
     }
 }
+
+/* Hidden until focused; the first tab stop on every page. */
+.skip-link {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 200;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background: var(--tint);
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    transform: translateY(-200%);
+}
+.skip-link:focus {
+    transform: none;
+}
