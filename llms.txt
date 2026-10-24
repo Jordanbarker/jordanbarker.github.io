@@ -14,6 +14,7 @@ Writing posts link to plain Markdown versions where one exists. Interactive proj
 
 - [Termverse](https://jordanbarker.github.io/termverse/): Browser games that teach terminal concepts.
 - [Secret Hitler Simulation](https://jordanbarker.github.io/secret-hitler-sim/): A simulation of Secret Hitler showing Bayesian probabilities on the fly.
+- [The Dot Product](https://jordanbarker.github.io/projects/dot-product.html): A scroll-driven, interactive walkthrough of the dot product: components, angle, projection, and cosine similarity.
 - [House Affordability Calculator](https://jordanbarker.github.io/marimo-pages/apps/house_affordability.html): An interactive mortgage calculator.
 - [Wikipedia Sentiment Analysis Exploration](https://jordanbarker.github.io/projects/wiki-sentiment.html): Visualizing sentiment and emotion model predictions on Wikipedia articles.
 - [Reinforcement Learning Pong Agent](https://jordanbarker.github.io/projects/pong.html): Play Pong against a deep Q-learning agent in the browser.

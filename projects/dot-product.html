@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A scroll-driven, interactive walkthrough of the dot product: the component recipe, the angle formula, projection, sign, and cosine similarity.">
+<meta name="author" content="Jordan Barker">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://jordanbarker.github.io/projects/dot-product.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Jordan Barker">
+<meta property="og:title" content="The Dot Product, One Scroll at a Time">
+<meta property="og:description" content="A scroll-driven, interactive walkthrough of the dot product: the component recipe, the angle formula, projection, sign, and cosine similarity.">
+<meta property="og:url" content="https://jordanbarker.github.io/projects/dot-product.html">
+<meta property="og:image" content="https://jordanbarker.github.io/assets/thumbs/dot-product.webp">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "The Dot Product",
+    "description": "A scroll-driven, interactive walkthrough of the dot product: the component recipe, the angle formula, projection, sign, and cosine similarity.",
+    "datePublished": "2026-10-24",
+    "url": "https://jordanbarker.github.io/projects/dot-product.html",
+    "author": {
+        "@type": "Person",
+        "@id": "https://jordanbarker.github.io/#person",
+        "name": "Jordan Barker",
+        "url": "https://jordanbarker.github.io/"
+    }
+}
+</script>
+<link rel="stylesheet" href="../styles.css">
+<title>The Dot Product | Jordan Barker</title>
+<style>
+    :root {
+        --vec-a: var(--tint);
+        --vec-b: #c2410c;
+        --proj: #0f8a7e;
+        --theta: #8e44ad;
+        --pos: #1a7f37;
+        --zero: #6e6e73;
+        --neg: #c62828;
+        --grid: rgba(60, 60, 67, 0.1);
+        --axis: rgba(60, 60, 67, 0.45);
+        --fig-h: 60vh;
+    }
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --vec-b: #ff9f0a;
+            --proj: #40c8b4;
+            --theta: #bf5af2;
+            --pos: #30d158;
+            --zero: #98989d;
+            --neg: #ff6961;
+            --grid: rgba(235, 235, 245, 0.1);
+            --axis: rgba(235, 235, 245, 0.45);
+        }
+    }
+
+    .dp-text {
+        max-width: var(--measure);
+        margin: 0 auto;
+        padding: 2.5rem 16px 1rem;
+        font-size: var(--text-body);
+    }
+    .dp-text h1 {
+        font-size: var(--text-large-title);
+        line-height: 1.15;
+        margin: 0 0 0.75rem;
+    }
+    .dp-text h2 {
+        font-size: var(--text-title2);
+        margin: 0 0 0.5rem;
+    }
+    .dp-text a {
+        color: var(--tint);
+    }
+    .hint {
+        color: var(--secondary-label);
+    }
+    .ca { color: var(--vec-a); }
+    .cb { color: var(--vec-b); }
+    .cp { color: var(--proj); }
+    .ct { color: var(--theta); }
+
+    /* Scrollytelling: step cards on the left, sticky plot on the right. */
+    #scrolly {
+        display: flex;
+        align-items: flex-start;
+        gap: clamp(1.5rem, 4vw, 3.5rem);
+        max-width: var(--page-max);
+        margin: 0 auto;
+        padding: 0 clamp(16px, 5vw, 72px);
+        box-sizing: border-box;
+    }
+    #steps {
+        flex: 0 1 26rem;
+        padding-bottom: 30vh;
+    }
+    .step {
+        min-height: 80vh;
+    }
+    .step.long {
+        min-height: 150vh;
+    }
+    .card {
+        position: sticky;
+        top: calc(var(--header-h) + 25vh);
+        background: var(--grouped-bg);
+        border-radius: 14px;
+        padding: 1rem 1.25rem;
+        opacity: 0.4;
+        transition: opacity 0.3s ease;
+    }
+    .step.is-active .card {
+        opacity: 1;
+    }
+    .card h2 {
+        font-size: var(--text-headline);
+        font-weight: 600;
+        margin: 0 0 0.35rem;
+    }
+    .card p {
+        margin: 0 0 0.5rem;
+    }
+    .card p:last-child {
+        margin-bottom: 0;
+    }
+    .card .hint {
+        font-size: var(--text-footnote);
+    }
+    .toggles {
+        display: grid;
+        gap: 0.25rem;
+        margin-top: 0.5rem;
+    }
+    .toggles label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        min-height: 32px;
+    }
+    .toggles input {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--tint);
+    }
+
+    #viz {
+        flex: 1 1 0;
+        min-width: 0;
+        position: sticky;
+        top: calc(var(--header-h) + 1rem);
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    #plot {
+        display: block;
+        overflow: visible;
+        transition: opacity 0.4s ease;
+    }
+    #plot.dim {
+        opacity: 0.2;
+    }
+    #panel {
+        width: 100%;
+        max-width: 560px;
+        height: 10.5rem;
+        overflow-y: auto;
+        box-sizing: border-box;
+        background: var(--grouped-bg);
+        border-radius: 14px;
+        padding: 0.75rem 1rem;
+        font-size: 0.9375rem;
+        line-height: 1.5;
+        font-variant-numeric: tabular-nums;
+    }
+    #panel .row {
+        margin-bottom: 0.35rem;
+    }
+    #panel .row:last-child {
+        margin-bottom: 0;
+    }
+    .muted {
+        color: var(--secondary-label);
+    }
+    .big {
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: 1;
+        margin-right: 0.5rem;
+    }
+    .term {
+        opacity: 0.25;
+        border-radius: 4px;
+        transition: opacity 0.2s ease, background-color 0.2s ease;
+    }
+    .term.on {
+        opacity: 1;
+    }
+    .term.hl {
+        background: color-mix(in srgb, var(--tint) 16%, transparent);
+    }
+    .badge {
+        display: inline-block;
+        font-weight: 600;
+        padding: 0 0.5rem;
+        border-radius: 6px;
+        border: 1.5px solid currentColor;
+        margin-right: 0.5rem;
+    }
+    .badge.pos { color: var(--pos); }
+    .badge.zero { color: var(--zero); }
+    .badge.neg { color: var(--neg); }
+    .c1 { color: var(--vec-a); }
+    .c2 { color: var(--vec-b); }
+    .c3 { color: var(--theta); }
+
+    /* SVG plot */
+    .gridline { stroke: var(--grid); }
+    .axis { stroke: var(--axis); stroke-width: 1; }
+    .tick { fill: var(--secondary-label); font-size: 11px; }
+    .layer { transition: opacity 0.35s ease; }
+    .layer.off { opacity: 0; pointer-events: none; }
+    .vec { stroke-width: 3; stroke-linecap: round; }
+    .vec.a { stroke: var(--vec-a); }
+    .vec.b { stroke: var(--vec-b); }
+    .vlabel { font-size: 16px; font-weight: 700; font-style: italic; }
+    .vlabel.a { fill: var(--vec-a); }
+    .vlabel.b { fill: var(--vec-b); }
+    .leg { stroke-width: 1.5; stroke-dasharray: 4 4; }
+    .leg.hl { stroke-width: 3; stroke-dasharray: none; }
+    .leg.a { stroke: var(--vec-a); }
+    .leg.b { stroke: var(--vec-b); }
+    .leglabel { font-size: 12px; font-weight: 600; }
+    .leglabel.a { fill: var(--vec-a); }
+    .leglabel.b { fill: var(--vec-b); }
+    .leglabel.hl { font-size: 15px; }
+    .bline { stroke: var(--vec-b); stroke-opacity: 0.3; stroke-dasharray: 2 4; }
+    .shadow { stroke: var(--proj); stroke-width: 6; stroke-opacity: 0.75; }
+    .drop { stroke: var(--proj); stroke-width: 1.5; stroke-dasharray: 4 3; }
+    .rightangle { fill: none; stroke: var(--proj); stroke-width: 1.25; }
+    .projlabel { fill: var(--proj); font-size: 12px; font-weight: 600; }
+    .abline { stroke: var(--secondary-label); stroke-width: 2; stroke-dasharray: 6 4; }
+    .ablabel { fill: var(--secondary-label); font-size: 12px; font-style: italic; }
+    .arc { fill: var(--theta); fill-opacity: 0.12; stroke: var(--theta); stroke-width: 1.5; }
+    .arclabel { fill: var(--theta); font-size: 14px; font-style: italic; font-weight: 600; }
+    .unitcircle { fill: none; stroke: var(--secondary-label); stroke-width: 1.25; stroke-dasharray: 3 3; }
+    .handle { cursor: grab; touch-action: none; outline: none; }
+    .handle:active { cursor: grabbing; }
+    .handle .hit { fill: transparent; }
+    .handle .ring { fill: none; stroke-width: 1.5; stroke-dasharray: 3 3; }
+    .handle.a .ring { stroke: var(--vec-a); }
+    .handle.b .ring { stroke: var(--vec-b); }
+    .handle:hover .ring,
+    .handle:focus-visible .ring { stroke-width: 3; stroke-dasharray: none; }
+    .handle.locked { pointer-events: none; }
+    .handle.locked .ring { display: none; }
+
+    @media (max-width: 800px) {
+        #scrolly {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0;
+            padding: 0 16px;
+        }
+        #viz {
+            order: -1;
+            top: var(--header-h);
+            z-index: 5;
+            background: var(--bg);
+            padding: 0.5rem 0;
+            gap: 0.5rem;
+        }
+        #steps {
+            flex: none;
+            position: relative;
+            z-index: 1;
+        }
+        .step {
+            min-height: 70vh;
+        }
+        .step.long {
+            min-height: 130vh;
+        }
+        .card {
+            top: calc(var(--header-h) + var(--fig-h) + 8px);
+            background: color-mix(in srgb, var(--grouped-bg) 92%, transparent);
+        }
+        #panel {
+            height: 6.75rem;
+            font-size: 0.875rem;
+            padding: 0.5rem 0.75rem;
+        }
+        .big {
+            font-size: 1.75rem;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .layer, .card, .term, #plot {
+            transition: none;
+        }
+    }
+</style>
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header>
+        <nav>
+            <ul class="menu">
+                <li class="name"><a href="../index.html">Jordan Barker</a></li>
+                <li>
+                    <a href="https://github.com/Jordanbarker" target="_blank" rel="noopener noreferrer">
+                        <img src="../assets/icons/github-mark.svg" alt="GitHub">
+                        <span class="icon-text">GitHub</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/barkerjordan/" target="_blank" rel="noopener noreferrer">
+                        <img src="../assets/icons/linkedin_icon_black.svg" alt="LinkedIn">
+                        <span class="icon-text">LinkedIn</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main">
+        <div class="dp-text">
+            <h1>The Dot Product</h1>
+            <p>The dot product is everywhere: physics, computer graphics, search engines, and language models. It takes two vectors and returns a single number.</p>
+            <p>This page builds up what that number means.</p>
+            <p class="hint">Scroll to begin.</p>
+        </div>
+
+        <section id="scrolly">
+            <article id="steps">
+                <div class="step">
+                    <div class="card">
+                        <h2>Two vectors, <b class="ca">a</b> and <b class="cb">b</b></h2>
+                        <p>A vector is an arrow from the origin, so it has a direction and a length.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="card">
+                        <h2>Components</h2>
+                        <p>Any arrow can be described by how far it goes across and how far it goes up.</p>
+                        <p><b class="ca">a</b> goes 1 across and 3 up, so <b class="ca">a</b> = [1, 3]. <b class="cb">b</b> goes 3 across and 1 up, so <b class="cb">b</b> = [3, 1].</p>
+                        <p><b class="cb">b</b> goes 3 across and 1 up, so <b class="cb">b</b> = [3, 1].</p>
+                    </div>
+                </div>
+                <div class="step long">
+                    <div class="card">
+                        <h2>The recipe</h2>
+                        <p>Multiply the components that line up, then add the results.</p>
+                        <p>First the across parts: 1 × 3 = 3. Then the up parts: 3 × 1 = 3. Add them together: <b class="ca">a</b> · <b class="cb">b</b> = 6.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="card">
+                        <h2>One number</h2>
+                        <p>Two vectors go in and one number comes out.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="card">
+                        <h2>The angle</h2>
+                        <p>There's a second way to get the same number: multiply the two lengths, then multiply by the cosine of the angle <i class="ct">θ</i> between the vectors.</p>
+                        <p>Here |<b class="ca">a</b>| = |<b class="cb">b</b>| = √10 ≈ 3.16 and cos <i class="ct">θ</i> = 0.6, which gives 6 again.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="card">
+                        <h2>Projection</h2>
+                        <p>Shine a light straight down onto the line through <b class="cb">b</b> and <b class="ca">a</b> casts a <span class="cp">shadow</span>. The dot product is the shadow's length times |<b class="cb">b</b>|.</p>
+                        <p>The shadow is signed. When the angle is wider than 90°, it lands behind the origin and counts as negative.</p>
+                    </div>
+                </div>
+                <div class="step long">
+                    <div class="card">
+                        <h2>The sign</h2>
+                        <p>As you scroll, <b class="cb">b</b> swings away from <b class="ca">a</b>.</p>
+                        <p>While they point roughly the same way, the dot product is <b>positive</b>. At exactly 90° the shadow disappears and the dot product is <b>0</b>: the vectors are <i>orthogonal</i>. Past 90° it turns <b>negative</b>.</p>
+                    </div>
+                </div>
+                <div class="step long">
+                    <div class="card">
+                        <h2>Length matters too</h2>
+                        <p>The angle isn't the whole story. Stretch <b class="cb">b</b> and the dot product grows with it: double <b class="cb">b</b> and you double <b class="ca">a</b> · <b class="cb">b</b>.</p>
+                        <p>So a large dot product can mean the vectors are well aligned, or just that they're long.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="card">
+                        <h2>Cosine similarity</h2>
+                        <p>To compare only directions, shrink both vectors to length 1 first. Then the dot product is just cos <i class="ct">θ</i>, which always falls between −1 and 1.</p>
+                        <p>That's <b>cosine similarity</b>, the score search engines and embedding models use to measure how alike two things are.</p>
+                        <p class="hint">Try dragging the arrowheads around the circle.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="card">
+                        <h2>More dimensions</h2>
+                        <p>Nothing in the recipe cares how many components there are. In three dimensions, multiply the three matching pairs and add them up.</p>
+                        <p>Text embeddings often have hundreds or thousands of components, and the dot product is still just multiply and add.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="card">
+                        <h2>Your turn</h2>
+                        <p>Drag either arrowhead, or Tab to one and use the arrow keys. Watch the recipe, the angle formula and the shadow move together.</p>
+                        <div class="toggles" id="toggles">
+                            <label><input type="checkbox" value="legs" checked> Components</label>
+                            <label><input type="checkbox" value="theta" checked> Angle</label>
+                            <label><input type="checkbox" value="proj" checked> Projection</label>
+                            <label><input type="checkbox" value="ab" checked> Third side <i>a</i> − <i>b</i> (law of cosines)</label>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <figure id="viz">
+                <svg id="plot" role="group" aria-roledescription="vector plot" width="400" height="400"></svg>
+                <div id="panel"></div>
+            </figure>
+        </section>
+    </main>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/scrollama@3.2.0/build/scrollama.min.js" integrity="sha384-trt5UkaI73mRdcngswspDe4cRMaS9HcWgFr+IgtdUGBbsS4/9FF7MDIX7xl+O9zI" crossorigin="anonymous"></script>
+<script>
+    const PAD = 24;
+    const SNAP = 0.5;
+    const A0 = { x: 1, y: 3 };
+    const B0 = { x: 3, y: 1 };
+    const unit = v => { const l = Math.hypot(v.x, v.y); return { x: v.x / l, y: v.y / l }; };
+    const clone = o => JSON.parse(JSON.stringify(o));
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const mobile = window.matchMedia("(max-width: 800px)");
+
+    // All plot state lives in data units; render() draws everything from it.
+    const state = { a: { ...A0 }, b: { ...B0 }, domain: 6, stage: 3 };
+    let cur = 0;
+    let lastProgress = 0;
+    let pending = null;
+    let side = 400;
+    const userLayers = new Set(["legs", "theta", "proj", "ab"]);
+
+    const STEPS = [
+        { a: A0, b: B0, domain: 6, layers: [], panel: ["legend"] },
+        { domain: 6, layers: ["legs"], panel: ["vectors"] },
+        {
+            domain: 6, layers: ["legs"], panel: ["vectors", "recipe"],
+            drive: t => { state.stage = t < 1 / 3 ? 1 : t < 2 / 3 ? 2 : 3; }
+        },
+        { domain: 6, layers: [], panel: ["recipe", "scalar"] },
+        { domain: 6, layers: ["theta"], panel: ["recipe", "geo"] },
+        { domain: 6, layers: ["theta", "proj"], panel: ["recipe", "proj"] },
+        {
+            a: A0, domain: 6, layers: ["theta", "proj"], panel: ["recipe", "sign"], lock: ["b"],
+            // Rotate b relative to a from 0° to 180°, so the step ends with b pointing opposite a.
+            drive: t => {
+                const ta = Math.atan2(state.a.y, state.a.x);
+                const r = Math.sqrt(10);
+                state.b = { x: r * Math.cos(ta + t * Math.PI), y: r * Math.sin(ta + t * Math.PI) };
+            }
+        },
+        {
+            a: A0, domain: 6, layers: ["proj"], panel: ["recipe", "geo"], lock: ["b"],
+            drive: t => {
+                const s = 0.5 + 1.3 * t;
+                state.b = { x: s * B0.x, y: s * B0.y };
+            }
+        },
+        { a: unit(A0), b: unit(B0), domain: 1.5, layers: ["unit", "theta"], panel: ["recipe", "cos"], unit: true },
+        { domain: 6, layers: [], panel: ["nd"], lock: ["a", "b"], dim: true },
+        { a: A0, b: { x: 3, y: -2 }, domain: 6, layers: "user", panel: "user" }
+    ];
+
+    // ---------- Formatting ----------
+    function fmt(v, d = 2) {
+        if (v == null || !isFinite(v)) return "—";
+        let r = Math.round(v * 10 ** d) / 10 ** d;
+        if (Object.is(r, -0)) r = 0;
+        return String(r).replace("-", "−");
+    }
+    const A = v => `<span class="ca">${fmt(v)}</span>`;
+    const B = v => `<span class="cb">${fmt(v)}</span>`;
+    const AB = `<b class="ca">a</b> · <b class="cb">b</b>`;
+
+    function metrics(a, b) {
+        const dot = a.x * b.x + a.y * b.y;
+        const la = Math.hypot(a.x, a.y);
+        const lb = Math.hypot(b.x, b.y);
+        const ok = la > 1e-9 && lb > 1e-9;
+        let theta = null, cos = null, signed = 0;
+        if (ok) {
+            // Angle from the vectors' directions alone, so the check below is independent of the recipe.
+            const d = Math.atan2(b.y, b.x) - Math.atan2(a.y, a.x);
+            signed = Math.atan2(Math.sin(d), Math.cos(d));
+            theta = Math.abs(signed);
+            cos = Math.cos(signed);
+            console.assert(Math.abs(dot - la * lb * cos) < 1e-9, "dot product mismatch", a, b);
+        }
+        return { dot, la, lb, ok, theta, cos, signed };
+    }
+
+    // ---------- SVG scaffolding ----------
+    const svg = d3.select("#plot");
+    const panel = document.getElementById("panel");
+    const viz = document.getElementById("viz");
+    const xs = d3.scaleLinear();
+    const ys = d3.scaleLinear();
+    const P = v => [xs(v.x), ys(v.y)];
+
+    const defs = svg.append("defs");
+    for (const k of ["a", "b"]) {
+        defs.append("marker")
+            .attr("id", `head-${k}`)
+            .attr("viewBox", "0 0 10 10")
+            .attr("refX", 5).attr("refY", 5)
+            .attr("markerWidth", 14).attr("markerHeight", 14)
+            .attr("markerUnits", "userSpaceOnUse")
+            .attr("orient", "auto")
+            .append("path")
+            .attr("d", "M0,0 L10,5 L0,10 z")
+            .style("fill", `var(--vec-${k})`);
+    }
+    const clipRect = defs.append("clipPath").attr("id", "plot-clip").append("rect");
+
+    const gGrid = svg.append("g");
+    const axisX = svg.append("line").attr("class", "axis");
+    const axisY = svg.append("line").attr("class", "axis");
+    const gTicks = svg.append("g");
+
+    const gUnit = svg.append("g").attr("class", "layer off");
+    const unitCircle = gUnit.append("circle").attr("class", "unitcircle");
+
+    const gProj = svg.append("g").attr("class", "layer off").attr("clip-path", "url(#plot-clip)");
+    const bLine = gProj.append("line").attr("class", "bline");
+    const shadow = gProj.append("line").attr("class", "shadow");
+    const drop = gProj.append("line").attr("class", "drop");
+    const rightAngle = gProj.append("path").attr("class", "rightangle");
+    const projLabel = gProj.append("text").attr("class", "projlabel").attr("text-anchor", "middle");
+
+    const gAB = svg.append("g").attr("class", "layer off").attr("clip-path", "url(#plot-clip)");
+    const abLine = gAB.append("line").attr("class", "abline");
+    const abLabel = gAB.append("text").attr("class", "ablabel").attr("text-anchor", "middle").text("a − b");
+
+    const gLegs = svg.append("g").attr("class", "layer off");
+    const legs = {
+        ax: gLegs.append("line").attr("class", "leg a"),
+        ay: gLegs.append("line").attr("class", "leg a"),
+        by: gLegs.append("line").attr("class", "leg b"),
+        bx: gLegs.append("line").attr("class", "leg b")
+    };
+    const legLabels = {
+        ax: gLegs.append("text").attr("class", "leglabel a"),
+        ay: gLegs.append("text").attr("class", "leglabel a"),
+        by: gLegs.append("text").attr("class", "leglabel b"),
+        bx: gLegs.append("text").attr("class", "leglabel b")
+    };
+
+    const gTheta = svg.append("g").attr("class", "layer off");
+    const arc = gTheta.append("path").attr("class", "arc");
+    const arcLabel = gTheta.append("text").attr("class", "arclabel").attr("text-anchor", "middle").text("θ");
+
+    const vecs = {}, vlabels = {}, handles = {};
+    for (const k of ["a", "b"]) {
+        vecs[k] = svg.append("line").attr("class", `vec ${k}`).attr("marker-end", `url(#head-${k})`);
+        vlabels[k] = svg.append("text").attr("class", `vlabel ${k}`).attr("text-anchor", "middle").text(k);
+    }
+    for (const k of ["a", "b"]) {
+        handles[k] = svg.append("g").attr("class", `handle ${k}`).attr("tabindex", 0).attr("role", "button");
+        handles[k].append("circle").attr("class", "hit").attr("r", 20);
+        handles[k].append("circle").attr("class", "ring").attr("r", 11);
+    }
+
+    const layerGroups = { unit: gUnit, proj: gProj, ab: gAB, legs: gLegs, theta: gTheta };
+
+    // ---------- Rendering ----------
+    function drawGrid(D) {
+        const step = D > 3 ? 1 : 0.5;
+        const n = Math.floor(D / step + 1e-9);
+        const vals = d3.range(-n, n + 1).map(i => +(i * step).toFixed(2));
+        gGrid.selectAll("line.v").data(vals, d => d).join("line")
+            .attr("class", "gridline v")
+            .attr("x1", d => xs(d)).attr("x2", d => xs(d))
+            .attr("y1", PAD).attr("y2", side - PAD);
+        gGrid.selectAll("line.h").data(vals, d => d).join("line")
+            .attr("class", "gridline h")
+            .attr("y1", d => ys(d)).attr("y2", d => ys(d))
+            .attr("x1", PAD).attr("x2", side - PAD);
+        axisX.attr("x1", PAD).attr("x2", side - PAD).attr("y1", ys(0)).attr("y2", ys(0));
+        axisY.attr("y1", PAD).attr("y2", side - PAD).attr("x1", xs(0)).attr("x2", xs(0));
+
+        // Tick labels sit on the plot's bottom and left edges so they never collide with leg labels.
+        const labelStep = D > 3 ? 2 : 1;
+        const labels = vals.filter(v => v !== 0 && Math.abs(v / labelStep - Math.round(v / labelStep)) < 1e-9);
+        gTicks.selectAll("text.tx").data(labels, d => d).join("text")
+            .attr("class", "tick tx").attr("text-anchor", "middle")
+            .attr("x", d => xs(d)).attr("y", side - 6).text(d => fmt(d));
+        gTicks.selectAll("text.ty").data(labels, d => d).join("text")
+            .attr("class", "tick ty").attr("text-anchor", "start")
+            .attr("x", 2).attr("y", d => ys(d) + 4).text(d => fmt(d));
+    }
+
+    function drawVector(k, v) {
+        const O = P({ x: 0, y: 0 });
+        const T = P(v);
+        const len = Math.hypot(T[0] - O[0], T[1] - O[1]);
+        const u = len > 1e-6 ? [(T[0] - O[0]) / len, (T[1] - O[1]) / len] : [0, -1];
+        // Stop the line short so the arrowhead's tip lands exactly on the vector's tip.
+        const end = len > 10 ? [T[0] - 7 * u[0], T[1] - 7 * u[1]] : T;
+        vecs[k]
+            .style("display", len > 10 ? null : "none")
+            .attr("x1", O[0]).attr("y1", O[1]).attr("x2", end[0]).attr("y2", end[1]);
+        vlabels[k].attr("x", T[0] + 20 * u[0]).attr("y", T[1] + 20 * u[1] + 5);
+        handles[k].attr("transform", `translate(${T[0]},${T[1]})`)
+            .attr("aria-label", `Tip of vector ${k} at (${fmt(v.x)}, ${fmt(v.y)}). Arrow keys move it.`);
+    }
+
+    function drawLegs(a, b) {
+        const st = cur === 2 ? state.stage : 3;
+        const hlX = st === 1, hlY = st === 2;
+        const set = (line, p1, p2, hl) => line
+            .attr("x1", p1[0]).attr("y1", p1[1]).attr("x2", p2[0]).attr("y2", p2[1])
+            .classed("hl", hl);
+        set(legs.ay, P({ x: 0, y: 0 }), P({ x: 0, y: a.y }), hlY);
+        set(legs.ax, P({ x: 0, y: a.y }), P(a), hlX);
+        set(legs.bx, P({ x: 0, y: 0 }), P({ x: b.x, y: 0 }), hlX);
+        set(legs.by, P({ x: b.x, y: 0 }), P(b), hlY);
+
+        const place = (text, v, pos, anchor, hl) => text
+            .text(fmt(v)).attr("x", pos[0]).attr("y", pos[1]).attr("text-anchor", anchor)
+            .style("display", Math.abs(v) < 1e-9 ? "none" : null)
+            .classed("hl", hl);
+        let p = P({ x: 0, y: a.y / 2 });
+        place(legLabels.ay, a.y, [p[0] + (a.x >= 0 ? -6 : 6), p[1] + 4], a.x >= 0 ? "end" : "start", hlY);
+        p = P({ x: a.x / 2, y: a.y });
+        place(legLabels.ax, a.x, [p[0], p[1] + (a.y >= 0 ? -6 : 15)], "middle", hlX);
+        p = P({ x: b.x / 2, y: 0 });
+        place(legLabels.bx, b.x, [p[0], p[1] + (b.y >= 0 ? 15 : -6)], "middle", hlX);
+        p = P({ x: b.x, y: b.y / 2 });
+        place(legLabels.by, b.y, [p[0] + (b.x >= 0 ? 6 : -6), p[1] + 4], b.x >= 0 ? "start" : "end", hlY);
+    }
+
+    function drawTheta(a, b, m) {
+        if (!m.ok) return;
+        const O = P({ x: 0, y: 0 });
+        const pxLen = v => Math.hypot(xs(v.x) - O[0], ys(v.y) - O[1]);
+        const r = Math.max(14, Math.min(36, 0.5 * Math.min(pxLen(a), pxLen(b))));
+        const ta = Math.atan2(a.y, a.x);
+        const pt = (ang, rr) => [O[0] + rr * Math.cos(ang), O[1] - rr * Math.sin(ang)];
+        const s = pt(ta, r), e = pt(ta + m.signed, r);
+        // Positive signed angle is counter-clockwise in data space, which is sweep-flag 0 on screen.
+        arc.attr("d", `M${O} L${s} A${r},${r} 0 0 ${m.signed > 0 ? 0 : 1} ${e} Z`);
+        const lp = pt(ta + m.signed / 2, r + 12);
+        arcLabel.attr("x", lp[0]).attr("y", lp[1] + 5).style("display", m.theta > 0.06 ? null : "none");
+    }
+
+    function drawProj(a, b, m) {
+        if (!m.ok) return;
+        const D = state.domain;
+        const k = m.dot / (m.lb * m.lb);
+        const p = { x: k * b.x, y: k * b.y };
+        const bh = { x: b.x / m.lb, y: b.y / m.lb };
+        const L = 3 * D;
+        const O = P({ x: 0, y: 0 }), Pp = P(p), Ap = P(a);
+        const lineEnds = [P({ x: -L * bh.x, y: -L * bh.y }), P({ x: L * bh.x, y: L * bh.y })];
+        bLine.attr("x1", lineEnds[0][0]).attr("y1", lineEnds[0][1]).attr("x2", lineEnds[1][0]).attr("y2", lineEnds[1][1]);
+        shadow.attr("x1", O[0]).attr("y1", O[1]).attr("x2", Pp[0]).attr("y2", Pp[1]);
+        drop.attr("x1", Ap[0]).attr("y1", Ap[1]).attr("x2", Pp[0]).attr("y2", Pp[1]);
+
+        const dAP = Math.hypot(Ap[0] - Pp[0], Ap[1] - Pp[1]);
+        const dOP = Math.hypot(Pp[0] - O[0], Pp[1] - O[1]);
+        let v = [0, 0];
+        if (dAP > 1e-6) v = [(Ap[0] - Pp[0]) / dAP, (Ap[1] - Pp[1]) / dAP];
+        if (dAP > 12 && dOP > 12) {
+            const sgn = k > 0 ? -1 : 1;
+            const u = [sgn * bh.x, -sgn * bh.y];
+            const s = 8;
+            const c1 = [Pp[0] + s * u[0], Pp[1] + s * u[1]];
+            const c2 = [c1[0] + s * v[0], c1[1] + s * v[1]];
+            const c3 = [Pp[0] + s * v[0], Pp[1] + s * v[1]];
+            rightAngle.attr("d", `M${c1} L${c2} L${c3}`).style("display", null);
+        } else {
+            rightAngle.style("display", "none");
+        }
+        const mid = [(O[0] + Pp[0]) / 2 - 14 * v[0], (O[1] + Pp[1]) / 2 - 14 * v[1]];
+        projLabel.attr("x", mid[0]).attr("y", mid[1] + 4).text(fmt(m.dot / m.lb))
+            .style("display", dOP > 16 ? null : "none");
+    }
+
+    function drawAB(a, b) {
+        const Ap = P(a), Bp = P(b);
+        abLine.attr("x1", Bp[0]).attr("y1", Bp[1]).attr("x2", Ap[0]).attr("y2", Ap[1]);
+        abLabel.attr("x", (Ap[0] + Bp[0]) / 2 + 10).attr("y", (Ap[1] + Bp[1]) / 2 - 8)
+            .style("display", Math.hypot(Ap[0] - Bp[0], Ap[1] - Bp[1]) > 40 ? null : "none");
+    }
+
+    const ROWS = {
+        legend: () => `<b class="ca">a</b> and <b class="cb">b</b>: two arrows that start at the origin.`,
+        vectors: ({ a, b }) =>
+            `<b class="ca">a</b> = [${A(a.x)}, ${A(a.y)}] &nbsp;&nbsp; <b class="cb">b</b> = [${B(b.x)}, ${B(b.y)}]`,
+        recipe: ({ a, b, m }) => {
+            const st = cur === 2 ? state.stage : 3;
+            const t = (k, html) => `<span class="term${st >= k ? " on" : ""}${cur === 2 && st === k ? " hl" : ""}">${html}</span>`;
+            return `${AB} = ${t(1, `(${A(a.x)})(${B(b.x)})`)} + ${t(2, `(${A(a.y)})(${B(b.y)})`)}` +
+                ` = ${t(1, fmt(a.x * b.x))} + ${t(2, fmt(a.y * b.y))} = ${t(3, `<b>${fmt(m.dot)}</b>`)}`;
+        },
+        scalar: ({ m }) => `<span class="big">${fmt(m.dot)}</span><span class="muted">one number, not an arrow</span>`,
+        geo: ({ m }) =>
+            `|<b class="ca">a</b>| |<b class="cb">b</b>| cos <i class="ct">θ</i> = ${fmt(m.la)} × ${fmt(m.lb)} × ${fmt(m.cos)}` +
+            ` = <b>${m.ok ? fmt(m.la * m.lb * m.cos) : fmt(0)}</b>` +
+            ` <span class="muted">&nbsp;<i>θ</i> = ${m.ok ? fmt(m.theta * 180 / Math.PI, 1) + "°" : "—"}</span>`,
+        proj: ({ m }) => m.ok
+            ? `<span class="cp">shadow</span> = ${AB} ⁄ |<b class="cb">b</b>| = ${fmt(m.dot)} ⁄ ${fmt(m.lb)} = <b class="cp">${fmt(m.dot / m.lb)}</b>`
+            : `<span class="cp">shadow</span> = — <span class="muted">(zero-length vector)</span>`,
+        sign: ({ m }) => {
+            let cls, label;
+            if (Math.abs(m.dot) < 0.005) {
+                cls = "zero";
+                label = m.ok ? "0 orthogonal" : "0 zero vector";
+            } else if (m.dot > 0) {
+                cls = "pos"; label = "+ same direction";
+            } else {
+                cls = "neg"; label = "− opposite";
+            }
+            return `<span class="badge ${cls}">${label}</span>${AB} = <b>${fmt(m.dot)}</b>` +
+                ` <span class="muted">&nbsp;<i>θ</i> = ${m.ok ? fmt(m.theta * 180 / Math.PI, 1) + "°" : "—"}</span>`;
+        },
+        cos: ({ m }) =>
+            `|<b class="ca">a</b>| = |<b class="cb">b</b>| = 1, so ${AB} = cos <i class="ct">θ</i> = <b>${fmt(m.cos)}</b>` +
+            ` <span class="muted">&nbsp;<i>θ</i> = ${m.ok ? fmt(m.theta * 180 / Math.PI, 1) + "°" : "—"}</span>`,
+        nd: () =>
+            `[<span class="c1">2</span>, <span class="c2">1</span>, <span class="c3">7</span>] · ` +
+            `[<span class="c1">8</span>, <span class="c2">8</span>, <span class="c3">2</span>]<br>` +
+            `= <span class="c1">2·8</span> + <span class="c2">1·8</span> + <span class="c3">7·2</span>` +
+            ` = <span class="c1">16</span> + <span class="c2">8</span> + <span class="c3">14</span> = <span class="big">38</span>`,
+        law: ({ a, b, m }) => {
+            const d2 = (a.x - b.x) ** 2 + (a.y - b.y) ** 2;
+            return `|<b class="ca">a</b> − <b class="cb">b</b>|² = |<b class="ca">a</b>|² + |<b class="cb">b</b>|² − 2 ${AB}` +
+                `<br><span class="muted">${fmt(d2)} = ${fmt(m.la ** 2)} + ${fmt(m.lb ** 2)} − 2(${fmt(m.dot)})</span>`;
+        }
+    };
+    const rowEls = {};
+    for (const name of Object.keys(ROWS)) {
+        rowEls[name] = document.createElement("div");
+        rowEls[name].className = "row";
+        panel.appendChild(rowEls[name]);
+    }
+
+    function currentLayers() {
+        const l = STEPS[cur].layers;
+        return new Set(l === "user" ? userLayers : l);
+    }
+    function currentRows() {
+        const p = STEPS[cur].panel;
+        if (p !== "user") return p;
+        const rows = ["recipe", "geo", "sign"];
+        if (userLayers.has("proj")) rows.push("proj");
+        if (userLayers.has("ab")) rows.push("law");
+        return rows;
+    }
+
+    function render() {
+        const D = state.domain;
+        xs.domain([-D, D]).range([PAD, side - PAD]);
+        ys.domain([-D, D]).range([side - PAD, PAD]);
+        clipRect.attr("x", PAD).attr("y", PAD).attr("width", side - 2 * PAD).attr("height", side - 2 * PAD);
+        drawGrid(D);
+
+        const { a, b } = state;
+        const m = metrics(a, b);
+        const layers = currentLayers();
+        for (const [name, g] of Object.entries(layerGroups)) {
+            // The angle and projection need two non-zero vectors.
+            const show = layers.has(name) && ((name !== "theta" && name !== "proj") || m.ok);
+            g.classed("off", !show);
+        }
+        const O = P({ x: 0, y: 0 });
+        unitCircle.attr("cx", O[0]).attr("cy", O[1]).attr("r", xs(1) - xs(0));
+        drawLegs(a, b);
+        drawTheta(a, b, m);
+        drawProj(a, b, m);
+        drawAB(a, b);
+        drawVector("a", a);
+        drawVector("b", b);
+
+        const rows = currentRows();
+        for (const [name, el] of Object.entries(rowEls)) {
+            const show = rows.includes(name);
+            el.style.display = show ? "" : "none";
+            if (show) el.innerHTML = ROWS[name]({ a, b, m });
+        }
+        // Kept current for screen readers without announcing on every drag tick.
+        svg.attr("aria-label",
+            `Vector a at (${fmt(a.x)}, ${fmt(a.y)}) and vector b at (${fmt(b.x)}, ${fmt(b.y)}). Dot product ${fmt(m.dot)}.`);
+    }
+
+    // ---------- Animation ----------
+    function finishAnim() {
+        svg.interrupt("state");
+        if (pending) {
+            Object.assign(state, clone(pending));
+            pending = null;
+        }
+    }
+
+    // Tween the data-unit state (not SVG attributes) so every layer and the panel stay in sync.
+    function animateTo(target) {
+        if (!Object.keys(target).length) { render(); return; }
+        const from = {};
+        for (const k of Object.keys(target)) from[k] = clone(state[k]);
+        const interp = d3.interpolate(from, clone(target));
+        pending = clone(target);
+        svg.transition("state")
+            .duration(reduceMotion ? 0 : 750)
+            .ease(d3.easeCubicInOut)
+            .tween("state", () => t => { Object.assign(state, clone(interp(t))); render(); })
+            .on("end", () => { finishAnim(); render(); });
+    }
+
+    // Where the trigger line sits within a step, so a jump into a progress-driven step starts at the right spot.
+    function progressOf(el) {
+        const line = window.innerHeight * (mobile.matches ? 0.8 : 0.5);
+        const r = el.getBoundingClientRect();
+        return Math.max(0, Math.min(1, (line - r.top) / r.height));
+    }
+
+    function setStep(i, el) {
+        finishAnim();
+        cur = i;
+        const s = STEPS[i];
+        d3.selectAll("#steps .step").classed("is-active", (d, j) => j === i);
+        state.stage = 3;
+
+        const locks = new Set(s.lock || []);
+        for (const k of ["a", "b"]) {
+            handles[k].classed("locked", locks.has(k)).attr("tabindex", locks.has(k) ? -1 : 0);
+        }
+        svg.classed("dim", !!s.dim);
+
+        const target = {};
+        if (s.domain != null && s.domain !== state.domain) target.domain = s.domain;
+        if (s.drive) {
+            // Progress-driven steps place their vectors immediately; only the domain may tween.
+            if (s.a) state.a = { ...s.a };
+            lastProgress = progressOf(el);
+            s.drive(lastProgress);
+        } else {
+            if (s.a) target.a = s.a;
+            if (s.b) target.b = s.b;
+        }
+        animateTo(target);
+    }
+
+    // ---------- Input ----------
+    function moveTo(k, x, y) {
+        const s = STEPS[cur];
+        if (s.unit) {
+            if (Math.hypot(x, y) < 1e-9) return;
+            const ang = Math.atan2(y, x);
+            state[k] = { x: Math.cos(ang), y: Math.sin(ang) };
+        } else {
+            const lim = state.domain - SNAP;
+            const snap = v => Math.max(-lim, Math.min(lim, Math.round(v / SNAP) * SNAP));
+            state[k] = { x: snap(x), y: snap(y) };
+        }
+        if (s.drive) s.drive(lastProgress);
+        render();
+    }
+
+    for (const k of ["a", "b"]) {
+        handles[k].call(d3.drag()
+            .on("start", finishAnim)
+            .on("drag", e => {
+                const [px, py] = d3.pointer(e, svg.node());
+                moveTo(k, xs.invert(px), ys.invert(py));
+            }));
+        handles[k].on("keydown", e => {
+            const dirs = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, 1], ArrowDown: [0, -1] };
+            const d = dirs[e.key];
+            if (!d) return;
+            e.preventDefault();
+            finishAnim();
+            const v = state[k];
+            if (STEPS[cur].unit) {
+                // On the unit circle, arrow keys rotate by 5°: left/up counter-clockwise.
+                const ang = Math.atan2(v.y, v.x) + (d[0] < 0 || d[1] > 0 ? 1 : -1) * Math.PI / 36;
+                moveTo(k, Math.cos(ang), Math.sin(ang));
+            } else {
+                moveTo(k, v.x + d[0] * SNAP, v.y + d[1] * SNAP);
+            }
+        });
+    }
+
+    document.getElementById("toggles").addEventListener("change", e => {
+        if (e.target.checked) userLayers.add(e.target.value);
+        else userLayers.delete(e.target.value);
+        render();
+    });
+
+    // ---------- Layout and scrolling ----------
+    let scroller;
+    function setupScroller() {
+        if (scroller) scroller.destroy();
+        scroller = scrollama();
+        scroller
+            .setup({ step: "#scrolly .step", offset: mobile.matches ? 0.8 : 0.5, progress: true })
+            .onStepEnter(r => setStep(r.index, r.element))
+            .onStepProgress(r => {
+                const s = STEPS[r.index];
+                if (r.index !== cur || !s.drive) return;
+                lastProgress = r.progress;
+                s.drive(r.progress);
+                render();
+            });
+    }
+
+    function resize() {
+        const headerH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-h")) || 56;
+        const panelH = panel.offsetHeight;
+        const availH = mobile.matches
+            ? window.innerHeight * 0.62 - panelH - 24
+            : window.innerHeight - headerH - 32 - panelH - 12;
+        side = Math.floor(Math.max(200, Math.min(viz.clientWidth, availH, 560)));
+        svg.attr("width", side).attr("height", side);
+        document.documentElement.style.setProperty("--fig-h", `${viz.offsetHeight}px`);
+        render();
+        if (scroller) scroller.resize();
+    }
+
+    resize();
+    setupScroller();
+    window.addEventListener("resize", resize);
+    mobile.addEventListener("change", () => { resize(); setupScroller(); });
+</script>
+</body>
+</html>
